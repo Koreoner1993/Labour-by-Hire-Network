@@ -25,6 +25,7 @@ html,body{background:var(--bg);color:var(--text);font-family:'Barlow',system-ui,
 .logo-icon{width:32px;height:32px;border-radius:8px;background:var(--blue-dim);border:1px solid var(--blue-border);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .nl{font-size:13px;color:var(--text-2);padding:7px 12px;border-radius:var(--rs);cursor:pointer;border:none;background:none;font-family:inherit;white-space:nowrap}
 .nl:hover{color:var(--text);background:var(--surface-2)}
+.nav-links{display:flex;align-items:center;gap:6px}
 .nr{margin-left:auto;display:flex;align-items:center;gap:8px}
 .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--rs);font-size:14px;font-weight:500;cursor:pointer;border:none;font-family:inherit;transition:opacity .15s}
 .btn:hover{opacity:.85}
@@ -204,7 +205,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
       </div>
       Labour by Hire
     </div>
-    <div class="nav-links" style="display:flex">
+    <div class="nav-links">
       <button class="nl" onclick="showView('home')">Browse Workers</button>
       <button class="nl" onclick="showView('employers')">For Employers</button>
       <button class="nl" onclick="scrollToHow()">How It Works</button>
@@ -607,7 +608,6 @@ function setFilter(t){filter=t;renderFilters();filterWorkers();}
 
 function showProfile(id){
   const w=WORKERS.find(x=>x.id===id);if(!w)return;
-  const stars=n=>Array.from({length:5},(_,i)=>`<span style="color:${i<n?'#F59E0B':'rgba(255,255,255,0.15)'};font-size:13px">★</span>`).join('');
   const revHTML=w.revs.map(r=>`<div class="rev"><div class="rev-h"><span style="color:#F59E0B;font-size:13px">${'★'.repeat(r.s)}${'☆'.repeat(5-r.s)}</span><span class="rev-a">${r.a}</span></div><div class="rev-t">${r.t}</div></div>`).join('');
   document.getElementById('profile-content').innerHTML=`
     <div class="pcard">
@@ -655,12 +655,19 @@ function scrollToHow(){
 }
 
 function fstep(n){
-  [1,2,3].forEach(i=>document.getElementById('fs'+i).style.display=i===n?'block':'none');
+  [1,2,3].forEach(i=>{
+    const el=document.getElementById('fs'+i);
+    if(el)el.style.display=i===n?'block':'none';
+  });
 }
 
 function fcomplete(){
-  [1,2,3].forEach(i=>document.getElementById('fs'+i).style.display='none');
-  document.getElementById('fs-done').style.display='block';
+  [1,2,3].forEach(i=>{
+    const el=document.getElementById('fs'+i);
+    if(el)el.style.display='none';
+  });
+  const done=document.getElementById('fs-done');
+  if(done)done.style.display='block';
 }
 
 // Init
