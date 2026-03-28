@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Labour by Hire - Find Verified Tradies</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@700&display=swap" rel="stylesheet">
+  <style>
+:root{
+  --bg:#0b0d12;--surface:#111318;--surface-2:#181b24;--surface-3:#1e222e;
+  --border:rgba(255,255,255,0.07);--border-2:rgba(255,255,255,0.13);
+  --blue:#2196F3;--blue-dim:rgba(33,150,243,0.1);--blue-border:rgba(33,150,243,0.25);
+  --gold:#F59E0B;--gold-dim:rgba(245,158,11,0.1);--gold-border:rgba(245,158,11,0.25);
+  --green:#22C55E;--green-dim:rgba(34,197,94,0.1);--green-border:rgba(34,197,94,0.2);
+  --text:#E8EAF2;--text-2:#9299AA;--text-3:#5A6070;
+  --r:10px;--rs:6px;--rf:100px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--text);font-family:'Barlow',system-ui,sans-serif;font-size:15px;line-height:1.6;min-height:100vh}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border)}
+.nav-i{display:flex;align-items:center;max-width:1160px;margin:0 auto;padding:0 2rem;height:60px;gap:0.5rem}
+.logo{display:flex;align-items:center;gap:10px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;color:var(--text);text-decoration:none;cursor:pointer;margin-right:1rem;white-space:nowrap}
+.logo-icon{width:32px;height:32px;border-radius:8px;background:var(--blue-dim);border:1px solid var(--blue-border);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nl{font-size:13px;color:var(--text-2);padding:7px 12px;border-radius:var(--rs);cursor:pointer;border:none;background:none;font-family:inherit;white-space:nowrap}
+.nl:hover{color:var(--text);background:var(--surface-2)}
+.nr{margin-left:auto;display:flex;align-items:center;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--rs);font-size:14px;font-weight:500;cursor:pointer;border:none;font-family:inherit;transition:opacity .15s}
+.btn:hover{opacity:.85}
+.btn-p{background:var(--blue);color:#fff}
+.btn-g{background:var(--surface-2);color:var(--text-2);border:1px solid var(--border)}
+.btn-g:hover{color:var(--text);border-color:var(--border-2)}
+.btn-o{background:transparent;color:var(--text);border:1px solid var(--border-2)}
+.btn-o:hover{border-color:var(--blue);color:var(--blue)}
+.btn-gold{background:var(--gold);color:#1a0a00;font-weight:700}
+.btn-lg{padding:11px 24px;font-size:15px}
+.btn-full{width:100%;justify-content:center}
+.wrap{max-width:1160px;margin:0 auto;padding:0 2rem}
+
+/* HERO */
+.hero{padding:5rem 0 4rem;text-align:center}
+.pill{display:inline-flex;align-items:center;gap:6px;background:var(--blue-dim);color:var(--blue);border:1px solid var(--blue-border);padding:4px 14px;border-radius:var(--rf);font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:1.5rem}
+.hero h1{font-family:'Barlow Condensed',sans-serif;font-size:58px;font-weight:700;line-height:1.05;margin-bottom:1.25rem}
+.hero h1 span{color:var(--blue)}
+.hero p{font-size:17px;color:var(--text-2);max-width:480px;margin:0 auto 2.5rem;line-height:1.7}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:4rem}
+.stat{padding:1.5rem;text-align:center;border-right:1px solid var(--border)}
+.stat:last-child{border-right:none}
+.stat-n{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:700}
+.stat-n.b{color:var(--blue)}.stat-n.g{color:var(--gold)}
+.stat-l{font-size:11px;color:var(--text-3);margin-top:3px;text-transform:uppercase;letter-spacing:.4px}
+
+/* SECTION */
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:12px}
+.sh h2{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700}
+.sh-sub{font-size:12px;color:var(--text-3);margin-top:2px}
+.si{padding:8px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--rs);font-size:13px;color:var(--text);font-family:inherit;outline:none;width:240px}
+.si:focus{border-color:var(--blue-border)}
+.si::placeholder{color:var(--text-3)}
+
+/* FILTERS */
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.5rem}
+.chip{padding:5px 13px;border-radius:var(--rf);font-size:13px;cursor:pointer;border:1px solid var(--border);background:var(--surface-2);color:var(--text-2);font-family:inherit;transition:all .1s}
+.chip:hover{border-color:var(--border-2);color:var(--text)}
+.chip.on{background:var(--blue-dim);color:var(--blue);border-color:var(--blue-border)}
+
+/* WORKER CARDS */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px;margin-bottom:4rem}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;cursor:pointer;transition:border-color .15s,transform .1s}
+.card:hover{border-color:var(--blue-border);transform:translateY(-2px)}
+.ct{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px}
+.av{width:48px;height:48px;border-radius:50%;background:var(--surface-3);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;color:var(--text-2);flex-shrink:0;border:1px solid var(--border)}
+.av-lg{width:72px;height:72px;font-size:24px}
+.cm{flex:1;min-width:0}
+.cn{font-size:15px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ct2{font-size:13px;color:var(--blue);font-weight:500;margin-top:1px}
+.cl{font-size:12px;color:var(--text-3);margin-top:2px}
+.badges{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+.bdg{font-size:11px;font-weight:600;padding:3px 8px;border-radius:4px}
+.bg{background:var(--green-dim);color:var(--green)}
+.bb{background:var(--blue-dim);color:var(--blue)}
+.bgo{background:var(--gold-dim);color:var(--gold)}
+.cf{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid var(--border)}
+.rate{font-size:15px;font-weight:600}
+.rate small{font-size:12px;font-weight:400;color:var(--text-2)}
+.vt{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--green)}
+.vdot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0}
+
+/* HOW IT WORKS */
+.how{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:2rem 0}
+.how-c{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.75rem}
+.htag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:4px 10px;border-radius:var(--rf);margin-bottom:1rem}
+.htag-b{background:var(--blue-dim);color:var(--blue);border:1px solid var(--blue-border)}
+.htag-g{background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-border)}
+.how-c h3{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;margin-bottom:1.25rem}
+.step{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start}
+.sn{width:24px;height:24px;border-radius:50%;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.sn-b{background:var(--blue-dim);color:var(--blue)}.sn-g{background:var(--gold-dim);color:var(--gold)}
+.st{font-size:14px;color:var(--text-2);line-height:1.6}
+
+/* PRICING */
+.pc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0 4rem}
+.pc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.75rem}
+.pc.feat{border-color:var(--blue-border)}
+.pa{font-family:'Barlow Condensed',sans-serif;font-size:42px;font-weight:700;margin:8px 0 2px}
+.pa small{font-size:20px;font-weight:500}
+.pp{font-size:13px;color:var(--text-3);margin-bottom:1.25rem}
+.pfl{list-style:none;margin-bottom:1.5rem}
+.pfl li{font-size:13px;color:var(--text-2);padding:7px 0;border-bottom:1px solid var(--border);display:flex;gap:8px;align-items:flex-start}
+.pfl li:last-child{border-bottom:none}
+.fchk{color:var(--green);flex-shrink:0}
+
+/* PROFILE */
+.back{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--text-2);cursor:pointer;background:none;border:none;font-family:inherit;padding:6px 0;margin-bottom:1.5rem}
+.back:hover{color:var(--text)}
+.pcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.75rem;margin-bottom:1rem}
+.ptop{display:flex;align-items:flex-start;gap:1.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
+.pinfo{flex:1;min-width:200px}
+.pname{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:700}
+.pnick{color:var(--blue)}
+.pmeta{font-size:14px;color:var(--text-2);margin-top:6px}
+.pbio{font-size:14px;color:var(--text-2);line-height:1.7;padding:1rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:1.25rem}
+.pstats{display:flex;gap:3rem;margin-bottom:1.5rem}
+.ps-n{font-size:22px;font-weight:700;font-family:'Barlow Condensed',sans-serif}
+.ps-l{font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:.4px}
+.rev{padding:12px 0;border-bottom:1px solid var(--border)}
+.rev:last-child{border-bottom:none}
+.rev-h{display:flex;align-items:center;gap:10px;margin-bottom:5px}
+.rev-a{font-size:13px;color:var(--text-2)}
+.rev-t{font-size:14px;line-height:1.6}
+.emp-notice{margin-top:1rem;padding:10px 14px;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:var(--rs);font-size:13px;color:var(--gold)}
+
+/* FORM */
+.fw{max-width:600px;margin:0 auto}
+.fc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.75rem}
+.fsh{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem}
+.fsh h3{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700}
+.sdots{display:flex;gap:5px}
+.sd{width:8px;height:8px;border-radius:50%;background:var(--surface-3)}
+.sd.on{background:var(--blue)}
+.fr{margin-bottom:1rem}
+.fr label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text-3);margin-bottom:6px}
+.fr input,.fr select,.fr textarea{width:100%;padding:10px 13px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--rs);font-size:14px;color:var(--text);font-family:inherit;outline:none;transition:border-color .15s}
+.fr input:focus,.fr select:focus,.fr textarea:focus{border-color:var(--blue-border)}
+.fr input::placeholder,.fr textarea::placeholder{color:var(--text-3)}
+.fr select option{background:var(--surface-2)}
+.fr textarea{resize:vertical;min-height:80px;line-height:1.6}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ff{display:flex;gap:8px;margin-top:1rem}
+.sumbox{background:var(--surface-2);border-radius:var(--rs);padding:1rem;margin-bottom:1.25rem}
+.sumr{display:flex;justify-content:space-between;font-size:14px;padding:5px 0}
+.sumr.tot{border-top:1px solid var(--border);margin-top:8px;padding-top:12px;font-weight:700;font-size:15px}
+.notice{background:var(--blue-dim);border:1px solid var(--blue-border);color:var(--blue);padding:10px 14px;border-radius:var(--rs);font-size:13px;line-height:1.6;margin-bottom:1.25rem}
+.succ{text-align:center;padding:2.5rem 1rem}
+.succ-ic{width:56px;height:56px;border-radius:50%;background:var(--green-dim);border:1px solid var(--green-border);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem}
+
+/* EMPLOYER PAGE */
+.emp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:2rem 0}
+.emp-f{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem}
+.emp-fi{width:40px;height:40px;border-radius:var(--rs);background:var(--blue-dim);border:1px solid var(--blue-border);display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+
+/* DIVIDER */
+.div{height:1px;background:var(--border);margin:3rem 0}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
+.fi{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.fl-logo{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;color:var(--text-2)}
+.fl-tag{font-size:13px;color:var(--text-3);margin-top:3px}
+.flinks{display:flex;gap:1.5rem}
+.flinks a{font-size:13px;color:var(--text-3);text-decoration:none}
+.flinks a:hover{color:var(--text-2)}
+
+/* RESPONSIVE */
+@media(max-width:680px){
+  .hero h1{font-size:38px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .how,.pc-grid,.emp-grid{grid-template-columns:1fr}
+  .fg2{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .wrap{padding:0 1rem}
+  .pstats{gap:1.5rem}
+  .si{width:100%}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-i">
+    <div class="logo" onclick="showView('home')">
+      <div class="logo-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <circle cx="10" cy="10" r="2.5" fill="#2196F3"/>
+          <ellipse cx="10" cy="10" rx="8.5" ry="3.5" stroke="#2196F3" stroke-width="1.2" fill="none"/>
+          <ellipse cx="10" cy="10" rx="8.5" ry="3.5" stroke="#2196F3" stroke-width="1.2" fill="none" transform="rotate(60 10 10)"/>
+          <ellipse cx="10" cy="10" rx="8.5" ry="3.5" stroke="#2196F3" stroke-width="1.2" fill="none" transform="rotate(120 10 10)"/>
+        </svg>
+      </div>
+      Labour by Hire
+    </div>
+    <div class="nav-links" style="display:flex">
+      <button class="nl" onclick="showView('home')">Browse Workers</button>
+      <button class="nl" onclick="showView('employers')">For Employers</button>
+      <button class="nl" onclick="scrollToHow()">How It Works</button>
+    </div>
+    <div class="nr">
+      <button class="btn btn-g" onclick="showView('home')">Sign In</button>
+      <button class="btn btn-p" onclick="showView('listed')">Get Listed</button>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main>
+
+<!-- HOME VIEW -->
+<div id="view-home">
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="pill">
+      <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="3.5" fill="currentColor"/></svg>
+      LBH Verified Network · Australia
+    </div>
+    <h1>Find Verified Tradies<br><span>Ready to Work Today</span></h1>
+    <p>Every worker on Labour by Hire is screened, licence-checked, and certified by our team. No guesswork — just great tradies.</p>
+    <div class="hero-btns">
+      <button class="btn btn-p btn-lg" onclick="document.getElementById('browse-sec').scrollIntoView({behavior:'smooth'})">Browse Tradies</button>
+      <button class="btn btn-o btn-lg" onclick="showView('listed')">Post Your Skills →</button>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat"><div class="stat-n b">200+</div><div class="stat-l">Verified Tradies</div></div>
+    <div class="stat"><div class="stat-n">40+</div><div class="stat-l">Trade Types</div></div>
+    <div class="stat"><div class="stat-n g">500+</div><div class="stat-l">Jobs Completed</div></div>
+    <div class="stat"><div class="stat-n">98%</div><div class="stat-l">Satisfaction Rate</div></div>
+  </div>
+
+  <!-- BROWSE -->
+  <div id="browse-sec">
+    <div class="sh">
+      <div>
+        <h2>Browse Workers</h2>
+        <div class="sh-sub">All workers LBH verified and licence checked</div>
+      </div>
+      <input class="si" id="search-input" placeholder="Search name, trade, or city..." oninput="filterWorkers()">
+    </div>
+    <div class="filters" id="filters-el"></div>
+    <div class="grid" id="workers-grid"></div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div id="how-sec">
+    <div class="div"></div>
+    <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;margin-bottom:1.5rem">How it works</h2>
+    <div class="how">
+      <div class="how-c">
+        <div class="htag htag-b">For Tradies</div>
+        <h3>Get your skills seen</h3>
+        <div class="step"><div class="sn sn-b">1</div><div class="st">Create your profile — add your trade, years of experience, and certifications</div></div>
+        <div class="step"><div class="sn sn-b">2</div><div class="st">Pay a small one-time listing fee via debit card to publish your profile</div></div>
+        <div class="step"><div class="sn sn-b">3</div><div class="st">LBH verifies your licences and issues your Verified badge and Labour Score</div></div>
+        <div class="step"><div class="sn sn-b">4</div><div class="st">Start receiving direct enquiries from premium employers</div></div>
+        <button class="btn btn-p btn-full" style="margin-top:1.25rem" onclick="showView('listed')">Create Your Profile →</button>
+      </div>
+      <div class="how-c">
+        <div class="htag htag-g">For Employers</div>
+        <h3>Access verified talent</h3>
+        <div class="step"><div class="sn sn-g">1</div><div class="st">Subscribe to Employer Premium — monthly or annual plan</div></div>
+        <div class="step"><div class="sn sn-g">2</div><div class="st">Browse the full pool of LBH-verified workers with full contact details</div></div>
+        <div class="step"><div class="sn sn-g">3</div><div class="st">Filter by trade, location, Labour Score, hourly rate, and availability</div></div>
+        <div class="step"><div class="sn sn-g">4</div><div class="st">Contact workers directly, view verified history, and book on your schedule</div></div>
+        <button class="btn btn-gold btn-full" style="margin-top:1.25rem;border:none;padding:10px 16px;border-radius:var(--rs);cursor:pointer;font-family:inherit;font-size:14px" onclick="showView('employers')">Employer Premium Access →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRICING -->
+  <div>
+    <div class="div"></div>
+    <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;margin-bottom:6px">Pricing</h2>
+    <p style="font-size:14px;color:var(--text-2);margin-bottom:1.5rem">Simple, transparent pricing with no hidden fees</p>
+    <div class="pc-grid">
+      <div class="pc">
+        <div class="htag htag-b" style="margin-bottom:8px">Tradie Listing</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700">Get on the Network</div>
+        <div class="pa"><small>$</small>29</div>
+        <div class="pp">one-time listing fee · pay by debit card</div>
+        <ul class="pfl">
+          <li><span class="fchk">✓</span>Public profile in the LBH network</li>
+          <li><span class="fchk">✓</span>LBH Verified badge on your profile</li>
+          <li><span class="fchk">✓</span>Labour Score calculated and displayed</li>
+          <li><span class="fchk">✓</span>Employers can find and contact you directly</li>
+          <li><span class="fchk">✓</span>Appear in trade search and location filters</li>
+        </ul>
+        <button class="btn btn-p btn-full" onclick="showView('listed')">Get Listed</button>
+      </div>
+      <div class="pc feat">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+          <div class="htag htag-g" style="margin-bottom:0">Employer Premium</div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;background:var(--blue-dim);color:var(--blue);padding:3px 10px;border-radius:var(--rf);border:1px solid var(--blue-border)">Most Popular</div>
+        </div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700">Full Network Access</div>
+        <div class="pa"><small>$</small>149</div>
+        <div class="pp">per month · unlimited access · cancel anytime</div>
+        <ul class="pfl">
+          <li><span class="fchk">✓</span>Unlimited access to all verified workers</li>
+          <li><span class="fchk">✓</span>Advanced filter by trade, location, score</li>
+          <li><span class="fchk">✓</span>Direct phone and email contact details</li>
+          <li><span class="fchk">✓</span>Full Labour Score history and reviews</li>
+          <li><span class="fchk">✓</span>Priority support from the LBH team</li>
+        </ul>
+        <button class="btn btn-gold btn-full" style="border:none;padding:10px 16px;border-radius:var(--rs);cursor:pointer;font-family:inherit;font-size:14px;font-weight:700" onclick="showView('employers')">Get Employer Access</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /wrap -->
+</div><!-- /view-home -->
+
+<!-- PROFILE VIEW -->
+<div id="view-profile" style="display:none">
+  <div class="wrap" style="padding-top:2rem;padding-bottom:4rem">
+    <button class="back" onclick="showView('home')">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to browse
+    </button>
+    <div id="profile-content"></div>
+  </div>
+</div>
+
+<!-- GET LISTED VIEW -->
+<div id="view-listed" style="display:none">
+  <div class="wrap" style="padding-top:2rem;padding-bottom:4rem">
+    <button class="back" onclick="showView('home')">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back
+    </button>
+    <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:700;margin-bottom:6px">Create Your Tradie Profile</h1>
+    <p style="font-size:14px;color:var(--text-2);margin-bottom:2rem">Join 200+ verified tradies on the Labour by Hire network.</p>
+    <div class="fw">
+      <div class="fc">
+        <!-- Step 1 -->
+        <div id="fs1">
+          <div class="fsh">
+            <h3>Your Details</h3>
+            <div class="sdots"><div class="sd on"></div><div class="sd"></div><div class="sd"></div></div>
+          </div>
+          <div class="fg2">
+            <div class="fr"><label>First Name</label><input type="text" placeholder="Jake"></div>
+            <div class="fr"><label>Last Name</label><input type="text" placeholder="Thompson"></div>
+          </div>
+          <div class="fr"><label>Email Address</label><input type="email" placeholder="jake@example.com"></div>
+          <div class="fr"><label>Mobile Number</label><input type="tel" placeholder="04XX XXX XXX"></div>
+          <div class="fg2">
+            <div class="fr"><label>Primary Trade</label>
+              <select>
+                <option value="">Select trade...</option>
+                <option>Carpenter</option><option>Electrician</option><option>Plumber</option>
+                <option>Concretor</option><option>Painter</option><option>Tiler</option>
+                <option>Roofer</option><option>Landscaper</option><option>Bricklayer</option>
+                <option>Welder</option><option>Plasterer</option><option>General Labourer</option>
+              </select>
+            </div>
+            <div class="fr"><label>City / State</label><input type="text" placeholder="Sydney, NSW"></div>
+          </div>
+          <div class="fr"><label>Hourly Rate (AUD)</label><input type="text" placeholder="e.g. 65"></div>
+          <button class="btn btn-p btn-full" onclick="fstep(2)">Next: Experience →</button>
+        </div>
+        <!-- Step 2 -->
+        <div id="fs2" style="display:none">
+          <div class="fsh">
+            <h3>Experience &amp; Certs</h3>
+            <div class="sdots"><div class="sd on"></div><div class="sd on"></div><div class="sd"></div></div>
+          </div>
+          <div class="fr"><label>Years of Experience</label>
+            <select>
+              <option>1–2 years</option><option>3–5 years</option>
+              <option>5–10 years</option><option>10+ years</option>
+            </select>
+          </div>
+          <div class="fr"><label>Licence Number (if applicable)</label><input type="text" placeholder="e.g. CL123456"></div>
+          <div class="fr"><label>White Card Number</label><input type="text" placeholder="e.g. WC987654"></div>
+          <div class="fr"><label>About Yourself</label>
+            <textarea placeholder="Describe your specialties, the type of jobs you take on, and what sets you apart..."></textarea>
+          </div>
+          <div class="ff">
+            <button class="btn btn-g" onclick="fstep(1)">← Back</button>
+            <button class="btn btn-p" style="flex:1" onclick="fstep(3)">Next: Payment →</button>
+          </div>
+        </div>
+        <!-- Step 3 -->
+        <div id="fs3" style="display:none">
+          <div class="fsh">
+            <h3>Listing Fee</h3>
+            <div class="sdots"><div class="sd on"></div><div class="sd on"></div><div class="sd on"></div></div>
+          </div>
+          <div class="sumbox">
+            <div class="sumr"><span style="color:var(--text-2)">Tradie listing (one-time)</span><span>$29.00</span></div>
+            <div class="sumr"><span style="color:var(--text-2)">LBH Verification</span><span style="color:var(--green)">Included</span></div>
+            <div class="sumr"><span style="color:var(--text-2)">Labour Score setup</span><span style="color:var(--green)">Included</span></div>
+            <div class="sumr tot"><span>Total</span><span>$29.00 AUD</span></div>
+          </div>
+          <div class="notice">Payment is processed securely via our payment provider. We accept all major debit and credit cards. Your profile goes live within 24 hours of verification.</div>
+          <div class="ff">
+            <button class="btn btn-g" onclick="fstep(2)">← Back</button>
+            <button class="btn btn-p" style="flex:1" onclick="fcomplete()">Pay $29 &amp; Go Live →</button>
+          </div>
+        </div>
+        <!-- Complete -->
+        <div id="fs-done" style="display:none">
+          <div class="succ">
+            <div class="succ-ic">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L19 7" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;margin-bottom:8px">Application received!</h3>
+            <p style="font-size:14px;color:var(--text-2);max-width:360px;margin:0 auto 2rem;line-height:1.7">Our team will verify your details within 24 hours and your profile will go live. Check your email for confirmation.</p>
+            <button class="btn btn-p" onclick="showView('home')">Back to Browse</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EMPLOYER VIEW -->
+<div id="view-employers" style="display:none">
+  <div class="wrap" style="padding-top:2rem;padding-bottom:4rem">
+    <button class="back" onclick="showView('home')">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back
+    </button>
+    <div style="padding:3rem 0 2rem">
+      <div class="htag htag-g" style="margin-bottom:1rem">Employer Premium</div>
+      <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:46px;font-weight:700;line-height:1.1;margin-bottom:1rem">Access Australia's Best<br>Verified Tradies</h1>
+      <p style="font-size:16px;color:var(--text-2);max-width:520px;line-height:1.7;margin-bottom:2rem">Every worker in our network has been personally verified by the Labour by Hire team. Stop wasting time with unverified platforms — hire with confidence.</p>
+      <button class="btn btn-gold btn-lg">Get Premium Access — $149/mo</button>
+    </div>
+    <div class="emp-grid">
+      <div class="emp-f">
+        <div class="emp-fi"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3" stroke="#2196F3" stroke-width="1.5"/><path d="M3 17c0-3.314 3.134-6 7-6s7 2.686 7 6" stroke="#2196F3" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div style="font-weight:600;margin-bottom:5px">Fully Verified Workers</div>
+        <div style="font-size:13px;color:var(--text-2);line-height:1.6">All tradies are licence-checked, White Card verified, and background screened by our team before listing.</div>
+      </div>
+      <div class="emp-f">
+        <div class="emp-fi"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="#2196F3" stroke-width="1.5"/><path d="M10 6v4l3 2" stroke="#2196F3" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div style="font-weight:600;margin-bottom:5px">Labour Score System</div>
+        <div style="font-size:13px;color:var(--text-2);line-height:1.6">Our proprietary score rates every worker on quality, reliability, and on-time performance across all recorded jobs.</div>
+      </div>
+      <div class="emp-f">
+        <div class="emp-fi"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 5h14M3 10h10M3 15h6" stroke="#2196F3" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div style="font-weight:600;margin-bottom:5px">Advanced Filtering</div>
+        <div style="font-size:13px;color:var(--text-2);line-height:1.6">Filter by trade, location, Labour Score, hourly rate, and availability. Find exactly who you need, fast.</div>
+      </div>
+    </div>
+    <div class="pc feat" style="max-width:480px">
+      <div class="htag htag-g">Employer Premium</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700">Full Network Access</div>
+      <div class="pa"><small>$</small>149</div>
+      <div class="pp">per month · unlimited access · cancel anytime</div>
+      <ul class="pfl">
+        <li><span class="fchk">✓</span>Unlimited access to all verified worker profiles</li>
+        <li><span class="fchk">✓</span>Direct phone and email contact for every worker</li>
+        <li><span class="fchk">✓</span>Full Labour Score history and community reviews</li>
+        <li><span class="fchk">✓</span>Advanced filters and saved searches</li>
+        <li><span class="fchk">✓</span>Priority support directly from the LBH team</li>
+      </ul>
+      <button class="btn btn-gold btn-full" style="border:none;padding:12px 16px;border-radius:var(--rs);cursor:pointer;font-family:inherit;font-size:15px;font-weight:700">Subscribe — $149/month</button>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="fi">
+      <div>
+        <div class="fl-logo">Labour by Hire</div>
+        <div class="fl-tag">Labouring by the Hour · Australia</div>
+      </div>
+      <div class="flinks">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+        <a href="#">Help</a>
+      </div>
+    </div>
+    <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border);font-size:12px;color:var(--text-3)">
+      © 2025 Labour by Hire Pty Ltd · All workers verified by LBH · ABN 12 345 678 901
+    </div>
+  </div>
+</footer>
+
+<script>
+
+
+const TRADES=['All','Carpenter','Electrician','Plumber','Concretor','Painter','Tiler','Landscaper','Bricklayer','Welder'];
+
+const WORKERS=[
+  {id:1,name:'Jake Thompson',nick:'The Hammer',trade:'Carpenter',city:'Sydney, NSW',rate:75,score:92,ini:'JT',
+   bdg:[['LBH Verified','g'],['Top Rated','b'],['On-Time','b']],yrs:12,
+   bio:'Master carpenter specialising in residential renovations, custom decking, and joinery. 12 years experience across greater Sydney. Known for meticulous prep work and clean finishes.',
+   revs:[{a:'Mark L.',t:'Built our deck — absolutely flawless. Jake turned up on time every day and left the site spotless.',s:5},{a:'Sarah K.',t:'Brilliant finish on our kitchen renovation. Would hire again without hesitation.',s:5}]},
+  {id:2,name:'Sarah Chen',nick:null,trade:'Electrician',city:'Melbourne, VIC',rate:85,score:87,ini:'SC',
+   bdg:[['LBH Verified','g'],['Licensed','b'],['Commercial','b']],yrs:8,
+   bio:'Licensed electrical contractor with 8 years experience. Specialist in commercial fit-outs, solar installation, and switchboard upgrades across Melbourne metro.',
+   revs:[{a:'Tom B.',t:'Very professional and tidy. Fixed our switchboard issue quickly and explained everything clearly.',s:5}]},
+  {id:3,name:'Marco Rossi',nick:null,trade:'Plumber',city:'Brisbane, QLD',rate:80,score:95,ini:'MR',
+   bdg:[['LBH Verified','g'],['Top Rated','b'],['5-Star','go']],yrs:15,
+   bio:'Master plumber with 15 years experience in new builds, renovations, and emergency call-outs. Brisbane and Gold Coast coverage. Gasfitting licence included.',
+   revs:[{a:'Emma W.',t:'Fixed our burst pipe in an emergency — arrived fast and left the site perfectly clean.',s:5},{a:'Chris P.',t:'Very knowledgeable and great value for money. Highly recommend.',s:4}]},
+  {id:4,name:"Dean O'Brien",nick:null,trade:'Concretor',city:'Perth, WA',rate:65,score:78,ini:'DO',
+   bdg:[['LBH Verified','g'],['5+ Years','b']],yrs:6,
+   bio:'Experienced concretor for driveways, slabs, pathways, and decorative exposed aggregate finishes across Perth metro and surrounds.',
+   revs:[{a:'Julie R.',t:'Good work on our driveway. Finished on schedule and kept us updated throughout.',s:4}]},
+  {id:5,name:'Lily Park',nick:null,trade:'Painter',city:'Sydney, NSW',rate:60,score:88,ini:'LP',
+   bdg:[['LBH Verified','g'],['High Quality','b'],['On-Time','b']],yrs:9,
+   bio:'Interior and exterior painting specialist. Residential and commercial. Known for meticulous surface preparation and clean, long-lasting finishes.',
+   revs:[{a:'Dave M.',t:'Transformed our entire home. Incredible attention to detail — every room looks incredible.',s:5}]},
+  {id:6,name:'Rob Masters',nick:null,trade:'Tiler',city:'Adelaide, SA',rate:70,score:91,ini:'RM',
+   bdg:[['LBH Verified','g'],['Top Rated','b'],['Licensed','b']],yrs:11,
+   bio:'Tiling specialist for bathrooms, kitchens, and outdoor entertaining areas. Expert in large-format porcelain and mosaic tile work.',
+   revs:[{a:'Nina T.',t:'Perfect bathroom renovation. Not one tile out of place. Incredible work.',s:5},{a:'James H.',t:'Professional, clean, and on budget. Will use again for our next project.',s:5}]},
+  {id:7,name:'Ben Nguyen',nick:null,trade:'Landscaper',city:'Melbourne, VIC',rate:55,score:83,ini:'BN',
+   bdg:[['LBH Verified','g'],['High Quality','b']],yrs:5,
+   bio:'Full landscaping services including garden design, retaining walls, turf laying, and irrigation systems. Specialising in low-maintenance native gardens.',
+   revs:[{a:'Fiona C.',t:'Completely transformed our backyard. We get compliments from all our neighbours now.',s:5}]},
+  {id:8,name:'Craig Wallace',nick:null,trade:'Bricklayer',city:'Sydney, NSW',rate:72,score:89,ini:'CW',
+   bdg:[['LBH Verified','g'],['On-Time','b'],['10+ Years','go']],yrs:14,
+   bio:'Bricklaying and blockwork for residential and commercial builds, feature walls, retaining structures, and heritage restoration work.',
+   revs:[{a:'Peter A.',t:'Excellent brickwork on our home extension. Solid, straight, and looks amazing.',s:5}]},
+  {id:9,name:'Troy Hansen',nick:null,trade:'Welder',city:'Brisbane, QLD',rate:68,score:85,ini:'TH',
+   bdg:[['LBH Verified','g'],['Licensed','b']],yrs:10,
+   bio:'Structural and fabrication welder with 10 years experience. Experienced in MIG, TIG, and stick welding across construction and industrial sectors.',
+   revs:[{a:'Mike D.',t:'Fabricated our custom gate and fence — excellent quality and fast turnaround.',s:5}]},
+];
+
+let filter='All';
+
+function scoreCircle(score,sz){
+  sz=sz||64;const r=sz===64?26:32,cx=sz/2,cy=sz/2;
+  const c=2*Math.PI*r,off=c*(1-score/100);
+  const col=score>=90?'#22C55E':score>=80?'#2196F3':'#F59E0B';
+  const fs=sz===64?13:17,fs2=sz===64?9:10,ty=sz===64?cy-3:cy-4,ty2=sz===64?cy+10:cy+12;
+  return `<svg viewBox="0 0 ${sz} ${sz}" style="width:${sz}px;height:${sz}px;flex-shrink:0">
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="5"/>
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${col}" stroke-width="5"
+      stroke-dasharray="${c.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}"
+      stroke-linecap="round" transform="rotate(-90 ${cx} ${cy})"/>
+    <text x="${cx}" y="${ty}" text-anchor="middle" dominant-baseline="middle" font-size="${fs}" font-weight="700" fill="#E8EAF2" font-family="Barlow Condensed,sans-serif">${score}</text>
+    <text x="${cx}" y="${ty2}" text-anchor="middle" font-size="${fs2}" fill="rgba(255,255,255,0.35)" font-family="Barlow,sans-serif">SCORE</text>
+  </svg>`;
+}
+
+function badge(txt,t){
+  const cls=t==='g'?'bg':t==='b'?'bb':'bgo';
+  return `<span class="bdg ${cls}">${txt}</span>`;
+}
+
+function renderCard(w){
+  const nm=w.nick?`${w.name} <span style="color:var(--text-2);font-weight:400">"${w.nick}"</span>`:w.name;
+  return `<div class="card" onclick="showProfile(${w.id})">
+    <div class="ct">
+      <div class="av">${w.ini}</div>
+      <div class="cm">
+        <div class="cn">${nm}</div>
+        <div class="ct2">${w.trade}</div>
+        <div class="cl">📍 ${w.city}</div>
+      </div>
+      ${scoreCircle(w.score,64)}
+    </div>
+    <div class="badges">${w.bdg.map(b=>badge(b[0],b[1])).join('')}</div>
+    <div class="cf">
+      <div class="rate">$${w.rate}<small>/hr</small></div>
+      <div class="vt"><div class="vdot"></div>LBH Verified</div>
+    </div>
+  </div>`;
+}
+
+function filterWorkers(){
+  const q=((document.getElementById('search-input')||{}).value||'').toLowerCase().trim();
+  const list=WORKERS.filter(w=>
+    (filter==='All'||w.trade===filter)&&
+    (!q||w.name.toLowerCase().includes(q)||w.trade.toLowerCase().includes(q)||w.city.toLowerCase().includes(q))
+  );
+  const el=document.getElementById('workers-grid');
+  if(el)el.innerHTML=list.length?list.map(renderCard).join(''):'<p style="color:var(--text-2);font-size:14px;padding:3rem 0;text-align:center;grid-column:1/-1">No workers found. Try a different search or filter.</p>';
+}
+
+function renderFilters(){
+  const el=document.getElementById('filters-el');
+  if(el)el.innerHTML=TRADES.map(t=>`<button class="chip ${t===filter?'on':''}" onclick="setFilter('${t}')">${t}</button>`).join('');
+}
+
+function setFilter(t){filter=t;renderFilters();filterWorkers();}
+
+function showProfile(id){
+  const w=WORKERS.find(x=>x.id===id);if(!w)return;
+  const stars=n=>Array.from({length:5},(_,i)=>`<span style="color:${i<n?'#F59E0B':'rgba(255,255,255,0.15)'};font-size:13px">★</span>`).join('');
+  const revHTML=w.revs.map(r=>`<div class="rev"><div class="rev-h"><span style="color:#F59E0B;font-size:13px">${'★'.repeat(r.s)}${'☆'.repeat(5-r.s)}</span><span class="rev-a">${r.a}</span></div><div class="rev-t">${r.t}</div></div>`).join('');
+  document.getElementById('profile-content').innerHTML=`
+    <div class="pcard">
+      <div class="ptop">
+        <div class="av av-lg">${w.ini}</div>
+        <div class="pinfo">
+          <div class="pname">${w.name}${w.nick?` <span class="pnick">"${w.nick}"</span>`:''}</div>
+          <div class="pmeta">${w.trade} · ${w.city} · ${w.yrs} years experience</div>
+          <div class="badges" style="margin-top:10px">${w.bdg.map(b=>badge(b[0],b[1])).join('')}</div>
+        </div>
+        <div style="text-align:center">
+          ${scoreCircle(w.score,80)}
+          <div style="font-size:10px;color:var(--text-3);margin-top:4px;text-transform:uppercase;letter-spacing:.4px">Labour Score</div>
+        </div>
+      </div>
+      <div class="pbio">${w.bio}</div>
+      <div class="pstats">
+        <div><div class="ps-n">$${w.rate}</div><div class="ps-l">Per Hour</div></div>
+        <div><div class="ps-n">${w.yrs}</div><div class="ps-l">Years Exp.</div></div>
+        <div><div class="ps-n">${w.revs.length}</div><div class="ps-l">Reviews</div></div>
+      </div>
+      <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text-3);margin-bottom:6px">Community Reviews</div>
+      ${revHTML}
+      <div style="display:flex;gap:8px;margin-top:1.5rem">
+        <button class="btn btn-p" style="flex:1" onclick="alert('Employer access required.\\n\\nSubscribe to Premium ($149/month) to contact workers directly and view full contact details.')">Contact Worker →</button>
+        <button class="btn btn-g" onclick="showView('home')">Back to Browse</button>
+      </div>
+      <div class="emp-notice">Contact details are available to verified employers. <button onclick="showView('employers')" style="background:none;border:none;color:var(--gold);font-size:13px;cursor:pointer;font-family:inherit;text-decoration:underline;padding:0">Get employer access →</button></div>
+    </div>`;
+  showView('profile');
+}
+
+function showView(v){
+  ['home','profile','listed','employers'].forEach(n=>{
+    const el=document.getElementById('view-'+n);
+    if(el)el.style.display=n===v?'block':'none';
+  });
+  window.scrollTo(0,0);
+  if(v==='home'){setTimeout(()=>{renderFilters();filterWorkers();},0);}
+}
+
+function scrollToHow(){
+  showView('home');
+  setTimeout(()=>{const el=document.getElementById('how-sec');if(el)el.scrollIntoView({behavior:'smooth'});},50);
+}
+
+function fstep(n){
+  [1,2,3].forEach(i=>document.getElementById('fs'+i).style.display=i===n?'block':'none');
+}
+
+function fcomplete(){
+  [1,2,3].forEach(i=>document.getElementById('fs'+i).style.display='none');
+  document.getElementById('fs-done').style.display='block';
+}
+
+// Init
+renderFilters();filterWorkers();
+</script>
+</body>
+</html>
