@@ -30,11 +30,11 @@ app.get('/api/db-test', async (req, res) => {
   }
 });
 
-// Routes (to be implemented)
-// app.use('/api/auth', require('./routes/auth'));
-// app.use('/api/listings', require('./routes/listings'));
-// app.use('/api/jobs', require('./routes/jobs'));
-// app.use('/api/notifications', require('./routes/notifications'));
+// Routes
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/listings', require('./routes/listings'));
+app.use('/api/jobs', require('./routes/jobs'));
+app.use('/api/notifications', require('./routes/notifications'));
 
 // 404 handler
 app.use((req, res) => {
