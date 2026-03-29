@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const path = require('path');
 const db = require('./db/sqlite');
 
 const app = express();
@@ -9,11 +10,14 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+  origin: process.env.CORS_ORIGIN || '*',
   credentials: true,
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Serve frontend static files
+app.use(express.static(path.join(__dirname, '../')));
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
@@ -36,9 +40,13 @@ app.use('/api/listings', require('./routes/listings'));
 app.use('/api/jobs', require('./routes/jobs'));
 app.use('/api/notifications', require('./routes/notifications'));
 
-// 404 handler
-app.use((req, res) => {
-  res.status(404).json({ error: 'Route not found' });
+// Serve index.html for all non-API routes (SPA routing)
+app.get('*', (req, res) => {
+  if (!req.path.startsWith('/api')) {
+    res.sendFile(path.join(__dirname, '../index.html'));
+  } else {
+    res.status(404).json({ error: 'Route not found' });
+  }
 });
 
 // Global error handler

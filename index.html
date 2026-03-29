@@ -536,7 +536,11 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
 
 <script>
 
-const API_URL = 'http://localhost:5000/api';
+// Dynamic API URL - use same domain in production, localhost:5000 in development
+const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+  ? 'http://localhost:5000/api' 
+  : `${window.location.origin}/api`;
+
 let currentWorker = null;
 let token = localStorage.getItem('token');
 
