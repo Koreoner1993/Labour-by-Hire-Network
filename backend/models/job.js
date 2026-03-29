@@ -1,61 +1,98 @@
-// Mock Job Model - Phase 1 (no database yet)
-// Will be replaced with real database queries in Phase 2 Part 3
+// SQLite Job Model - Phase 2B
 
-const jobs = {}; // In-memory storage
-let nextJobId = 1;
+const db = require('../db/sqlite');
 
 const Job = {
   // Create a new job
   create: async (employerId, title, description, tradeRequired, location, budget, urgency) => {
-    const id = nextJobId++;
-    const job = {
-      id,
-      employer_id: employerId,
-      title,
-      description,
-      trade_required: tradeRequired,
-      location,
-      budget,
-      urgency: urgency || 'normal',
-      active: true,
-      created_at: new Date(),
-      updated_at: new Date(),
-    };
-    jobs[id] = job;
-    return job;
+    try {
+      const stmt = db.prepare(`
+        INSERT INTO employer_jobs (employer_id, title, description, trade_required, location, budget, urgency, active)
+        VALUES (?, ?, ?, ?, ?, ?, ?, 1)
+      `);
+      const result = stmt.run(employerId, title, description, tradeRequired, location, budget || 0, urgency || 'normal');
+      return Job.findById(result.lastInsertRowid);
+    } catch (error) {
+      throw new Error(`Failed to create job: ${error.message}`);
+    }
   },
 
   // Get job by ID
   findById: async (id) => {
-    return jobs[id] || null;
+    try {
+      const stmt = db.prepare('SELECT * FROM employer_jobs WHERE id = ?');
+      return stmt.get(id) || null;
+    } catch (error) {
+      throw new Error(`Failed to find job: ${error.message}`);
+    }
   },
 
   // Get all active jobs
   getAll: async () => {
-    return Object.values(jobs).filter(j => j.active);
+    try {
+      const stmt = db.prepare('SELECT * FROM employer_jobs WHERE active = 1 ORDER BY created_at DESC');
+      return stmt.all();
+    } catch (error) {
+      throw new Error(`Failed to get jobs: ${error.message}`);
+    }
   },
 
   // Get jobs by trade (for notifications)
   getByTrade: async (trade) => {
-    return Object.values(jobs).filter(j => j.active && j.trade_required === trade);
+    try {
+      const stmt = db.prepare('SELECT * FROM employer_jobs WHERE active = 1 AND trade_required = ?');
+      return stmt.all(trade);
+    } catch (error) {
+      throw new Error(`Failed to get jobs by trade: ${error.message}`);
+    }
   },
 
   // Get jobs by location
   getByLocation: async (location) => {
-    return Object.values(jobs).filter(j => j.active && j.location === location);
+    try {
+      const stmt = db.prepare('SELECT * FROM employer_jobs WHERE active = 1 AND location = ?');
+      return stmt.all(location);
+    } catch (error) {
+      throw new Error(`Failed to get jobs by location: ${error.message}`);
+    }
   },
 
   // Update job
   update: async (id, updates) => {
-    if (!jobs[id]) return null;
-    jobs[id] = { ...jobs[id], ...updates, updated_at: new Date() };
-    return jobs[id];
+    try {
+      const allowedFields = ['title', 'description', 'budget', 'urgency', 'active'];
+      const setClause = allowedFields
+        .filter(field => field in updates)
+        .map(field => `${field} = ?`)
+        .join(', ');
+
+      if (!setClause) return Job.findById(id);
+
+      const values = allowedFields
+        .filter(field => field in updates)
+        .map(field => updates[field]);
+
+      const stmt = db.prepare(`
+        UPDATE employer_jobs 
+        SET ${setClause}, updated_at = CURRENT_TIMESTAMP
+        WHERE id = ?
+      `);
+      stmt.run(...values, id);
+      return Job.findById(id);
+    } catch (error) {
+      throw new Error(`Failed to update job: ${error.message}`);
+    }
   },
 
   // Delete job
   delete: async (id) => {
-    delete jobs[id];
-    return true;
+    try {
+      const stmt = db.prepare('DELETE FROM employer_jobs WHERE id = ?');
+      stmt.run(id);
+      return true;
+    } catch (error) {
+      throw new Error(`Failed to delete job: ${error.message}`);
+    }
   },
 };
 

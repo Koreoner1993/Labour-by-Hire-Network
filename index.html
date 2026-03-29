@@ -505,173 +505,219 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
 
 <script>
 
+const API_URL = 'http://localhost:5000/api';
+let currentWorker = null;
+let token = localStorage.getItem('token');
 
-const TRADES=['All','Carpenter','Electrician','Plumber','Concretor','Painter','Tiler','Landscaper','Bricklayer','Welder'];
+// API Helper
+const apifetch = async (method, endpoint, body = null) => {
+  const options = { method, headers: { 'Content-Type': 'application/json' } };
+  if (token) options.headers.Authorization = `Bearer ${token}`;
+  if (body) options.body = JSON.stringify(body);
+  const res = await fetch(`${API_URL}${endpoint}`, options);
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || 'API error');
+  return data;
+};
 
-const WORKERS=[
-  {id:1,name:'Jake Thompson',nick:'The Hammer',trade:'Carpenter',city:'Sydney, NSW',rate:75,score:92,ini:'JT',
-   bdg:[['LBH Verified','g'],['Top Rated','b'],['On-Time','b']],yrs:12,
-   bio:'Master carpenter specialising in residential renovations, custom decking, and joinery. 12 years experience across greater Sydney. Known for meticulous prep work and clean finishes.',
-   revs:[{a:'Mark L.',t:'Built our deck — absolutely flawless. Jake turned up on time every day and left the site spotless.',s:5},{a:'Sarah K.',t:'Brilliant finish on our kitchen renovation. Would hire again without hesitation.',s:5}]},
-  {id:2,name:'Sarah Chen',nick:null,trade:'Electrician',city:'Melbourne, VIC',rate:85,score:87,ini:'SC',
-   bdg:[['LBH Verified','g'],['Licensed','b'],['Commercial','b']],yrs:8,
-   bio:'Licensed electrical contractor with 8 years experience. Specialist in commercial fit-outs, solar installation, and switchboard upgrades across Melbourne metro.',
-   revs:[{a:'Tom B.',t:'Very professional and tidy. Fixed our switchboard issue quickly and explained everything clearly.',s:5}]},
-  {id:3,name:'Marco Rossi',nick:null,trade:'Plumber',city:'Brisbane, QLD',rate:80,score:95,ini:'MR',
-   bdg:[['LBH Verified','g'],['Top Rated','b'],['5-Star','go']],yrs:15,
-   bio:'Master plumber with 15 years experience in new builds, renovations, and emergency call-outs. Brisbane and Gold Coast coverage. Gasfitting licence included.',
-   revs:[{a:'Emma W.',t:'Fixed our burst pipe in an emergency — arrived fast and left the site perfectly clean.',s:5},{a:'Chris P.',t:'Very knowledgeable and great value for money. Highly recommend.',s:4}]},
-  {id:4,name:"Dean O'Brien",nick:null,trade:'Concretor',city:'Perth, WA',rate:65,score:78,ini:'DO',
-   bdg:[['LBH Verified','g'],['5+ Years','b']],yrs:6,
-   bio:'Experienced concretor for driveways, slabs, pathways, and decorative exposed aggregate finishes across Perth metro and surrounds.',
-   revs:[{a:'Julie R.',t:'Good work on our driveway. Finished on schedule and kept us updated throughout.',s:4}]},
-  {id:5,name:'Lily Park',nick:null,trade:'Painter',city:'Sydney, NSW',rate:60,score:88,ini:'LP',
-   bdg:[['LBH Verified','g'],['High Quality','b'],['On-Time','b']],yrs:9,
-   bio:'Interior and exterior painting specialist. Residential and commercial. Known for meticulous surface preparation and clean, long-lasting finishes.',
-   revs:[{a:'Dave M.',t:'Transformed our entire home. Incredible attention to detail — every room looks incredible.',s:5}]},
-  {id:6,name:'Rob Masters',nick:null,trade:'Tiler',city:'Adelaide, SA',rate:70,score:91,ini:'RM',
-   bdg:[['LBH Verified','g'],['Top Rated','b'],['Licensed','b']],yrs:11,
-   bio:'Tiling specialist for bathrooms, kitchens, and outdoor entertaining areas. Expert in large-format porcelain and mosaic tile work.',
-   revs:[{a:'Nina T.',t:'Perfect bathroom renovation. Not one tile out of place. Incredible work.',s:5},{a:'James H.',t:'Professional, clean, and on budget. Will use again for our next project.',s:5}]},
-  {id:7,name:'Ben Nguyen',nick:null,trade:'Landscaper',city:'Melbourne, VIC',rate:55,score:83,ini:'BN',
-   bdg:[['LBH Verified','g'],['High Quality','b']],yrs:5,
-   bio:'Full landscaping services including garden design, retaining walls, turf laying, and irrigation systems. Specialising in low-maintenance native gardens.',
-   revs:[{a:'Fiona C.',t:'Completely transformed our backyard. We get compliments from all our neighbours now.',s:5}]},
-  {id:8,name:'Craig Wallace',nick:null,trade:'Bricklayer',city:'Sydney, NSW',rate:72,score:89,ini:'CW',
-   bdg:[['LBH Verified','g'],['On-Time','b'],['10+ Years','go']],yrs:14,
-   bio:'Bricklaying and blockwork for residential and commercial builds, feature walls, retaining structures, and heritage restoration work.',
-   revs:[{a:'Peter A.',t:'Excellent brickwork on our home extension. Solid, straight, and looks amazing.',s:5}]},
-  {id:9,name:'Troy Hansen',nick:null,trade:'Welder',city:'Brisbane, QLD',rate:68,score:85,ini:'TH',
-   bdg:[['LBH Verified','g'],['Licensed','b']],yrs:10,
-   bio:'Structural and fabrication welder with 10 years experience. Experienced in MIG, TIG, and stick welding across construction and industrial sectors.',
-   revs:[{a:'Mike D.',t:'Fabricated our custom gate and fence — excellent quality and fast turnaround.',s:5}]},
-];
+// Auth Functions
+const registerWorker = async (email, password, firstName, lastName, trade, city, rate) => {
+  const data = await apifetch('POST', '/auth/register', { email, password, firstName, lastName, trade, city, hourlyRate: rate });
+  token = data.token;
+  currentWorker = data.worker;
+  localStorage.setItem('token', token);
+  return data;
+};
 
-let filter='All';
+const loginWorker = async (email, password) => {
+  const data = await apifetch('POST', '/auth/login', { email, password });
+  token = data.token;
+  currentWorker = data.worker;
+  localStorage.setItem('token', token);
+  return data;
+};
 
-function scoreCircle(score,sz){
-  sz=sz||64;const r=sz===64?26:32,cx=sz/2,cy=sz/2;
-  const c=2*Math.PI*r,off=c*(1-score/100);
-  const col=score>=90?'#22C55E':score>=80?'#2196F3':'#F59E0B';
-  const fs=sz===64?13:17,fs2=sz===64?9:10,ty=sz===64?cy-3:cy-4,ty2=sz===64?cy+10:cy+12;
-  return `<svg viewBox="0 0 ${sz} ${sz}" style="width:${sz}px;height:${sz}px;flex-shrink:0">
-    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="5"/>
-    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${col}" stroke-width="5"
-      stroke-dasharray="${c.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}"
-      stroke-linecap="round" transform="rotate(-90 ${cx} ${cy})"/>
-    <text x="${cx}" y="${ty}" text-anchor="middle" dominant-baseline="middle" font-size="${fs}" font-weight="700" fill="#E8EAF2" font-family="Barlow Condensed,sans-serif">${score}</text>
-    <text x="${cx}" y="${ty2}" text-anchor="middle" font-size="${fs2}" fill="rgba(255,255,255,0.35)" font-family="Barlow,sans-serif">SCORE</text>
-  </svg>`;
-}
+const logoutWorker = () => {
+  token = null;
+  currentWorker = null;
+  localStorage.removeItem('token');
+  showView('home');
+};
 
-function badge(txt,t){
-  const cls=t==='g'?'bg':t==='b'?'bb':'bgo';
-  return `<span class="bdg ${cls}">${txt}</span>`;
-}
+// API Calls
+const getListings = async () => {
+  try {
+    const data = await apifetch('GET', '/listings');
+    return data.listings || [];
+  } catch (error) {
+    console.error('Failed to fetch listings:', error);
+    return [];
+  }
+};
 
-function renderCard(w){
-  const nm=w.nick?`${w.name} <span style="color:var(--text-2);font-weight:400">"${w.nick}"</span>`:w.name;
+const postJob = async (title, description, trade, location, budget, urgency) => {
+  return await apifetch('POST', '/jobs', { title, description, tradeRequired: trade, location, budget, urgency });
+};
+
+const getJobs = async () => {
+  try {
+    const data = await apifetch('GET', '/jobs');
+    return data.jobs || [];
+  } catch (error) {
+    console.error('Failed to fetch jobs:', error);
+    return [];
+  }
+};
+
+const getNotifications = async () => {
+  try {
+    if (!token) return [];
+    const data = await apifetch('GET', '/notifications');
+    return data.notifications || [];
+  } catch (error) {
+    console.error('Failed to fetch notifications:', error);
+    return [];
+  }
+};
+
+// UI Functions
+const TRADES = ['All', 'Carpenter', 'Electrician', 'Plumber', 'Concretor', 'Painter', 'Tiler', 'Landscaper', 'Bricklayer', 'Welder'];
+let filter = 'All';
+let listings = [];
+
+function renderCard(w) {
+  const name = w.name || (w.first_name + ' ' + w.last_name);
+  const names = name.split(' ');
+  const ini = (names[0]?.substring(0, 1) || '') + (names[names.length - 1]?.substring(0, 1) || '');
   return `<div class="card" onclick="showProfile(${w.id})">
     <div class="ct">
-      <div class="av">${w.ini}</div>
+      <div class="av">${ini.toUpperCase()}</div>
       <div class="cm">
-        <div class="cn">${nm}</div>
+        <div class="cn">${name}</div>
         <div class="ct2">${w.trade}</div>
         <div class="cl">📍 ${w.city}</div>
       </div>
-      ${scoreCircle(w.score,64)}
+      <div style="width:64px;text-align:center;font-size:12px;color:var(--text-3)">Verified</div>
     </div>
-    <div class="badges">${w.bdg.map(b=>badge(b[0],b[1])).join('')}</div>
     <div class="cf">
-      <div class="rate">$${w.rate}<small>/hr</small></div>
+      <div class="rate">$${w.hourly_rate}<small>/hr</small></div>
       <div class="vt"><div class="vdot"></div>LBH Verified</div>
     </div>
   </div>`;
 }
 
-function filterWorkers(){
-  const q=((document.getElementById('search-input')||{}).value||'').toLowerCase().trim();
-  const list=WORKERS.filter(w=>
-    (filter==='All'||w.trade===filter)&&
-    (!q||w.name.toLowerCase().includes(q)||w.trade.toLowerCase().includes(q)||w.city.toLowerCase().includes(q))
-  );
-  const el=document.getElementById('workers-grid');
-  if(el)el.innerHTML=list.length?list.map(renderCard).join(''):'<p style="color:var(--text-2);font-size:14px;padding:3rem 0;text-align:center;grid-column:1/-1">No workers found. Try a different search or filter.</p>';
+async function loadListings() {
+  listings = await getListings();
+  filterWorkers();
 }
 
-function renderFilters(){
-  const el=document.getElementById('filters-el');
-  if(el)el.innerHTML=TRADES.map(t=>`<button class="chip ${t===filter?'on':''}" onclick="setFilter('${t}')">${t}</button>`).join('');
+function filterWorkers() {
+  const q = ((document.getElementById('search-input') || {}).value || '').toLowerCase().trim();
+  const list = listings.filter(l => {
+    const w = l.worker || l;
+    const name = w.name || (w.first_name + ' ' + w.last_name);
+    return (filter === 'All' || w.trade === filter) &&
+      (!q || name.toLowerCase().includes(q) || w.trade.toLowerCase().includes(q) || w.city.toLowerCase().includes(q));
+  });
+  const el = document.getElementById('workers-grid');
+  if (el) el.innerHTML = list.length ? list.map(l => renderCard(l.worker || l)).join('') : '<p style="color:var(--text-2);font-size:14px;padding:3rem 0;text-align:center;grid-column:1/-1">No workers found. Try a different search or filter.</p>';
 }
 
-function setFilter(t){filter=t;renderFilters();filterWorkers();}
+function renderFilters() {
+  const el = document.getElementById('filters-el');
+  if (el) el.innerHTML = TRADES.map(t => `<button class="chip ${t === filter ? 'on' : ''}" onclick="setFilter('${t}')">${t}</button>`).join('');
+}
 
-function showProfile(id){
-  const w=WORKERS.find(x=>x.id===id);if(!w)return;
-  const revHTML=w.revs.map(r=>`<div class="rev"><div class="rev-h"><span style="color:#F59E0B;font-size:13px">${'★'.repeat(r.s)}${'☆'.repeat(5-r.s)}</span><span class="rev-a">${r.a}</span></div><div class="rev-t">${r.t}</div></div>`).join('');
-  document.getElementById('profile-content').innerHTML=`
+function setFilter(t) {
+  filter = t;
+  renderFilters();
+  filterWorkers();
+}
+
+function showProfile(id) {
+  const listing = listings.find(x => (x.worker || x).id === id);
+  if (!listing) return;
+  const w = listing.worker || listing;
+  const name = w.name || (w.first_name + ' ' + w.last_name);
+  const names = name.split(' ');
+  const ini = (names[0]?.substring(0, 1) || '') + (names[names.length - 1]?.substring(0, 1) || '');
+  document.getElementById('profile-content').innerHTML = `
     <div class="pcard">
       <div class="ptop">
-        <div class="av av-lg">${w.ini}</div>
+        <div class="av av-lg">${ini.toUpperCase()}</div>
         <div class="pinfo">
-          <div class="pname">${w.name}${w.nick?` <span class="pnick">"${w.nick}"</span>`:''}</div>
-          <div class="pmeta">${w.trade} · ${w.city} · ${w.yrs} years experience</div>
-          <div class="badges" style="margin-top:10px">${w.bdg.map(b=>badge(b[0],b[1])).join('')}</div>
-        </div>
-        <div style="text-align:center">
-          ${scoreCircle(w.score,80)}
-          <div style="font-size:10px;color:var(--text-3);margin-top:4px;text-transform:uppercase;letter-spacing:.4px">Labour Score</div>
+          <div class="pname">${name}</div>
+          <div class="pmeta">${w.trade} · ${w.city}</div>
+          <div class="badges" style="margin-top:10px"><span class="bdg bg">LBH Verified</span></div>
         </div>
       </div>
-      <div class="pbio">${w.bio}</div>
+      <div class="pbio">${w.bio || 'Professional ' + w.trade + ' with expertise in the field.'}</div>
       <div class="pstats">
-        <div><div class="ps-n">$${w.rate}</div><div class="ps-l">Per Hour</div></div>
-        <div><div class="ps-n">${w.yrs}</div><div class="ps-l">Years Exp.</div></div>
-        <div><div class="ps-n">${w.revs.length}</div><div class="ps-l">Reviews</div></div>
+        <div><div class="ps-n">$${w.hourly_rate}</div><div class="ps-l">Per Hour</div></div>
       </div>
-      <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text-3);margin-bottom:6px">Community Reviews</div>
-      ${revHTML}
       <div style="display:flex;gap:8px;margin-top:1.5rem">
-        <button class="btn btn-p" style="flex:1" onclick="alert('Employer access required.\\n\\nSubscribe to Premium ($149/month) to contact workers directly and view full contact details.')">Contact Worker →</button>
+        <button class="btn btn-p" style="flex:1" onclick="alert('Contact worker directly through the platform.')">Contact Worker →</button>
         <button class="btn btn-g" onclick="showView('home')">Back to Browse</button>
       </div>
-      <div class="emp-notice">Contact details are available to verified employers. <button onclick="showView('employers')" style="background:none;border:none;color:var(--gold);font-size:13px;cursor:pointer;font-family:inherit;text-decoration:underline;padding:0">Get employer access →</button></div>
     </div>`;
   showView('profile');
 }
 
-function showView(v){
-  ['home','profile','listed','employers'].forEach(n=>{
-    const el=document.getElementById('view-'+n);
-    if(el)el.style.display=n===v?'block':'none';
+function showView(v) {
+  ['home', 'profile', 'listed', 'employers'].forEach(n => {
+    const el = document.getElementById('view-' + n);
+    if (el) el.style.display = n === v ? 'block' : 'none';
   });
-  window.scrollTo(0,0);
-  if(v==='home'){setTimeout(()=>{renderFilters();filterWorkers();},0);}
+  window.scrollTo(0, 0);
+  if (v === 'home') {
+    setTimeout(() => {
+      loadListings();
+      renderFilters();
+    }, 0);
+  }
 }
 
-function scrollToHow(){
+function scrollToHow() {
   showView('home');
-  setTimeout(()=>{const el=document.getElementById('how-sec');if(el)el.scrollIntoView({behavior:'smooth'});},50);
+  setTimeout(() => {
+    const el = document.getElementById('how-sec');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }, 50);
 }
 
-function fstep(n){
-  [1,2,3].forEach(i=>{
-    const el=document.getElementById('fs'+i);
-    if(el)el.style.display=i===n?'block':'none';
-  });
+function fstep(n) {
+  [1, 2, 3].forEach(i => document.getElementById('fs' + i).style.display = i === n ? 'block' : 'none');
 }
 
-function fcomplete(){
-  [1,2,3].forEach(i=>{
-    const el=document.getElementById('fs'+i);
-    if(el)el.style.display='none';
-  });
-  const done=document.getElementById('fs-done');
-  if(done)done.style.display='block';
+async function handleRegistration() {
+  const fn = document.querySelector('#fs1 input[placeholder="Jake"]').value;
+  const ln = document.querySelector('#fs1 input[placeholder="Thompson"]').value;
+  const email = document.querySelector('#fs1 input[placeholder*="@"]').value;
+  const trade = document.querySelector('#fs1 select').value;
+  const city = document.querySelector('#fs1 input[placeholder*="Sydney"]').value;
+  const rate = parseInt(document.querySelector('#fs1 input[placeholder*="65"]').value || 0);
+
+  if (!fn || !ln || !email || !trade) {
+    alert('Please fill all fields');
+    return;
+  }
+
+  try {
+    await registerWorker(email, 'TempPass123!', fn, ln, trade, city, rate);
+    fstep(3);
+  } catch (error) {
+    alert('Registration failed: ' + error.message);
+  }
+}
+
+function fcomplete() {
+  [1, 2, 3].forEach(i => document.getElementById('fs' + i).style.display = 'none');
+  document.getElementById('fs-done').style.display = 'block';
 }
 
 // Init
-renderFilters();filterWorkers();
+loadListings();
+renderFilters();
 </script>
 </body>
 </html>
