@@ -36,6 +36,7 @@ html,body{background:var(--bg);color:var(--text);font-family:'Barlow',system-ui,
 .btn-o:hover{border-color:var(--blue);color:var(--blue)}
 .btn-gold{background:var(--gold);color:#1a0a00;font-weight:700}
 .btn-lg{padding:11px 24px;font-size:15px}
+.btn-sm{padding:6px 12px;font-size:12px}
 .btn-full{width:100%;justify-content:center}
 .wrap{max-width:1160px;margin:0 auto;padding:0 2rem}
 
@@ -211,8 +212,14 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
       <button class="nl" onclick="scrollToHow()">How It Works</button>
     </div>
     <div class="nr">
-      <button class="btn btn-g" onclick="showView('home')">Sign In</button>
-      <button class="btn btn-p" onclick="showView('listed')">Get Listed</button>
+      <div id="nav-signin" style="display:flex;gap:8px">
+        <button class="btn btn-g" onclick="showLoginModal()">Sign In</button>
+        <button class="btn btn-p" onclick="showView('listed')">Get Listed</button>
+      </div>
+      <div id="nav-loggedin" style="display:none;align-items:center;gap:12px">
+        <div style="font-size:14px"><span id="nav-name">Worker</span></div>
+        <button class="btn btn-g btn-sm" onclick="logoutWorker()">Logout</button>
+      </div>
     </div>
   </div>
 </nav>
@@ -482,6 +489,30 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
 
 </main>
 
+<!-- LOGIN MODAL -->
+<div id="login-modal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);z-index:1000;display:flex;align-items:center;justify-content:center">
+  <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:2rem;max-width:400px;width:90%;max-height:90vh;overflow-y:auto">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
+      <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:700;margin:0">Sign In</h2>
+      <button onclick="hideLoginModal()" style="background:none;border:none;color:var(--text-2);font-size:24px;cursor:pointer;padding:0;width:24px;height:24px;display:flex;align-items:center;justify-content:center">×</button>
+    </div>
+    <p style="font-size:14px;color:var(--text-2);margin-bottom:1.5rem">Access your tradie profile and manage your availability.</p>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div>
+        <label style="display:block;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-2);margin-bottom:6px">Email</label>
+        <input id="login-email" type="email" placeholder="your@email.com" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:6px;background:var(--bg-2);color:var(--text-1);font-family:inherit;font-size:14px;box-sizing:border-box">
+      </div>
+      <div>
+        <label style="display:block;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-2);margin-bottom:6px">Password</label>
+        <input id="login-password" type="password" placeholder="Enter your password" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:6px;background:var(--bg-2);color:var(--text-1);font-family:inherit;font-size:14px;box-sizing:border-box">
+      </div>
+      <div id="login-error" style="display:none;font-size:13px;color:#EF4444;padding:10px;background:rgba(239,68,68,0.1);border-radius:6px"></div>
+      <button onclick="handleLogin()" style="padding:12px;background:var(--blue);color:white;border:none;border-radius:6px;font-weight:600;cursor:pointer;font-size:14px">Sign In</button>
+      <p style="text-align:center;font-size:13px;color:var(--text-2);margin-top:0.5rem">Don't have an account? <button onclick="hideLoginModal(); showView('listed')" style="background:none;border:none;color:var(--blue);cursor:pointer;text-decoration:underline;padding:0;font-family:inherit">Get Listed</button></p>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="wrap">
@@ -509,6 +540,12 @@ const API_URL = 'http://localhost:5000/api';
 let currentWorker = null;
 let token = localStorage.getItem('token');
 
+// Update nav on load
+if (token) {
+  const name = localStorage.getItem('workerName');
+  updateNavForLoggedIn(name);
+}
+
 // API Helper
 const apifetch = async (method, endpoint, body = null) => {
   const options = { method, headers: { 'Content-Type': 'application/json' } };
@@ -526,6 +563,8 @@ const registerWorker = async (email, password, firstName, lastName, trade, city,
   token = data.token;
   currentWorker = data.worker;
   localStorage.setItem('token', token);
+  localStorage.setItem('workerName', `${data.worker.first_name} ${data.worker.last_name}`);
+  updateNavForLoggedIn(localStorage.getItem('workerName'));
   return data;
 };
 
@@ -534,6 +573,8 @@ const loginWorker = async (email, password) => {
   token = data.token;
   currentWorker = data.worker;
   localStorage.setItem('token', token);
+  localStorage.setItem('workerName', `${data.worker.first_name} ${data.worker.last_name}`);
+  updateNavForLoggedIn(localStorage.getItem('workerName'));
   return data;
 };
 
@@ -541,7 +582,52 @@ const logoutWorker = () => {
   token = null;
   currentWorker = null;
   localStorage.removeItem('token');
+  localStorage.removeItem('workerName');
+  updateNavForLoggedOut();
   showView('home');
+};
+
+const updateNavForLoggedIn = (name) => {
+  document.getElementById('nav-signin').style.display = 'none';
+  document.getElementById('nav-loggedin').style.display = 'flex';
+  document.getElementById('nav-name').textContent = name;
+};
+
+const updateNavForLoggedOut = () => {
+  document.getElementById('nav-signin').style.display = 'flex';
+  document.getElementById('nav-loggedin').style.display = 'none';
+};
+
+const showLoginModal = () => {
+  document.getElementById('login-modal').style.display = 'flex';
+  document.getElementById('login-error').style.display = 'none';
+  document.getElementById('login-email').value = '';
+  document.getElementById('login-password').value = '';
+};
+
+const hideLoginModal = () => {
+  document.getElementById('login-modal').style.display = 'none';
+};
+
+const handleLogin = async () => {
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  const errorEl = document.getElementById('login-error');
+  
+  if (!email || !password) {
+    errorEl.textContent = 'Please enter both email and password';
+    errorEl.style.display = 'block';
+    return;
+  }
+
+  try {
+    await loginWorker(email, password);
+    hideLoginModal();
+    showView('home');
+  } catch (error) {
+    errorEl.textContent = error.message;
+    errorEl.style.display = 'block';
+  }
 };
 
 // API Calls
