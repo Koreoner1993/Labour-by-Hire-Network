@@ -17,7 +17,7 @@ jobs:
       - name: Deploy to Railway
         run: |
           npm install -g @railway/cli
-          railway link depl4fdd4bdc-8fd3-425b-b39a-261aa9386161
+          railway link --project depl4fdd4bdc-8fd3-425b-b39a-261aa9386161
           railway up
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
