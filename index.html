@@ -12,6 +12,7 @@
   --blue:#2196F3;--blue-dim:rgba(33,150,243,0.1);--blue-border:rgba(33,150,243,0.25);
   --gold:#F59E0B;--gold-dim:rgba(245,158,11,0.1);--gold-border:rgba(245,158,11,0.25);
   --green:#22C55E;--green-dim:rgba(34,197,94,0.1);--green-border:rgba(34,197,94,0.2);
+  --red:#EF4444;--red-dim:rgba(239,68,68,0.1);
   --text:#E8EAF2;--text-2:#9299AA;--text-3:#5A6070;
   --r:10px;--rs:6px;--rf:100px;
 }
@@ -38,6 +39,7 @@ html,body{background:var(--bg);color:var(--text);font-family:'Barlow',system-ui,
 .btn-lg{padding:11px 24px;font-size:15px}
 .btn-sm{padding:6px 12px;font-size:12px}
 .btn-full{width:100%;justify-content:center}
+.btn:disabled{opacity:.45;cursor:not-allowed}
 .wrap{max-width:1160px;margin:0 auto;padding:0 2rem}
 
 /* HERO */
@@ -116,25 +118,44 @@ html,body{background:var(--bg);color:var(--text);font-family:'Barlow',system-ui,
 .pfl li:last-child{border-bottom:none}
 .fchk{color:var(--green);flex-shrink:0}
 
-/* PROFILE */
+/* PROFILE VIEW */
 .back{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--text-2);cursor:pointer;background:none;border:none;font-family:inherit;padding:6px 0;margin-bottom:1.5rem}
 .back:hover{color:var(--text)}
 .pcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.75rem;margin-bottom:1rem}
 .ptop{display:flex;align-items:flex-start;gap:1.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
 .pinfo{flex:1;min-width:200px}
 .pname{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:700}
-.pnick{color:var(--blue)}
 .pmeta{font-size:14px;color:var(--text-2);margin-top:6px}
 .pbio{font-size:14px;color:var(--text-2);line-height:1.7;padding:1rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:1.25rem}
 .pstats{display:flex;gap:3rem;margin-bottom:1.5rem}
 .ps-n{font-size:22px;font-weight:700;font-family:'Barlow Condensed',sans-serif}
 .ps-l{font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:.4px}
-.rev{padding:12px 0;border-bottom:1px solid var(--border)}
-.rev:last-child{border-bottom:none}
-.rev-h{display:flex;align-items:center;gap:10px;margin-bottom:5px}
-.rev-a{font-size:13px;color:var(--text-2)}
-.rev-t{font-size:14px;line-height:1.6}
-.emp-notice{margin-top:1rem;padding:10px 14px;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:var(--rs);font-size:13px;color:var(--gold)}
+
+/* AVATAR */
+.av{position:relative;width:48px;height:48px;border-radius:50%;background:var(--surface-3);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;color:var(--text-2);flex-shrink:0;border:1px solid var(--border);overflow:hidden}
+.av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.av-lg{width:72px;height:72px;font-size:24px}
+.av-upload{cursor:pointer}
+.av-upload:hover::after{content:'📷';position:absolute;inset:0;background:rgba(0,0,0,0.55);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px}
+
+/* DASHBOARD */
+.dash-header{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.75rem;margin-bottom:1rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}
+.dash-info{flex:1}
+.dash-name{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700}
+.dash-meta{font-size:14px;color:var(--text-2);margin-top:4px}
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.dash-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem}
+.dash-card h3{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;margin-bottom:1rem;color:var(--text-2);text-transform:uppercase;letter-spacing:.5px}
+.field-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:14px}
+.field-row:last-child{border-bottom:none}
+.field-label{color:var(--text-3)}
+.field-val{color:var(--text);font-weight:500}
+.status-dot{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600}
+.status-dot.live{color:var(--green)}
+.status-dot.pending{color:var(--gold)}
+.listing-box{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--rs);padding:1.25rem;margin-bottom:12px}
+.listing-title{font-weight:600;margin-bottom:4px}
+.listing-desc{font-size:13px;color:var(--text-2);line-height:1.6}
 
 /* FORM */
 .fw{max-width:600px;margin:0 auto}
@@ -157,6 +178,7 @@ html,body{background:var(--bg);color:var(--text);font-family:'Barlow',system-ui,
 .sumr{display:flex;justify-content:space-between;font-size:14px;padding:5px 0}
 .sumr.tot{border-top:1px solid var(--border);margin-top:8px;padding-top:12px;font-weight:700;font-size:15px}
 .notice{background:var(--blue-dim);border:1px solid var(--blue-border);color:var(--blue);padding:10px 14px;border-radius:var(--rs);font-size:13px;line-height:1.6;margin-bottom:1.25rem}
+.err-box{background:var(--red-dim);border:1px solid rgba(239,68,68,0.3);color:var(--red);padding:10px 14px;border-radius:var(--rs);font-size:13px;margin-bottom:1rem;display:none}
 .succ{text-align:center;padding:2.5rem 1rem}
 .succ-ic{width:56px;height:56px;border-radius:50%;background:var(--green-dim);border:1px solid var(--green-border);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem}
 
@@ -168,6 +190,47 @@ html,body{background:var(--bg);color:var(--text);font-family:'Barlow',system-ui,
 /* DIVIDER */
 .div{height:1px;background:var(--border);margin:3rem 0}
 
+/* MESSAGING */
+.msg-list{display:flex;flex-direction:column;gap:8px}
+.msg-item{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--rs);padding:1rem;cursor:pointer;transition:border-color .15s}
+.msg-item:hover{border-color:var(--blue-border)}
+.msg-item.unread{border-left:3px solid var(--blue)}
+.msg-row{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.msg-from{font-size:13px;font-weight:600}
+.msg-preview{font-size:13px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:340px}
+.msg-time{font-size:11px;color:var(--text-3);white-space:nowrap}
+.msg-unread-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--blue);margin-left:6px;vertical-align:middle;flex-shrink:0}
+.msg-full{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--rs);padding:1.25rem;margin-top:1rem}
+.msg-body{font-size:14px;color:var(--text-2);line-height:1.7;margin:10px 0}
+.msg-meta{font-size:12px;color:var(--text-3)}
+.inbox-empty{text-align:center;padding:2.5rem 1rem;color:var(--text-3);font-size:14px}
+.unread-badge{display:inline-flex;align-items:center;justify-content:center;background:var(--blue);color:#fff;font-size:10px;font-weight:700;border-radius:10px;padding:1px 6px;margin-left:6px}
+
+/* MODALS */
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);z-index:1000;display:none;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.open{display:flex}
+.modal-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:2.25rem;max-width:440px;width:100%;text-align:center;position:relative}
+.modal-icon{width:64px;height:64px;border-radius:50%;background:var(--gold-dim);border:1px solid var(--gold-border);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;font-size:28px}
+.modal-title{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;margin-bottom:8px}
+.modal-sub{font-size:14px;color:var(--text-2);line-height:1.7;margin-bottom:1.5rem}
+.modal-feats{text-align:left;background:var(--surface-2);border-radius:var(--rs);padding:1rem;margin-bottom:1.5rem;list-style:none}
+.modal-feats li{font-size:13px;color:var(--text-2);padding:5px 0;display:flex;gap:8px;border-bottom:1px solid var(--border)}
+.modal-feats li:last-child{border-bottom:none}
+.modal-close{position:absolute;top:1rem;right:1.25rem;background:none;border:none;color:var(--text-3);font-size:24px;cursor:pointer;line-height:1}
+.modal-close:hover{color:var(--text)}
+.compose-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:2rem;max-width:500px;width:100%;position:relative}
+.compose-box h3{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;margin-bottom:1.25rem}
+
+/* TOAST */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:12px 18px;font-size:14px;z-index:9999;display:none;align-items:center;gap:10px;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.toast.show{display:flex}
+.toast.ok{border-color:var(--green-border);color:var(--green)}
+.toast.err{border-color:rgba(239,68,68,0.3);color:var(--red)}
+
+/* SPINNER */
+.spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
 /* FOOTER */
 footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
 .fi{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
@@ -177,20 +240,29 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
 .flinks a{font-size:13px;color:var(--text-3);text-decoration:none}
 .flinks a:hover{color:var(--text-2)}
 
-/* RESPONSIVE */
+/* AVATAR */
+.av{position:relative;overflow:hidden;background:var(--surface-3)}
+.av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.av-upload{position:relative;cursor:pointer}
+.av-upload:hover .av-overlay{opacity:1}
+.av-overlay{position:absolute;inset:0;border-radius:50%;background:rgba(0,0,0,0.55);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;font-size:10px;font-weight:700;color:#fff;text-align:center;line-height:1.3;pointer-events:none}
+
 @media(max-width:680px){
   .hero h1{font-size:38px}
   .stats{grid-template-columns:repeat(2,1fr)}
-  .how,.pc-grid,.emp-grid{grid-template-columns:1fr}
+  .how,.pc-grid,.emp-grid,.dash-grid{grid-template-columns:1fr}
   .fg2{grid-template-columns:1fr}
   .nav-links{display:none}
   .wrap{padding:0 1rem}
   .pstats{gap:1.5rem}
   .si{width:100%}
 }
-</style>
+  </style>
 </head>
 <body>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
 
 <!-- NAV -->
 <nav class="nav">
@@ -208,7 +280,6 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
     </div>
     <div class="nav-links">
       <button class="nl" onclick="showView('home')">Browse Workers</button>
-      <button class="nl" onclick="showView('employers')">For Employers</button>
       <button class="nl" onclick="scrollToHow()">How It Works</button>
     </div>
     <div class="nr">
@@ -217,7 +288,8 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
         <button class="btn btn-p" onclick="showView('listed')">Get Listed</button>
       </div>
       <div id="nav-loggedin" style="display:none;align-items:center;gap:12px">
-        <div style="font-size:14px"><span id="nav-name">Worker</span></div>
+        <button class="nl" onclick="showView('dashboard')">My Dashboard</button>
+        <span id="nav-name" style="font-size:14px;color:var(--text-2)"></span>
         <button class="btn btn-g btn-sm" onclick="logoutWorker()">Logout</button>
       </div>
     </div>
@@ -230,8 +302,6 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
 <!-- HOME VIEW -->
 <div id="view-home">
 <div class="wrap">
-
-  <!-- HERO -->
   <div class="hero">
     <div class="pill">
       <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="3.5" fill="currentColor"/></svg>
@@ -245,15 +315,13 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
     </div>
   </div>
 
-  <!-- STATS -->
   <div class="stats">
-    <div class="stat"><div class="stat-n b">200+</div><div class="stat-l">Verified Tradies</div></div>
+    <div class="stat"><div class="stat-n b" id="stat-workers">0</div><div class="stat-l">Verified Tradies</div></div>
     <div class="stat"><div class="stat-n">40+</div><div class="stat-l">Trade Types</div></div>
     <div class="stat"><div class="stat-n g">500+</div><div class="stat-l">Jobs Completed</div></div>
     <div class="stat"><div class="stat-n">98%</div><div class="stat-l">Satisfaction Rate</div></div>
   </div>
 
-  <!-- BROWSE -->
   <div id="browse-sec">
     <div class="sh">
       <div>
@@ -263,10 +331,9 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
       <input class="si" id="search-input" placeholder="Search name, trade, or city..." oninput="filterWorkers()">
     </div>
     <div class="filters" id="filters-el"></div>
-    <div class="grid" id="workers-grid"></div>
+    <div class="grid" id="workers-grid"><p style="color:var(--text-3);font-size:14px;padding:2rem 0">Loading workers...</p></div>
   </div>
 
-  <!-- HOW IT WORKS -->
   <div id="how-sec">
     <div class="div"></div>
     <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;margin-bottom:1.5rem">How it works</h2>
@@ -287,12 +354,11 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
         <div class="step"><div class="sn sn-g">2</div><div class="st">Browse the full pool of LBH-verified workers with full contact details</div></div>
         <div class="step"><div class="sn sn-g">3</div><div class="st">Filter by trade, location, Labour Score, hourly rate, and availability</div></div>
         <div class="step"><div class="sn sn-g">4</div><div class="st">Contact workers directly, view verified history, and book on your schedule</div></div>
-        <button class="btn btn-gold btn-full" style="margin-top:1.25rem;border:none;padding:10px 16px;border-radius:var(--rs);cursor:pointer;font-family:inherit;font-size:14px" onclick="showView('employers')">Employer Premium Access →</button>
+        <button class="btn btn-gold btn-full" style="margin-top:1.25rem;border:none;padding:10px 16px;border-radius:var(--rs);cursor:pointer;font-family:inherit;font-size:14px" onclick="showComingSoon()">Employer Access — Coming Soon</button>
       </div>
     </div>
   </div>
 
-  <!-- PRICING -->
   <div>
     <div class="div"></div>
     <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;margin-bottom:6px">Pricing</h2>
@@ -313,10 +379,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
         <button class="btn btn-p btn-full" onclick="showView('listed')">Get Listed</button>
       </div>
       <div class="pc feat">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:6px;margin-bottom:8px">
-          <div class="htag htag-g" style="margin-bottom:0">Employer Premium</div>
-          <div style="font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;background:var(--blue-dim);color:var(--blue);padding:3px 10px;border-radius:var(--rf);border:1px solid var(--blue-border)">Most Popular</div>
-        </div>
+        <div class="htag htag-g" style="margin-bottom:8px">Employer Premium</div>
         <div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700">Full Network Access</div>
         <div class="pa"><small>$</small>149</div>
         <div class="pp">per month · unlimited access · cancel anytime</div>
@@ -327,15 +390,14 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
           <li><span class="fchk">✓</span>Full Labour Score history and reviews</li>
           <li><span class="fchk">✓</span>Priority support from the LBH team</li>
         </ul>
-        <button class="btn btn-gold btn-full" style="border:none;padding:10px 16px;border-radius:var(--rs);cursor:pointer;font-family:inherit;font-size:14px;font-weight:700" onclick="showView('employers')">Get Employer Access</button>
+        <button class="btn btn-gold btn-full" style="border:none;padding:10px 16px;border-radius:var(--rs);cursor:pointer;font-family:inherit;font-size:14px;font-weight:700" onclick="showComingSoon()">Coming Soon</button>
       </div>
     </div>
   </div>
+</div>
+</div>
 
-</div><!-- /wrap -->
-</div><!-- /view-home -->
-
-<!-- PROFILE VIEW -->
+<!-- PROFILE VIEW (public) -->
 <div id="view-profile" style="display:none">
   <div class="wrap" style="padding-top:2rem;padding-bottom:4rem">
     <button class="back" onclick="showView('home')">
@@ -343,6 +405,15 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
       Back to browse
     </button>
     <div id="profile-content"></div>
+  </div>
+</div>
+
+<!-- DASHBOARD VIEW (logged-in tradie) -->
+<div id="view-dashboard" style="display:none">
+  <div class="wrap" style="padding-top:2rem;padding-bottom:4rem">
+    <div id="dashboard-content">
+      <p style="color:var(--text-3);font-size:14px">Loading dashboard...</p>
+    </div>
   </div>
 </div>
 
@@ -361,17 +432,19 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
         <div id="fs1">
           <div class="fsh">
             <h3>Your Details</h3>
-            <div class="sdots"><div class="sd on"></div><div class="sd"></div><div class="sd"></div></div>
+            <div class="sdots"><div class="sd on"></div><div class="sd"></div></div>
           </div>
+          <div id="reg-err" class="err-box"></div>
           <div class="fg2">
-            <div class="fr"><label>First Name</label><input type="text" placeholder="Jake"></div>
-            <div class="fr"><label>Last Name</label><input type="text" placeholder="Thompson"></div>
+            <div class="fr"><label>First Name *</label><input id="reg-fn" type="text" placeholder="Jake"></div>
+            <div class="fr"><label>Last Name *</label><input id="reg-ln" type="text" placeholder="Thompson"></div>
           </div>
-          <div class="fr"><label>Email Address</label><input type="email" placeholder="jake@example.com"></div>
-          <div class="fr"><label>Mobile Number</label><input type="tel" placeholder="04XX XXX XXX"></div>
+          <div class="fr"><label>Email Address *</label><input id="reg-email" type="email" placeholder="jake@example.com"></div>
+          <div class="fr"><label>Password *</label><input id="reg-pass" type="password" placeholder="Min 8 characters"></div>
+          <div class="fr"><label>Mobile Number</label><input id="reg-phone" type="tel" placeholder="04XX XXX XXX"></div>
           <div class="fg2">
-            <div class="fr"><label>Primary Trade</label>
-              <select>
+            <div class="fr"><label>Primary Trade *</label>
+              <select id="reg-trade">
                 <option value="">Select trade...</option>
                 <option>Carpenter</option><option>Electrician</option><option>Plumber</option>
                 <option>Concretor</option><option>Painter</option><option>Tiler</option>
@@ -379,110 +452,51 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
                 <option>Welder</option><option>Plasterer</option><option>General Labourer</option>
               </select>
             </div>
-            <div class="fr"><label>City / State</label><input type="text" placeholder="Sydney, NSW"></div>
+            <div class="fr"><label>City / State *</label><input id="reg-city" type="text" placeholder="Sydney, NSW"></div>
           </div>
-          <div class="fr"><label>Hourly Rate (AUD)</label><input type="text" placeholder="e.g. 65"></div>
-          <button class="btn btn-p btn-full" onclick="fstep(2)">Next: Experience →</button>
+          <div class="fr"><label>Hourly Rate (AUD)</label><input id="reg-rate" type="number" placeholder="e.g. 65" min="0"></div>
+          <button id="btn-step2" class="btn btn-p btn-full" onclick="goStep2()">Next: Experience →</button>
         </div>
+
         <!-- Step 2 -->
         <div id="fs2" style="display:none">
           <div class="fsh">
             <h3>Experience &amp; Certs</h3>
-            <div class="sdots"><div class="sd on"></div><div class="sd on"></div><div class="sd"></div></div>
+            <div class="sdots"><div class="sd on"></div><div class="sd on"></div></div>
           </div>
           <div class="fr"><label>Years of Experience</label>
-            <select>
+            <select id="reg-exp">
               <option>1–2 years</option><option>3–5 years</option>
               <option>5–10 years</option><option>10+ years</option>
             </select>
           </div>
-          <div class="fr"><label>Licence Number (if applicable)</label><input type="text" placeholder="e.g. CL123456"></div>
-          <div class="fr"><label>White Card Number</label><input type="text" placeholder="e.g. WC987654"></div>
+          <div class="fr"><label>Licence Number (if applicable)</label><input id="reg-lic" type="text" placeholder="e.g. CL123456"></div>
+          <div class="fr"><label>White Card Number</label><input id="reg-wc" type="text" placeholder="e.g. WC987654"></div>
           <div class="fr"><label>About Yourself</label>
-            <textarea placeholder="Describe your specialties, the type of jobs you take on, and what sets you apart..."></textarea>
+            <textarea id="reg-bio" placeholder="Describe your specialties, the type of jobs you take on, and what sets you apart..."></textarea>
           </div>
+          <div id="pay-err" class="err-box"></div>
           <div class="ff">
             <button class="btn btn-g" onclick="fstep(1)">← Back</button>
-            <button class="btn btn-p" style="flex:1" onclick="fstep(3)">Next: Payment →</button>
+            <button id="btn-pay" class="btn btn-p" style="flex:1" onclick="handleRegistration()">Create My Profile →</button>
           </div>
         </div>
-        <!-- Step 3 -->
-        <div id="fs3" style="display:none">
-          <div class="fsh">
-            <h3>Listing Fee</h3>
-            <div class="sdots"><div class="sd on"></div><div class="sd on"></div><div class="sd on"></div></div>
-          </div>
-          <div class="sumbox">
-            <div class="sumr"><span style="color:var(--text-2)">Tradie listing (one-time)</span><span>$29.00</span></div>
-            <div class="sumr"><span style="color:var(--text-2)">LBH Verification</span><span style="color:var(--green)">Included</span></div>
-            <div class="sumr"><span style="color:var(--text-2)">Labour Score setup</span><span style="color:var(--green)">Included</span></div>
-            <div class="sumr tot"><span>Total</span><span>$29.00 AUD</span></div>
-          </div>
-          <div class="notice">Payment is processed securely via our payment provider. We accept all major debit and credit cards. Your profile goes live within 24 hours of verification.</div>
-          <div class="ff">
-            <button class="btn btn-g" onclick="fstep(2)">← Back</button>
-            <button class="btn btn-p" style="flex:1" onclick="fcomplete()">Pay $29 &amp; Go Live →</button>
-          </div>
-        </div>
+
+        <!-- Step 3 (payment - disabled during testing) -->
+        <div id="fs3" style="display:none"></div>
+
         <!-- Complete -->
         <div id="fs-done" style="display:none">
           <div class="succ">
             <div class="succ-ic">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L19 7" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
-            <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;margin-bottom:8px">Application received!</h3>
-            <p style="font-size:14px;color:var(--text-2);max-width:360px;margin:0 auto 2rem;line-height:1.7">Our team will verify your details within 24 hours and your profile will go live. Check your email for confirmation.</p>
-            <button class="btn btn-p" onclick="showView('home')">Back to Browse</button>
+            <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;margin-bottom:8px">You're on the network!</h3>
+            <p style="font-size:14px;color:var(--text-2);max-width:360px;margin:0 auto 2rem;line-height:1.7">Your profile is live. Our team will verify your details within 24 hours. Check your email for confirmation.</p>
+            <button class="btn btn-p" onclick="showView('dashboard')">Go to My Dashboard →</button>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
-
-<!-- EMPLOYER VIEW -->
-<div id="view-employers" style="display:none">
-  <div class="wrap" style="padding-top:2rem;padding-bottom:4rem">
-    <button class="back" onclick="showView('home')">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Back
-    </button>
-    <div style="padding:3rem 0 2rem">
-      <div class="htag htag-g" style="margin-bottom:1rem">Employer Premium</div>
-      <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:46px;font-weight:700;line-height:1.1;margin-bottom:1rem">Access Australia's Best<br>Verified Tradies</h1>
-      <p style="font-size:16px;color:var(--text-2);max-width:520px;line-height:1.7;margin-bottom:2rem">Every worker in our network has been personally verified by the Labour by Hire team. Stop wasting time with unverified platforms — hire with confidence.</p>
-      <button class="btn btn-gold btn-lg">Get Premium Access — $149/mo</button>
-    </div>
-    <div class="emp-grid">
-      <div class="emp-f">
-        <div class="emp-fi"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3" stroke="#2196F3" stroke-width="1.5"/><path d="M3 17c0-3.314 3.134-6 7-6s7 2.686 7 6" stroke="#2196F3" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-        <div style="font-weight:600;margin-bottom:5px">Fully Verified Workers</div>
-        <div style="font-size:13px;color:var(--text-2);line-height:1.6">All tradies are licence-checked, White Card verified, and background screened by our team before listing.</div>
-      </div>
-      <div class="emp-f">
-        <div class="emp-fi"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="#2196F3" stroke-width="1.5"/><path d="M10 6v4l3 2" stroke="#2196F3" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-        <div style="font-weight:600;margin-bottom:5px">Labour Score System</div>
-        <div style="font-size:13px;color:var(--text-2);line-height:1.6">Our proprietary score rates every worker on quality, reliability, and on-time performance across all recorded jobs.</div>
-      </div>
-      <div class="emp-f">
-        <div class="emp-fi"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 5h14M3 10h10M3 15h6" stroke="#2196F3" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-        <div style="font-weight:600;margin-bottom:5px">Advanced Filtering</div>
-        <div style="font-size:13px;color:var(--text-2);line-height:1.6">Filter by trade, location, Labour Score, hourly rate, and availability. Find exactly who you need, fast.</div>
-      </div>
-    </div>
-    <div class="pc feat" style="max-width:480px">
-      <div class="htag htag-g">Employer Premium</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700">Full Network Access</div>
-      <div class="pa"><small>$</small>149</div>
-      <div class="pp">per month · unlimited access · cancel anytime</div>
-      <ul class="pfl">
-        <li><span class="fchk">✓</span>Unlimited access to all verified worker profiles</li>
-        <li><span class="fchk">✓</span>Direct phone and email contact for every worker</li>
-        <li><span class="fchk">✓</span>Full Labour Score history and community reviews</li>
-        <li><span class="fchk">✓</span>Advanced filters and saved searches</li>
-        <li><span class="fchk">✓</span>Priority support directly from the LBH team</li>
-      </ul>
-      <button class="btn btn-gold btn-full" style="border:none;padding:12px 16px;border-radius:var(--rs);cursor:pointer;font-family:inherit;font-size:15px;font-weight:700">Subscribe — $149/month</button>
     </div>
   </div>
 </div>
@@ -490,25 +504,53 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
 </main>
 
 <!-- LOGIN MODAL -->
-<div id="login-modal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);z-index:1000;display:flex;align-items:center;justify-content:center">
-  <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:2rem;max-width:400px;width:90%;max-height:90vh;overflow-y:auto">
+<div id="login-modal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);z-index:1000;align-items:center;justify-content:center">
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:2rem;max-width:400px;width:90%">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
       <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:700;margin:0">Sign In</h2>
-      <button onclick="hideLoginModal()" style="background:none;border:none;color:var(--text-2);font-size:24px;cursor:pointer;padding:0;width:24px;height:24px;display:flex;align-items:center;justify-content:center">×</button>
+      <button onclick="hideLoginModal()" style="background:none;border:none;color:var(--text-2);font-size:24px;cursor:pointer;line-height:1">×</button>
     </div>
-    <p style="font-size:14px;color:var(--text-2);margin-bottom:1.5rem">Access your tradie profile and manage your availability.</p>
     <div style="display:flex;flex-direction:column;gap:12px">
-      <div>
-        <label style="display:block;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-2);margin-bottom:6px">Email</label>
-        <input id="login-email" type="email" placeholder="your@email.com" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:6px;background:var(--bg-2);color:var(--text-1);font-family:inherit;font-size:14px;box-sizing:border-box">
-      </div>
-      <div>
-        <label style="display:block;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-2);margin-bottom:6px">Password</label>
-        <input id="login-password" type="password" placeholder="Enter your password" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:6px;background:var(--bg-2);color:var(--text-1);font-family:inherit;font-size:14px;box-sizing:border-box">
-      </div>
-      <div id="login-error" style="display:none;font-size:13px;color:#EF4444;padding:10px;background:rgba(239,68,68,0.1);border-radius:6px"></div>
-      <button onclick="handleLogin()" style="padding:12px;background:var(--blue);color:white;border:none;border-radius:6px;font-weight:600;cursor:pointer;font-size:14px">Sign In</button>
-      <p style="text-align:center;font-size:13px;color:var(--text-2);margin-top:0.5rem">Don't have an account? <button onclick="hideLoginModal(); showView('listed')" style="background:none;border:none;color:var(--blue);cursor:pointer;text-decoration:underline;padding:0;font-family:inherit">Get Listed</button></p>
+      <div class="fr" style="margin:0"><label>Email</label><input id="login-email" type="email" placeholder="your@email.com"></div>
+      <div class="fr" style="margin:0"><label>Password</label><input id="login-password" type="password" placeholder="Your password"></div>
+      <div id="login-error" class="err-box" style="margin:0"></div>
+      <button id="btn-login" class="btn btn-p btn-full" onclick="handleLogin()">Sign In</button>
+      <p style="text-align:center;font-size:13px;color:var(--text-2)">No account? <button onclick="hideLoginModal();showView('listed')" style="background:none;border:none;color:var(--blue);cursor:pointer;text-decoration:underline;padding:0;font-family:inherit">Get Listed →</button></p>
+    </div>
+  </div>
+</div>
+
+<!-- PAYWALL MODAL -->
+<div class="modal-overlay" id="paywall-modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closePaywall()">×</button>
+    <div class="modal-icon">🔒</div>
+    <div class="modal-title">Employer Premium Required</div>
+    <div class="modal-sub">Messaging tradies directly is an Employer Premium feature. Upgrade to unlock full contact access to every verified worker on the network.</div>
+    <ul class="modal-feats">
+      <li><span style="color:var(--gold)">★</span> Message any tradie directly</li>
+      <li><span style="color:var(--gold)">★</span> View phone &amp; email contact details</li>
+      <li><span style="color:var(--gold)">★</span> Unlimited worker searches &amp; filters</li>
+      <li><span style="color:var(--gold)">★</span> Full Labour Score history &amp; reviews</li>
+    </ul>
+    <button class="btn btn-gold btn-full" style="margin-bottom:10px;border:none;padding:12px;border-radius:var(--rs);font-size:15px;font-weight:700;cursor:pointer;font-family:inherit" onclick="handlePremiumSignup()">Upgrade to Premium — $149/mo</button>
+    <button class="btn btn-g btn-full" onclick="closePaywall()">Maybe Later</button>
+  </div>
+</div>
+
+<!-- COMPOSE MESSAGE MODAL -->
+<div class="modal-overlay" id="compose-modal">
+  <div class="compose-box">
+    <button class="modal-close" onclick="closeCompose()">×</button>
+    <h3>Message <span id="compose-to-name"></span></h3>
+    <div class="fr"><label>Your Name</label><input id="compose-name" type="text" placeholder="Your full name"></div>
+    <div class="fr"><label>Your Email</label><input id="compose-email" type="email" placeholder="your@company.com"></div>
+    <div class="fr"><label>Company (optional)</label><input id="compose-company" type="text" placeholder="ABC Constructions"></div>
+    <div class="fr"><label>Message</label><textarea id="compose-body" placeholder="Hi, I'm looking for a tradie for a job in..." style="min-height:110px"></textarea></div>
+    <div id="compose-err" class="err-box"></div>
+    <div class="ff">
+      <button class="btn btn-g" onclick="closeCompose()">Cancel</button>
+      <button id="btn-send" class="btn btn-p" style="flex:1" onclick="sendMessage()">Send Message</button>
     </div>
   </div>
 </div>
@@ -522,204 +564,393 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
         <div class="fl-tag">Labouring by the Hour · Australia</div>
       </div>
       <div class="flinks">
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-        <a href="#">Contact</a>
-        <a href="#">Help</a>
+        <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Contact</a><a href="#">Help</a>
       </div>
     </div>
-    <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border);font-size:12px;color:var(--text-3)">
-      © 2025 Labour by Hire Pty Ltd · All workers verified by LBH · ABN 12 345 678 901
+    <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border);font-size:12px;color:var(--text-3);display:flex;justify-content:space-between;align-items:center">
+      <span>© 2025 Labour by Hire Pty Ltd · All workers verified by LBH · ABN 12 345 678 901</span>
+      <a href="admin.html" style="font-size:11px;color:var(--text-3);opacity:.35;text-decoration:none">Admin</a>
     </div>
   </div>
 </footer>
 
 <script>
+// ─── CONFIG ───────────────────────────────────────────────────────────────────
+const API_URL = '/api';
 
-// Dynamic API URL - use same domain in production, localhost:5000 in development
-const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
-  ? 'http://localhost:5000/api' 
-  : `${window.location.origin}/api`;
-
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let token = localStorage.getItem('lbh_token');
 let currentWorker = null;
-let token = localStorage.getItem('token');
+let listings = [];
+let activeFilter = 'All';
 
-// Update nav on load
-if (token) {
-  const name = localStorage.getItem('workerName');
-  updateNavForLoggedIn(name);
+// ─── API ──────────────────────────────────────────────────────────────────────
+async function api(method, endpoint, body = null) {
+  const opts = {
+    method,
+    headers: { 'Content-Type': 'application/json' },
+  };
+  if (token) opts.headers['Authorization'] = `Bearer ${token}`;
+  if (body) opts.body = JSON.stringify(body);
+
+  const res = await fetch(`${API_URL}${endpoint}`, opts);
+
+  // If response is not JSON (e.g. HTML error page), throw a readable error
+  const contentType = res.headers.get('content-type') || '';
+  if (!contentType.includes('application/json')) {
+    throw new Error(`Server error (${res.status}) — check Railway logs`);
+  }
+
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || 'Something went wrong');
+  return data;
 }
 
-// API Helper
-const apifetch = async (method, endpoint, body = null) => {
-  const options = { method, headers: { 'Content-Type': 'application/json' } };
-  if (token) options.headers.Authorization = `Bearer ${token}`;
-  if (body) options.body = JSON.stringify(body);
-  const res = await fetch(`${API_URL}${endpoint}`, options);
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error || 'API error');
-  return data;
-};
 
-// Auth Functions
-const registerWorker = async (email, password, firstName, lastName, trade, city, rate) => {
-  const data = await apifetch('POST', '/auth/register', { email, password, firstName, lastName, trade, city, hourlyRate: rate });
-  token = data.token;
-  currentWorker = data.worker;
-  localStorage.setItem('token', token);
-  localStorage.setItem('workerName', `${data.worker.first_name} ${data.worker.last_name}`);
-  updateNavForLoggedIn(localStorage.getItem('workerName'));
-  return data;
-};
+// ─── AVATAR ──────────────────────────────────────────────────────────────────
+const LBH_DEFAULT_AVATAR = 'data:image/jpeg;base64,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';
 
-const loginWorker = async (email, password) => {
-  const data = await apifetch('POST', '/auth/login', { email, password });
-  token = data.token;
-  currentWorker = data.worker;
-  localStorage.setItem('token', token);
-  localStorage.setItem('workerName', `${data.worker.first_name} ${data.worker.last_name}`);
-  updateNavForLoggedIn(localStorage.getItem('workerName'));
-  return data;
-};
+// Get avatar for a worker (checks localStorage for custom upload)
+function getAvatar(workerId) {
+  return localStorage.getItem(`lbh_avatar_${workerId}`) || LBH_DEFAULT_AVATAR;
+}
 
-const logoutWorker = () => {
-  token = null;
-  currentWorker = null;
-  localStorage.removeItem('token');
-  localStorage.removeItem('workerName');
-  updateNavForLoggedOut();
-  showView('home');
-};
+// Render avatar img tag
+function avatarImg(workerId, size = '', uploadable = false) {
+  const src = getAvatar(workerId);
+  const cls = `av${size ? ' av-'+size : ''}${uploadable ? ' av-upload' : ''}`;
+  const click = uploadable ? `onclick="triggerAvatarUpload(${workerId})"` : '';
+  return `<div class="${cls}" ${click} title="${uploadable ? 'Click to change photo' : ''}"><img src="${src}" alt="Profile photo" onerror="this.style.display='none'"></div>`;
+}
 
-const updateNavForLoggedIn = (name) => {
+// Hidden file input for upload
+function triggerAvatarUpload(workerId) {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*';
+  input.onchange = e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) { toast('Image must be under 2MB', 'err'); return; }
+    const reader = new FileReader();
+    reader.onload = ev => {
+      localStorage.setItem(`lbh_avatar_${workerId}`, ev.target.result);
+      toast('Photo updated!');
+      // Refresh whatever view is showing
+      const dash = document.getElementById('view-dashboard');
+      if (dash && dash.style.display !== 'none') loadDashboard();
+      loadListings();
+    };
+    reader.readAsDataURL(file);
+  };
+  input.click();
+}
+
+// ─── BOOT ────────────────────────────────────────────────────────────────────
+(function init() {
+  if (token) {
+    const name = localStorage.getItem('lbh_name');
+    setNavLoggedIn(name);
+  }
+  loadListings();
+  renderFilters();
+})();
+
+// ─── TOAST ───────────────────────────────────────────────────────────────────
+function toast(msg, type = 'ok') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = `toast show ${type}`;
+  setTimeout(() => el.className = 'toast', 3000);
+}
+
+// ─── AUTH ────────────────────────────────────────────────────────────────────
+function setNavLoggedIn(name) {
   document.getElementById('nav-signin').style.display = 'none';
   document.getElementById('nav-loggedin').style.display = 'flex';
-  document.getElementById('nav-name').textContent = name;
-};
-
-const updateNavForLoggedOut = () => {
+  document.getElementById('nav-name').textContent = name || 'My Account';
+}
+function setNavLoggedOut() {
   document.getElementById('nav-signin').style.display = 'flex';
   document.getElementById('nav-loggedin').style.display = 'none';
-};
+}
+function logoutWorker() {
+  token = null; currentWorker = null;
+  localStorage.removeItem('lbh_token');
+  localStorage.removeItem('lbh_name');
+  setNavLoggedOut();
+  showView('home');
+  toast('Logged out');
+}
 
-const showLoginModal = () => {
+// Login modal
+function showLoginModal() {
   document.getElementById('login-modal').style.display = 'flex';
   document.getElementById('login-error').style.display = 'none';
-  document.getElementById('login-email').value = '';
-  document.getElementById('login-password').value = '';
-};
-
-const hideLoginModal = () => {
+}
+function hideLoginModal() {
   document.getElementById('login-modal').style.display = 'none';
-};
-
-const handleLogin = async () => {
+}
+async function handleLogin() {
   const email = document.getElementById('login-email').value.trim();
   const password = document.getElementById('login-password').value;
-  const errorEl = document.getElementById('login-error');
-  
+  const errEl = document.getElementById('login-error');
+  const btn = document.getElementById('btn-login');
+
+  errEl.style.display = 'none';
   if (!email || !password) {
-    errorEl.textContent = 'Please enter both email and password';
-    errorEl.style.display = 'block';
+    errEl.textContent = 'Please enter email and password';
+    errEl.style.display = 'block'; return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin"></span> Signing in...';
+  try {
+    const data = await api('POST', '/auth/login', { email, password });
+    token = data.token;
+    currentWorker = data.worker;
+    localStorage.setItem('lbh_token', token);
+    localStorage.setItem('lbh_name', `${data.worker.first_name} ${data.worker.last_name}`);
+    setNavLoggedIn(`${data.worker.first_name} ${data.worker.last_name}`);
+    hideLoginModal();
+    toast('Welcome back, ' + data.worker.first_name + '!');
+    showView('dashboard');
+  } catch (err) {
+    errEl.textContent = err.message;
+    errEl.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = 'Sign In';
+  }
+}
+
+// ─── REGISTRATION ────────────────────────────────────────────────────────────
+function goStep2() {
+  const fn = document.getElementById('reg-fn').value.trim();
+  const ln = document.getElementById('reg-ln').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const pass = document.getElementById('reg-pass').value;
+  const trade = document.getElementById('reg-trade').value;
+  const city = document.getElementById('reg-city').value.trim();
+  const errEl = document.getElementById('reg-err');
+
+  errEl.style.display = 'none';
+  if (!fn || !ln || !email || !pass || !trade || !city) {
+    errEl.textContent = 'Please fill in all required fields';
+    errEl.style.display = 'block'; return;
+  }
+  if (pass.length < 8) {
+    errEl.textContent = 'Password must be at least 8 characters';
+    errEl.style.display = 'block'; return;
+  }
+  if (!/\S+@\S+\.\S+/.test(email)) {
+    errEl.textContent = 'Please enter a valid email address';
+    errEl.style.display = 'block'; return;
+  }
+  fstep(2);
+}
+
+async function handleRegistration() {
+  const btn = document.getElementById('btn-pay');
+  const errEl = document.getElementById('pay-err');
+
+  const payload = {
+    firstName:  document.getElementById('reg-fn').value.trim(),
+    lastName:   document.getElementById('reg-ln').value.trim(),
+    email:      document.getElementById('reg-email').value.trim(),
+    password:   document.getElementById('reg-pass').value,
+    trade:      document.getElementById('reg-trade').value,
+    city:       document.getElementById('reg-city').value.trim(),
+    hourlyRate: parseFloat(document.getElementById('reg-rate').value) || 0,
+    bio:        document.getElementById('reg-bio').value.trim(),
+  };
+
+  errEl.style.display = 'none';
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin"></span> Creating your profile...';
+
+  try {
+    const data = await api('POST', '/auth/register', payload);
+    token = data.token;
+    currentWorker = data.worker;
+    localStorage.setItem('lbh_token', token);
+    localStorage.setItem('lbh_name', `${data.worker.first_name} ${data.worker.last_name}`);
+    setNavLoggedIn(`${data.worker.first_name} ${data.worker.last_name}`);
+
+    // Also create a listing if they filled in a bio/title
+    try {
+      await api('POST', '/auth/listing', {
+        title: `${payload.trade} — ${payload.city}`,
+        description: payload.bio || `Professional ${payload.trade} available in ${payload.city}.`,
+        skills: [payload.trade],
+        availability: 'Available now',
+      });
+    } catch (e) { /* listing creation is best-effort */ }
+
+    [1,2,3].forEach(i => document.getElementById('fs'+i).style.display = 'none');
+    document.getElementById('fs-done').style.display = 'block';
+    toast('Profile created! Welcome to LBH 🎉');
+    await loadListings(); // refresh the browse list
+  } catch (err) {
+    errEl.textContent = err.message;
+    errEl.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = 'Create My Profile →';
+  }
+}
+
+// ─── DASHBOARD ───────────────────────────────────────────────────────────────
+async function loadDashboard() {
+  const el = document.getElementById('dashboard-content');
+  if (!token) {
+    el.innerHTML = `<p style="color:var(--text-2);font-size:14px">Please <button class="btn btn-p btn-sm" onclick="showLoginModal()">sign in</button> to view your dashboard.</p>`;
     return;
   }
-
+  el.innerHTML = '<p style="color:var(--text-3);font-size:14px">Loading...</p>';
   try {
-    await loginWorker(email, password);
-    hideLoginModal();
-    showView('home');
-  } catch (error) {
-    errorEl.textContent = error.message;
-    errorEl.style.display = 'block';
-  }
-};
+    const data = await api('GET', '/auth/profile');
+    const w = data.worker;
+    const listing = data.listing || null;
+    const name = `${w.first_name} ${w.last_name}`;
+    const ini = (w.first_name[0] + w.last_name[0]).toUpperCase();
 
-// API Calls
-const getListings = async () => {
+    el.innerHTML = `
+      <div class="dash-header">
+        <div class="av av-lg">${ini}</div>
+        <div class="dash-info">
+          <div class="dash-name">${name}</div>
+          <div class="dash-meta">${w.trade} · ${w.city || 'Location not set'}</div>
+          <div style="margin-top:8px">
+            <span class="status-dot pending">● Profile pending verification</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-g btn-sm" onclick="showEditProfile()">Edit Profile</button>
+        </div>
+      </div>
+
+      <div class="dash-grid">
+        <div class="dash-card">
+          <h3>Profile Details</h3>
+          <div class="field-row"><span class="field-label">Name</span><span class="field-val">${name}</span></div>
+          <div class="field-row"><span class="field-label">Trade</span><span class="field-val">${w.trade}</span></div>
+          <div class="field-row"><span class="field-label">City</span><span class="field-val">${w.city || '—'}</span></div>
+          <div class="field-row"><span class="field-label">Hourly Rate</span><span class="field-val">${w.hourly_rate ? '$'+w.hourly_rate+'/hr' : '—'}</span></div>
+          <div class="field-row"><span class="field-label">Email</span><span class="field-val" style="font-size:12px">${w.email}</span></div>
+          <div class="field-row"><span class="field-label">Member Since</span><span class="field-val">${new Date(w.created_at).toLocaleDateString('en-AU',{month:'short',year:'numeric'})}</span></div>
+        </div>
+
+        <div class="dash-card">
+          <h3>My Listing</h3>
+          ${listing ? `
+            <div class="listing-box">
+              <div class="listing-title">${listing.title || w.trade + ' — ' + w.city}</div>
+              <div class="listing-desc" style="margin-top:4px">${listing.description || 'No description yet.'}</div>
+            </div>
+            <div class="field-row"><span class="field-label">Status</span><span class="status-dot live">● Live</span></div>
+            <div class="field-row"><span class="field-label">Availability</span><span class="field-val">${listing.availability || '—'}</span></div>
+            <button class="btn btn-g btn-sm btn-full" style="margin-top:1rem" onclick="showEditListing()">Edit Listing</button>
+          ` : `
+            <p style="font-size:13px;color:var(--text-3);margin-bottom:1rem">You haven't created a listing yet.</p>
+            <button class="btn btn-p btn-full" onclick="showCreateListing()">Create Listing →</button>
+          `}
+        </div>
+      </div>
+
+      ${w.bio ? `
+      <div class="pcard" style="margin-bottom:1rem">
+        <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">About Me</h3>
+        <p style="font-size:14px;color:var(--text-2);line-height:1.7">${w.bio}</p>
+      </div>` : ''}
+
+      <div class="dash-card" style="margin-bottom:1rem">
+        <h3 style="display:flex;align-items:center;gap:6px">
+          Messages
+          <span id="inbox-badge" class="unread-badge"></span>
+        </h3>
+        <div id="inbox-container"><p style="color:var(--text-3);font-size:13px">Loading messages...</p></div>
+      </div>
+    `;
+    loadInbox('inbox-container');
+  } catch (err) {
+    el.innerHTML = `<div class="err-box" style="display:block">Failed to load dashboard: ${err.message}</div>`;
+  }
+}
+
+function showEditProfile() {
+  toast('Edit profile coming soon', 'ok');
+}
+function showEditListing() {
+  toast('Edit listing coming soon', 'ok');
+}
+function showCreateListing() {
+  toast('Create listing — coming soon', 'ok');
+}
+
+// ─── BROWSE / LISTINGS ───────────────────────────────────────────────────────
+const TRADES = ['All','Carpenter','Electrician','Plumber','Concretor','Painter','Tiler','Landscaper','Bricklayer','Welder'];
+
+async function loadListings() {
   try {
-    const data = await apifetch('GET', '/listings');
-    return data.listings || [];
-  } catch (error) {
-    console.error('Failed to fetch listings:', error);
-    return [];
+    const data = await api('GET', '/listings');
+    listings = data.listings || [];
+    // Update stat
+    const statEl = document.getElementById('stat-workers');
+    if (statEl) statEl.textContent = listings.length || '0';
+    filterWorkers();
+  } catch (err) {
+    const el = document.getElementById('workers-grid');
+    if (el) el.innerHTML = '<p style="color:var(--text-3);font-size:14px;padding:2rem 0">No workers listed yet — be the first!</p>';
   }
-};
+}
 
-const postJob = async (title, description, trade, location, budget, urgency) => {
-  return await apifetch('POST', '/jobs', { title, description, tradeRequired: trade, location, budget, urgency });
-};
-
-const getJobs = async () => {
-  try {
-    const data = await apifetch('GET', '/jobs');
-    return data.jobs || [];
-  } catch (error) {
-    console.error('Failed to fetch jobs:', error);
-    return [];
-  }
-};
-
-const getNotifications = async () => {
-  try {
-    if (!token) return [];
-    const data = await apifetch('GET', '/notifications');
-    return data.notifications || [];
-  } catch (error) {
-    console.error('Failed to fetch notifications:', error);
-    return [];
-  }
-};
-
-// UI Functions
-const TRADES = ['All', 'Carpenter', 'Electrician', 'Plumber', 'Concretor', 'Painter', 'Tiler', 'Landscaper', 'Bricklayer', 'Welder'];
-let filter = 'All';
-let listings = [];
+function filterWorkers() {
+  const q = (document.getElementById('search-input')?.value || '').toLowerCase().trim();
+  const filtered = listings.filter(l => {
+    const w = l.worker || l;
+    const name = w.name || `${w.first_name} ${w.last_name}`;
+    const matchTrade = activeFilter === 'All' || w.trade === activeFilter;
+    const matchQ = !q || name.toLowerCase().includes(q) || w.trade.toLowerCase().includes(q) || (w.city||'').toLowerCase().includes(q);
+    return matchTrade && matchQ;
+  });
+  const el = document.getElementById('workers-grid');
+  if (!el) return;
+  el.innerHTML = filtered.length
+    ? filtered.map(l => renderCard(l.worker || l)).join('')
+    : '<p style="color:var(--text-2);font-size:14px;padding:3rem 0;text-align:center;grid-column:1/-1">No workers found matching your search.</p>';
+}
 
 function renderCard(w) {
-  const name = w.name || (w.first_name + ' ' + w.last_name);
-  const names = name.split(' ');
-  const ini = (names[0]?.substring(0, 1) || '') + (names[names.length - 1]?.substring(0, 1) || '');
+  const name = w.name || `${w.first_name} ${w.last_name}`;
+  const parts = name.trim().split(' ');
+  const ini = ((parts[0]?.[0] || '') + (parts[parts.length-1]?.[0] || '')).toUpperCase();
   return `<div class="card" onclick="showProfile(${w.id})">
     <div class="ct">
-      <div class="av">${ini.toUpperCase()}</div>
+      <div class="av">${ini}</div>
       <div class="cm">
         <div class="cn">${name}</div>
         <div class="ct2">${w.trade}</div>
-        <div class="cl">📍 ${w.city}</div>
+        <div class="cl">📍 ${w.city || 'Location TBC'}</div>
       </div>
-      <div style="width:64px;text-align:center;font-size:12px;color:var(--text-3)">Verified</div>
     </div>
     <div class="cf">
-      <div class="rate">$${w.hourly_rate}<small>/hr</small></div>
+      <div class="rate">${w.hourly_rate ? '$'+w.hourly_rate+'<small>/hr</small>' : '<small style="font-size:13px;color:var(--text-3)">Rate TBC</small>'}</div>
       <div class="vt"><div class="vdot"></div>LBH Verified</div>
     </div>
   </div>`;
 }
 
-async function loadListings() {
-  listings = await getListings();
-  filterWorkers();
-}
-
-function filterWorkers() {
-  const q = ((document.getElementById('search-input') || {}).value || '').toLowerCase().trim();
-  const list = listings.filter(l => {
-    const w = l.worker || l;
-    const name = w.name || (w.first_name + ' ' + w.last_name);
-    return (filter === 'All' || w.trade === filter) &&
-      (!q || name.toLowerCase().includes(q) || w.trade.toLowerCase().includes(q) || w.city.toLowerCase().includes(q));
-  });
-  const el = document.getElementById('workers-grid');
-  if (el) el.innerHTML = list.length ? list.map(l => renderCard(l.worker || l)).join('') : '<p style="color:var(--text-2);font-size:14px;padding:3rem 0;text-align:center;grid-column:1/-1">No workers found. Try a different search or filter.</p>';
-}
-
 function renderFilters() {
   const el = document.getElementById('filters-el');
-  if (el) el.innerHTML = TRADES.map(t => `<button class="chip ${t === filter ? 'on' : ''}" onclick="setFilter('${t}')">${t}</button>`).join('');
+  if (!el) return;
+  el.innerHTML = TRADES.map(t =>
+    `<button class="chip ${t === activeFilter ? 'on' : ''}" onclick="setFilter('${t}')">${t}</button>`
+  ).join('');
 }
 
 function setFilter(t) {
-  filter = t;
+  activeFilter = t;
   renderFilters();
   filterWorkers();
 }
@@ -728,86 +959,202 @@ function showProfile(id) {
   const listing = listings.find(x => (x.worker || x).id === id);
   if (!listing) return;
   const w = listing.worker || listing;
-  const name = w.name || (w.first_name + ' ' + w.last_name);
-  const names = name.split(' ');
-  const ini = (names[0]?.substring(0, 1) || '') + (names[names.length - 1]?.substring(0, 1) || '');
+  const name = w.name || `${w.first_name} ${w.last_name}`;
+  const parts = name.trim().split(' ');
+  const ini = ((parts[0]?.[0] || '') + (parts[parts.length-1]?.[0] || '')).toUpperCase();
   document.getElementById('profile-content').innerHTML = `
     <div class="pcard">
       <div class="ptop">
-        <div class="av av-lg">${ini.toUpperCase()}</div>
+        <div class="av av-lg">${ini}</div>
         <div class="pinfo">
           <div class="pname">${name}</div>
-          <div class="pmeta">${w.trade} · ${w.city}</div>
+          <div class="pmeta">${w.trade} · ${w.city || 'Location TBC'}</div>
           <div class="badges" style="margin-top:10px"><span class="bdg bg">LBH Verified</span></div>
         </div>
       </div>
-      <div class="pbio">${w.bio || 'Professional ' + w.trade + ' with expertise in the field.'}</div>
+      ${w.bio ? `<div class="pbio">${w.bio}</div>` : ''}
       <div class="pstats">
-        <div><div class="ps-n">$${w.hourly_rate}</div><div class="ps-l">Per Hour</div></div>
+        ${w.hourly_rate ? `<div><div class="ps-n">$${w.hourly_rate}</div><div class="ps-l">Per Hour</div></div>` : ''}
       </div>
       <div style="display:flex;gap:8px;margin-top:1.5rem">
-        <button class="btn btn-p" style="flex:1" onclick="alert('Contact worker directly through the platform.')">Contact Worker →</button>
-        <button class="btn btn-g" onclick="showView('home')">Back to Browse</button>
+        <button class="btn btn-p" style="flex:1" onclick="contactWorker(${w.id}, '${name.replace(/'/g,"\\'")}')">✉ Message Worker</button>
+        <button class="btn btn-g" onclick="showView('home')">Back</button>
       </div>
     </div>`;
   showView('profile');
 }
 
+// ─── VIEWS ───────────────────────────────────────────────────────────────────
 function showView(v) {
-  ['home', 'profile', 'listed', 'employers'].forEach(n => {
-    const el = document.getElementById('view-' + n);
+  ['home','profile','listed','dashboard'].forEach(n => {
+    const el = document.getElementById('view-'+n);
     if (el) el.style.display = n === v ? 'block' : 'none';
   });
-  window.scrollTo(0, 0);
-  if (v === 'home') {
-    setTimeout(() => {
-      loadListings();
-      renderFilters();
-    }, 0);
-  }
+  window.scrollTo(0,0);
+  if (v === 'home') { loadListings(); renderFilters(); }
+  if (v === 'dashboard') loadDashboard();
 }
 
 function scrollToHow() {
   showView('home');
-  setTimeout(() => {
-    const el = document.getElementById('how-sec');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  }, 50);
+  setTimeout(() => document.getElementById('how-sec')?.scrollIntoView({behavior:'smooth'}), 50);
 }
 
+function showComingSoon() {
+  toast('Employer access launching soon — stay tuned!', 'ok');
+}
+
+// ─── FORM STEPS ──────────────────────────────────────────────────────────────
 function fstep(n) {
-  [1, 2, 3].forEach(i => document.getElementById('fs' + i).style.display = i === n ? 'block' : 'none');
+  [1,2,3].forEach(i => document.getElementById('fs'+i).style.display = i === n ? 'block' : 'none');
 }
 
-async function handleRegistration() {
-  const fn = document.querySelector('#fs1 input[placeholder="Jake"]').value;
-  const ln = document.querySelector('#fs1 input[placeholder="Thompson"]').value;
-  const email = document.querySelector('#fs1 input[placeholder*="@"]').value;
-  const trade = document.querySelector('#fs1 select').value;
-  const city = document.querySelector('#fs1 input[placeholder*="Sydney"]').value;
-  const rate = parseInt(document.querySelector('#fs1 input[placeholder*="65"]').value || 0);
+// ─── MESSAGING ───────────────────────────────────────────────────────────────
+let composeWorkerId = null;
+let premiumActive = false; // flip to true when employer pays
 
-  if (!fn || !ln || !email || !trade) {
-    alert('Please fill all fields');
+function contactWorker(workerId, workerName) {
+  if (!premiumActive) {
+    openPaywall();
     return;
   }
+  openCompose(workerId, workerName);
+}
 
+// Paywall
+function openPaywall() {
+  document.getElementById('paywall-modal').classList.add('open');
+}
+function closePaywall() {
+  document.getElementById('paywall-modal').classList.remove('open');
+}
+function handlePremiumSignup() {
+  // In testing: just unlock and let them message
+  premiumActive = true;
+  closePaywall();
+  toast('Premium activated! You can now message tradies. ✓');
+}
+
+// Compose
+function openCompose(workerId, workerName) {
+  composeWorkerId = workerId;
+  document.getElementById('compose-to-name').textContent = workerName;
+  document.getElementById('compose-name').value = '';
+  document.getElementById('compose-email').value = '';
+  document.getElementById('compose-company').value = '';
+  document.getElementById('compose-body').value = '';
+  document.getElementById('compose-err').style.display = 'none';
+  document.getElementById('compose-modal').classList.add('open');
+}
+function closeCompose() {
+  document.getElementById('compose-modal').classList.remove('open');
+  composeWorkerId = null;
+}
+async function sendMessage() {
+  const name = document.getElementById('compose-name').value.trim();
+  const email = document.getElementById('compose-email').value.trim();
+  const body = document.getElementById('compose-body').value.trim();
+  const company = document.getElementById('compose-company').value.trim();
+  const errEl = document.getElementById('compose-err');
+  const btn = document.getElementById('btn-send');
+
+  errEl.style.display = 'none';
+  if (!name || !email || !body) {
+    errEl.textContent = 'Please fill in your name, email, and message.';
+    errEl.style.display = 'block'; return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin"></span> Sending...';
   try {
-    await registerWorker(email, 'TempPass123!', fn, ln, trade, city, rate);
-    fstep(3);
-  } catch (error) {
-    alert('Registration failed: ' + error.message);
+    await api('POST', `/messages/${composeWorkerId}`, { from_name: name, from_email: email, company, body });
+    closeCompose();
+    toast('Message sent! The tradie will be notified. ✓');
+  } catch(e) {
+    errEl.textContent = e.message;
+    errEl.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = 'Send Message';
   }
 }
 
-function fcomplete() {
-  [1, 2, 3].forEach(i => document.getElementById('fs' + i).style.display = 'none');
-  document.getElementById('fs-done').style.display = 'block';
+// Inbox (shown in tradie dashboard)
+async function loadInbox(containerId) {
+  const el = document.getElementById(containerId);
+  if (!el || !token) return;
+  try {
+    const data = await api('GET', '/messages');
+    const msgs = data.messages || [];
+    const unread = msgs.filter(m => !m.read).length;
+
+    // Update inbox badge in dashboard header if present
+    const badge = document.getElementById('inbox-badge');
+    if (badge) badge.textContent = unread > 0 ? unread : '';
+
+    if (!msgs.length) {
+      el.innerHTML = '<div class="inbox-empty">📭 No messages yet.<br><span style="font-size:12px">When employers contact you, messages will appear here.</span></div>';
+      return;
+    }
+
+    el.innerHTML = `<div class="msg-list">${msgs.map(m => `
+      <div class="msg-item ${m.read ? '' : 'unread'}" onclick="openMessage(${m.id}, '${containerId}')">
+        <div class="msg-row">
+          <div>
+            <div class="msg-from">${m.from_name}${!m.read ? '<span class="msg-unread-dot"></span>' : ''}
+              ${m.company ? `<span style="font-size:11px;color:var(--text-3);font-weight:400;margin-left:6px">${m.company}</span>` : ''}
+            </div>
+            <div class="msg-preview">${m.body}</div>
+          </div>
+          <div class="msg-time">${formatMsgTime(m.time)}</div>
+        </div>
+      </div>
+    `).join('')}</div>`;
+  } catch(e) {
+    el.innerHTML = `<div class="err-box" style="display:block">Failed to load messages: ${e.message}</div>`;
+  }
 }
 
-// Init
-loadListings();
-renderFilters();
+async function openMessage(msgId, containerId) {
+  const el = document.getElementById(containerId);
+  try {
+    // Mark as read via API, get messages list to find this one
+    await api('PUT', `/notifications/${msgId}/read`).catch(() => {}); // best-effort
+    const data = await api('GET', '/messages');
+    const msg = (data.messages || []).find(m => m.id === msgId);
+    if (!msg) { el.innerHTML = '<p style="color:var(--text-3)">Message not found.</p>'; return; }
+
+    el.innerHTML = `
+      <button class="back" style="margin-bottom:12px" onclick="loadInbox('${containerId}')">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back to inbox
+      </button>
+      <div class="msg-full">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:10px">
+          <div>
+            <div style="font-weight:600;font-size:15px">${msg.from_name}</div>
+            <div class="msg-meta">${msg.company ? msg.company + ' · ' : ''}<a href="mailto:${msg.from_email}" style="color:var(--blue)">${msg.from_email}</a></div>
+          </div>
+          <div class="msg-time">${formatMsgTime(msg.time || msg.created_at)}</div>
+        </div>
+        <div class="msg-body">${msg.body}</div>
+        <div style="margin-top:1rem;display:flex;gap:8px">
+          <a href="mailto:${msg.from_email}?subject=Re: Labour by Hire enquiry" class="btn btn-p btn-sm">Reply via Email →</a>
+          <button class="btn btn-g btn-sm" onclick="loadInbox('${containerId}')">Back</button>
+        </div>
+      </div>`;
+  } catch(e) {
+    el.innerHTML = `<div class="err-box" style="display:block">Failed to load message: ${e.message}</div>`;
+  }
+}
+
+function formatMsgTime(iso) {
+  const d = new Date(iso);
+  const now = new Date();
+  const diff = now - d;
+  if (diff < 86400000) return d.toLocaleTimeString('en-AU', {hour:'2-digit',minute:'2-digit'});
+  return d.toLocaleDateString('en-AU', {day:'numeric',month:'short'});
+}
 </script>
 </body>
 </html>
