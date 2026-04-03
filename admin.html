@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LBH Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@700&display=swap" rel="stylesheet">
+  <style>
+:root{
+  --bg:#0b0d12;--surface:#111318;--surface-2:#181b24;--surface-3:#1e222e;
+  --border:rgba(255,255,255,0.07);--border-2:rgba(255,255,255,0.13);
+  --blue:#2196F3;--blue-dim:rgba(33,150,243,0.1);--blue-border:rgba(33,150,243,0.25);
+  --gold:#F59E0B;--gold-dim:rgba(245,158,11,0.1);--gold-border:rgba(245,158,11,0.25);
+  --green:#22C55E;--green-dim:rgba(34,197,94,0.1);--green-border:rgba(34,197,94,0.2);
+  --red:#EF4444;--red-dim:rgba(239,68,68,0.08);--red-border:rgba(239,68,68,0.25);
+  --purple:#A855F7;--purple-dim:rgba(168,85,247,0.1);
+  --text:#E8EAF2;--text-2:#9299AA;--text-3:#5A6070;
+  --r:10px;--rs:6px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--text);font-family:'Barlow',system-ui,sans-serif;font-size:14px;line-height:1.6;min-height:100vh}
+a{color:var(--blue);text-decoration:none}
+
+/* LOGIN */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem}
+.login-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:2.5rem;width:100%;max-width:380px}
+.login-logo{display:flex;align-items:center;gap:10px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;margin-bottom:2rem}
+.login-logo-icon{width:36px;height:36px;border-radius:8px;background:var(--red-dim);border:1px solid var(--red-border);display:flex;align-items:center;justify-content:center}
+.login-tag{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--red);background:var(--red-dim);border:1px solid var(--red-border);padding:3px 10px;border-radius:100px;margin-left:auto}
+
+/* LAYOUT */
+.shell{display:flex;min-height:100vh}
+.sidebar{width:220px;background:var(--surface);border-right:1px solid var(--border);flex-shrink:0;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto}
+.main{flex:1;padding:2rem;overflow:auto}
+.s-logo{padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.s-logo-txt{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px}
+.s-tag{font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--red);background:var(--red-dim);padding:2px 7px;border-radius:100px;border:1px solid var(--red-border)}
+.snav{padding:1rem 0;flex:1}
+.slink{display:flex;align-items:center;gap:10px;padding:9px 1.5rem;font-size:13px;color:var(--text-2);cursor:pointer;border:none;background:none;font-family:inherit;width:100%;text-align:left;transition:background .1s}
+.slink:hover{background:var(--surface-2);color:var(--text)}
+.slink.on{background:var(--blue-dim);color:var(--blue);border-right:2px solid var(--blue)}
+.slink-ic{width:16px;height:16px;opacity:.6;flex-shrink:0}
+.slink.on .slink-ic{opacity:1}
+.sbadge{margin-left:auto;background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;min-width:18px;text-align:center}
+.s-bottom{padding:1rem 1.5rem;border-top:1px solid var(--border)}
+.s-user{font-size:12px;color:var(--text-3)}
+
+/* TOPBAR */
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:12px}
+.page-title{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700}
+.page-sub{font-size:13px;color:var(--text-3);margin-top:2px}
+
+/* CARDS */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem}
+.kpi-n{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:700;line-height:1}
+.kpi-l{font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:.4px;margin-top:4px}
+.kpi-delta{font-size:12px;font-weight:600;margin-top:6px}
+.kpi-delta.up{color:var(--green)}.kpi-delta.dn{color:var(--red)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;margin-bottom:1rem}
+.card-title{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:1.25rem;display:flex;align-items:center;justify-content:space-between}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text-3);padding:8px 12px;border-bottom:1px solid var(--border)}
+.tbl td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:var(--surface-2)}
+.badge{display:inline-flex;align-items:center;font-size:11px;font-weight:600;padding:3px 8px;border-radius:4px}
+.badge-g{background:var(--green-dim);color:var(--green)}
+.badge-b{background:var(--blue-dim);color:var(--blue)}
+.badge-r{background:var(--red-dim);color:var(--red)}
+.badge-gold{background:var(--gold-dim);color:var(--gold)}
+.badge-p{background:var(--purple-dim);color:var(--purple)}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:var(--rs);font-size:12px;font-weight:500;cursor:pointer;border:none;font-family:inherit;transition:opacity .15s}
+.btn:hover{opacity:.8}
+.btn-r{background:var(--red-dim);color:var(--red);border:1px solid var(--red-border)}
+.btn-g{background:var(--surface-2);color:var(--text-2);border:1px solid var(--border)}
+.btn-p{background:var(--blue);color:#fff}
+
+/* LOG */
+.log-wrap{background:var(--surface-2);border-radius:var(--rs);padding:1rem;font-family:'Courier New',monospace;font-size:12px;max-height:340px;overflow-y:auto;border:1px solid var(--border)}
+.log-line{padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.03);display:flex;gap:10px}
+.log-line:last-child{border-bottom:none}
+.log-ts{color:var(--text-3);flex-shrink:0;white-space:nowrap}
+.log-tag{flex-shrink:0;font-weight:700;width:52px}
+.log-INFO .log-tag{color:var(--blue)}
+.log-WARN .log-tag{color:var(--gold)}
+.log-ERROR .log-tag{color:var(--red)}
+.log-OK .log-tag{color:var(--green)}
+.log-txt{color:var(--text-2);word-break:break-all}
+
+/* FORM */
+.fr{margin-bottom:1rem}
+.fr label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text-3);margin-bottom:6px}
+.fr input{width:100%;padding:10px 13px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--rs);font-size:14px;color:var(--text);font-family:inherit;outline:none}
+.fr input:focus{border-color:var(--blue-border)}
+.fr input::placeholder{color:var(--text-3)}
+.err-box{background:var(--red-dim);border:1px solid var(--red-border);color:var(--red);padding:10px 14px;border-radius:var(--rs);font-size:13px;margin-bottom:1rem;display:none}
+
+/* TOAST */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:12px 18px;font-size:14px;z-index:9999;display:none;align-items:center;gap:10px;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.toast.show{display:flex}
+.toast.ok{border-color:var(--green-border);color:var(--green)}
+.toast.err{border-color:var(--red-border);color:var(--red)}
+
+/* CONFIRM */
+.confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;display:none;align-items:center;justify-content:center}
+.confirm-overlay.open{display:flex}
+.confirm-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:2rem;max-width:360px;width:90%;text-align:center}
+
+@media(max-width:768px){
+  .sidebar{display:none}
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .grid2{grid-template-columns:1fr}
+}
+  </style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<!-- CONFIRM DIALOG -->
+<div class="confirm-overlay" id="confirm-overlay">
+  <div class="confirm-box">
+    <div style="font-size:28px;margin-bottom:12px">⚠️</div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;margin-bottom:8px">Delete Tradie?</div>
+    <p style="font-size:13px;color:var(--text-2);margin-bottom:1.5rem" id="confirm-msg">This action cannot be undone.</p>
+    <div style="display:flex;gap:8px;justify-content:center">
+      <button class="btn btn-g" onclick="closeConfirm()">Cancel</button>
+      <button class="btn btn-r" id="confirm-yes">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIN SCREEN -->
+<div id="screen-login">
+  <div class="login-wrap">
+    <div class="login-box">
+      <div class="login-logo">
+        <div class="login-logo-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M10 2L18 16H2L10 2Z" stroke="#EF4444" stroke-width="1.5" fill="none"/>
+            <circle cx="10" cy="13" r="1" fill="#EF4444"/>
+            <path d="M10 7v4" stroke="#EF4444" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        LBH Admin
+        <span class="login-tag">Restricted</span>
+      </div>
+      <div class="fr"><label>Username</label><input id="l-user" type="text" placeholder="admin" autocomplete="off"></div>
+      <div class="fr"><label>Password</label><input id="l-pass" type="password" placeholder="••••••••"></div>
+      <div class="err-box" id="l-err"></div>
+      <button class="btn btn-p" style="width:100%;justify-content:center;padding:10px;font-size:14px" onclick="doLogin()">Sign In to Admin</button>
+      <p style="font-size:12px;color:var(--text-3);text-align:center;margin-top:1rem">Labour by Hire internal use only</p>
+      <p style="text-align:center;margin-top:12px"><a href="index.html" style="font-size:12px;color:var(--text-3)">← Back to site</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD SHELL -->
+<div id="screen-dash" style="display:none" class="shell">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="s-logo">
+      <div class="login-logo-icon" style="width:28px;height:28px">
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+          <path d="M10 2L18 16H2L10 2Z" stroke="#EF4444" stroke-width="1.5" fill="none"/>
+          <circle cx="10" cy="13" r="1" fill="#EF4444"/>
+          <path d="M10 7v4" stroke="#EF4444" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <div class="s-logo-txt">LBH Admin</div>
+      </div>
+    </div>
+    <nav class="snav">
+      <button class="slink on" onclick="nav('overview')" id="nav-overview">
+        <svg class="slink-ic" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="1" y="9" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="9" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/></svg>
+        Overview
+      </button>
+      <button class="slink" onclick="nav('tradies')" id="nav-tradies">
+        <svg class="slink-ic" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.2"/><path d="M2 14c0-3.314 2.686-6 6-6s6 2.686 6 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        Tradies
+      </button>
+      <button class="slink" onclick="nav('messages')" id="nav-messages">
+        <svg class="slink-ic" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v8H2z" stroke="currentColor" stroke-width="1.2" rx="1"/><path d="M5 7h6M5 9.5h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        Messages
+        <span class="sbadge" id="msg-badge">3</span>
+      </button>
+      <button class="slink" onclick="nav('premium')" id="nav-premium">
+        <svg class="slink-ic" viewBox="0 0 16 16" fill="none"><path d="M2 12L5 6l3 4 3-6 3 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Premium
+      </button>
+      <button class="slink" onclick="nav('logs')" id="nav-logs">
+        <svg class="slink-ic" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M2 8h8M2 12h10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        Logs
+        <span class="sbadge" id="err-badge">2</span>
+      </button>
+    </nav>
+    <div class="s-bottom">
+      <div class="s-user">Signed in as admin</div>
+      <button class="slink" onclick="doLogout()" style="padding:6px 0;margin-top:4px;color:var(--red)">
+        <svg class="slink-ic" viewBox="0 0 16 16" fill="none"><path d="M10 8H3M6 5l-3 3 3 3M10 3h3v10h-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Logout
+      </button>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main">
+
+    <!-- OVERVIEW -->
+    <div id="view-overview">
+      <div class="topbar">
+        <div>
+          <div class="page-title">Overview</div>
+          <div class="page-sub" id="overview-time"></div>
+        </div>
+        <button class="btn btn-g" onclick="refreshAll()">↻ Refresh</button>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi">
+          <div class="kpi-n" style="color:var(--blue)" id="kpi-tradies">6</div>
+          <div class="kpi-l">Registered Tradies</div>
+          <div class="kpi-delta up" id="kpi-tradies-d">+2 this week</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-n" style="color:var(--green)" id="kpi-msgs">3</div>
+          <div class="kpi-l">Messages Sent</div>
+          <div class="kpi-delta up">+3 today</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-n" style="color:var(--gold)" id="kpi-premium">1</div>
+          <div class="kpi-l">Premium Attempts</div>
+          <div class="kpi-delta up">+1 today</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-n" style="color:var(--red)" id="kpi-errors">2</div>
+          <div class="kpi-l">Errors (24h)</div>
+          <div class="kpi-delta dn">needs review</div>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <div class="card-title">New signups — last 7 days</div>
+          <div style="position:relative;height:200px"><canvas id="chart-signups"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Trade breakdown</div>
+          <div style="position:relative;height:200px"><canvas id="chart-trades"></canvas></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Recent activity</div>
+        <div id="recent-log"></div>
+      </div>
+    </div>
+
+    <!-- TRADIES -->
+    <div id="view-tradies" style="display:none">
+      <div class="topbar">
+        <div>
+          <div class="page-title">Tradies</div>
+          <div class="page-sub">All registered workers on the platform</div>
+        </div>
+        <input placeholder="Search tradies..." style="padding:8px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--rs);color:var(--text);font-family:inherit;font-size:13px;outline:none;width:220px" oninput="filterTradies(this.value)">
+      </div>
+      <div class="card" style="padding:0;overflow:hidden">
+        <table class="tbl" id="tradies-table">
+          <thead><tr>
+            <th>Name</th><th>Trade</th><th>City</th><th>Rate</th><th>Verified</th><th>Status</th><th>Joined</th><th>Actions</th>
+          </tr></thead>
+          <tbody id="tradies-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- MESSAGES -->
+    <div id="view-messages" style="display:none">
+      <div class="topbar">
+        <div>
+          <div class="page-title">Messages</div>
+          <div class="page-sub">All employer-to-tradie messages sent through the platform</div>
+        </div>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden">
+        <table class="tbl">
+          <thead><tr>
+            <th>From</th><th>To Tradie</th><th>Company</th><th>Preview</th><th>Sent</th><th>Status</th>
+          </tr></thead>
+          <tbody id="messages-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PREMIUM -->
+    <div id="view-premium" style="display:none">
+      <div class="topbar">
+        <div>
+          <div class="page-title">Premium Attempts</div>
+          <div class="page-sub">Employer upgrade clicks and paywall interactions</div>
+        </div>
+      </div>
+      <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr)">
+        <div class="kpi"><div class="kpi-n" style="color:var(--gold)">1</div><div class="kpi-l">Total Attempts</div></div>
+        <div class="kpi"><div class="kpi-n" style="color:var(--green)">1</div><div class="kpi-l">Activated (Testing)</div></div>
+        <div class="kpi"><div class="kpi-n" style="color:var(--blue)">$149</div><div class="kpi-l">Potential MRR</div></div>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden">
+        <table class="tbl">
+          <thead><tr>
+            <th>Time</th><th>Action</th><th>Worker Viewed</th><th>Outcome</th><th>IP (mock)</th>
+          </tr></thead>
+          <tbody id="premium-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- LOGS -->
+    <div id="view-logs" style="display:none">
+      <div class="topbar">
+        <div>
+          <div class="page-title">Server Logs</div>
+          <div class="page-sub">Live activity, errors and warnings</div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <select id="log-filter" onchange="renderLogs()" style="padding:6px 10px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--rs);color:var(--text);font-family:inherit;font-size:13px;outline:none">
+            <option value="ALL">All levels</option>
+            <option value="ERROR">Errors only</option>
+            <option value="WARN">Warnings</option>
+            <option value="INFO">Info</option>
+            <option value="OK">Success</option>
+          </select>
+          <button class="btn btn-g" onclick="addMockLog()">+ Simulate Event</button>
+        </div>
+      </div>
+      <div class="card" style="padding:0">
+        <div style="display:flex;gap:12px;padding:1rem 1.5rem;border-bottom:1px solid var(--border)">
+          <div style="font-size:12px;color:var(--text-3)">Showing <span id="log-count">0</span> entries</div>
+          <div style="font-size:12px;color:var(--red)" id="log-err-count"></div>
+        </div>
+        <div class="log-wrap" id="log-wrap" style="border:none;border-radius:0;max-height:500px"></div>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /shell -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+// ─── CREDENTIALS ─────────────────────────────────────────────────────────────
+const ADMIN_USER = 'admin';
+const ADMIN_PASS = 'lbh2025!';
+
+// ─── MOCK DATA ────────────────────────────────────────────────────────────────
+const mockTradies = [
+  { id:1, first_name:'Jake', last_name:'Thompson', email:'jake@test.com', trade:'Carpenter', city:'Sydney, NSW', hourly_rate:75, status:'active', verified:true, created_at:'2025-01-15T09:00:00Z' },
+  { id:2, first_name:'Maria', last_name:'Santos', email:'maria@test.com', trade:'Electrician', city:'Melbourne, VIC', hourly_rate:95, status:'active', verified:true, created_at:'2025-02-01T11:00:00Z' },
+  { id:3, first_name:'Brett', last_name:'Wilson', email:'brett@test.com', trade:'Plumber', city:'Brisbane, QLD', hourly_rate:85, status:'active', verified:false, created_at:'2025-02-10T08:30:00Z' },
+  { id:4, first_name:'Sandra', last_name:'Lee', email:'sandra@test.com', trade:'Painter', city:'Perth, WA', hourly_rate:65, status:'pending', verified:false, created_at:'2025-03-01T14:00:00Z' },
+  { id:5, first_name:'Tom', last_name:'Nguyen', email:'tom@test.com', trade:'Tiler', city:'Sydney, NSW', hourly_rate:70, status:'active', verified:true, created_at:'2025-03-05T10:00:00Z' },
+  { id:6, first_name:'Chris', last_name:'Baker', email:'chris@test.com', trade:'Concretor', city:'Adelaide, SA', hourly_rate:80, status:'active', verified:false, created_at:'2025-03-10T09:00:00Z' },
+];
+
+const mockMessages = [
+  { id:1, from_name:'BuildCo Pty Ltd', from_email:'jobs@buildco.com.au', company:'BuildCo', worker_id:1, worker_name:'Jake Thompson', body:'Hi Jake, we have a 3-week decking job in Parramatta...', time:'2025-03-28T09:14:00Z', read:false },
+  { id:2, from_name:'Renovate Right', from_email:'hr@renovateright.com.au', company:'Renovate Right', worker_id:1, worker_name:'Jake Thompson', body:"We saw your profile on Labour by Hire. We're looking for a carpenter...", time:'2025-03-26T14:30:00Z', read:true },
+  { id:3, from_name:'Spark Masters', from_email:'admin@sparkmasters.com.au', company:'Spark Masters', worker_id:2, worker_name:'Maria Santos', body:'Hi Maria, we have ongoing electrical work across 3 residential sites...', time:'2025-03-29T08:00:00Z', read:false },
+];
+
+const mockPremium = [
+  { time:'2025-03-29T10:22:00Z', action:'Paywall shown', worker:'Jake Thompson', outcome:'Upgraded (test)', ip:'203.45.67.89' },
+];
+
+const mockLogs = [
+  { ts:'2025-03-29T10:22:11Z', level:'OK',    msg:'POST /api/auth/register — Jake Thompson registered successfully' },
+  { ts:'2025-03-29T10:21:05Z', level:'INFO',  msg:'GET /api/listings — 6 results returned (45ms)' },
+  { ts:'2025-03-29T10:20:58Z', level:'OK',    msg:'POST /api/auth/login — maria@test.com authenticated' },
+  { ts:'2025-03-29T10:18:34Z', level:'WARN',  msg:'POST /api/auth/login — Failed attempt for unknown@email.com (3 attempts)' },
+  { ts:'2025-03-29T10:15:02Z', level:'ERROR', msg:'GET /api/auth/profile — JWT verification failed: invalid signature' },
+  { ts:'2025-03-29T10:12:44Z', level:'INFO',  msg:'GET /api/jobs — 0 active jobs, query took 12ms' },
+  { ts:'2025-03-29T10:10:30Z', level:'OK',    msg:'POST /api/jobs — Urgent job posted by employer_1711706224000' },
+  { ts:'2025-03-29T10:08:15Z', level:'ERROR', msg:'SQLite SQLITE_CONSTRAINT: UNIQUE constraint failed: workers.email' },
+  { ts:'2025-03-29T10:05:00Z', level:'INFO',  msg:'Server started on port 5000 — SQLite connected' },
+  { ts:'2025-03-29T09:58:44Z', level:'OK',    msg:'POST /api/messages/1 — Message delivered to Jake Thompson' },
+  { ts:'2025-03-29T09:55:11Z', level:'INFO',  msg:'GET /api/notifications — 2 unread for worker_id 1' },
+  { ts:'2025-03-29T09:50:00Z', level:'WARN',  msg:'CORS preflight from unknown origin: http://testsite.com' },
+];
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let currentView = 'overview';
+let filteredTradies = [...mockTradies];
+let allLogs = [...mockLogs];
+let deleteTarget = null;
+let chartsInitialised = false;
+
+// ─── LOGIN ────────────────────────────────────────────────────────────────────
+function doLogin() {
+  const u = document.getElementById('l-user').value.trim();
+  const p = document.getElementById('l-pass').value;
+  const err = document.getElementById('l-err');
+  if (u === ADMIN_USER && p === ADMIN_PASS) {
+    document.getElementById('screen-login').style.display = 'none';
+    document.getElementById('screen-dash').style.display = 'flex';
+    bootDash();
+  } else {
+    err.textContent = 'Invalid credentials. Access denied.';
+    err.style.display = 'block';
+  }
+}
+document.getElementById('l-pass').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+
+function doLogout() {
+  document.getElementById('screen-dash').style.display = 'none';
+  document.getElementById('screen-login').style.display = 'block';
+  document.getElementById('l-pass').value = '';
+  chartsInitialised = false;
+}
+
+// ─── NAV ──────────────────────────────────────────────────────────────────────
+function nav(v) {
+  ['overview','tradies','messages','premium','logs'].forEach(n => {
+    document.getElementById('view-'+n).style.display = n===v ? 'block' : 'none';
+    document.getElementById('nav-'+n)?.classList.toggle('on', n===v);
+  });
+  currentView = v;
+  if (v==='tradies') renderTradies();
+  if (v==='messages') renderMessages();
+  if (v==='premium') renderPremium();
+  if (v==='logs') renderLogs();
+}
+
+// ─── BOOT ─────────────────────────────────────────────────────────────────────
+function bootDash() {
+  document.getElementById('overview-time').textContent = 'Last updated: ' + new Date().toLocaleString('en-AU');
+  updateBadges();
+  renderRecentActivity();
+  setTimeout(initCharts, 100);
+  renderTradiesTable(mockTradies);
+}
+
+function updateBadges() {
+  const unreadMsgs = mockMessages.filter(m => !m.read).length;
+  document.getElementById('msg-badge').textContent = unreadMsgs;
+  document.getElementById('msg-badge').style.display = unreadMsgs ? '' : 'none';
+  const errCount = allLogs.filter(l => l.level==='ERROR').length;
+  document.getElementById('err-badge').textContent = errCount;
+  document.getElementById('err-badge').style.display = errCount ? '' : 'none';
+  document.getElementById('kpi-errors').textContent = errCount;
+  document.getElementById('kpi-msgs').textContent = mockMessages.length;
+  document.getElementById('kpi-tradies').textContent = mockTradies.length;
+}
+
+// ─── CHARTS ───────────────────────────────────────────────────────────────────
+function initCharts() {
+  if (chartsInitialised) return;
+  chartsInitialised = true;
+
+  const textColor = '#9299AA';
+  const gridColor = 'rgba(255,255,255,0.06)';
+
+  // Signups chart
+  new Chart(document.getElementById('chart-signups'), {
+    type: 'bar',
+    data: {
+      labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+      datasets: [{
+        label: 'Signups',
+        data: [1, 0, 2, 0, 1, 1, 1],
+        backgroundColor: 'rgba(33,150,243,0.7)',
+        borderRadius: 4,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { color: textColor, font:{size:11} }, grid: { color: gridColor } },
+        y: { ticks: { color: textColor, stepSize:1, font:{size:11} }, grid: { color: gridColor }, beginAtZero:true }
+      }
+    }
+  });
+
+  // Trades donut
+  const tradeCounts = {};
+  mockTradies.forEach(t => tradeCounts[t.trade] = (tradeCounts[t.trade]||0)+1);
+  new Chart(document.getElementById('chart-trades'), {
+    type: 'doughnut',
+    data: {
+      labels: Object.keys(tradeCounts),
+      datasets: [{
+        data: Object.values(tradeCounts),
+        backgroundColor: ['#2196F3','#22C55E','#F59E0B','#EF4444','#A855F7','#06B6D4'],
+        borderWidth: 0,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position:'right', labels:{ color: textColor, font:{size:11}, boxWidth:12, padding:10 } }
+      },
+      cutout: '65%',
+    }
+  });
+}
+
+// ─── RECENT ACTIVITY ──────────────────────────────────────────────────────────
+function renderRecentActivity() {
+  const el = document.getElementById('recent-log');
+  const recent = allLogs.slice(0, 6);
+  el.innerHTML = recent.map(l => `
+    <div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--border)">
+      <span class="badge ${l.level==='ERROR'?'badge-r':l.level==='WARN'?'badge-gold':l.level==='OK'?'badge-g':'badge-b'}" style="flex-shrink:0;margin-top:2px">${l.level}</span>
+      <span style="font-size:13px;color:var(--text-2);flex:1">${l.msg}</span>
+      <span style="font-size:11px;color:var(--text-3);white-space:nowrap">${fmtTime(l.ts)}</span>
+    </div>
+  `).join('') + '<div style="padding-top:10px"><button class="btn btn-g" onclick="nav(\'logs\')">View all logs →</button></div>';
+}
+
+// ─── TRADIES ──────────────────────────────────────────────────────────────────
+function renderTradies() { renderTradiesTable(filteredTradies); }
+
+function renderTradiesTable(list) {
+  const tbody = document.getElementById('tradies-tbody');
+  tbody.innerHTML = list.map(w => `
+    <tr>
+      <td>
+        <div style="font-weight:600">${w.first_name} ${w.last_name}</div>
+        <div style="font-size:11px;color:var(--text-3)">${w.email}</div>
+      </td>
+      <td><span class="badge badge-b">${w.trade}</span></td>
+      <td style="color:var(--text-2)">${w.city}</td>
+      <td style="font-weight:600">$${w.hourly_rate}/hr</td>
+      <td>
+        <button class="btn ${w.verified ? 'badge-g' : 'badge-r'}" style="gap:5px;border:none;cursor:pointer" onclick="toggleVerified(${w.id})">
+          ${w.verified
+            ? '<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Verified'
+            : '<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> Unverified'
+          }
+        </button>
+      </td>
+      <td><span class="badge ${w.status==='active'?'badge-g':'badge-gold'}">${w.status}</span></td>
+      <td style="color:var(--text-3);font-size:12px">${fmtDate(w.created_at)}</td>
+      <td>
+        <div style="display:flex;gap:6px">
+          <button class="btn btn-g" onclick="toggleStatus(${w.id})">${w.status==='active'?'Suspend':'Activate'}</button>
+          <button class="btn btn-r" onclick="confirmDelete(${w.id})">Delete</button>
+        </div>
+      </td>
+    </tr>
+  `).join('') || '<tr><td colspan="8" style="text-align:center;color:var(--text-3);padding:2rem">No tradies found</td></tr>';
+}
+
+function filterTradies(q) {
+  q = q.toLowerCase();
+  filteredTradies = q
+    ? mockTradies.filter(w => `${w.first_name} ${w.last_name} ${w.trade} ${w.city} ${w.email}`.toLowerCase().includes(q))
+    : [...mockTradies];
+  renderTradiesTable(filteredTradies);
+}
+
+function toggleStatus(id) {
+  const w = mockTradies.find(t => t.id===id);
+  if (!w) return;
+  w.status = w.status==='active' ? 'suspended' : 'active';
+  renderTradiesTable(filteredTradies);
+  toast(`${w.first_name} ${w.last_name} ${w.status==='active'?'activated':'suspended'}`);
+}
+
+function toggleVerified(id) {
+  const w = mockTradies.find(t => t.id===id);
+  if (!w) return;
+  w.verified = !w.verified;
+  renderTradiesTable(filteredTradies);
+  const state = w.verified ? 'verified ✓' : 'unverified';
+  toast(`${w.first_name} ${w.last_name} marked as ${state}`, w.verified ? 'ok' : 'err');
+  addLog(w.verified ? 'OK' : 'WARN', `Admin ${w.verified?'verified':'unverified'} tradie: ${w.first_name} ${w.last_name} (ID ${id})`);
+}
+
+function confirmDelete(id) {
+  const w = mockTradies.find(t => t.id===id);
+  if (!w) return;
+  deleteTarget = id;
+  document.getElementById('confirm-msg').textContent = `Delete ${w.first_name} ${w.last_name}? This cannot be undone.`;
+  document.getElementById('confirm-overlay').classList.add('open');
+  document.getElementById('confirm-yes').onclick = () => {
+    const idx = mockTradies.findIndex(t => t.id===id);
+    if (idx > -1) { mockTradies.splice(idx,1); filteredTradies = [...mockTradies]; }
+    closeConfirm();
+    renderTradiesTable(filteredTradies);
+    document.getElementById('kpi-tradies').textContent = mockTradies.length;
+    toast(`Tradie deleted`, 'err');
+    addLog('WARN', `Admin deleted tradie ID ${id}`);
+  };
+}
+
+function closeConfirm() {
+  document.getElementById('confirm-overlay').classList.remove('open');
+}
+
+// ─── MESSAGES ─────────────────────────────────────────────────────────────────
+function renderMessages() {
+  const tbody = document.getElementById('messages-tbody');
+  tbody.innerHTML = mockMessages.map(m => `
+    <tr>
+      <td>
+        <div style="font-weight:600">${m.from_name}</div>
+        <div style="font-size:11px;color:var(--text-3)">${m.from_email}</div>
+      </td>
+      <td style="color:var(--text-2)">${m.worker_name}</td>
+      <td style="color:var(--text-3)">${m.company}</td>
+      <td style="max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text-2)">${m.body}</td>
+      <td style="color:var(--text-3);font-size:12px;white-space:nowrap">${fmtDate(m.time)}</td>
+      <td><span class="badge ${m.read?'badge-g':'badge-b'}">${m.read?'Read':'Unread'}</span></td>
+    </tr>
+  `).join('');
+}
+
+// ─── PREMIUM ──────────────────────────────────────────────────────────────────
+function renderPremium() {
+  const tbody = document.getElementById('premium-tbody');
+  tbody.innerHTML = mockPremium.map(p => `
+    <tr>
+      <td style="color:var(--text-3);font-size:12px">${fmtDate(p.time)}</td>
+      <td><span class="badge badge-gold">${p.action}</span></td>
+      <td style="color:var(--text-2)">${p.worker}</td>
+      <td><span class="badge badge-g">${p.outcome}</span></td>
+      <td style="color:var(--text-3);font-family:monospace;font-size:12px">${p.ip}</td>
+    </tr>
+  `).join('') || '<tr><td colspan="5" style="text-align:center;color:var(--text-3);padding:2rem">No premium attempts yet</td></tr>';
+}
+
+// ─── LOGS ─────────────────────────────────────────────────────────────────────
+function renderLogs() {
+  const filter = document.getElementById('log-filter').value;
+  const filtered = filter==='ALL' ? allLogs : allLogs.filter(l => l.level===filter);
+  const errCount = filtered.filter(l => l.level==='ERROR').length;
+  document.getElementById('log-count').textContent = filtered.length;
+  document.getElementById('log-err-count').textContent = errCount ? `${errCount} error${errCount>1?'s':''}` : '';
+
+  const wrap = document.getElementById('log-wrap');
+  wrap.innerHTML = filtered.map(l => `
+    <div class="log-line log-${l.level}">
+      <span class="log-ts">${fmtFull(l.ts)}</span>
+      <span class="log-tag">[${l.level}]</span>
+      <span class="log-txt">${l.msg}</span>
+    </div>
+  `).join('') || '<div style="padding:1rem;color:var(--text-3);font-size:13px">No log entries match filter</div>';
+  wrap.scrollTop = 0;
+}
+
+const LOG_TEMPLATES = [
+  {level:'INFO',  msg:'GET /api/listings — 6 results returned (38ms)'},
+  {level:'OK',    msg:'POST /api/auth/login — New user authenticated successfully'},
+  {level:'WARN',  msg:'Rate limit approaching for IP 192.168.1.1 — 80/100 requests'},
+  {level:'ERROR', msg:'Unhandled promise rejection in /api/jobs — Cannot read properties of undefined'},
+  {level:'INFO',  msg:'GET /api/notifications — polling from worker_id 3'},
+  {level:'OK',    msg:'Database vacuum completed — freed 2.3MB'},
+];
+function addMockLog() {
+  const tpl = LOG_TEMPLATES[Math.floor(Math.random()*LOG_TEMPLATES.length)];
+  addLog(tpl.level, tpl.msg);
+  if (currentView==='logs') renderLogs();
+  if (currentView==='overview') renderRecentActivity();
+  updateBadges();
+}
+function addLog(level, msg) {
+  allLogs.unshift({ ts: new Date().toISOString(), level, msg });
+}
+
+// ─── REFRESH ──────────────────────────────────────────────────────────────────
+function refreshAll() {
+  document.getElementById('overview-time').textContent = 'Last updated: ' + new Date().toLocaleString('en-AU');
+  addLog('INFO', 'Admin manually refreshed dashboard');
+  renderRecentActivity();
+  updateBadges();
+  toast('Dashboard refreshed');
+}
+
+// ─── UTILS ────────────────────────────────────────────────────────────────────
+function fmtDate(iso) {
+  return new Date(iso).toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'});
+}
+function fmtTime(iso) {
+  const d = new Date(iso);
+  const now = new Date();
+  const diff = now - d;
+  if (diff < 86400000) return d.toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'});
+  return d.toLocaleDateString('en-AU',{day:'numeric',month:'short'});
+}
+function fmtFull(iso) {
+  return new Date(iso).toLocaleString('en-AU',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',second:'2-digit'});
+}
+function toast(msg, type='ok') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = `toast show ${type}`;
+  setTimeout(() => el.className='toast', 3000);
+}
+</script>
+</body>
+</html>
