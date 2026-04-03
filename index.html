@@ -261,6 +261,55 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
 </head>
 <body>
 
+<!-- ROLE SELECTOR SPLASH -->
+<div id="role-splash" style="position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem">
+
+  <div style="text-align:center;margin-bottom:3rem">
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:1rem">
+      <div style="width:40px;height:40px;border-radius:10px;background:var(--blue-dim);border:1px solid var(--blue-border);display:flex;align-items:center;justify-content:center">
+        <svg width="22" height="22" viewBox="0 0 20 20" fill="none">
+          <circle cx="10" cy="10" r="2.5" fill="#2196F3"/>
+          <ellipse cx="10" cy="10" rx="8.5" ry="3.5" stroke="#2196F3" stroke-width="1.2" fill="none"/>
+          <ellipse cx="10" cy="10" rx="8.5" ry="3.5" stroke="#2196F3" stroke-width="1.2" fill="none" transform="rotate(60 10 10)"/>
+          <ellipse cx="10" cy="10" rx="8.5" ry="3.5" stroke="#2196F3" stroke-width="1.2" fill="none" transform="rotate(120 10 10)"/>
+        </svg>
+      </div>
+      <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:22px">Labour by Hire</span>
+    </div>
+    <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:42px;font-weight:700;line-height:1.1;margin-bottom:10px">Welcome.<br>Who are you?</h1>
+    <p style="font-size:15px;color:var(--text-2);max-width:360px;margin:0 auto">We'll personalise your experience based on what brings you here.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:620px;width:100%">
+
+    <!-- TRADIE CARD -->
+    <div onclick="selectRole('tradie')" style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:2.5rem 2rem;cursor:pointer;text-align:center;transition:border-color .15s,transform .1s" onmouseover="this.style.borderColor='var(--blue-border)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+      <div style="font-size:52px;margin-bottom:1.25rem">🦺</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;margin-bottom:8px">I'm a Tradie</div>
+      <div style="font-size:13px;color:var(--text-2);line-height:1.6;margin-bottom:1.5rem">I want to list my skills, get verified, and receive job enquiries from employers.</div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:var(--blue-dim);color:var(--blue);border:1px solid var(--blue-border);padding:6px 16px;border-radius:100px;font-size:13px;font-weight:600">
+        Get Listed →
+      </div>
+    </div>
+
+    <!-- EMPLOYER CARD -->
+    <div onclick="selectRole('employer')" style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:2.5rem 2rem;cursor:pointer;text-align:center;transition:border-color .15s,transform .1s" onmouseover="this.style.borderColor='var(--gold-border)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+      <div style="font-size:52px;margin-bottom:1.25rem">🏗️</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;margin-bottom:8px">I'm an Employer</div>
+      <div style="font-size:13px;color:var(--text-2);line-height:1.6;margin-bottom:1.5rem">I want to find and contact verified tradies for jobs and projects across Australia.</div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-border);padding:6px 16px;border-radius:100px;font-size:13px;font-weight:600">
+        Browse Tradies →
+      </div>
+    </div>
+
+  </div>
+
+  <button onclick="selectRole('browse')" style="margin-top:2rem;background:none;border:none;font-family:inherit;font-size:13px;color:var(--text-3);cursor:pointer;padding:8px">
+    Just browsing — take me to the site
+  </button>
+
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
@@ -278,14 +327,15 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
       </div>
       Labour by Hire
     </div>
+    <div id="role-badge" style="display:none;font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:3px 10px;border-radius:100px;margin-left:4px"></div>
     <div class="nav-links">
       <button class="nl" onclick="showView('home')">Browse Workers</button>
-      <button class="nl" onclick="scrollToHow()">How It Works</button>
+      <button class="nl" onclick="showHowModal()">How It Works</button>
     </div>
     <div class="nr">
       <div id="nav-signin" style="display:flex;gap:8px">
         <button class="btn btn-g" onclick="showLoginModal()">Sign In</button>
-        <button class="btn btn-p" onclick="showView('listed')">Get Listed</button>
+        <button class="btn btn-p" onclick="showView('getlisted')">Get Listed</button>
       </div>
       <div id="nav-loggedin" style="display:none;align-items:center;gap:12px">
         <button class="nl" onclick="showView('dashboard')">My Dashboard</button>
@@ -311,7 +361,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
     <p>Every worker on Labour by Hire is screened, licence-checked, and certified by our team. No guesswork — just great tradies.</p>
     <div class="hero-btns">
       <button class="btn btn-p btn-lg" onclick="document.getElementById('browse-sec').scrollIntoView({behavior:'smooth'})">Browse Tradies</button>
-      <button class="btn btn-o btn-lg" onclick="showView('listed')">Post Your Skills →</button>
+      <button class="btn btn-o btn-lg" onclick="showView('getlisted')">Post Your Skills →</button>
     </div>
   </div>
 
@@ -345,7 +395,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
         <div class="step"><div class="sn sn-b">2</div><div class="st">Pay a small one-time listing fee via debit card to publish your profile</div></div>
         <div class="step"><div class="sn sn-b">3</div><div class="st">LBH verifies your licences and issues your Verified badge and Labour Score</div></div>
         <div class="step"><div class="sn sn-b">4</div><div class="st">Start receiving direct enquiries from premium employers</div></div>
-        <button class="btn btn-p btn-full" style="margin-top:1.25rem" onclick="showView('listed')">Create Your Profile →</button>
+        <button class="btn btn-p btn-full" style="margin-top:1.25rem" onclick="showView('getlisted')">Create Your Profile →</button>
       </div>
       <div class="how-c">
         <div class="htag htag-g">For Employers</div>
@@ -376,7 +426,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
           <li><span class="fchk">✓</span>Employers can find and contact you directly</li>
           <li><span class="fchk">✓</span>Appear in trade search and location filters</li>
         </ul>
-        <button class="btn btn-p btn-full" onclick="showView('listed')">Get Listed</button>
+        <button class="btn btn-p btn-full" onclick="showView('getlisted')">Get Listed</button>
       </div>
       <div class="pc feat">
         <div class="htag htag-g" style="margin-bottom:8px">Employer Premium</div>
@@ -420,7 +470,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
 <!-- GET LISTED VIEW -->
 <div id="view-listed" style="display:none">
   <div class="wrap" style="padding-top:2rem;padding-bottom:4rem">
-    <button class="back" onclick="showView('home')">
+    <button class="back" onclick="showView('getlisted')">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Back
     </button>
@@ -501,6 +551,174 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
   </div>
 </div>
 
+<!-- TRADIE LANDING PAGE -->
+<div id="view-getlisted" style="display:none">
+  <div class="wrap" style="padding-top:3rem;padding-bottom:5rem">
+
+    <!-- HERO -->
+    <div style="text-align:center;padding-bottom:3rem;border-bottom:1px solid var(--border);margin-bottom:3rem">
+      <div class="pill" style="margin-bottom:1.25rem">
+        <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="3.5" fill="currentColor"/></svg>
+        One-time listing · No subscription
+      </div>
+      <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:52px;font-weight:700;line-height:1.05;margin-bottom:1.25rem">Get Your Trade<br><span style="color:var(--blue)">In Front of Employers</span></h1>
+      <p style="font-size:17px;color:var(--text-2);max-width:500px;margin:0 auto 2rem;line-height:1.7">Labour by Hire connects verified tradies with premium employers across Australia. One profile. Unlimited enquiries.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-p btn-lg" onclick="showView('listed')">Create My Profile — $29 →</button>
+        <button class="btn btn-o btn-lg" onclick="showLoginModal()">Already listed? Sign In</button>
+      </div>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <div style="margin-bottom:3.5rem">
+      <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:700;margin-bottom:6px">How it works</h2>
+      <p style="font-size:14px;color:var(--text-3);margin-bottom:2rem">Up and running in 4 simple steps</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--blue-dim);border:1px solid var(--blue-border);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--blue);font-size:16px;margin-bottom:14px">1</div>
+          <div style="font-size:22px;margin-bottom:10px">📝</div>
+          <div style="font-weight:600;margin-bottom:6px">Create your profile</div>
+          <div style="font-size:13px;color:var(--text-2);line-height:1.6">Add your trade, experience, licence number, and hourly rate. Takes about 3 minutes.</div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--blue-dim);border:1px solid var(--blue-border);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--blue);font-size:16px;margin-bottom:14px">2</div>
+          <div style="font-size:22px;margin-bottom:10px">💳</div>
+          <div style="font-weight:600;margin-bottom:6px">Pay the listing fee</div>
+          <div style="font-size:13px;color:var(--text-2);line-height:1.6">One-time $29 AUD. No monthly fees, no commissions, no hidden costs. Ever.</div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--blue-dim);border:1px solid var(--blue-border);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--blue);font-size:16px;margin-bottom:14px">3</div>
+          <div style="font-size:22px;margin-bottom:10px">✅</div>
+          <div style="font-weight:600;margin-bottom:6px">We verify you</div>
+          <div style="font-size:13px;color:var(--text-2);line-height:1.6">Our team checks your licence and White Card within 24 hours. You get the LBH Verified badge.</div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--blue-dim);border:1px solid var(--blue-border);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--blue);font-size:16px;margin-bottom:14px">4</div>
+          <div style="font-size:22px;margin-bottom:10px">📬</div>
+          <div style="font-weight:600;margin-bottom:6px">Employers find you</div>
+          <div style="font-size:13px;color:var(--text-2);line-height:1.6">Your profile goes live. Premium employers search, view your Labour Score, and message you directly.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- WHAT YOU GET + PRICING -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:3.5rem">
+
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.75rem">
+        <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;margin-bottom:1.25rem">What you get for $29</h3>
+
+        <div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <span style="color:var(--green);flex-shrink:0">✓</span>
+          <div><div style="font-size:14px;font-weight:600">LBH Verified badge</div><div style="font-size:12px;color:var(--text-3);margin-top:2px">Employers know you've been checked — licence, White Card, identity.</div></div>
+        </div>
+        <div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <span style="color:var(--green);flex-shrink:0">✓</span>
+          <div><div style="font-size:14px;font-weight:600">Labour Score</div><div style="font-size:12px;color:var(--text-3);margin-top:2px">Your performance score based on job history, reviews, and reliability.</div></div>
+        </div>
+        <div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <span style="color:var(--green);flex-shrink:0">✓</span>
+          <div><div style="font-size:14px;font-weight:600">Public profile</div><div style="font-size:12px;color:var(--text-3);margin-top:2px">Searchable by trade, city, rate, and availability. No expiry.</div></div>
+        </div>
+        <div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <span style="color:var(--green);flex-shrink:0">✓</span>
+          <div><div style="font-size:14px;font-weight:600">Direct enquiries</div><div style="font-size:12px;color:var(--text-3);margin-top:2px">Employers message you through the platform. No middleman.</div></div>
+        </div>
+        <div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <span style="color:var(--green);flex-shrink:0">✓</span>
+          <div><div style="font-size:14px;font-weight:600">Appear in filters</div><div style="font-size:12px;color:var(--text-3);margin-top:2px">Show up when employers search your trade and location.</div></div>
+        </div>
+        <div style="display:flex;gap:10px;padding:10px 0">
+          <span style="color:var(--green);flex-shrink:0">✓</span>
+          <div><div style="font-size:14px;font-weight:600">Lifetime listing</div><div style="font-size:12px;color:var(--text-3);margin-top:2px">Pay once, stay listed. No recurring fees.</div></div>
+        </div>
+      </div>
+
+      <div style="background:var(--surface);border:1px solid var(--blue-border);border-radius:var(--r);padding:1.75rem;display:flex;flex-direction:column">
+        <div class="htag htag-b" style="margin-bottom:12px">Tradie Listing</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700">One-time fee</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:56px;font-weight:700;line-height:1;margin:8px 0 4px"><small style="font-size:28px">$</small>29</div>
+        <div style="font-size:13px;color:var(--text-3);margin-bottom:1.5rem">AUD · one payment · no subscription</div>
+        <div style="background:var(--blue-dim);border:1px solid var(--blue-border);border-radius:var(--rs);padding:12px 14px;font-size:13px;color:var(--blue);line-height:1.6;margin-bottom:1.5rem">
+          Most tradies receive their first employer enquiry within 7 days of going live.
+        </div>
+        <button class="btn btn-p btn-full btn-lg" style="margin-top:auto" onclick="showView('listed')">Get Listed Now →</button>
+        <p style="font-size:12px;color:var(--text-3);text-align:center;margin-top:10px">Verified within 24 hours · Profile stays live</p>
+      </div>
+
+    </div>
+
+    <!-- FAQ -->
+    <div style="margin-bottom:3rem">
+      <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:700;margin-bottom:1.5rem">Common questions</h2>
+
+      <div style="border-top:1px solid var(--border)">
+
+        <div style="border-bottom:1px solid var(--border)">
+          <button onclick="toggleFaq(0)" style="width:100%;text-align:left;padding:14px 0;background:none;border:none;font-family:inherit;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+            Do I need to pay anything ongoing?
+            <span id="faq-icon-0" style="color:var(--text-3);font-size:20px;line-height:1;flex-shrink:0;margin-left:12px">+</span>
+          </button>
+          <div id="faq-ans-0" style="display:none;padding-bottom:14px;font-size:13px;color:var(--text-2);line-height:1.7">No. The $29 is a one-time listing fee. Your profile stays live indefinitely. We only charge again if you want to add optional extras in the future.</div>
+        </div>
+
+        <div style="border-bottom:1px solid var(--border)">
+          <button onclick="toggleFaq(1)" style="width:100%;text-align:left;padding:14px 0;background:none;border:none;font-family:inherit;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+            What does LBH Verified mean?
+            <span id="faq-icon-1" style="color:var(--text-3);font-size:20px;line-height:1;flex-shrink:0;margin-left:12px">+</span>
+          </button>
+          <div id="faq-ans-1" style="display:none;padding-bottom:14px;font-size:13px;color:var(--text-2);line-height:1.7">Our team manually checks your licence number, White Card, and identity before issuing the Verified badge. This is what makes you stand out to employers who are tired of dealing with unverified platforms.</div>
+        </div>
+
+        <div style="border-bottom:1px solid var(--border)">
+          <button onclick="toggleFaq(2)" style="width:100%;text-align:left;padding:14px 0;background:none;border:none;font-family:inherit;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+            How do employers contact me?
+            <span id="faq-icon-2" style="color:var(--text-3);font-size:20px;line-height:1;flex-shrink:0;margin-left:12px">+</span>
+          </button>
+          <div id="faq-ans-2" style="display:none;padding-bottom:14px;font-size:13px;color:var(--text-2);line-height:1.7">Employers with a Premium subscription can message you directly through the platform. You'll receive a notification and can reply from your dashboard or via email.</div>
+        </div>
+
+        <div style="border-bottom:1px solid var(--border)">
+          <button onclick="toggleFaq(3)" style="width:100%;text-align:left;padding:14px 0;background:none;border:none;font-family:inherit;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+            What is the Labour Score?
+            <span id="faq-icon-3" style="color:var(--text-3);font-size:20px;line-height:1;flex-shrink:0;margin-left:12px">+</span>
+          </button>
+          <div id="faq-ans-3" style="display:none;padding-bottom:14px;font-size:13px;color:var(--text-2);line-height:1.7">Your Labour Score is our internal rating system based on job completion, employer reviews, reliability, and time on platform. It's displayed on your profile and helps employers make decisions quickly.</div>
+        </div>
+
+        <div style="border-bottom:1px solid var(--border)">
+          <button onclick="toggleFaq(4)" style="width:100%;text-align:left;padding:14px 0;background:none;border:none;font-family:inherit;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+            Can I update my profile after listing?
+            <span id="faq-icon-4" style="color:var(--text-3);font-size:20px;line-height:1;flex-shrink:0;margin-left:12px">+</span>
+          </button>
+          <div id="faq-ans-4" style="display:none;padding-bottom:14px;font-size:13px;color:var(--text-2);line-height:1.7">Yes. You can edit your bio, availability, hourly rate, and skills at any time from your dashboard at no extra cost.</div>
+        </div>
+
+        <div style="border-bottom:1px solid var(--border)">
+          <button onclick="toggleFaq(5)" style="width:100%;text-align:left;padding:14px 0;background:none;border:none;font-family:inherit;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+            What if I can't be verified?
+            <span id="faq-icon-5" style="color:var(--text-3);font-size:20px;line-height:1;flex-shrink:0;margin-left:12px">+</span>
+          </button>
+          <div id="faq-ans-5" style="display:none;padding-bottom:14px;font-size:13px;color:var(--text-2);line-height:1.7">If we can't verify your details, we'll contact you to resolve it. You won't be charged until your profile goes live.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- BOTTOM CTA -->
+    <div style="text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:3rem 2rem">
+      <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:700;margin-bottom:10px">Ready to get found?</h2>
+      <p style="font-size:15px;color:var(--text-2);margin-bottom:2rem;max-width:420px;margin-left:auto;margin-right:auto;line-height:1.7">Join 200+ verified tradies already on the Labour by Hire network. One payment, unlimited exposure.</p>
+      <button class="btn btn-p btn-lg" onclick="showView('listed')">Create My Profile — $29 →</button>
+    </div>
+
+  </div>
+</div>
+
 </main>
 
 <!-- LOGIN MODAL -->
@@ -515,8 +733,356 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
       <div class="fr" style="margin:0"><label>Password</label><input id="login-password" type="password" placeholder="Your password"></div>
       <div id="login-error" class="err-box" style="margin:0"></div>
       <button id="btn-login" class="btn btn-p btn-full" onclick="handleLogin()">Sign In</button>
-      <p style="text-align:center;font-size:13px;color:var(--text-2)">No account? <button onclick="hideLoginModal();showView('listed')" style="background:none;border:none;color:var(--blue);cursor:pointer;text-decoration:underline;padding:0;font-family:inherit">Get Listed →</button></p>
+      <p style="text-align:center;font-size:13px;color:var(--text-2)">No account? <button onclick="hideLoginModal();showView('getlisted')" style="background:none;border:none;color:var(--blue);cursor:pointer;text-decoration:underline;padding:0;font-family:inherit">Get Listed →</button></p>
     </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS ROLE PICKER MODAL -->
+<div class="modal-overlay" id="how-modal">
+  <div class="modal-box" style="text-align:center">
+    <button class="modal-close" onclick="closeHowModal()">×</button>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;margin-bottom:8px">How It Works</div>
+    <p style="font-size:14px;color:var(--text-2);margin-bottom:1.5rem">Choose your role to see the right information.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div onclick="closeHowModal();showView('getlisted')" style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='var(--blue-border)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-size:36px;margin-bottom:10px">🦺</div>
+        <div style="font-weight:600;margin-bottom:4px">I'm a Tradie</div>
+        <div style="font-size:12px;color:var(--text-3)">See how to get listed and verified</div>
+      </div>
+      <div onclick="closeHowModal();showView('employer-landing')" style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='var(--gold-border)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-size:36px;margin-bottom:10px">🏗️</div>
+        <div style="font-weight:600;margin-bottom:4px">I'm an Employer</div>
+        <div style="font-size:12px;color:var(--text-3)">See how to find and hire tradies</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EMPLOYER LANDING PAGE -->
+<div id="view-employer-landing" style="display:none">
+  <div class="wrap" style="padding-top:3rem;padding-bottom:5rem">
+
+    <!-- HERO -->
+    <div style="text-align:center;padding-bottom:3rem;border-bottom:1px solid var(--border);margin-bottom:3rem">
+      <div class="pill" style="margin-bottom:1.25rem;background:var(--gold-dim);color:var(--gold);border-color:var(--gold-border)">
+        <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="3.5" fill="currentColor"/></svg>
+        Employer Premium · $149/month
+      </div>
+      <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:52px;font-weight:700;line-height:1.05;margin-bottom:1.25rem">Stop Guessing.<br><span style="color:var(--gold)">Hire Verified Tradies.</span></h1>
+      <p style="font-size:17px;color:var(--text-2);max-width:520px;margin:0 auto 2rem;line-height:1.7">Every tradie on Labour by Hire is licence-checked, White Card verified, and rated by our team. Browse, filter, and message them directly.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-gold btn-lg" style="border:none;font-family:inherit;cursor:pointer" onclick="showComingSoon()">Get Employer Access — $149/mo</button>
+        <button class="btn btn-o btn-lg" onclick="openDemo()">👁 See a Live Demo</button>
+        <button class="btn btn-o btn-lg" onclick="showView('home')">Browse Tradies First</button>
+      </div>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <div style="margin-bottom:3.5rem">
+      <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:700;margin-bottom:6px">How it works</h2>
+      <p style="font-size:14px;color:var(--text-3);margin-bottom:2rem">Find the right tradie in minutes</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--gold-dim);border:1px solid var(--gold-border);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--gold);font-size:16px;margin-bottom:14px">1</div>
+          <div style="font-size:22px;margin-bottom:10px">🔐</div>
+          <div style="font-weight:600;margin-bottom:6px">Subscribe to Premium</div>
+          <div style="font-size:13px;color:var(--text-2);line-height:1.6">$149/month. Cancel anytime. Instant access to the full verified tradie network.</div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--gold-dim);border:1px solid var(--gold-border);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--gold);font-size:16px;margin-bottom:14px">2</div>
+          <div style="font-size:22px;margin-bottom:10px">🔍</div>
+          <div style="font-weight:600;margin-bottom:6px">Search and filter</div>
+          <div style="font-size:13px;color:var(--text-2);line-height:1.6">Filter by trade, city, hourly rate, Labour Score, and availability. Find exactly who you need.</div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--gold-dim);border:1px solid var(--gold-border);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--gold);font-size:16px;margin-bottom:14px">3</div>
+          <div style="font-size:22px;margin-bottom:10px">✉️</div>
+          <div style="font-weight:600;margin-bottom:6px">Message directly</div>
+          <div style="font-size:13px;color:var(--text-2);line-height:1.6">Send a message straight to the tradie through the platform. No agencies, no middlemen.</div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--gold-dim);border:1px solid var(--gold-border);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--gold);font-size:16px;margin-bottom:14px">4</div>
+          <div style="font-size:22px;margin-bottom:10px">🤝</div>
+          <div style="font-weight:600;margin-bottom:6px">Hire with confidence</div>
+          <div style="font-size:13px;color:var(--text-2);line-height:1.6">Every tradie is LBH verified. View their full history, score, and reviews before you commit.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- WHAT YOU GET + PRICING -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:3.5rem">
+
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.75rem">
+        <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;margin-bottom:1.25rem">What Employer Premium includes</h3>
+
+        <div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <span style="color:var(--gold);flex-shrink:0">★</span>
+          <div><div style="font-size:14px;font-weight:600">Unlimited worker access</div><div style="font-size:12px;color:var(--text-3);margin-top:2px">Browse every verified tradie on the platform with no limits.</div></div>
+        </div>
+        <div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <span style="color:var(--gold);flex-shrink:0">★</span>
+          <div><div style="font-size:14px;font-weight:600">Direct messaging</div><div style="font-size:12px;color:var(--text-3);margin-top:2px">Contact any tradie directly through the platform inbox.</div></div>
+        </div>
+        <div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <span style="color:var(--gold);flex-shrink:0">★</span>
+          <div><div style="font-size:14px;font-weight:600">Phone & email details</div><div style="font-size:12px;color:var(--text-3);margin-top:2px">Full contact info for every worker — call or email directly.</div></div>
+        </div>
+        <div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <span style="color:var(--gold);flex-shrink:0">★</span>
+          <div><div style="font-size:14px;font-weight:600">Full Labour Score history</div><div style="font-size:12px;color:var(--text-3);margin-top:2px">See ratings, job history, and employer reviews for every tradie.</div></div>
+        </div>
+        <div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <span style="color:var(--gold);flex-shrink:0">★</span>
+          <div><div style="font-size:14px;font-weight:600">Advanced filters</div><div style="font-size:12px;color:var(--text-3);margin-top:2px">Filter by trade, city, rate, availability, and Labour Score.</div></div>
+        </div>
+        <div style="display:flex;gap:10px;padding:10px 0">
+          <span style="color:var(--gold);flex-shrink:0">★</span>
+          <div><div style="font-size:14px;font-weight:600">Priority LBH support</div><div style="font-size:12px;color:var(--text-3);margin-top:2px">Dedicated support from our team. Fast responses guaranteed.</div></div>
+        </div>
+      </div>
+
+      <!-- PRICING CARD -->
+      <div style="background:var(--surface);border:1px solid var(--gold-border);border-radius:var(--r);padding:1.75rem;display:flex;flex-direction:column">
+        <div class="htag htag-g" style="margin-bottom:12px">Employer Premium</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700">Full network access</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:56px;font-weight:700;line-height:1;margin:8px 0 4px"><small style="font-size:28px">$</small>149</div>
+        <div style="font-size:13px;color:var(--text-3);margin-bottom:1.5rem">AUD per month · cancel anytime</div>
+        <div style="background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:var(--rs);padding:12px 14px;font-size:13px;color:var(--gold);line-height:1.6;margin-bottom:1.5rem">
+          Most employers find a suitable tradie within 48 hours of subscribing.
+        </div>
+        <button class="btn btn-gold btn-full btn-lg" style="margin-top:auto;border:none;font-family:inherit;cursor:pointer" onclick="showComingSoon()">Get Employer Access →</button>
+        <p style="font-size:12px;color:var(--text-3);text-align:center;margin-top:10px">No lock-in · Cancel anytime · Instant access</p>
+      </div>
+
+    </div>
+
+    <!-- FAQ -->
+    <div style="margin-bottom:3rem">
+      <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:700;margin-bottom:1.5rem">Employer questions</h2>
+      <div style="border-top:1px solid var(--border)">
+
+        <div style="border-bottom:1px solid var(--border)">
+          <button onclick="toggleFaqE(0)" style="width:100%;text-align:left;padding:14px 0;background:none;border:none;font-family:inherit;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+            Is there a minimum contract period?
+            <span id="faqe-icon-0" style="color:var(--text-3);font-size:20px;line-height:1;flex-shrink:0;margin-left:12px">+</span>
+          </button>
+          <div id="faqe-ans-0" style="display:none;padding-bottom:14px;font-size:13px;color:var(--text-2);line-height:1.7">No. Employer Premium is month-to-month. You can cancel at any time and your access continues until the end of the billing period.</div>
+        </div>
+
+        <div style="border-bottom:1px solid var(--border)">
+          <button onclick="toggleFaqE(1)" style="width:100%;text-align:left;padding:14px 0;background:none;border:none;font-family:inherit;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+            How are tradies verified?
+            <span id="faqe-icon-1" style="color:var(--text-3);font-size:20px;line-height:1;flex-shrink:0;margin-left:12px">+</span>
+          </button>
+          <div id="faqe-ans-1" style="display:none;padding-bottom:14px;font-size:13px;color:var(--text-2);line-height:1.7">Our team manually checks each tradie's licence number, White Card, and identity documents before they go live. Only verified tradies appear on the platform.</div>
+        </div>
+
+        <div style="border-bottom:1px solid var(--border)">
+          <button onclick="toggleFaqE(2)" style="width:100%;text-align:left;padding:14px 0;background:none;border:none;font-family:inherit;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+            What is the Labour Score?
+            <span id="faqe-icon-2" style="color:var(--text-3);font-size:20px;line-height:1;flex-shrink:0;margin-left:12px">+</span>
+          </button>
+          <div id="faqe-ans-2" style="display:none;padding-bottom:14px;font-size:13px;color:var(--text-2);line-height:1.7">The Labour Score is our internal rating for each tradie based on job completion rates, employer reviews, on-time performance, and time on the platform. Higher scores mean more reliable workers.</div>
+        </div>
+
+        <div style="border-bottom:1px solid var(--border)">
+          <button onclick="toggleFaqE(3)" style="width:100%;text-align:left;padding:14px 0;background:none;border:none;font-family:inherit;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+            Do you take a cut of what I pay tradies?
+            <span id="faqe-icon-3" style="color:var(--text-3);font-size:20px;line-height:1;flex-shrink:0;margin-left:12px">+</span>
+          </button>
+          <div id="faqe-ans-3" style="display:none;padding-bottom:14px;font-size:13px;color:var(--text-2);line-height:1.7">No. Labour by Hire is a connection platform — we don't process payments between employers and tradies. You agree rates directly with the tradie and pay them however suits you both.</div>
+        </div>
+
+        <div style="border-bottom:1px solid var(--border)">
+          <button onclick="toggleFaqE(4)" style="width:100%;text-align:left;padding:14px 0;background:none;border:none;font-family:inherit;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+            Can I search for tradies in any state?
+            <span id="faqe-icon-4" style="color:var(--text-3);font-size:20px;line-height:1;flex-shrink:0;margin-left:12px">+</span>
+          </button>
+          <div id="faqe-ans-4" style="display:none;padding-bottom:14px;font-size:13px;color:var(--text-2);line-height:1.7">Yes. The platform covers all Australian states and territories. Filter by city or region to find tradies near your job site.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- BOTTOM CTA -->
+    <div style="text-align:center;background:var(--surface);border:1px solid var(--gold-border);border-radius:var(--r);padding:3rem 2rem">
+      <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:700;margin-bottom:10px">Ready to find your next tradie?</h2>
+      <p style="font-size:15px;color:var(--text-2);margin-bottom:2rem;max-width:420px;margin-left:auto;margin-right:auto;line-height:1.7">200+ verified tradies. No guesswork. No agencies. Direct access for $149/month.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-gold btn-lg" style="border:none;font-family:inherit;cursor:pointer" onclick="showComingSoon()">Get Employer Access →</button>
+        <button class="btn btn-o btn-lg" onclick="openDemo()">👁 See a Live Demo</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- EMPLOYER DEMO MODAL -->
+<div class="modal-overlay" id="demo-modal" style="align-items:flex-start;padding:2rem;overflow-y:auto">
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;width:100%;max-width:900px;margin:auto;position:relative;overflow:hidden">
+
+    <!-- DEMO HEADER -->
+    <div style="padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+      <div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700">Employer Premium — Live Preview</div>
+        <div style="font-size:12px;color:var(--text-3);margin-top:2px">This is exactly what you get access to. Contact details are blurred until you subscribe.</div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span style="font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-border);padding:3px 10px;border-radius:100px">Premium View</span>
+        <button onclick="closeDemo()" style="background:none;border:none;color:var(--text-2);font-size:24px;cursor:pointer;line-height:1;padding:0">×</button>
+      </div>
+    </div>
+
+    <!-- DEMO FILTERS BAR -->
+    <div style="padding:1rem 1.5rem;border-bottom:1px solid var(--border);background:var(--surface-2);display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <span style="font-size:12px;color:var(--text-3);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-right:4px">Filter:</span>
+      <span style="padding:4px 12px;border-radius:100px;font-size:12px;background:var(--blue-dim);color:var(--blue);border:1px solid var(--blue-border);cursor:pointer">All Trades</span>
+      <span style="padding:4px 12px;border-radius:100px;font-size:12px;background:var(--surface-3);color:var(--text-2);border:1px solid var(--border);cursor:pointer">Carpenter</span>
+      <span style="padding:4px 12px;border-radius:100px;font-size:12px;background:var(--surface-3);color:var(--text-2);border:1px solid var(--border);cursor:pointer">Electrician</span>
+      <span style="padding:4px 12px;border-radius:100px;font-size:12px;background:var(--surface-3);color:var(--text-2);border:1px solid var(--border);cursor:pointer">Plumber</span>
+      <span style="padding:4px 12px;border-radius:100px;font-size:12px;background:var(--surface-3);color:var(--text-2);border:1px solid var(--border);cursor:pointer">Concretor</span>
+      <span style="padding:4px 12px;border-radius:100px;font-size:12px;background:var(--surface-3);color:var(--text-2);border:1px solid var(--border);cursor:pointer">Painter</span>
+      <div style="margin-left:auto;display:flex;gap:8px">
+        <span style="padding:4px 12px;border-radius:var(--rs);font-size:12px;background:var(--surface-3);color:var(--text-2);border:1px solid var(--border)">Sydney, NSW ▾</span>
+        <span style="padding:4px 12px;border-radius:var(--rs);font-size:12px;background:var(--surface-3);color:var(--text-2);border:1px solid var(--border)">Score ▾</span>
+      </div>
+    </div>
+
+    <!-- DEMO TRADIE GRID -->
+    <div style="padding:1.5rem;display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+
+      <!-- CARD 1 — fully visible (teaser) -->
+      <div style="background:var(--surface-2);border:1px solid var(--blue-border);border-radius:var(--r);padding:1.25rem">
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:12px">
+          <div style="width:44px;height:44px;border-radius:50%;background:var(--blue-dim);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;color:var(--blue);flex-shrink:0;border:1px solid var(--blue-border)">JT</div>
+          <div style="flex:1;min-width:0">
+            <div style="font-weight:600;font-size:14px">Jake Thompson</div>
+            <div style="font-size:12px;color:var(--blue)">Carpenter</div>
+            <div style="font-size:11px;color:var(--text-3)">📍 Sydney, NSW</div>
+          </div>
+          <span style="font-size:10px;font-weight:700;background:var(--green-dim);color:var(--green);padding:2px 7px;border-radius:4px;flex-shrink:0">Verified</span>
+        </div>
+        <div style="background:var(--surface-3);border-radius:var(--rs);padding:10px;margin-bottom:12px">
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+            <span style="font-size:11px;color:var(--text-3)">Labour Score</span>
+            <span style="font-size:11px;font-weight:700;color:var(--green)">92 / 100</span>
+          </div>
+          <div style="background:var(--surface);border-radius:100px;height:6px;overflow:hidden">
+            <div style="background:var(--green);height:100%;width:92%;border-radius:100px"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:var(--text-3)">
+            <span>47 jobs</span><span>98% on time</span><span>4.9 ★</span>
+          </div>
+        </div>
+        <div style="font-size:12px;color:var(--text-2);margin-bottom:12px;line-height:1.5">Expert carpenter, 12 yrs exp. Custom joinery, decking, and full renovations.</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid var(--border)">
+          <span style="font-weight:700;font-size:15px">$75<small style="font-size:11px;font-weight:400;color:var(--text-2)">/hr</small></span>
+          <span style="font-size:11px;color:var(--green);font-weight:600">● Available now</span>
+        </div>
+        <!-- Contact details — visible on first card as example -->
+        <div style="margin-top:10px;padding:10px;background:var(--surface);border-radius:var(--rs);border:1px solid var(--border)">
+          <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.4px">Contact (Premium)</div>
+          <div style="font-size:12px;color:var(--blue);margin-bottom:3px">📞 0412 345 678</div>
+          <div style="font-size:12px;color:var(--blue)">✉ jake.t@email.com.au</div>
+          <button style="width:100%;margin-top:8px;padding:7px;background:var(--blue);color:#fff;border:none;border-radius:var(--rs);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">✉ Send Message</button>
+        </div>
+      </div>
+
+      <!-- CARD 2 — blurred contact -->
+      <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;position:relative">
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:12px">
+          <div style="width:44px;height:44px;border-radius:50%;background:var(--green-dim);display:flex;align-items:center;justify-content:circle;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;color:var(--green);flex-shrink:0;border:1px solid var(--green-border);align-items:center;justify-content:center">MS</div>
+          <div style="flex:1;min-width:0">
+            <div style="font-weight:600;font-size:14px">Maria Santos</div>
+            <div style="font-size:12px;color:var(--blue)">Electrician</div>
+            <div style="font-size:11px;color:var(--text-3)">📍 Melbourne, VIC</div>
+          </div>
+          <span style="font-size:10px;font-weight:700;background:var(--green-dim);color:var(--green);padding:2px 7px;border-radius:4px;flex-shrink:0">Verified</span>
+        </div>
+        <div style="background:var(--surface-3);border-radius:var(--rs);padding:10px;margin-bottom:12px">
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+            <span style="font-size:11px;color:var(--text-3)">Labour Score</span>
+            <span style="font-size:11px;font-weight:700;color:var(--green)">88 / 100</span>
+          </div>
+          <div style="background:var(--surface);border-radius:100px;height:6px;overflow:hidden">
+            <div style="background:var(--green);height:100%;width:88%;border-radius:100px"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:var(--text-3)">
+            <span>31 jobs</span><span>95% on time</span><span>4.7 ★</span>
+          </div>
+        </div>
+        <div style="font-size:12px;color:var(--text-2);margin-bottom:12px;line-height:1.5">Licensed electrician. Residential and commercial. Available weekdays.</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid var(--border)">
+          <span style="font-weight:700;font-size:15px">$95<small style="font-size:11px;font-weight:400;color:var(--text-2)">/hr</small></span>
+          <span style="font-size:11px;color:var(--gold);font-weight:600">● Weekdays only</span>
+        </div>
+        <!-- Blurred contact -->
+        <div style="margin-top:10px;padding:10px;background:var(--surface);border-radius:var(--rs);border:1px solid var(--border);position:relative;overflow:hidden">
+          <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.4px">Contact (Premium)</div>
+          <div style="font-size:12px;color:var(--text-3);margin-bottom:3px;filter:blur(4px);user-select:none">📞 04XX XXX XXX</div>
+          <div style="font-size:12px;color:var(--text-3);filter:blur(4px);user-select:none">✉ maria.s@XXXXXX.com</div>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(11,13,18,0.6);border-radius:var(--rs)">
+            <span style="font-size:11px;font-weight:700;color:var(--gold);background:var(--gold-dim);border:1px solid var(--gold-border);padding:4px 10px;border-radius:100px">🔒 Premium Only</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 3 — blurred contact -->
+      <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;position:relative">
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:12px">
+          <div style="width:44px;height:44px;border-radius:50%;background:var(--gold-dim);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;color:var(--gold);flex-shrink:0;border:1px solid var(--gold-border)">BW</div>
+          <div style="flex:1;min-width:0">
+            <div style="font-weight:600;font-size:14px">Brett Wilson</div>
+            <div style="font-size:12px;color:var(--blue)">Plumber</div>
+            <div style="font-size:11px;color:var(--text-3)">📍 Brisbane, QLD</div>
+          </div>
+          <span style="font-size:10px;font-weight:700;background:var(--green-dim);color:var(--green);padding:2px 7px;border-radius:4px;flex-shrink:0">Verified</span>
+        </div>
+        <div style="background:var(--surface-3);border-radius:var(--rs);padding:10px;margin-bottom:12px">
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+            <span style="font-size:11px;color:var(--text-3)">Labour Score</span>
+            <span style="font-size:11px;font-weight:700;color:var(--gold)">76 / 100</span>
+          </div>
+          <div style="background:var(--surface);border-radius:100px;height:6px;overflow:hidden">
+            <div style="background:var(--gold);height:100%;width:76%;border-radius:100px"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:var(--text-3)">
+            <span>19 jobs</span><span>89% on time</span><span>4.4 ★</span>
+          </div>
+        </div>
+        <div style="font-size:12px;color:var(--text-2);margin-bottom:12px;line-height:1.5">15 years plumbing. Gas certified. Emergency callouts available.</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid var(--border)">
+          <span style="font-weight:700;font-size:15px">$85<small style="font-size:11px;font-weight:400;color:var(--text-2)">/hr</small></span>
+          <span style="font-size:11px;color:var(--green);font-weight:600">● Available now</span>
+        </div>
+        <!-- Blurred contact -->
+        <div style="margin-top:10px;padding:10px;background:var(--surface);border-radius:var(--rs);border:1px solid var(--border);position:relative;overflow:hidden">
+          <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.4px">Contact (Premium)</div>
+          <div style="font-size:12px;color:var(--text-3);margin-bottom:3px;filter:blur(4px);user-select:none">📞 04XX XXX XXX</div>
+          <div style="font-size:12px;color:var(--text-3);filter:blur(4px);user-select:none">✉ brett.w@XXXXXX.com</div>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(11,13,18,0.6);border-radius:var(--rs)">
+            <span style="font-size:11px;font-weight:700;color:var(--gold);background:var(--gold-dim);border:1px solid var(--gold-border);padding:4px 10px;border-radius:100px">🔒 Premium Only</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- DEMO FOOTER -->
+    <div style="padding:1.25rem 1.5rem;border-top:1px solid var(--border);background:var(--surface-2);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <div style="font-size:13px;color:var(--text-2)">Showing 3 of <strong>200+</strong> verified tradies · Contact details unlocked with Premium</div>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-g" onclick="closeDemo()">Close Preview</button>
+        <button class="btn btn-gold" style="border:none;cursor:pointer;font-family:inherit" onclick="closeDemo();showComingSoon()">Get Full Access — $149/mo →</button>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -575,6 +1141,42 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
 </footer>
 
 <script>
+// ─── ROLE SPLASH ─────────────────────────────────────────────────────────────
+function selectRole(role) {
+  sessionStorage.setItem('lbh_role', role);
+  const splash = document.getElementById('role-splash');
+  splash.style.transition = 'opacity .35s';
+  splash.style.opacity = '0';
+  setTimeout(() => splash.style.display = 'none', 350);
+  setRoleBadge(role);
+
+  if (role === 'tradie') {
+    showView('getlisted');
+  } else if (role === 'employer') {
+    showView('home');
+    toast('Browse verified tradies below. Employer Premium unlocks direct messaging.');
+  } else {
+    showView('home');
+  }
+}
+
+function setRoleBadge(role) {
+  const badge = document.getElementById('role-badge');
+  if (!badge || role === 'browse') { if(badge) badge.style.display='none'; return; }
+  badge.style.display = 'inline-block';
+  if (role === 'tradie') {
+    badge.textContent = 'Tradie';
+    badge.style.background = 'var(--blue-dim)';
+    badge.style.color = 'var(--blue)';
+    badge.style.border = '1px solid var(--blue-border)';
+  } else if (role === 'employer') {
+    badge.textContent = 'Employer';
+    badge.style.background = 'var(--gold-dim)';
+    badge.style.color = 'var(--gold)';
+    badge.style.border = '1px solid var(--gold-border)';
+  }
+}
+
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
 const API_URL = '/api';
 
@@ -648,6 +1250,11 @@ function triggerAvatarUpload(workerId) {
 
 // ─── BOOT ────────────────────────────────────────────────────────────────────
 (function init() {
+  // If already chosen a role this session, skip splash
+  if (sessionStorage.getItem('lbh_role')) {
+    document.getElementById('role-splash').style.display = 'none';
+    setRoleBadge(sessionStorage.getItem('lbh_role'));
+  }
   if (token) {
     const name = localStorage.getItem('lbh_name');
     setNavLoggedIn(name);
@@ -986,13 +1593,36 @@ function showProfile(id) {
 
 // ─── VIEWS ───────────────────────────────────────────────────────────────────
 function showView(v) {
-  ['home','profile','listed','dashboard'].forEach(n => {
+  ['home','profile','listed','getlisted','employer-landing','dashboard'].forEach(n => {
     const el = document.getElementById('view-'+n);
     if (el) el.style.display = n === v ? 'block' : 'none';
   });
   window.scrollTo(0,0);
   if (v === 'home') { loadListings(); renderFilters(); }
   if (v === 'dashboard') loadDashboard();
+}
+
+function showHowModal() {
+  document.getElementById('how-modal').classList.add('open');
+}
+function closeHowModal() {
+  document.getElementById('how-modal').classList.remove('open');
+}
+
+function toggleFaq(i) {
+  const ans = document.getElementById('faq-ans-'+i);
+  const icon = document.getElementById('faq-icon-'+i);
+  const open = ans.style.display === 'block';
+  ans.style.display = open ? 'none' : 'block';
+  icon.textContent = open ? '+' : '−';
+}
+
+function toggleFaqE(i) {
+  const ans = document.getElementById('faqe-ans-'+i);
+  const icon = document.getElementById('faqe-icon-'+i);
+  const open = ans.style.display === 'block';
+  ans.style.display = open ? 'none' : 'block';
+  icon.textContent = open ? '+' : '−';
 }
 
 function scrollToHow() {
@@ -1002,6 +1632,13 @@ function scrollToHow() {
 
 function showComingSoon() {
   toast('Employer access launching soon — stay tuned!', 'ok');
+}
+
+function openDemo() {
+  document.getElementById('demo-modal').classList.add('open');
+}
+function closeDemo() {
+  document.getElementById('demo-modal').classList.remove('open');
 }
 
 // ─── FORM STEPS ──────────────────────────────────────────────────────────────
