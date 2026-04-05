@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Labour by Hire - Find Verified Tradies</title>
+  <title>Labour by Hire - Construction ID Network</title>
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@700&display=swap" rel="stylesheet">
   <style>
 :root{
@@ -106,17 +106,11 @@ html,body{background:var(--bg);color:var(--text);font-family:'Barlow',system-ui,
 .sn-b{background:var(--blue-dim);color:var(--blue)}.sn-g{background:var(--gold-dim);color:var(--gold)}
 .st{font-size:14px;color:var(--text-2);line-height:1.6}
 
-/* PRICING */
-.pc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0 4rem}
-.pc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.75rem}
-.pc.feat{border-color:var(--blue-border)}
-.pa{font-family:'Barlow Condensed',sans-serif;font-size:42px;font-weight:700;margin:8px 0 2px}
-.pa small{font-size:20px;font-weight:500}
-.pp{font-size:13px;color:var(--text-3);margin-bottom:1.25rem}
-.pfl{list-style:none;margin-bottom:1.5rem}
-.pfl li{font-size:13px;color:var(--text-2);padding:7px 0;border-bottom:1px solid var(--border);display:flex;gap:8px;align-items:flex-start}
-.pfl li:last-child{border-bottom:none}
-.fchk{color:var(--green);flex-shrink:0}
+/* MIDNIGHT WALLET */
+.wallet-card{background:var(--surface-2);border:1px solid rgba(139,92,246,0.3);border-radius:var(--r);padding:1.25rem;margin-top:1rem}
+.wallet-addr{font-family:monospace;font-size:11px;color:rgba(139,92,246,0.9);word-break:break-all;background:rgba(139,92,246,0.07);padding:8px 10px;border-radius:var(--rs);margin:8px 0;border:1px solid rgba(139,92,246,0.2)}
+.zk-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(139,92,246,0.12);color:#a78bfa;border:1px solid rgba(139,92,246,0.3);padding:3px 10px;border-radius:var(--rf);font-size:11px;font-weight:700;letter-spacing:.5px}
+.midnight-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(139,92,246,0.1);color:#a78bfa;border:1px solid rgba(139,92,246,0.25);padding:4px 14px;border-radius:var(--rf);font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase}
 
 /* PROFILE VIEW */
 .back{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--text-2);cursor:pointer;background:none;border:none;font-family:inherit;padding:6px 0;margin-bottom:1.5rem}
@@ -286,9 +280,9 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
     <div onclick="selectRole('tradie')" style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:2.5rem 2rem;cursor:pointer;text-align:center;transition:border-color .15s,transform .1s" onmouseover="this.style.borderColor='var(--blue-border)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
       <div style="font-size:52px;margin-bottom:1.25rem">🦺</div>
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;margin-bottom:8px">I'm a Tradie</div>
-      <div style="font-size:13px;color:var(--text-2);line-height:1.6;margin-bottom:1.5rem">I want to list my skills, get verified, and receive job enquiries from employers.</div>
+      <div style="font-size:13px;color:var(--text-2);line-height:1.6;margin-bottom:1.5rem">I want a verified construction ID, Midnight wallet ZK proof, and to receive job enquiries — free.</div>
       <div style="display:inline-flex;align-items:center;gap:6px;background:var(--blue-dim);color:var(--blue);border:1px solid var(--blue-border);padding:6px 16px;border-radius:100px;font-size:13px;font-weight:600">
-        Get Listed →
+        Get My Construction ID →
       </div>
     </div>
 
@@ -357,8 +351,8 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
       <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="3.5" fill="currentColor"/></svg>
       LBH Verified Network · Australia
     </div>
-    <h1>Find Verified Tradies<br><span>Ready to Work Today</span></h1>
-    <p>Every worker on Labour by Hire is screened, licence-checked, and certified by our team. No guesswork — just great tradies.</p>
+    <h1>Construction ID<br><span>Verified on the Network</span></h1>
+    <p>Every worker on Labour by Hire has a verified construction identity — licence-checked, ZK-proofed via Midnight wallet, and certified by our team.</p>
     <div class="hero-btns">
       <button class="btn btn-p btn-lg" onclick="document.getElementById('browse-sec').scrollIntoView({behavior:'smooth'})">Browse Tradies</button>
       <button class="btn btn-o btn-lg" onclick="showView('getlisted')">Post Your Skills →</button>
@@ -392,18 +386,18 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
         <div class="htag htag-b">For Tradies</div>
         <h3>Get your skills seen</h3>
         <div class="step"><div class="sn sn-b">1</div><div class="st">Create your profile — add your trade, years of experience, and certifications</div></div>
-        <div class="step"><div class="sn sn-b">2</div><div class="st">Pay a small one-time listing fee via debit card to publish your profile</div></div>
+        <div class="step"><div class="sn sn-b">2</div><div class="st">Connect your Midnight wallet to enable ZK proof of identity on your construction ID</div></div>
         <div class="step"><div class="sn sn-b">3</div><div class="st">LBH verifies your licences and issues your Verified badge and Labour Score</div></div>
-        <div class="step"><div class="sn sn-b">4</div><div class="st">Start receiving direct enquiries from premium employers</div></div>
+        <div class="step"><div class="sn sn-b">4</div><div class="st">Start receiving direct enquiries from employers — completely free</div></div>
         <button class="btn btn-p btn-full" style="margin-top:1.25rem" onclick="showView('getlisted')">Create Your Profile →</button>
       </div>
       <div class="how-c">
         <div class="htag htag-g">For Employers</div>
         <h3>Access verified talent</h3>
-        <div class="step"><div class="sn sn-g">1</div><div class="st">Subscribe to Employer Premium — monthly or annual plan</div></div>
-        <div class="step"><div class="sn sn-g">2</div><div class="st">Browse the full pool of LBH-verified workers with full contact details</div></div>
-        <div class="step"><div class="sn sn-g">3</div><div class="st">Filter by trade, location, Labour Score, hourly rate, and availability</div></div>
-        <div class="step"><div class="sn sn-g">4</div><div class="st">Contact workers directly, view verified history, and book on your schedule</div></div>
+        <div class="step"><div class="sn sn-g">1</div><div class="st">Create a free employer account to access the verified construction ID network</div></div>
+        <div class="step"><div class="sn sn-g">2</div><div class="st">Browse the full pool of LBH-verified workers — each with a Midnight wallet ZK proof</div></div>
+        <div class="step"><div class="sn sn-g">3</div><div class="st">Filter by trade, location, Labour Score, and availability</div></div>
+        <div class="step"><div class="sn sn-g">4</div><div class="st">Contact workers directly, view ZK-verified identity, and book on your schedule</div></div>
         <button class="btn btn-gold btn-full" style="margin-top:1.25rem;border:none;padding:10px 16px;border-radius:var(--rs);cursor:pointer;font-family:inherit;font-size:14px" onclick="showComingSoon()">Employer Access — Coming Soon</button>
       </div>
     </div>
@@ -411,34 +405,34 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
 
   <div>
     <div class="div"></div>
-    <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;margin-bottom:6px">Pricing</h2>
-    <p style="font-size:14px;color:var(--text-2);margin-bottom:1.5rem">Simple, transparent pricing with no hidden fees</p>
-    <div class="pc-grid">
-      <div class="pc">
+    <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;margin-bottom:6px">Construction ID Network</h2>
+    <p style="font-size:14px;color:var(--text-2);margin-bottom:1.5rem">Free for all tradies and employers — powered by Midnight ZK proof</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:4rem">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.75rem">
         <div class="htag htag-b" style="margin-bottom:8px">Tradie Listing</div>
         <div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700">Get on the Network</div>
-        <div class="pa"><small>$</small>29</div>
-        <div class="pp">one-time listing fee · pay by debit card</div>
-        <ul class="pfl">
-          <li><span class="fchk">✓</span>Public profile in the LBH network</li>
-          <li><span class="fchk">✓</span>LBH Verified badge on your profile</li>
-          <li><span class="fchk">✓</span>Labour Score calculated and displayed</li>
-          <li><span class="fchk">✓</span>Employers can find and contact you directly</li>
-          <li><span class="fchk">✓</span>Appear in trade search and location filters</li>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:42px;font-weight:700;margin:8px 0 2px;color:var(--green)">Free</div>
+        <div style="font-size:13px;color:var(--text-3);margin-bottom:1.25rem">always free · no fees · no commissions</div>
+        <ul style="list-style:none;margin-bottom:1.5rem">
+          <li style="font-size:13px;color:var(--text-2);padding:7px 0;border-bottom:1px solid var(--border);display:flex;gap:8px"><span style="color:var(--green);flex-shrink:0">✓</span>Public construction ID profile in the LBH network</li>
+          <li style="font-size:13px;color:var(--text-2);padding:7px 0;border-bottom:1px solid var(--border);display:flex;gap:8px"><span style="color:var(--green);flex-shrink:0">✓</span>LBH Verified badge on your profile</li>
+          <li style="font-size:13px;color:var(--text-2);padding:7px 0;border-bottom:1px solid var(--border);display:flex;gap:8px"><span style="color:var(--green);flex-shrink:0">✓</span>Midnight wallet ZK proof of identity</li>
+          <li style="font-size:13px;color:var(--text-2);padding:7px 0;border-bottom:1px solid var(--border);display:flex;gap:8px"><span style="color:var(--green);flex-shrink:0">✓</span>Employers can find and contact you directly</li>
+          <li style="font-size:13px;color:var(--text-2);padding:7px 0;display:flex;gap:8px"><span style="color:var(--green);flex-shrink:0">✓</span>Appear in trade search and location filters</li>
         </ul>
-        <button class="btn btn-p btn-full" onclick="showView('getlisted')">Get Listed</button>
+        <button class="btn btn-p btn-full" onclick="showView('getlisted')">Get Listed — Free</button>
       </div>
-      <div class="pc feat">
-        <div class="htag htag-g" style="margin-bottom:8px">Employer Premium</div>
+      <div style="background:var(--surface);border:1px solid var(--blue-border);border-radius:var(--r);padding:1.75rem">
+        <div class="htag htag-g" style="margin-bottom:8px">Employer Access</div>
         <div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700">Full Network Access</div>
-        <div class="pa"><small>$</small>149</div>
-        <div class="pp">per month · unlimited access · cancel anytime</div>
-        <ul class="pfl">
-          <li><span class="fchk">✓</span>Unlimited access to all verified workers</li>
-          <li><span class="fchk">✓</span>Advanced filter by trade, location, score</li>
-          <li><span class="fchk">✓</span>Direct phone and email contact details</li>
-          <li><span class="fchk">✓</span>Full Labour Score history and reviews</li>
-          <li><span class="fchk">✓</span>Priority support from the LBH team</li>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:42px;font-weight:700;margin:8px 0 2px;color:var(--green)">Free</div>
+        <div style="font-size:13px;color:var(--text-3);margin-bottom:1.25rem">browse, search, and contact tradies at no cost</div>
+        <ul style="list-style:none;margin-bottom:1.5rem">
+          <li style="font-size:13px;color:var(--text-2);padding:7px 0;border-bottom:1px solid var(--border);display:flex;gap:8px"><span style="color:var(--green);flex-shrink:0">✓</span>Unlimited access to all verified workers</li>
+          <li style="font-size:13px;color:var(--text-2);padding:7px 0;border-bottom:1px solid var(--border);display:flex;gap:8px"><span style="color:var(--green);flex-shrink:0">✓</span>Filter by trade, location, Labour Score</li>
+          <li style="font-size:13px;color:var(--text-2);padding:7px 0;border-bottom:1px solid var(--border);display:flex;gap:8px"><span style="color:var(--green);flex-shrink:0">✓</span>View ZK-verified Midnight wallet proof</li>
+          <li style="font-size:13px;color:var(--text-2);padding:7px 0;border-bottom:1px solid var(--border);display:flex;gap:8px"><span style="color:var(--green);flex-shrink:0">✓</span>Full Labour Score history and reviews</li>
+          <li style="font-size:13px;color:var(--text-2);padding:7px 0;display:flex;gap:8px"><span style="color:var(--green);flex-shrink:0">✓</span>Direct messaging through the platform</li>
         </ul>
         <button class="btn btn-gold btn-full" style="border:none;padding:10px 16px;border-radius:var(--rs);cursor:pointer;font-family:inherit;font-size:14px;font-weight:700" onclick="showComingSoon()">Coming Soon</button>
       </div>
@@ -474,8 +468,8 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Back
     </button>
-    <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:700;margin-bottom:6px">Create Your Tradie Profile</h1>
-    <p style="font-size:14px;color:var(--text-2);margin-bottom:2rem">Join 200+ verified tradies on the Labour by Hire network.</p>
+    <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:700;margin-bottom:6px">Create Your Construction ID</h1>
+    <p style="font-size:14px;color:var(--text-2);margin-bottom:2rem">Join 200+ verified tradies on the Labour by Hire network — free, with Midnight wallet ZK proof.</p>
     <div class="fw">
       <div class="fc">
         <!-- Step 1 -->
@@ -525,10 +519,15 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
           <div class="fr"><label>About Yourself</label>
             <textarea id="reg-bio" placeholder="Describe your specialties, the type of jobs you take on, and what sets you apart..."></textarea>
           </div>
+          <div class="fr">
+            <label>Midnight Wallet Address <span style="font-weight:400;color:var(--text-3)">(optional — for ZK proof)</span></label>
+            <input id="reg-wallet" type="text" placeholder="addr1... or midnight1...">
+            <div style="font-size:12px;color:rgba(139,92,246,0.8);margin-top:5px">🌙 Connect your Midnight wallet to enable ZK proof of identity on your construction ID.</div>
+          </div>
           <div id="pay-err" class="err-box"></div>
           <div class="ff">
             <button class="btn btn-g" onclick="fstep(1)">← Back</button>
-            <button id="btn-pay" class="btn btn-p" style="flex:1" onclick="handleRegistration()">Create My Profile →</button>
+            <button id="btn-pay" class="btn btn-p" style="flex:1" onclick="handleRegistration()">Create My Construction ID →</button>
           </div>
         </div>
 
@@ -541,8 +540,8 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
             <div class="succ-ic">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L19 7" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
-            <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;margin-bottom:8px">You're on the network!</h3>
-            <p style="font-size:14px;color:var(--text-2);max-width:360px;margin:0 auto 2rem;line-height:1.7">Your profile is live. Our team will verify your details within 24 hours. Check your email for confirmation.</p>
+            <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;margin-bottom:8px">Your Construction ID is live!</h3>
+            <p style="font-size:14px;color:var(--text-2);max-width:360px;margin:0 auto 2rem;line-height:1.7">Your profile is on the network. Our team will verify your details within 24 hours and issue your ZK proof badge. Check your email for confirmation.</p>
             <button class="btn btn-p" onclick="showView('dashboard')">Go to My Dashboard →</button>
           </div>
         </div>
@@ -557,14 +556,14 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
 
     <!-- HERO -->
     <div style="text-align:center;padding-bottom:3rem;border-bottom:1px solid var(--border);margin-bottom:3rem">
-      <div class="pill" style="margin-bottom:1.25rem">
+      <div class="midnight-pill" style="margin-bottom:1.25rem">
         <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="3.5" fill="currentColor"/></svg>
-        One-time listing · No subscription
+        Free · Midnight Wallet · ZK Proof ID
       </div>
-      <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:52px;font-weight:700;line-height:1.05;margin-bottom:1.25rem">Get Your Trade<br><span style="color:var(--blue)">In Front of Employers</span></h1>
-      <p style="font-size:17px;color:var(--text-2);max-width:500px;margin:0 auto 2rem;line-height:1.7">Labour by Hire connects verified tradies with premium employers across Australia. One profile. Unlimited enquiries.</p>
+      <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:52px;font-weight:700;line-height:1.05;margin-bottom:1.25rem">Your Construction ID<br><span style="color:var(--blue)">Verified on the Network</span></h1>
+      <p style="font-size:17px;color:var(--text-2);max-width:500px;margin:0 auto 2rem;line-height:1.7">Labour by Hire connects verified tradies with employers across Australia. Free forever. Each profile gets a Midnight wallet for ZK proof of identity.</p>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-        <button class="btn btn-p btn-lg" onclick="showView('listed')">Create My Profile — $29 →</button>
+        <button class="btn btn-p btn-lg" onclick="showView('listed')">Create My Construction ID →</button>
         <button class="btn btn-o btn-lg" onclick="showLoginModal()">Already listed? Sign In</button>
       </div>
     </div>
@@ -584,9 +583,9 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
 
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem">
           <div style="width:36px;height:36px;border-radius:50%;background:var(--blue-dim);border:1px solid var(--blue-border);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--blue);font-size:16px;margin-bottom:14px">2</div>
-          <div style="font-size:22px;margin-bottom:10px">💳</div>
-          <div style="font-weight:600;margin-bottom:6px">Pay the listing fee</div>
-          <div style="font-size:13px;color:var(--text-2);line-height:1.6">One-time $29 AUD. No monthly fees, no commissions, no hidden costs. Ever.</div>
+          <div style="font-size:22px;margin-bottom:10px">🌙</div>
+          <div style="font-weight:600;margin-bottom:6px">Connect Midnight Wallet</div>
+          <div style="font-size:13px;color:var(--text-2);line-height:1.6">Link your Midnight wallet address. Your construction ID gets a ZK proof of identity — completely free.</div>
         </div>
 
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem">
@@ -610,7 +609,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:3.5rem">
 
       <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.75rem">
-        <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;margin-bottom:1.25rem">What you get for $29</h3>
+        <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;margin-bottom:1.25rem">What you get — free</h3>
 
         <div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
           <span style="color:var(--green);flex-shrink:0">✓</span>
@@ -618,36 +617,36 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
         </div>
         <div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
           <span style="color:var(--green);flex-shrink:0">✓</span>
+          <div><div style="font-size:14px;font-weight:600">Midnight wallet ZK proof</div><div style="font-size:12px;color:var(--text-3);margin-top:2px">Your construction ID is anchored to a Midnight wallet with zero-knowledge proof.</div></div>
+        </div>
+        <div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <span style="color:var(--green);flex-shrink:0">✓</span>
           <div><div style="font-size:14px;font-weight:600">Labour Score</div><div style="font-size:12px;color:var(--text-3);margin-top:2px">Your performance score based on job history, reviews, and reliability.</div></div>
         </div>
         <div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
           <span style="color:var(--green);flex-shrink:0">✓</span>
-          <div><div style="font-size:14px;font-weight:600">Public profile</div><div style="font-size:12px;color:var(--text-3);margin-top:2px">Searchable by trade, city, rate, and availability. No expiry.</div></div>
+          <div><div style="font-size:14px;font-weight:600">Public construction ID profile</div><div style="font-size:12px;color:var(--text-3);margin-top:2px">Searchable by trade, city, rate, and availability. No expiry.</div></div>
         </div>
         <div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
           <span style="color:var(--green);flex-shrink:0">✓</span>
           <div><div style="font-size:14px;font-weight:600">Direct enquiries</div><div style="font-size:12px;color:var(--text-3);margin-top:2px">Employers message you through the platform. No middleman.</div></div>
         </div>
-        <div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
-          <span style="color:var(--green);flex-shrink:0">✓</span>
-          <div><div style="font-size:14px;font-weight:600">Appear in filters</div><div style="font-size:12px;color:var(--text-3);margin-top:2px">Show up when employers search your trade and location.</div></div>
-        </div>
         <div style="display:flex;gap:10px;padding:10px 0">
           <span style="color:var(--green);flex-shrink:0">✓</span>
-          <div><div style="font-size:14px;font-weight:600">Lifetime listing</div><div style="font-size:12px;color:var(--text-3);margin-top:2px">Pay once, stay listed. No recurring fees.</div></div>
+          <div><div style="font-size:14px;font-weight:600">Permanent listing</div><div style="font-size:12px;color:var(--text-3);margin-top:2px">Always free. No recurring fees. Ever.</div></div>
         </div>
       </div>
 
       <div style="background:var(--surface);border:1px solid var(--blue-border);border-radius:var(--r);padding:1.75rem;display:flex;flex-direction:column">
-        <div class="htag htag-b" style="margin-bottom:12px">Tradie Listing</div>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700">One-time fee</div>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:56px;font-weight:700;line-height:1;margin:8px 0 4px"><small style="font-size:28px">$</small>29</div>
-        <div style="font-size:13px;color:var(--text-3);margin-bottom:1.5rem">AUD · one payment · no subscription</div>
-        <div style="background:var(--blue-dim);border:1px solid var(--blue-border);border-radius:var(--rs);padding:12px 14px;font-size:13px;color:var(--blue);line-height:1.6;margin-bottom:1.5rem">
-          Most tradies receive their first employer enquiry within 7 days of going live.
+        <div class="htag htag-b" style="margin-bottom:12px">Construction ID</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700">Your verified identity</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:56px;font-weight:700;line-height:1;margin:8px 0 4px;color:var(--green)">Free</div>
+        <div style="font-size:13px;color:var(--text-3);margin-bottom:1.5rem">always · no fees · no subscriptions</div>
+        <div style="background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.25);border-radius:var(--rs);padding:12px 14px;font-size:13px;color:#a78bfa;line-height:1.6;margin-bottom:1.5rem">
+          🌙 Each profile is backed by a Midnight wallet — your ZK proof of identity on the construction network.
         </div>
-        <button class="btn btn-p btn-full btn-lg" style="margin-top:auto" onclick="showView('listed')">Get Listed Now →</button>
-        <p style="font-size:12px;color:var(--text-3);text-align:center;margin-top:10px">Verified within 24 hours · Profile stays live</p>
+        <button class="btn btn-p btn-full btn-lg" style="margin-top:auto" onclick="showView('listed')">Create Your Construction ID →</button>
+        <p style="font-size:12px;color:var(--text-3);text-align:center;margin-top:10px">Verified within 24 hours · Free forever</p>
       </div>
 
     </div>
@@ -660,10 +659,10 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
 
         <div style="border-bottom:1px solid var(--border)">
           <button onclick="toggleFaq(0)" style="width:100%;text-align:left;padding:14px 0;background:none;border:none;font-family:inherit;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center">
-            Do I need to pay anything ongoing?
+            Is it really free?
             <span id="faq-icon-0" style="color:var(--text-3);font-size:20px;line-height:1;flex-shrink:0;margin-left:12px">+</span>
           </button>
-          <div id="faq-ans-0" style="display:none;padding-bottom:14px;font-size:13px;color:var(--text-2);line-height:1.7">No. The $29 is a one-time listing fee. Your profile stays live indefinitely. We only charge again if you want to add optional extras in the future.</div>
+          <div id="faq-ans-0" style="display:none;padding-bottom:14px;font-size:13px;color:var(--text-2);line-height:1.7">Yes. Labour by Hire is completely free for tradies and employers. There are no listing fees, no subscriptions, and no commissions. Your profile stays live indefinitely at no cost.</div>
         </div>
 
         <div style="border-bottom:1px solid var(--border)">
@@ -679,7 +678,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
             How do employers contact me?
             <span id="faq-icon-2" style="color:var(--text-3);font-size:20px;line-height:1;flex-shrink:0;margin-left:12px">+</span>
           </button>
-          <div id="faq-ans-2" style="display:none;padding-bottom:14px;font-size:13px;color:var(--text-2);line-height:1.7">Employers with a Premium subscription can message you directly through the platform. You'll receive a notification and can reply from your dashboard or via email.</div>
+          <div id="faq-ans-2" style="display:none;padding-bottom:14px;font-size:13px;color:var(--text-2);line-height:1.7">Employers can message you directly through the platform for free. You'll receive a notification and can reply from your dashboard or via email.</div>
         </div>
 
         <div style="border-bottom:1px solid var(--border)">
@@ -695,7 +694,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
             Can I update my profile after listing?
             <span id="faq-icon-4" style="color:var(--text-3);font-size:20px;line-height:1;flex-shrink:0;margin-left:12px">+</span>
           </button>
-          <div id="faq-ans-4" style="display:none;padding-bottom:14px;font-size:13px;color:var(--text-2);line-height:1.7">Yes. You can edit your bio, availability, hourly rate, and skills at any time from your dashboard at no extra cost.</div>
+          <div id="faq-ans-4" style="display:none;padding-bottom:14px;font-size:13px;color:var(--text-2);line-height:1.7">Yes. You can edit your bio, availability, hourly rate, and skills at any time from your dashboard for free.</div>
         </div>
 
         <div style="border-bottom:1px solid var(--border)">
@@ -703,7 +702,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
             What if I can't be verified?
             <span id="faq-icon-5" style="color:var(--text-3);font-size:20px;line-height:1;flex-shrink:0;margin-left:12px">+</span>
           </button>
-          <div id="faq-ans-5" style="display:none;padding-bottom:14px;font-size:13px;color:var(--text-2);line-height:1.7">If we can't verify your details, we'll contact you to resolve it. You won't be charged until your profile goes live.</div>
+          <div id="faq-ans-5" style="display:none;padding-bottom:14px;font-size:13px;color:var(--text-2);line-height:1.7">If we can't verify your details, we'll contact you to resolve it. The service remains free throughout the process.</div>
         </div>
 
       </div>
@@ -712,8 +711,8 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
     <!-- BOTTOM CTA -->
     <div style="text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:3rem 2rem">
       <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:700;margin-bottom:10px">Ready to get found?</h2>
-      <p style="font-size:15px;color:var(--text-2);margin-bottom:2rem;max-width:420px;margin-left:auto;margin-right:auto;line-height:1.7">Join 200+ verified tradies already on the Labour by Hire network. One payment, unlimited exposure.</p>
-      <button class="btn btn-p btn-lg" onclick="showView('listed')">Create My Profile — $29 →</button>
+      <p style="font-size:15px;color:var(--text-2);margin-bottom:2rem;max-width:420px;margin-left:auto;margin-right:auto;line-height:1.7">Join 200+ verified tradies already on the Labour by Hire network. Free forever — powered by Midnight ZK proof.</p>
+      <button class="btn btn-p btn-lg" onclick="showView('listed')">Create Your Construction ID →</button>
     </div>
 
   </div>
@@ -765,14 +764,14 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
 
     <!-- HERO -->
     <div style="text-align:center;padding-bottom:3rem;border-bottom:1px solid var(--border);margin-bottom:3rem">
-      <div class="pill" style="margin-bottom:1.25rem;background:var(--gold-dim);color:var(--gold);border-color:var(--gold-border)">
+      <div class="midnight-pill" style="margin-bottom:1.25rem">
         <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="3.5" fill="currentColor"/></svg>
-        Employer Premium · $149/month
+        Free Employer Access · ZK Verified Workers
       </div>
       <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:52px;font-weight:700;line-height:1.05;margin-bottom:1.25rem">Stop Guessing.<br><span style="color:var(--gold)">Hire Verified Tradies.</span></h1>
-      <p style="font-size:17px;color:var(--text-2);max-width:520px;margin:0 auto 2rem;line-height:1.7">Every tradie on Labour by Hire is licence-checked, White Card verified, and rated by our team. Browse, filter, and message them directly.</p>
+      <p style="font-size:17px;color:var(--text-2);max-width:520px;margin:0 auto 2rem;line-height:1.7">Every tradie on Labour by Hire is licence-checked, White Card verified, and ZK-proofed via Midnight wallet. Browse, filter, and message them directly — free.</p>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-        <button class="btn btn-gold btn-lg" style="border:none;font-family:inherit;cursor:pointer" onclick="showComingSoon()">Get Employer Access — $149/mo</button>
+        <button class="btn btn-gold btn-lg" style="border:none;font-family:inherit;cursor:pointer" onclick="showComingSoon()">Get Employer Access — Free</button>
         <button class="btn btn-o btn-lg" onclick="openDemo()">👁 See a Live Demo</button>
         <button class="btn btn-o btn-lg" onclick="showView('home')">Browse Tradies First</button>
       </div>
@@ -787,8 +786,8 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem">
           <div style="width:36px;height:36px;border-radius:50%;background:var(--gold-dim);border:1px solid var(--gold-border);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--gold);font-size:16px;margin-bottom:14px">1</div>
           <div style="font-size:22px;margin-bottom:10px">🔐</div>
-          <div style="font-weight:600;margin-bottom:6px">Subscribe to Premium</div>
-          <div style="font-size:13px;color:var(--text-2);line-height:1.6">$149/month. Cancel anytime. Instant access to the full verified tradie network.</div>
+          <div style="font-weight:600;margin-bottom:6px">Create Free Account</div>
+          <div style="font-size:13px;color:var(--text-2);line-height:1.6">Free. Instant access to the full verified tradie network with ZK-proofed construction IDs.</div>
         </div>
 
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem">
@@ -819,7 +818,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:3.5rem">
 
       <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.75rem">
-        <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;margin-bottom:1.25rem">What Employer Premium includes</h3>
+        <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;margin-bottom:1.25rem">What Employer Access includes — free</h3>
 
         <div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
           <span style="color:var(--gold);flex-shrink:0">★</span>
@@ -847,17 +846,17 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
         </div>
       </div>
 
-      <!-- PRICING CARD -->
+      <!-- ACCESS CARD -->
       <div style="background:var(--surface);border:1px solid var(--gold-border);border-radius:var(--r);padding:1.75rem;display:flex;flex-direction:column">
-        <div class="htag htag-g" style="margin-bottom:12px">Employer Premium</div>
+        <div class="htag htag-g" style="margin-bottom:12px">Employer Access</div>
         <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700">Full network access</div>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:56px;font-weight:700;line-height:1;margin:8px 0 4px"><small style="font-size:28px">$</small>149</div>
-        <div style="font-size:13px;color:var(--text-3);margin-bottom:1.5rem">AUD per month · cancel anytime</div>
-        <div style="background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:var(--rs);padding:12px 14px;font-size:13px;color:var(--gold);line-height:1.6;margin-bottom:1.5rem">
-          Most employers find a suitable tradie within 48 hours of subscribing.
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:56px;font-weight:700;line-height:1;margin:8px 0 4px;color:var(--green)">Free</div>
+        <div style="font-size:13px;color:var(--text-3);margin-bottom:1.5rem">always free · no subscriptions</div>
+        <div style="background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.25);border-radius:var(--rs);padding:12px 14px;font-size:13px;color:#a78bfa;line-height:1.6;margin-bottom:1.5rem">
+          🌙 Every worker has a verified Midnight wallet — ZK proof of identity you can trust.
         </div>
         <button class="btn btn-gold btn-full btn-lg" style="margin-top:auto;border:none;font-family:inherit;cursor:pointer" onclick="showComingSoon()">Get Employer Access →</button>
-        <p style="font-size:12px;color:var(--text-3);text-align:center;margin-top:10px">No lock-in · Cancel anytime · Instant access</p>
+        <p style="font-size:12px;color:var(--text-3);text-align:center;margin-top:10px">No fees · No lock-in · Instant access</p>
       </div>
 
     </div>
@@ -869,10 +868,10 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
 
         <div style="border-bottom:1px solid var(--border)">
           <button onclick="toggleFaqE(0)" style="width:100%;text-align:left;padding:14px 0;background:none;border:none;font-family:inherit;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center">
-            Is there a minimum contract period?
+            Is employer access really free?
             <span id="faqe-icon-0" style="color:var(--text-3);font-size:20px;line-height:1;flex-shrink:0;margin-left:12px">+</span>
           </button>
-          <div id="faqe-ans-0" style="display:none;padding-bottom:14px;font-size:13px;color:var(--text-2);line-height:1.7">No. Employer Premium is month-to-month. You can cancel at any time and your access continues until the end of the billing period.</div>
+          <div id="faqe-ans-0" style="display:none;padding-bottom:14px;font-size:13px;color:var(--text-2);line-height:1.7">No. Employer access is completely free with no minimum contract or subscription. Create an account and access the full network instantly.</div>
         </div>
 
         <div style="border-bottom:1px solid var(--border)">
@@ -913,7 +912,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
     <!-- BOTTOM CTA -->
     <div style="text-align:center;background:var(--surface);border:1px solid var(--gold-border);border-radius:var(--r);padding:3rem 2rem">
       <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:700;margin-bottom:10px">Ready to find your next tradie?</h2>
-      <p style="font-size:15px;color:var(--text-2);margin-bottom:2rem;max-width:420px;margin-left:auto;margin-right:auto;line-height:1.7">200+ verified tradies. No guesswork. No agencies. Direct access for $149/month.</p>
+      <p style="font-size:15px;color:var(--text-2);margin-bottom:2rem;max-width:420px;margin-left:auto;margin-right:auto;line-height:1.7">200+ verified tradies with Midnight wallet ZK proof. No guesswork. No agencies. Free direct access.</p>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
         <button class="btn btn-gold btn-lg" style="border:none;font-family:inherit;cursor:pointer" onclick="showComingSoon()">Get Employer Access →</button>
         <button class="btn btn-o btn-lg" onclick="openDemo()">👁 See a Live Demo</button>
@@ -930,11 +929,11 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
     <!-- DEMO HEADER -->
     <div style="padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
       <div>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700">Employer Premium — Live Preview</div>
-        <div style="font-size:12px;color:var(--text-3);margin-top:2px">This is exactly what you get access to. Contact details are blurred until you subscribe.</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700">Construction ID Network — Live Preview</div>
+        <div style="font-size:12px;color:var(--text-3);margin-top:2px">Free access to all verified workers with Midnight wallet ZK proof of identity.</div>
       </div>
       <div style="display:flex;gap:8px;align-items:center">
-        <span style="font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-border);padding:3px 10px;border-radius:100px">Premium View</span>
+        <span class="midnight-pill">🌙 ZK Network</span>
         <button onclick="closeDemo()" style="background:none;border:none;color:var(--text-2);font-size:24px;cursor:pointer;line-height:1;padding:0">×</button>
       </div>
     </div>
@@ -987,7 +986,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
         </div>
         <!-- Contact details — visible on first card as example -->
         <div style="margin-top:10px;padding:10px;background:var(--surface);border-radius:var(--rs);border:1px solid var(--border)">
-          <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.4px">Contact (Premium)</div>
+          <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.4px">Contact (Free)</div>
           <div style="font-size:12px;color:var(--blue);margin-bottom:3px">📞 0412 345 678</div>
           <div style="font-size:12px;color:var(--blue)">✉ jake.t@email.com.au</div>
           <button style="width:100%;margin-top:8px;padding:7px;background:var(--blue);color:#fff;border:none;border-radius:var(--rs);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">✉ Send Message</button>
@@ -1024,11 +1023,11 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
         </div>
         <!-- Blurred contact -->
         <div style="margin-top:10px;padding:10px;background:var(--surface);border-radius:var(--rs);border:1px solid var(--border);position:relative;overflow:hidden">
-          <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.4px">Contact (Premium)</div>
+          <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.4px">Contact (Free)</div>
           <div style="font-size:12px;color:var(--text-3);margin-bottom:3px;filter:blur(4px);user-select:none">📞 04XX XXX XXX</div>
           <div style="font-size:12px;color:var(--text-3);filter:blur(4px);user-select:none">✉ maria.s@XXXXXX.com</div>
           <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(11,13,18,0.6);border-radius:var(--rs)">
-            <span style="font-size:11px;font-weight:700;color:var(--gold);background:var(--gold-dim);border:1px solid var(--gold-border);padding:4px 10px;border-radius:100px">🔒 Premium Only</span>
+            <span style="font-size:11px;font-weight:700;color:#a78bfa;background:rgba(139,92,246,0.12);border:1px solid rgba(139,92,246,0.3);padding:4px 10px;border-radius:100px">🌙 Sign Up Free</span>
           </div>
         </div>
       </div>
@@ -1063,11 +1062,11 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
         </div>
         <!-- Blurred contact -->
         <div style="margin-top:10px;padding:10px;background:var(--surface);border-radius:var(--rs);border:1px solid var(--border);position:relative;overflow:hidden">
-          <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.4px">Contact (Premium)</div>
+          <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.4px">Contact (Free)</div>
           <div style="font-size:12px;color:var(--text-3);margin-bottom:3px;filter:blur(4px);user-select:none">📞 04XX XXX XXX</div>
           <div style="font-size:12px;color:var(--text-3);filter:blur(4px);user-select:none">✉ brett.w@XXXXXX.com</div>
           <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(11,13,18,0.6);border-radius:var(--rs)">
-            <span style="font-size:11px;font-weight:700;color:var(--gold);background:var(--gold-dim);border:1px solid var(--gold-border);padding:4px 10px;border-radius:100px">🔒 Premium Only</span>
+            <span style="font-size:11px;font-weight:700;color:#a78bfa;background:rgba(139,92,246,0.12);border:1px solid rgba(139,92,246,0.3);padding:4px 10px;border-radius:100px">🌙 Sign Up Free</span>
           </div>
         </div>
       </div>
@@ -1076,31 +1075,31 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
 
     <!-- DEMO FOOTER -->
     <div style="padding:1.25rem 1.5rem;border-top:1px solid var(--border);background:var(--surface-2);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
-      <div style="font-size:13px;color:var(--text-2)">Showing 3 of <strong>200+</strong> verified tradies · Contact details unlocked with Premium</div>
+      <div style="font-size:13px;color:var(--text-2)">Showing 3 of <strong>200+</strong> verified tradies · Each with a Midnight wallet ZK proof</div>
       <div style="display:flex;gap:8px">
         <button class="btn btn-g" onclick="closeDemo()">Close Preview</button>
-        <button class="btn btn-gold" style="border:none;cursor:pointer;font-family:inherit" onclick="closeDemo();showComingSoon()">Get Full Access — $149/mo →</button>
+        <button class="btn btn-gold" style="border:none;cursor:pointer;font-family:inherit" onclick="closeDemo();showComingSoon()">Get Free Access →</button>
       </div>
     </div>
 
   </div>
 </div>
 
-<!-- PAYWALL MODAL -->
+<!-- CONTACT MODAL (free) -->
 <div class="modal-overlay" id="paywall-modal">
   <div class="modal-box">
     <button class="modal-close" onclick="closePaywall()">×</button>
-    <div class="modal-icon">🔒</div>
-    <div class="modal-title">Employer Premium Required</div>
-    <div class="modal-sub">Messaging tradies directly is an Employer Premium feature. Upgrade to unlock full contact access to every verified worker on the network.</div>
+    <div class="modal-icon" style="background:rgba(139,92,246,0.12);border-color:rgba(139,92,246,0.3)">🌙</div>
+    <div class="modal-title">Construction ID Network</div>
+    <div class="modal-sub">Messaging verified tradies is free on Labour by Hire. Sign up as an employer to contact workers directly.</div>
     <ul class="modal-feats">
-      <li><span style="color:var(--gold)">★</span> Message any tradie directly</li>
-      <li><span style="color:var(--gold)">★</span> View phone &amp; email contact details</li>
-      <li><span style="color:var(--gold)">★</span> Unlimited worker searches &amp; filters</li>
-      <li><span style="color:var(--gold)">★</span> Full Labour Score history &amp; reviews</li>
+      <li><span style="color:var(--green)">✓</span> Message any tradie directly — free</li>
+      <li><span style="color:var(--green)">✓</span> View ZK-verified Midnight wallet proof</li>
+      <li><span style="color:var(--green)">✓</span> Unlimited worker searches &amp; filters</li>
+      <li><span style="color:var(--green)">✓</span> Full Labour Score history &amp; reviews</li>
     </ul>
-    <button class="btn btn-gold btn-full" style="margin-bottom:10px;border:none;padding:12px;border-radius:var(--rs);font-size:15px;font-weight:700;cursor:pointer;font-family:inherit" onclick="handlePremiumSignup()">Upgrade to Premium — $149/mo</button>
-    <button class="btn btn-g btn-full" onclick="closePaywall()">Maybe Later</button>
+    <button class="btn btn-p btn-full" style="margin-bottom:10px;padding:12px;border-radius:var(--rs);font-size:15px;font-weight:700;cursor:pointer" onclick="handlePremiumSignup()">Continue — It's Free</button>
+    <button class="btn btn-g btn-full" onclick="closePaywall()">Cancel</button>
   </div>
 </div>
 
@@ -1154,7 +1153,7 @@ function selectRole(role) {
     showView('getlisted');
   } else if (role === 'employer') {
     showView('home');
-    toast('Browse verified tradies below. Employer Premium unlocks direct messaging.');
+    toast('Browse verified tradies below. Each has a verified construction ID with Midnight wallet ZK proof.');
   } else {
     showView('home');
   }
@@ -1361,6 +1360,7 @@ async function handleRegistration() {
   const btn = document.getElementById('btn-pay');
   const errEl = document.getElementById('pay-err');
 
+  const walletAddr = document.getElementById('reg-wallet').value.trim();
   const payload = {
     firstName:  document.getElementById('reg-fn').value.trim(),
     lastName:   document.getElementById('reg-ln').value.trim(),
@@ -1382,6 +1382,7 @@ async function handleRegistration() {
     currentWorker = data.worker;
     localStorage.setItem('lbh_token', token);
     localStorage.setItem('lbh_name', `${data.worker.first_name} ${data.worker.last_name}`);
+    if (walletAddr) localStorage.setItem(`lbh_wallet_${data.worker.id}`, walletAddr);
     setNavLoggedIn(`${data.worker.first_name} ${data.worker.last_name}`);
 
     // Also create a listing if they filled in a bio/title
@@ -1471,6 +1472,24 @@ async function loadDashboard() {
         <p style="font-size:14px;color:var(--text-2);line-height:1.7">${w.bio}</p>
       </div>` : ''}
 
+      <div class="wallet-card" style="margin-bottom:1rem">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:20px">🌙</span>
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;color:#a78bfa;text-transform:uppercase;letter-spacing:.5px">Midnight Wallet</span>
+          </div>
+          ${localStorage.getItem(`lbh_wallet_${w.id}`) ? '<span class="zk-badge">ZK Verified</span>' : ''}
+        </div>
+        ${localStorage.getItem(`lbh_wallet_${w.id}`) ? `
+          <div class="wallet-addr">${localStorage.getItem(`lbh_wallet_${w.id}`)}</div>
+          <div style="font-size:12px;color:var(--text-3)">Your construction ID is anchored on the Midnight network with zero-knowledge proof.</div>
+        ` : `
+          <p style="font-size:13px;color:var(--text-3);margin-bottom:10px">No wallet connected. Add your Midnight wallet address to get a ZK proof badge on your construction ID.</p>
+          <div class="fr" style="margin:0"><input id="wallet-input" type="text" placeholder="addr1... or midnight1..." style="width:100%;padding:8px 12px;background:var(--surface-3);border:1px solid rgba(139,92,246,0.3);border-radius:var(--rs);font-size:13px;color:var(--text);font-family:inherit;outline:none"></div>
+          <button class="btn btn-sm" style="margin-top:8px;background:rgba(139,92,246,0.15);color:#a78bfa;border:1px solid rgba(139,92,246,0.3)" onclick="saveWallet(${w.id})">Connect Wallet</button>
+        `}
+      </div>
+
       <div class="dash-card" style="margin-bottom:1rem">
         <h3 style="display:flex;align-items:center;gap:6px">
           Messages
@@ -1483,6 +1502,14 @@ async function loadDashboard() {
   } catch (err) {
     el.innerHTML = `<div class="err-box" style="display:block">Failed to load dashboard: ${err.message}</div>`;
   }
+}
+
+function saveWallet(workerId) {
+  const addr = document.getElementById('wallet-input')?.value.trim();
+  if (!addr) { toast('Please enter a wallet address', 'err'); return; }
+  localStorage.setItem(`lbh_wallet_${workerId}`, addr);
+  toast('Midnight wallet connected! ZK proof enabled. 🌙');
+  loadDashboard();
 }
 
 function showEditProfile() {
@@ -1569,6 +1596,7 @@ function showProfile(id) {
   const name = w.name || `${w.first_name} ${w.last_name}`;
   const parts = name.trim().split(' ');
   const ini = ((parts[0]?.[0] || '') + (parts[parts.length-1]?.[0] || '')).toUpperCase();
+  const walletAddr = localStorage.getItem(`lbh_wallet_${w.id}`);
   document.getElementById('profile-content').innerHTML = `
     <div class="pcard">
       <div class="ptop">
@@ -1576,13 +1604,32 @@ function showProfile(id) {
         <div class="pinfo">
           <div class="pname">${name}</div>
           <div class="pmeta">${w.trade} · ${w.city || 'Location TBC'}</div>
-          <div class="badges" style="margin-top:10px"><span class="bdg bg">LBH Verified</span></div>
+          <div class="badges" style="margin-top:10px">
+            <span class="bdg bg">LBH Verified</span>
+            ${walletAddr ? '<span class="zk-badge">🌙 ZK Proof</span>' : ''}
+          </div>
         </div>
       </div>
       ${w.bio ? `<div class="pbio">${w.bio}</div>` : ''}
       <div class="pstats">
         ${w.hourly_rate ? `<div><div class="ps-n">$${w.hourly_rate}</div><div class="ps-l">Per Hour</div></div>` : ''}
       </div>
+      ${walletAddr ? `
+      <div class="wallet-card">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="font-size:16px">🌙</span>
+          <span style="font-size:13px;font-weight:700;color:#a78bfa">Midnight Wallet</span>
+          <span class="zk-badge" style="font-size:10px">ZK Verified</span>
+        </div>
+        <div class="wallet-addr">${walletAddr}</div>
+        <div style="font-size:12px;color:var(--text-3)">Zero-knowledge proof of construction identity anchored on the Midnight network.</div>
+      </div>` : `
+      <div class="wallet-card" style="opacity:.55">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:16px">🌙</span>
+          <span style="font-size:13px;color:var(--text-3)">No Midnight wallet connected yet</span>
+        </div>
+      </div>`}
       <div style="display:flex;gap:8px;margin-top:1.5rem">
         <button class="btn btn-p" style="flex:1" onclick="contactWorker(${w.id}, '${name.replace(/'/g,"\\'")}')">✉ Message Worker</button>
         <button class="btn btn-g" onclick="showView('home')">Back</button>
@@ -1648,13 +1695,9 @@ function fstep(n) {
 
 // ─── MESSAGING ───────────────────────────────────────────────────────────────
 let composeWorkerId = null;
-let premiumActive = false; // flip to true when employer pays
+let premiumActive = true; // free for all — no paywall
 
 function contactWorker(workerId, workerName) {
-  if (!premiumActive) {
-    openPaywall();
-    return;
-  }
   openCompose(workerId, workerName);
 }
 
