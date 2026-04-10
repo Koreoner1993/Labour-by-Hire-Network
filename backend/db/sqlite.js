@@ -69,6 +69,25 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS idx_employer_jobs_urgency ON employer_jobs(urgency);
   CREATE INDEX IF NOT EXISTS idx_notifications_worker_id ON notifications(worker_id);
   CREATE INDEX IF NOT EXISTS idx_notifications_is_read ON notifications(is_read);
+
+  CREATE TABLE IF NOT EXISTS equipment_listings (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    owner_id INTEGER NOT NULL,
+    title TEXT NOT NULL,
+    category TEXT NOT NULL,
+    description TEXT,
+    daily_rate REAL NOT NULL,
+    location TEXT,
+    condition TEXT DEFAULT 'Good',
+    availability TEXT DEFAULT 'Available',
+    active BOOLEAN DEFAULT 1,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (owner_id) REFERENCES workers(id) ON DELETE CASCADE
+  );
+  CREATE INDEX IF NOT EXISTS idx_equipment_owner ON equipment_listings(owner_id);
+  CREATE INDEX IF NOT EXISTS idx_equipment_category ON equipment_listings(category);
+  CREATE INDEX IF NOT EXISTS idx_equipment_active ON equipment_listings(active);
 `);
 
 module.exports = db;
