@@ -324,6 +324,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
     <div id="role-badge" style="display:none;font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:3px 10px;border-radius:100px;margin-left:4px"></div>
     <div class="nav-links">
       <button class="nl" onclick="showView('home')">Browse Workers</button>
+      <button class="nl" onclick="showView('equipment');loadEquipment()">Equipment</button>
       <button class="nl" onclick="showHowModal()">How It Works</button>
     </div>
     <div class="nr">
@@ -449,6 +450,80 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0;margin-top:4rem}
       Back to browse
     </button>
     <div id="profile-content"></div>
+  </div>
+</div>
+
+<!-- EQUIPMENT BROWSE VIEW -->
+<div id="view-equipment" style="display:none">
+  <div class="wrap" style="padding-top:2rem;padding-bottom:4rem">
+    <div class="sh">
+      <div>
+        <h2>Equipment Hire</h2>
+        <div class="sh-sub">Browse verified tradie-owned equipment available for hire across Australia</div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <input class="si" id="equip-search" placeholder="Search equipment or location..." oninput="filterEquipment()">
+        <button id="equip-list-btn" class="btn btn-p btn-sm" style="display:none;white-space:nowrap" onclick="showListEquipModal()">+ List Equipment</button>
+      </div>
+    </div>
+    <div class="filters" id="equip-filters-el"></div>
+    <div class="grid" id="equip-grid">
+      <p style="color:var(--text-3);font-size:14px;padding:2rem 0">Loading equipment...</p>
+    </div>
+  </div>
+</div>
+
+<!-- EQUIPMENT PROFILE VIEW -->
+<div id="view-equipment-profile" style="display:none">
+  <div class="wrap" style="padding-top:2rem;padding-bottom:4rem">
+    <button class="back" onclick="showView('equipment')">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to Equipment
+    </button>
+    <div id="equip-profile-content"></div>
+  </div>
+</div>
+
+<!-- LIST EQUIPMENT MODAL -->
+<div id="equip-modal-overlay" class="modal-overlay" style="display:none" onclick="if(event.target===this)closeEquipModal()">
+  <div class="modal" style="max-width:520px;width:100%">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
+      <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;margin:0">List Your Equipment</h3>
+      <button onclick="closeEquipModal()" style="background:none;border:none;color:var(--text-2);cursor:pointer;font-size:20px;line-height:1;padding:0">&#x2715;</button>
+    </div>
+    <div id="equip-modal-err" class="err-box"></div>
+    <div class="fr"><label>Equipment Title *</label><input id="em-title" type="text" placeholder="e.g. 20T All-Terrain Crane"></div>
+    <div class="fr"><label>Category *</label>
+      <select id="em-cat">
+        <option value="">Select category...</option>
+        <option>Cranes</option>
+        <option>EWP / Scissor Lifts</option>
+        <option>Excavators</option>
+        <option>Concrete &amp; Compaction</option>
+        <option>Scaffolding</option>
+        <option>Power Tools</option>
+        <option>Utes &amp; Trailers</option>
+      </select>
+    </div>
+    <div class="fr"><label>Description</label><textarea id="em-desc" placeholder="Describe your equipment — specs, attachments, certifications..."></textarea></div>
+    <div class="fg2">
+      <div class="fr"><label>Daily Rate (AUD) *</label><input id="em-rate" type="number" placeholder="e.g. 850" min="1"></div>
+      <div class="fr"><label>Location</label><input id="em-loc" type="text" placeholder="e.g. Sydney, NSW"></div>
+    </div>
+    <div class="fg2">
+      <div class="fr"><label>Condition</label>
+        <select id="em-cond">
+          <option value="Excellent">Excellent</option>
+          <option value="Good" selected>Good</option>
+          <option value="Fair">Fair</option>
+        </select>
+      </div>
+      <div class="fr"><label>Availability</label><input id="em-avail" type="text" placeholder="e.g. Weekdays, Flexible"></div>
+    </div>
+    <div class="ff" style="margin-top:1.25rem">
+      <button class="btn btn-g" onclick="closeEquipModal()">Cancel</button>
+      <button id="em-submit-btn" class="btn btn-p" style="flex:1" onclick="submitEquipmentListing()">List Equipment →</button>
+    </div>
   </div>
 </div>
 
@@ -1184,6 +1259,8 @@ let token = localStorage.getItem('lbh_token');
 let currentWorker = null;
 let listings = [];
 let activeFilter = 'All';
+let equipmentListings = [];
+let activeEquipFilter = 'All';
 
 // ─── API ──────────────────────────────────────────────────────────────────────
 async function api(method, endpoint, body = null) {
@@ -1275,10 +1352,14 @@ function setNavLoggedIn(name) {
   document.getElementById('nav-signin').style.display = 'none';
   document.getElementById('nav-loggedin').style.display = 'flex';
   document.getElementById('nav-name').textContent = name || 'My Account';
+  const equipBtn = document.getElementById('equip-list-btn');
+  if (equipBtn) equipBtn.style.display = 'inline-flex';
 }
 function setNavLoggedOut() {
   document.getElementById('nav-signin').style.display = 'flex';
   document.getElementById('nav-loggedin').style.display = 'none';
+  const equipBtn = document.getElementById('equip-list-btn');
+  if (equipBtn) equipBtn.style.display = 'none';
 }
 function logoutWorker() {
   token = null; currentWorker = null;
@@ -1491,6 +1572,14 @@ async function loadDashboard() {
       </div>
 
       <div class="dash-card" style="margin-bottom:1rem">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+          <h3 style="margin:0">My Equipment Listings</h3>
+          <button class="btn btn-p btn-sm" onclick="showListEquipModal()">+ Add Equipment</button>
+        </div>
+        <div id="my-equip-container"><p style="color:var(--text-3);font-size:13px">Loading...</p></div>
+      </div>
+
+      <div class="dash-card" style="margin-bottom:1rem">
         <h3 style="display:flex;align-items:center;gap:6px">
           Messages
           <span id="inbox-badge" class="unread-badge"></span>
@@ -1499,6 +1588,7 @@ async function loadDashboard() {
       </div>
     `;
     loadInbox('inbox-container');
+    loadMyEquipment(w.id);
   } catch (err) {
     el.innerHTML = `<div class="err-box" style="display:block">Failed to load dashboard: ${err.message}</div>`;
   }
@@ -1510,6 +1600,62 @@ function saveWallet(workerId) {
   localStorage.setItem(`lbh_wallet_${workerId}`, addr);
   toast('Midnight wallet connected! ZK proof enabled. 🌙');
   loadDashboard();
+}
+
+async function loadMyEquipment(workerId) {
+  const el = document.getElementById('my-equip-container');
+  if (!el) return;
+  try {
+    const data = await api('GET', '/equipment');
+    const mine = (data.equipment || []).filter(e => e.owner_id === workerId);
+    if (!mine.length) {
+      el.innerHTML = `<p style="font-size:13px;color:var(--text-3);margin-bottom:10px">You haven't listed any equipment yet.</p>`;
+      return;
+    }
+    el.innerHTML = mine.map(e => `
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);gap:12px;flex-wrap:wrap">
+        <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0">
+          <span style="font-size:22px">${EQUIP_ICONS[e.category] || '🔧'}</span>
+          <div style="min-width:0">
+            <div style="font-size:14px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${e.title}</div>
+            <div style="font-size:12px;color:var(--text-3)">${e.category} · $${e.daily_rate ? e.daily_rate.toLocaleString() : '—'}/day · ${e.location || e.owner?.city || '—'}</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center;flex-shrink:0">
+          <span style="font-size:11px;font-weight:600;color:${e.active ? 'var(--green)' : 'var(--text-3)'}">${e.active ? '● Live' : '○ Paused'}</span>
+          <button class="btn btn-g btn-sm" onclick="toggleEquipActive(${e.id}, ${e.active ? 0 : 1})">${e.active ? 'Pause' : 'Activate'}</button>
+          <button class="btn btn-sm" style="color:var(--red);background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.2)" onclick="deleteMyEquip(${e.id})">Delete</button>
+        </div>
+      </div>
+    `).join('');
+  } catch (err) {
+    el.innerHTML = `<p style="font-size:13px;color:var(--text-3)">Could not load equipment listings.</p>`;
+  }
+}
+
+async function toggleEquipActive(id, newActive) {
+  try {
+    await api('PUT', `/equipment/${id}`, { active: newActive });
+    toast(newActive ? 'Listing activated' : 'Listing paused');
+    const data = await api('GET', '/equipment');
+    const all = data.equipment || [];
+    const item = all.find(e => e.id === id);
+    if (item) loadMyEquipment(item.owner_id);
+    else loadDashboard();
+  } catch (err) {
+    toast(err.message, 'err');
+  }
+}
+
+async function deleteMyEquip(id) {
+  if (!confirm('Delete this equipment listing?')) return;
+  try {
+    await api('DELETE', `/equipment/${id}`);
+    toast('Listing deleted');
+    loadDashboard();
+  } catch (err) {
+    toast(err.message, 'err');
+  }
 }
 
 function showEditProfile() {
@@ -1638,15 +1784,173 @@ function showProfile(id) {
   showView('profile');
 }
 
+// ─── EQUIPMENT MARKETPLACE ───────────────────────────────────────────────────
+const EQUIP_CATS = ['All','Cranes','EWP / Scissor Lifts','Excavators','Concrete & Compaction','Scaffolding','Power Tools','Utes & Trailers'];
+const EQUIP_ICONS = {'Cranes':'🏗️','EWP / Scissor Lifts':'🔼','Excavators':'⛏️','Concrete & Compaction':'🔩','Scaffolding':'🪜','Power Tools':'🔧','Utes & Trailers':'🚐'};
+
+async function loadEquipment() {
+  try {
+    const data = await api('GET', '/equipment');
+    equipmentListings = data.equipment || [];
+    filterEquipment();
+  } catch (err) {
+    const el = document.getElementById('equip-grid');
+    if (el) el.innerHTML = '<p style="color:var(--text-3);font-size:14px;padding:2rem 0;grid-column:1/-1">No equipment listed yet — be the first!</p>';
+  }
+}
+
+function filterEquipment() {
+  const q = (document.getElementById('equip-search')?.value || '').toLowerCase().trim();
+  const filtered = equipmentListings.filter(e => {
+    const matchCat = activeEquipFilter === 'All' || e.category === activeEquipFilter;
+    const matchQ = !q || e.title.toLowerCase().includes(q) || (e.location||'').toLowerCase().includes(q) || (e.owner?.city||'').toLowerCase().includes(q) || e.category.toLowerCase().includes(q);
+    return matchCat && matchQ;
+  });
+  const el = document.getElementById('equip-grid');
+  if (!el) return;
+  el.innerHTML = filtered.length
+    ? filtered.map(renderEquipCard).join('')
+    : '<p style="color:var(--text-2);font-size:14px;padding:3rem 0;text-align:center;grid-column:1/-1">No equipment found matching your search.</p>';
+}
+
+function renderEquipCard(e) {
+  const icon = EQUIP_ICONS[e.category] || '🔧';
+  const condColor = e.condition === 'Excellent' ? 'var(--green)' : e.condition === 'Fair' ? 'var(--gold)' : 'var(--blue)';
+  return `<div class="card" onclick="showEquipmentProfile(${e.id})" style="cursor:pointer">
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:10px">
+      <div style="font-size:28px;line-height:1;flex-shrink:0">${icon}</div>
+      <div style="min-width:0">
+        <div style="font-size:15px;font-weight:600;color:var(--text);line-height:1.3;margin-bottom:4px">${e.title}</div>
+        <div style="display:inline-block;font-size:11px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;padding:2px 8px;border-radius:100px;background:rgba(33,150,243,.12);color:var(--blue);margin-bottom:6px">${e.category}</div>
+        ${e.location ? `<div style="font-size:12px;color:var(--text-3)">📍 ${e.location}</div>` : (e.owner?.city ? `<div style="font-size:12px;color:var(--text-3)">📍 ${e.owner.city}</div>` : '')}
+      </div>
+    </div>
+    <div style="border-top:1px solid var(--border);padding-top:10px;display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <div style="font-size:18px;font-weight:700;color:var(--text)">${e.daily_rate ? '$'+e.daily_rate.toLocaleString()+'<small style="font-size:12px;font-weight:400;color:var(--text-2)">/day</small>' : '<small style="font-size:13px;color:var(--text-3)">Rate TBC</small>'}</div>
+        ${e.availability ? `<div style="font-size:11px;color:var(--text-3);margin-top:2px">${e.availability}</div>` : ''}
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:11px;font-weight:600;color:${condColor};margin-bottom:3px">${e.condition}</div>
+        <div style="font-size:11px;color:var(--text-3)">${e.owner?.name || ''}</div>
+        <div style="font-size:10px;color:var(--green);font-weight:600">✓ LBH Verified</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderEquipFilters() {
+  const el = document.getElementById('equip-filters-el');
+  if (!el) return;
+  el.innerHTML = EQUIP_CATS.map(c =>
+    `<button class="chip ${c === activeEquipFilter ? 'on' : ''}" onclick="setEquipFilter('${c.replace(/'/g,"\\'")}')">${c}</button>`
+  ).join('');
+}
+
+function setEquipFilter(cat) {
+  activeEquipFilter = cat;
+  renderEquipFilters();
+  filterEquipment();
+}
+
+function showEquipmentProfile(id) {
+  const e = equipmentListings.find(x => x.id === id);
+  if (!e) return;
+  const icon = EQUIP_ICONS[e.category] || '🔧';
+  const condColor = e.condition === 'Excellent' ? 'var(--green)' : e.condition === 'Fair' ? 'var(--gold)' : 'var(--blue)';
+  document.getElementById('equip-profile-content').innerHTML = `
+    <div class="pcard">
+      <div style="display:flex;align-items:flex-start;gap:16px;margin-bottom:1.25rem;flex-wrap:wrap">
+        <div style="font-size:52px;line-height:1">${icon}</div>
+        <div style="flex:1;min-width:200px">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:700;line-height:1.1;margin-bottom:6px">${e.title}</div>
+          <div style="display:inline-block;font-size:12px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;padding:3px 10px;border-radius:100px;background:rgba(33,150,243,.12);color:var(--blue);margin-bottom:8px">${e.category}</div>
+          <div class="badges">
+            <span class="bdg" style="background:rgba(34,197,94,.1);color:var(--green);border-color:rgba(34,197,94,.2);font-size:11px">${e.condition} Condition</span>
+            <span class="bdg bg">LBH Verified</span>
+          </div>
+        </div>
+        <div style="text-align:right;flex-shrink:0">
+          <div style="font-size:32px;font-weight:700;color:var(--text)">$${e.daily_rate ? e.daily_rate.toLocaleString() : '—'}</div>
+          <div style="font-size:13px;color:var(--text-2)">per day</div>
+        </div>
+      </div>
+      ${e.description ? `<div style="font-size:14px;color:var(--text-2);line-height:1.7;margin-bottom:1.25rem;padding:1rem;background:var(--bg);border-radius:8px;border:1px solid var(--border)">${e.description}</div>` : ''}
+      <div class="pstats" style="margin-bottom:1.25rem">
+        ${e.location || e.owner?.city ? `<div><div class="ps-n" style="font-size:14px">📍 ${e.location || e.owner?.city}</div><div class="ps-l">Location</div></div>` : ''}
+        ${e.availability ? `<div><div class="ps-n" style="font-size:14px">${e.availability}</div><div class="ps-l">Availability</div></div>` : ''}
+      </div>
+      <div class="dash-card" style="margin-bottom:1.25rem">
+        <h3 style="font-size:14px;margin-bottom:10px">Listed by</h3>
+        <div class="field-row"><span class="field-label">Name</span><span class="field-val">${e.owner?.name || '—'}</span></div>
+        <div class="field-row"><span class="field-label">Trade</span><span class="field-val">${e.owner?.trade || '—'}</span></div>
+        <div class="field-row"><span class="field-label">Location</span><span class="field-val">${e.owner?.city || '—'}</span></div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:1rem">
+        <button class="btn btn-p" style="flex:1" onclick="contactWorker(${e.owner_id}, '${(e.owner?.name||'').replace(/'/g,"\\'")}')">✉ Enquire About This Equipment</button>
+        <button class="btn btn-g" onclick="showView('equipment')">Back</button>
+      </div>
+    </div>`;
+  showView('equipment-profile');
+}
+
+function showListEquipModal() {
+  if (!token) { showLoginModal(); return; }
+  document.getElementById('equip-modal-overlay').style.display = 'flex';
+  document.getElementById('equip-modal-err').style.display = 'none';
+  document.getElementById('em-title').value = '';
+  document.getElementById('em-cat').value = '';
+  document.getElementById('em-desc').value = '';
+  document.getElementById('em-rate').value = '';
+  document.getElementById('em-loc').value = '';
+  document.getElementById('em-cond').value = 'Good';
+  document.getElementById('em-avail').value = '';
+}
+
+function closeEquipModal() {
+  document.getElementById('equip-modal-overlay').style.display = 'none';
+}
+
+async function submitEquipmentListing() {
+  const errEl = document.getElementById('equip-modal-err');
+  const btn = document.getElementById('em-submit-btn');
+  errEl.style.display = 'none';
+  const title = document.getElementById('em-title').value.trim();
+  const category = document.getElementById('em-cat').value;
+  const description = document.getElementById('em-desc').value.trim();
+  const daily_rate = document.getElementById('em-rate').value;
+  const location = document.getElementById('em-loc').value.trim();
+  const condition = document.getElementById('em-cond').value;
+  const availability = document.getElementById('em-avail').value.trim();
+  if (!title) { errEl.textContent = 'Please enter a title.'; errEl.style.display = 'block'; return; }
+  if (!category) { errEl.textContent = 'Please select a category.'; errEl.style.display = 'block'; return; }
+  if (!daily_rate || isNaN(daily_rate) || parseFloat(daily_rate) <= 0) { errEl.textContent = 'Please enter a valid daily rate.'; errEl.style.display = 'block'; return; }
+  btn.disabled = true;
+  btn.textContent = 'Listing...';
+  try {
+    await api('POST', '/equipment', { title, category, description: description || null, daily_rate: parseFloat(daily_rate), location: location || null, condition, availability: availability || null });
+    closeEquipModal();
+    toast('Equipment listed successfully!');
+    await loadEquipment();
+  } catch (err) {
+    errEl.textContent = err.message;
+    errEl.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'List Equipment →';
+  }
+}
+
 // ─── VIEWS ───────────────────────────────────────────────────────────────────
 function showView(v) {
-  ['home','profile','listed','getlisted','employer-landing','dashboard'].forEach(n => {
+  ['home','profile','listed','getlisted','employer-landing','dashboard','equipment','equipment-profile'].forEach(n => {
     const el = document.getElementById('view-'+n);
     if (el) el.style.display = n === v ? 'block' : 'none';
   });
   window.scrollTo(0,0);
   if (v === 'home') { loadListings(); renderFilters(); }
   if (v === 'dashboard') loadDashboard();
+  if (v === 'equipment') { loadEquipment(); renderEquipFilters(); }
 }
 
 function showHowModal() {
