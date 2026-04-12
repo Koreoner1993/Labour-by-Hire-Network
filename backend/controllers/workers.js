@@ -1,5 +1,6 @@
 const Worker = require('../models/worker');
 const Listing = require('../models/listing');
+const { calculateLabourScore } = require('../utils/labourScore');
 
 // Get current worker profile
 const getProfile = async (req, res) => {
@@ -9,10 +10,13 @@ const getProfile = async (req, res) => {
       return res.status(404).json({ error: 'Worker not found', code: 'NOT_FOUND' });
     }
 
+    const listing = await Listing.getByWorkerId(req.worker.id).catch(() => null);
+
     const { password_hash, ...workerData } = worker;
     res.json({
       message: 'Profile retrieved',
       worker: workerData,
+      listing: listing || null,
     });
   } catch (error) {
     console.error('Get profile error:', error);
@@ -23,21 +27,28 @@ const getProfile = async (req, res) => {
 // Update worker profile
 const updateProfile = async (req, res) => {
   try {
-    const { firstName, lastName, city, hourlyRate, bio } = req.body;
+    const { firstName, lastName, city, hourlyRate, bio, licenceNumber, whiteCard } = req.body;
 
     const updates = {};
     if (firstName) updates.first_name = firstName;
     if (lastName) updates.last_name = lastName;
     if (city) updates.city = city;
     if (hourlyRate) updates.hourly_rate = hourlyRate;
-    if (bio) updates.bio = bio;
+    if (bio !== undefined) updates.bio = bio;
+    if (licenceNumber !== undefined) updates.licence_number = licenceNumber || null;
+    if (whiteCard !== undefined) updates.white_card = whiteCard || null;
 
     const worker = await Worker.update(req.worker.id, updates);
     if (!worker) {
       return res.status(404).json({ error: 'Worker not found', code: 'NOT_FOUND' });
     }
 
-    const { password_hash, ...workerData } = worker;
+    // Recalculate score after profile update
+    const listing = await Listing.getByWorkerId(req.worker.id).catch(() => null);
+    const score = calculateLabourScore(worker, !!listing);
+    await Worker.updateScore(req.worker.id, score);
+
+    const { password_hash, ...workerData } = { ...worker, labour_score: score };
     res.json({
       message: 'Profile updated successfully',
       worker: workerData,
@@ -77,6 +88,11 @@ const createListing = async (req, res) => {
       skills,
       availability
     );
+
+    // Recalculate Labour Score — listing adds 10 pts
+    const worker = await Worker.findById(req.worker.id);
+    const score = calculateLabourScore(worker, true);
+    await Worker.updateScore(req.worker.id, score);
 
     res.status(201).json({
       message: 'Listing created successfully',
