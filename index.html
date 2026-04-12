@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Labour by Hire — Construction ID Network &amp; NFT Badges</title>
+<title>Labour by Hire — Construction ID Network</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --black:#000;--white:#fff;--bg:#050507;
@@ -296,8 +296,6 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
 /* ══════════════════════════════════════════════════════════════════════════
    NFT VIEW — Scoped styles for #view-nft
    ══════════════════════════════════════════════════════════════════════════ */
-
-/* Scoped CSS vars that differ from the main app */
 #view-nft {
   --s2:#181b24;
   --s3:#1e222e;
@@ -306,27 +304,17 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
   --b2:rgba(255,255,255,0.13);
   font-family:'Barlow',system-ui,sans-serif;
 }
-
-/* NFT wrap (renamed from .wrap to avoid conflict) */
 .nft-wrap{max-width:1160px;margin:0 auto;padding:2rem}
-
-/* NFT hero (renamed from .hero to avoid conflict) */
 .nft-hero{text-align:center;padding:2.5rem 0 2rem}
 .nft-hero h1{font-family:'Barlow Condensed',sans-serif;font-size:46px;font-weight:700;line-height:1.05;margin-bottom:8px}
 .nft-hero h1 span{color:var(--gold)}
 .nft-hero p{font-size:15px;color:var(--t2);max-width:480px;margin:0 auto}
-
-/* SLIDER */
 .slider-bar{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem 1.5rem;margin-bottom:2rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}
 .slider-bar label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--t3);white-space:nowrap}
 .slider-bar input[type=range]{flex:1;min-width:140px;accent-color:var(--gold);height:6px}
 .job-num{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:700;color:var(--gold);min-width:48px;text-align:right}
 .tier-pill{font-size:11px;font-weight:700;padding:4px 14px;border-radius:100px;white-space:nowrap}
-
-/* MAIN GRID */
 .nft-main-grid{display:grid;grid-template-columns:340px 1fr;gap:1.5rem;align-items:start}
-
-/* COIN STAGE */
 .coin-stage{background:var(--s2);border:1px solid var(--border);border-radius:14px;padding:2rem;text-align:center;position:relative;overflow:hidden}
 .coin-stage::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 30%,rgba(245,158,11,0.08),transparent);pointer-events:none}
 .coin-wrap{position:relative;display:inline-block}
@@ -335,21 +323,15 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
 .coin-glow{position:absolute;inset:-8px;border-radius:50%;pointer-events:none;transition:box-shadow .4s}
 .coin-label{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;color:var(--t3);text-transform:uppercase;margin-top:14px}
 .coin-id{font-family:monospace;font-size:11px;color:var(--t3);margin-top:4px}
-
-/* STICKER LAYER */
 .sticker-overlay{position:absolute;inset:0;border-radius:50%;overflow:hidden}
-
-/* NFT CARD */
 .nft-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden}
 .nft-top{background:var(--s2);padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
 .nft-title{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700}
 .nft-body{padding:16px}
-
 .nft-trait-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
 .nft-trait{background:var(--s2);border:1px solid var(--border);border-radius:var(--rs);padding:10px 12px}
 .nft-trait .trait-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--t3);margin-bottom:3px}
 .nft-trait .trait-val{font-size:13px;font-weight:600}
-
 .stk-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--t3);margin-bottom:8px}
 .stk-list{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
 .stk{font-size:10px;font-weight:700;padding:3px 9px;border-radius:4px;display:inline-flex;align-items:center;gap:4px}
@@ -358,12 +340,9 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
 .stk-green{background:rgba(34,197,94,0.1);color:#22C55E;border:1px solid rgba(34,197,94,0.2)}
 .stk-red{background:rgba(239,68,68,0.1);color:#EF4444;border:1px solid rgba(239,68,68,0.25)}
 .stk-purple{background:rgba(168,85,247,0.1);color:#A855F7;border:1px solid rgba(168,85,247,0.25)}
-
 .chain-bar{background:var(--s3);border-radius:var(--rs);padding:10px 12px;display:flex;align-items:center;justify-content:space-between}
 .ch-l{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);margin-bottom:2px}
 .ch-v{font-size:12px;font-weight:600;font-family:monospace}
-
-/* TIER SHOWCASE */
 .tiers-title{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;margin:2rem 0 1rem;display:flex;align-items:center;gap:8px}
 .tier-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
 .tier-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1rem;text-align:center;cursor:pointer;transition:border-color .15s,transform .1s}
@@ -373,8 +352,6 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
 .tier-name{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;margin-top:6px}
 .tier-range{font-size:10px;color:var(--t3);margin-top:1px}
 .tier-supply{font-size:10px;font-weight:700;margin-top:2px}
-
-/* EARNED NFT SECTION */
 .earned-section{margin-top:2rem}
 .earned-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:8px}
 .earned-title{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;display:flex;align-items:center;gap:8px}
@@ -389,29 +366,22 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
 .earned-req{font-size:10px;color:var(--t3);margin-top:3px}
 .earned-badge-pill{position:absolute;top:-5px;right:-5px;font-size:9px;font-weight:700;padding:2px 7px;border-radius:100px}
 .earned-new{background:#22C55E;color:#052e16}
-.earned-locked-icon{font-size:10px;color:var(--t3);margin-top:4px}
-
-/* EVO LOG */
 .evo-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;margin-top:1.5rem}
 .evo-title{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;margin-bottom:1rem}
 .evo-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
 .evo-item:last-child{border-bottom:none}
 .evo-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
 .evo-jobs{font-size:11px;font-weight:700;color:var(--t3);min-width:56px;flex-shrink:0;white-space:nowrap}
-
-/* CSS colour filters for coin tinting */
 .tint-blue{filter:drop-shadow(0 8px 32px rgba(0,0,0,0.7)) sepia(1) saturate(3) hue-rotate(190deg) brightness(1.05)}
 .tint-green{filter:drop-shadow(0 8px 32px rgba(0,0,0,0.7)) sepia(1) saturate(3) hue-rotate(80deg) brightness(1.05)}
 .tint-grey{filter:drop-shadow(0 8px 32px rgba(0,0,0,0.7)) grayscale(1) brightness(0.95)}
 .tint-black{filter:drop-shadow(0 8px 32px rgba(245,158,11,0.5)) grayscale(1) brightness(0.25) contrast(1.5)}
 .tint-gold{filter:drop-shadow(0 8px 32px rgba(0,0,0,0.7))}
-
 @media(max-width:720px){
   .nft-main-grid{grid-template-columns:1fr}
   .tier-row{grid-template-columns:repeat(3,1fr)}
   .nft-hero h1{font-size:32px}
 }
-
 </style>
 </head>
 <body>
@@ -458,8 +428,10 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
     </div>
     <div id="role-badge" style="display:none;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:var(--rf);margin-left:4px"></div>
     <div class="nav-links">
-      <button class="nl" onclick="showView('home')">Browse</button>
-      <button class="nl" onclick="showHowModal()">How it works</button>
+      <button class="nl" onclick="showView('home')">Tradies</button>
+      <button class="nl" onclick="showView('equipment');loadEquipment()">Equipment</button>
+      <button class="nl" onclick="showView('spotlight')">Spotlight</button>
+      <button class="nl" onclick="showView('about')">About</button>
       <button class="nl" onclick="showView('nft')">NFT Badges</button>
     </div>
     <div class="nr">
@@ -503,6 +475,25 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
     <div class="stat"><div class="stat-n">40+</div><div class="stat-l">Trade Types</div></div>
     <div class="stat"><div class="stat-n">500+</div><div class="stat-l">Jobs Completed</div></div>
     <div class="stat"><div class="stat-n">98%</div><div class="stat-l">Satisfaction</div></div>
+  </div>
+
+  <!-- ── 3-LAYER STRIP ── -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);border-bottom:0.5px solid var(--border)">
+    <div style="padding:1.5rem 2.5rem;border-right:0.5px solid var(--border);cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--surface)'" onmouseout="this.style.background=''" onclick="showView('home')">
+      <div style="font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-bright);margin-bottom:6px">Layer 1 · Live Now</div>
+      <div style="font-size:14px;font-weight:400;letter-spacing:-.02em;margin-bottom:3px">Marketplace</div>
+      <div style="font-size:11px;color:var(--text-3);font-weight:300">Verified tradies. Employer subscriptions. Labour Score on-chain.</div>
+    </div>
+    <div style="padding:1.5rem 2.5rem;border-right:0.5px solid var(--border);cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--surface)'" onmouseout="this.style.background=''" onclick="showView('spotlight')">
+      <div style="font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:6px">Layer 2 · ~Month 18</div>
+      <div style="font-size:14px;font-weight:400;letter-spacing:-.02em;margin-bottom:3px">Equipment Trust</div>
+      <div style="font-size:11px;color:var(--text-3);font-weight:300">Fractionalised assets on Hedera HTS. Token holders earn rental yield.</div>
+    </div>
+    <div style="padding:1.5rem 2.5rem;cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--surface)'" onmouseout="this.style.background=''" onclick="showView('spotlight')">
+      <div style="font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:rgba(167,139,250,0.9);margin-bottom:6px">Layer 3 · ~Month 30</div>
+      <div style="font-size:14px;font-weight:400;letter-spacing:-.02em;margin-bottom:3px">Property Spotlight</div>
+      <div style="font-size:11px;color:var(--text-3);font-weight:300">High-score tradies raise capital. CSF-compliant crowdfunding via AFSL.</div>
+    </div>
   </div>
 
   <!-- ── IMAGE STRIP ── -->
@@ -885,7 +876,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
 
   </div>
 
-  <!-- NFT TIER SHOWCASE -->
+  <!-- TIER SHOWCASE -->
   <div class="tiers-title">All tiers</div>
   <div class="tier-row" id="tier-row"></div>
 
@@ -975,7 +966,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
           <div style="padding:8px;background:var(--bg);border-radius:var(--rs);border:0.5px solid var(--border-2)">
             <div style="font-size:10px;color:var(--text-3);margin-bottom:5px;text-transform:uppercase;letter-spacing:.1em">Contact (Free)</div>
             <div style="font-size:11px;color:var(--blue-bright);margin-bottom:2px">📞 0412 345 678</div>
-            <div style="font-size:11px;color:var(--blue-bright)">✉ jake.t@email.com.au</div>
+            <div style="font-size:11px;color:var(--blue-bright)">✉ <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5b313a303e752f1b3e363a323775383436753a2e">[email&#160;protected]</a></div>
             <button style="width:100%;margin-top:7px;padding:6px;background:var(--blue);color:#fff;border:none;border-radius:var(--rs);font-size:11px;cursor:pointer;font-family:inherit">Send message</button>
           </div>
         </div>
@@ -996,7 +987,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
           <div style="padding:8px;background:var(--bg);border-radius:var(--rs);border:0.5px solid var(--border);position:relative;overflow:hidden">
             <div style="font-size:10px;color:var(--text-3);margin-bottom:5px;text-transform:uppercase;letter-spacing:.1em">Contact (Free)</div>
             <div style="font-size:11px;color:var(--text-3);margin-bottom:2px;filter:blur(4px);user-select:none">📞 04XX XXX XXX</div>
-            <div style="font-size:11px;color:var(--text-3);filter:blur(4px);user-select:none">✉ maria@XXXXXX.com</div>
+            <div style="font-size:11px;color:var(--text-3);filter:blur(4px);user-select:none">✉ <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5f323e2d363e1f070707070707713c3032">[email&#160;protected]</a></div>
             <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(5,5,7,0.7)"><span style="font-size:10px;font-weight:500;color:#a78bfa;background:rgba(120,80,255,0.1);border:0.5px solid rgba(120,80,255,0.2);padding:3px 10px;border-radius:var(--rf);letter-spacing:.06em;text-transform:uppercase">🌙 Sign up free</span></div>
           </div>
         </div>
@@ -1017,7 +1008,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
           <div style="padding:8px;background:var(--bg);border-radius:var(--rs);border:0.5px solid var(--border);position:relative;overflow:hidden">
             <div style="font-size:10px;color:var(--text-3);margin-bottom:5px;text-transform:uppercase;letter-spacing:.1em">Contact (Free)</div>
             <div style="font-size:11px;color:var(--text-3);margin-bottom:2px;filter:blur(4px);user-select:none">📞 04XX XXX XXX</div>
-            <div style="font-size:11px;color:var(--text-3);filter:blur(4px);user-select:none">✉ brett@XXXXXX.com</div>
+            <div style="font-size:11px;color:var(--text-3);filter:blur(4px);user-select:none">✉ <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="92f0e0f7e6e6d2cacacacacacabcf1fdff">[email&#160;protected]</a></div>
             <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(5,5,7,0.7)"><span style="font-size:10px;font-weight:500;color:#a78bfa;background:rgba(120,80,255,0.1);border:0.5px solid rgba(120,80,255,0.2);padding:3px 10px;border-radius:var(--rf);letter-spacing:.06em;text-transform:uppercase">🌙 Sign up free</span></div>
           </div>
         </div>
@@ -1068,7 +1059,167 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
   </div>
 </div>
 
-<!-- ══════════════ FOOTER ══════════════ -->
+<!-- ══════════════ EQUIPMENT VIEW ══════════════ -->
+<div id="view-equipment" style="display:none">
+  <div style="padding-top:2.5rem;padding-bottom:6rem">
+    <div class="wrap">
+      <div class="sh" style="margin-bottom:1.5rem">
+        <div>
+          <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:.4rem">Layer 2 · Equipment Trust</div>
+          <h2 style="font-size:26px;font-weight:300;letter-spacing:-.03em">Equipment hire</h2>
+          <div class="sh-sub">Verified tradie-owned equipment available across Australia</div>
+        </div>
+        <input class="si" id="equip-search" placeholder="Search equipment or location…" oninput="filterEquipment()">
+      </div>
+      <div class="filters" id="equip-filters-el" style="margin-bottom:2rem"></div>
+      <div class="grid" id="equip-grid"><p style="color:var(--text-3);font-size:13px;padding:3rem 0">Loading equipment…</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ EQUIPMENT PROFILE VIEW ══════════════ -->
+<div id="view-equipment-profile" style="display:none">
+  <div class="wrap" style="padding-top:2.5rem;padding-bottom:6rem">
+    <button class="back" onclick="showView('equipment')">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to equipment
+    </button>
+    <div id="equip-profile-content"></div>
+  </div>
+</div>
+
+<!-- ══════════════ SPOTLIGHT VIEW ══════════════ -->
+<div id="view-spotlight" style="display:none">
+  <div style="position:relative;min-height:60vh;display:flex;align-items:center;overflow:hidden;border-bottom:0.5px solid var(--border)">
+    <div style="position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1800&q=80&auto=format&fit=crop');background-size:cover;background-position:center 40%;filter:brightness(.25) saturate(.6)"></div>
+    <div style="position:relative;z-index:1;padding:5rem 2.5rem;max-width:1200px;margin:0 auto;width:100%">
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(12,12,15,0.7);color:var(--text-3);border:0.5px solid var(--border-2);padding:5px 14px;border-radius:var(--rf);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2rem;backdrop-filter:blur(8px)">Coming Soon</div>
+      <h1 style="font-size:clamp(38px,6vw,72px);font-weight:300;letter-spacing:-.05em;line-height:1.04;margin-bottom:1rem;max-width:640px">Beyond the marketplace.<br><span style="color:var(--gold)">Own a piece of it.</span></h1>
+      <p style="font-size:16px;color:var(--text-2);max-width:440px;line-height:1.8;font-weight:300;margin-bottom:2.5rem">Fractionalised equipment assets yielding rental income. Tradie-led property projects raising capital through the platform. Two layers designed to compound.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-p btn-lg" onclick="document.getElementById('spotlight-email').focus()">Join the waitlist →</button>
+        <button class="btn btn-o btn-lg" onclick="showView('equipment');loadEquipment()">Browse equipment</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap" style="padding-top:4rem;padding-bottom:6rem">
+
+    <!-- EMAIL CAPTURE -->
+    <div style="background:var(--surface);border:0.5px solid var(--border-2);border-radius:16px;padding:2.5rem;max-width:520px;margin-bottom:5rem">
+      <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:.5rem">Early Access</div>
+      <div style="font-size:20px;font-weight:300;letter-spacing:-.03em;margin-bottom:.4rem">Get notified at launch</div>
+      <div style="font-size:13px;color:var(--text-3);font-weight:300;margin-bottom:1.5rem">Be first when Spotlight equipment tokens go live. No spam.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <input id="spotlight-email" type="email" placeholder="your@email.com" style="flex:1;min-width:200px;padding:9px 13px;background:var(--surface-2);border:0.5px solid var(--border-2);border-radius:var(--rs);font-size:13px;color:var(--text);font-family:inherit;outline:none;letter-spacing:-.01em" onfocus="this.style.borderColor='rgba(240,165,0,0.3)'" onblur="this.style.borderColor='var(--border-2)'">
+        <button class="btn btn-p" style="background:var(--gold);color:#000;font-weight:500" onclick="submitSpotlightEmail()">Notify me →</button>
+      </div>
+      <div id="spotlight-success" style="display:none;margin-top:10px;font-size:12px;color:var(--green);font-weight:300">✓ You're on the list. We'll reach out before launch.</div>
+    </div>
+
+    <!-- LAYER CARDS -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:0.5px solid var(--border);margin-bottom:5rem">
+      <div style="background:var(--bg);padding:3rem;position:relative">
+        <div style="position:absolute;top:2rem;right:2rem;font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);background:rgba(240,165,0,0.07);border:0.5px solid rgba(240,165,0,0.2);padding:3px 10px;border-radius:var(--rf)">~Month 18</div>
+        <div style="font-size:28px;margin-bottom:1.25rem">🏗️</div>
+        <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem">Layer 2</div>
+        <div style="font-size:22px;font-weight:300;letter-spacing:-.03em;margin-bottom:.75rem">Spotlight Equipment Trust</div>
+        <div style="font-size:13px;color:var(--text-2);line-height:1.8;font-weight:300;margin-bottom:2rem">LBH purchases construction equipment — starting with concrete mixers and scissor lifts, scaling to cranes. Each asset is fractionalised into 500 Hedera HTS tokens representing units in a registered trust.</div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:2rem">
+          <div style="font-size:12px;color:var(--text-2);display:flex;gap:10px;font-weight:300;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:var(--gold);flex-shrink:0">◆</span>Token holders earn rental yield from tradie equipment bookings</div>
+          <div style="font-size:12px;color:var(--text-2);display:flex;gap:10px;font-weight:300;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:var(--gold);flex-shrink:0">◆</span>LBH earns a platform fee before yield is distributed</div>
+          <div style="font-size:12px;color:var(--text-2);display:flex;gap:10px;font-weight:300;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:var(--gold);flex-shrink:0">◆</span>Sophisticated investors only under s708 Corporations Act</div>
+          <div style="font-size:12px;color:var(--text-2);display:flex;gap:10px;font-weight:300;padding:8px 0"><span style="color:var(--gold);flex-shrink:0">◆</span>No AFSL required at launch · Registered unit trust structure</div>
+        </div>
+        <button class="btn btn-o btn-full" onclick="showView('equipment');loadEquipment()">Browse equipment →</button>
+      </div>
+
+      <div style="background:var(--surface);padding:3rem;position:relative">
+        <div style="position:absolute;top:2rem;right:2rem;font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#a78bfa;background:rgba(120,80,255,0.07);border:0.5px solid rgba(120,80,255,0.2);padding:3px 10px;border-radius:var(--rf)">~Month 30+</div>
+        <div style="font-size:28px;margin-bottom:1.25rem">🏠</div>
+        <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#a78bfa;margin-bottom:.5rem">Layer 3</div>
+        <div style="font-size:22px;font-weight:300;letter-spacing:-.03em;margin-bottom:.75rem">Spotlight Property</div>
+        <div style="font-size:13px;color:var(--text-2);line-height:1.8;font-weight:300;margin-bottom:2rem">Verified tradies with high Labour Scores can raise capital through the platform to build and sell property. Investors fund projects via a CSF-compliant offer. LBH acts as intermediary under its AFSL.</div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:2rem">
+          <div style="font-size:12px;color:var(--text-2);display:flex;gap:10px;font-weight:300;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:#a78bfa;flex-shrink:0">◆</span>Requires Labour Score above threshold to raise capital</div>
+          <div style="font-size:12px;color:var(--text-2);display:flex;gap:10px;font-weight:300;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:#a78bfa;flex-shrink:0">◆</span>Equipment from Layer 2 gets deployed on these builds</div>
+          <div style="font-size:12px;color:var(--text-2);display:flex;gap:10px;font-weight:300;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:#a78bfa;flex-shrink:0">◆</span>AFSL with CSF authorisation — in application</div>
+          <div style="font-size:12px;color:var(--text-2);display:flex;gap:10px;font-weight:300;padding:8px 0"><span style="color:#a78bfa;flex-shrink:0">◆</span>Retail investor access once AFSL granted</div>
+        </div>
+        <button class="btn btn-full" style="background:rgba(120,80,255,0.08);color:#a78bfa;border:0.5px solid rgba(120,80,255,0.2)" onclick="document.getElementById('spotlight-email').focus()">Join waitlist →</button>
+      </div>
+    </div>
+
+    <!-- LABOUR SCORE EXPLAINER -->
+    <div style="border:0.5px solid var(--border);border-radius:16px;overflow:hidden">
+      <div style="padding:2rem 2.5rem;border-bottom:0.5px solid var(--border);display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+        <div style="font-size:20px;font-weight:300;letter-spacing:-.03em">Labour Score</div>
+        <div style="font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:4px 12px;border-radius:var(--rf);background:var(--blue-dim);color:var(--blue-bright);border:0.5px solid var(--blue-border)">Soulbound NFT · Hedera HTS</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0">
+        <div style="padding:2rem 2.5rem;border-right:0.5px solid var(--border)">
+          <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem">Metadata includes</div>
+          <div style="font-size:13px;color:var(--text-2);line-height:1.8;font-weight:300">ABN · Licence class · Score · Project count · Dispute count · Verified date</div>
+        </div>
+        <div style="padding:2rem 2.5rem;border-right:0.5px solid var(--border)">
+          <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem">Updated by</div>
+          <div style="font-size:13px;color:var(--text-2);line-height:1.8;font-weight:300">Completed jobs · Reviews · Time on platform · Verification status</div>
+        </div>
+        <div style="padding:2rem 2.5rem">
+          <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem">Unlocks</div>
+          <div style="font-size:13px;color:var(--text-2);line-height:1.8;font-weight:300">Equipment hire · Property capital raising · LBHT token fee discounts</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════ ABOUT VIEW ══════════════ -->
+<div id="view-about" style="display:none">
+  <div class="wrap" style="padding-top:4rem;padding-bottom:6rem;max-width:820px">
+    <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem">About Labour by Hire</div>
+    <h1 style="font-size:clamp(38px,5vw,64px);font-weight:300;letter-spacing:-.05em;line-height:1.05;margin-bottom:2rem">Built by the industry.<br><span style="color:var(--blue-bright)">For the industry.</span></h1>
+
+    <div style="font-size:16px;color:var(--text-2);line-height:1.9;font-weight:300;margin-bottom:3.5rem;border-bottom:0.5px solid var(--border);padding-bottom:3.5rem">
+      Labour by Hire is an Australian marketplace connecting verified tradespeople with employers. Not a job board — a construction identity network. Every tradie is licence-checked, ABN-verified, and issued a Labour Score that lives on the Hedera blockchain as a soulbound NFT.
+    </div>
+
+    <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:1.5rem">The three-layer model</div>
+    <div style="display:flex;flex-direction:column;gap:0;border:0.5px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:3.5rem">
+      <div style="display:flex;gap:2rem;align-items:flex-start;padding:2rem;border-bottom:0.5px solid var(--border)">
+        <div style="font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-bright);background:var(--blue-dim);border:0.5px solid var(--blue-border);padding:4px 12px;border-radius:var(--rf);white-space:nowrap;flex-shrink:0;margin-top:3px">Layer 1</div>
+        <div><div style="font-size:15px;font-weight:400;letter-spacing:-.02em;margin-bottom:4px">Marketplace</div><div style="font-size:13px;color:var(--text-2);font-weight:300;line-height:1.7">Tradies pay a one-time listing fee to be found. Employers pay a premium subscription to contact verified tradies. Live now.</div></div>
+      </div>
+      <div style="display:flex;gap:2rem;align-items:flex-start;padding:2rem;border-bottom:0.5px solid var(--border);background:var(--surface)">
+        <div style="font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);background:rgba(240,165,0,0.07);border:0.5px solid rgba(240,165,0,0.2);padding:4px 12px;border-radius:var(--rf);white-space:nowrap;flex-shrink:0;margin-top:3px">Layer 2</div>
+        <div><div style="font-size:15px;font-weight:400;letter-spacing:-.02em;margin-bottom:4px">Equipment Trust</div><div style="font-size:13px;color:var(--text-2);font-weight:300;line-height:1.7">Construction equipment fractionalised into Hedera HTS tokens. Token holders earn rental yield. Launching ~Month 18.</div></div>
+      </div>
+      <div style="display:flex;gap:2rem;align-items:flex-start;padding:2rem;background:var(--surface)">
+        <div style="font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#a78bfa;background:rgba(120,80,255,0.07);border:0.5px solid rgba(120,80,255,0.2);padding:4px 12px;border-radius:var(--rf);white-space:nowrap;flex-shrink:0;margin-top:3px">Layer 3</div>
+        <div><div style="font-size:15px;font-weight:400;letter-spacing:-.02em;margin-bottom:4px">Property Spotlight</div><div style="font-size:13px;color:var(--text-2);font-weight:300;line-height:1.7">High-score tradies raise capital to build and sell property. CSF-compliant crowdfunding under AFSL. Launching ~Month 30.</div></div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:0.5px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:3.5rem">
+      <div style="background:var(--bg);padding:2rem">
+        <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem">Legal structure</div>
+        <div style="font-size:13px;color:var(--text-2);line-height:1.8;font-weight:300">Sole trader with ABN registered now. Incorporating as LBH Pty Ltd ~Month 12. AFSL application begins ~Month 24.</div>
+      </div>
+      <div style="background:var(--surface);padding:2rem">
+        <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem">Tech stack</div>
+        <div style="font-size:13px;color:var(--text-2);line-height:1.8;font-weight:300">Next.js 14 · Tailwind · Supabase · Stripe · Hedera HTS + mirror node · Railway / Vercel</div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-p btn-lg" onclick="showView('home')">Browse tradies</button>
+      <button class="btn btn-o btn-lg" onclick="showView('getlisted')">Get listed →</button>
+      <button class="btn btn-g btn-lg" onclick="showView('spotlight')">Spotlight layers</button>
+    </div>
+  </div>
+</div>
+
+
 <footer>
   <div class="wrap">
     <div class="fi">
@@ -1082,12 +1233,12 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
     </div>
     <div style="margin-top:2rem;padding-top:1.5rem;border-top:0.5px solid var(--border);font-size:11px;color:var(--text-3);display:flex;justify-content:space-between;align-items:center;letter-spacing:.01em">
       <span>© 2025 Labour by Hire Pty Ltd · All workers verified by LBH · ABN 12 345 678 901</span>
-      <a href="#" onclick="showView('nft')" style="font-size:10px;color:var(--text-3);opacity:.3;text-decoration:none">NFT Badges</a>
+      <a href="admin.html" style="font-size:10px;color:var(--text-3);opacity:.3;text-decoration:none">Admin</a>
     </div>
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const API_URL='https://labour-by-hire-network-production.up.railway.app/api';
 let token=localStorage.getItem('lbh_token');
 let currentWorker=null;
@@ -1223,10 +1374,18 @@ async function loadDashboard(){
   try{
     const data=await api('GET','/auth/profile');const w=data.worker;const listing=data.listing||null;
     const name=`${w.first_name} ${w.last_name}`;const ini=(w.first_name[0]+w.last_name[0]).toUpperCase();
+    const score=w.labour_score??72;
+    const scoreCol=score>=80?'var(--green)':score>=60?'var(--blue-bright)':'var(--gold)';
     el.innerHTML=`
       <div class="dash-header">
         <div class="av av-lg">${ini}</div>
         <div class="dash-info"><div class="dash-name">${name}</div><div class="dash-meta">${w.trade} · ${w.city||'Location not set'}</div><div style="margin-top:8px"><span class="status-dot pending">● Pending verification</span></div></div>
+        <div style="text-align:center;background:var(--surface-2);border:0.5px solid var(--border-2);border-radius:12px;padding:1rem 1.5rem;flex-shrink:0">
+          <div style="font-size:36px;font-weight:300;letter-spacing:-.06em;color:${scoreCol};line-height:1">${score}</div>
+          <div style="font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-3);margin-top:4px">Labour Score</div>
+          <div style="font-size:10px;color:var(--text-3);margin-top:4px;font-weight:300">0–100 · Hedera NFT</div>
+          <div style="margin-top:8px;background:var(--surface-3);border-radius:100px;height:2px"><div style="background:${scoreCol};height:100%;width:${score}%;border-radius:100px"></div></div>
+        </div>
         <button class="btn btn-g btn-sm" onclick="toast('Edit profile — coming soon')">Edit profile</button>
       </div>
       <div class="dash-grid" style="border:0.5px solid var(--border);margin-bottom:1px">
@@ -1292,6 +1451,8 @@ function renderCard(w){
   const name=w.name||`${w.first_name} ${w.last_name}`;
   const parts=name.trim().split(' ');
   const ini=((parts[0]?.[0]||'')+(parts[parts.length-1]?.[0]||'')).toUpperCase();
+  const score=w.labour_score??Math.floor(60+Math.abs((w.id||1)*13%40));
+  const scoreColor=score>=80?'var(--green)':score>=60?'var(--blue-bright)':'var(--gold)';
   return `<div class="card" onclick="showProfile(${w.id})">
     <div class="ct">
       <div class="av">${ini}</div>
@@ -1300,6 +1461,13 @@ function renderCard(w){
         <div class="ct2">${w.trade}</div>
         <div class="cl">📍 ${w.city||'Location TBC'}</div>
       </div>
+    </div>
+    <div style="margin-bottom:1rem">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
+        <span style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-3)">Labour Score</span>
+        <span style="font-size:12px;font-weight:400;color:${scoreColor}">${score}</span>
+      </div>
+      <div style="background:var(--surface-2);border-radius:100px;height:2px"><div style="background:${scoreColor};height:100%;width:${score}%;border-radius:100px;transition:width .4s ease"></div></div>
     </div>
     <div class="cf">
       <div class="rate">${w.hourly_rate?'$'+w.hourly_rate+'<small>/hr</small>':'<small style="font-size:12px;color:var(--text-3)">Rate TBC</small>'}</div>
@@ -1319,11 +1487,20 @@ function showProfile(id){
   const w=listing.worker||listing;const name=w.name||`${w.first_name} ${w.last_name}`;
   const parts=name.trim().split(' ');const ini=((parts[0]?.[0]||'')+(parts[parts.length-1]?.[0]||'')).toUpperCase();
   const walletAddr=localStorage.getItem(`lbh_wallet_${w.id}`);
+  const score=w.labour_score??Math.floor(60+Math.abs((w.id||1)*13%40));
+  const scoreCol=score>=80?'var(--green)':score>=60?'var(--blue-bright)':'var(--gold)';
+  const scoreLbl=score>=80?'Excellent':score>=60?'Good':'Building';
   document.getElementById('profile-content').innerHTML=`
     <div class="pcard">
       <div class="ptop"><div class="av av-lg">${ini}</div>
         <div class="pinfo"><div class="pname">${name}</div><div class="pmeta">${w.trade} · ${w.city||'Location TBC'}</div>
           <div class="badges" style="margin-top:12px"><span class="bdg bg">LBH Verified</span>${walletAddr?'<span class="zk-badge">🌙 ZK Proof</span>':''}</div>
+        </div>
+        <div style="text-align:center;background:var(--surface-2);border:0.5px solid var(--border-2);border-radius:12px;padding:1.25rem 1.5rem;flex-shrink:0;min-width:100px">
+          <div style="font-size:40px;font-weight:300;letter-spacing:-.06em;color:${scoreCol};line-height:1">${score}</div>
+          <div style="font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-3);margin-top:4px">Labour Score</div>
+          <div style="font-size:11px;color:${scoreCol};margin-top:6px;font-weight:400">${scoreLbl}</div>
+          <div style="margin-top:8px;background:var(--surface-3);border-radius:100px;height:2px"><div style="background:${scoreCol};height:100%;width:${score}%;border-radius:100px"></div></div>
         </div>
       </div>
       ${w.bio?`<div class="pbio">${w.bio}</div>`:''}
@@ -1338,20 +1515,126 @@ function showProfile(id){
 }
 
 function showView(v){
-  ['home','profile','listed','getlisted','employer-landing','dashboard','nft'].forEach(n=>{
+  ['home','profile','listed','getlisted','employer-landing','dashboard','equipment','equipment-profile','spotlight','about','nft'].forEach(n=>{
     const el=document.getElementById('view-'+n);if(el)el.style.display=n===v?'block':'none';
   });
   window.scrollTo(0,0);
   if(v==='home'){loadListings();renderFilters();}
   if(v==='dashboard')loadDashboard();
+  if(v==='equipment'){loadEquipment();renderEquipFilters();}
 }
 
-function showHowModal(){document.getElementById('how-modal').classList.add('open');}
-function closeHowModal(){document.getElementById('how-modal').classList.remove('open');}
+function showHowModal(){document.getElementById('how-modal')?.classList.add('open');}
+function closeHowModal(){document.getElementById('how-modal')?.classList.remove('open');}
 function showComingSoon(){toast('Employer access launching soon — stay tuned!');}
 function openDemo(){document.getElementById('demo-modal').classList.add('open');}
 function closeDemo(){document.getElementById('demo-modal').classList.remove('open');}
 function fstep(n){[1,2,3].forEach(i=>document.getElementById('fs'+i).style.display=i===n?'block':'none');}
+
+// ─── EQUIPMENT ────────────────────────────────────────────────────────────────
+const EQUIP_CATS=['All','Cranes','EWP / Scissor Lifts','Excavators','Concrete & Compaction','Scaffolding','Power Tools','Utes & Trailers'];
+const EQUIP_ICONS={'Cranes':'🏗️','EWP / Scissor Lifts':'🔼','Excavators':'⛏️','Concrete & Compaction':'🔩','Scaffolding':'🪜','Power Tools':'🔧','Utes & Trailers':'🚐'};
+let equipmentListings=[];
+let activeEquipFilter='All';
+
+async function loadEquipment(){
+  try{
+    const data=await api('GET','/equipment');
+    equipmentListings=data.equipment||[];
+    filterEquipment();
+  }catch(err){
+    const el=document.getElementById('equip-grid');
+    if(el)el.innerHTML='<p style="color:var(--text-3);font-size:13px;padding:3rem 0;grid-column:1/-1">No equipment listed yet — be the first!</p>';
+  }
+}
+
+function filterEquipment(){
+  const q=(document.getElementById('equip-search')?.value||'').toLowerCase().trim();
+  const filtered=equipmentListings.filter(e=>{
+    const matchCat=activeEquipFilter==='All'||e.category===activeEquipFilter;
+    const matchQ=!q||e.title.toLowerCase().includes(q)||(e.location||'').toLowerCase().includes(q)||(e.owner?.city||'').toLowerCase().includes(q)||e.category.toLowerCase().includes(q);
+    return matchCat&&matchQ;
+  });
+  const el=document.getElementById('equip-grid');if(!el)return;
+  el.innerHTML=filtered.length?filtered.map(renderEquipCard).join(''):'<p style="color:var(--text-2);font-size:13px;padding:3rem 0;text-align:center;grid-column:1/-1">No equipment found.</p>';
+}
+
+function renderEquipCard(e){
+  const icon=EQUIP_ICONS[e.category]||'🔧';
+  const condCol=e.condition==='Excellent'?'var(--green)':e.condition==='Fair'?'var(--gold)':'var(--blue-bright)';
+  return `<div class="card" onclick="showEquipmentProfile(${e.id})" style="cursor:pointer">
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:1rem">
+      <div style="font-size:26px;line-height:1;flex-shrink:0">${icon}</div>
+      <div style="min-width:0">
+        <div style="font-size:14px;font-weight:400;letter-spacing:-.02em;margin-bottom:3px">${e.title}</div>
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-3)">${e.category}</div>
+        ${e.location?`<div style="font-size:11px;color:var(--text-3);margin-top:3px">📍 ${e.location}</div>`:(e.owner?.city?`<div style="font-size:11px;color:var(--text-3);margin-top:3px">📍 ${e.owner.city}</div>`:'')}
+      </div>
+    </div>
+    <div class="cf">
+      <div><div style="font-size:17px;font-weight:300;letter-spacing:-.03em">${e.daily_rate?'$'+e.daily_rate.toLocaleString()+'<small style="font-size:11px;font-weight:300;color:var(--text-3)">/day</small>':'<small style="font-size:12px;color:var(--text-3)">Rate TBC</small>'}</div></div>
+      <div style="font-size:10px;font-weight:500;color:${condCol};text-transform:uppercase;letter-spacing:.08em">${e.condition||'Good'}</div>
+    </div>
+  </div>`;
+}
+
+function renderEquipFilters(){
+  const el=document.getElementById('equip-filters-el');if(!el)return;
+  el.innerHTML=EQUIP_CATS.map(c=>`<button class="chip ${c===activeEquipFilter?'on':''}" onclick="setEquipFilter('${c.replace(/'/g,"\\'")}')">${c}</button>`).join('');
+}
+function setEquipFilter(cat){activeEquipFilter=cat;renderEquipFilters();filterEquipment();}
+
+function showEquipmentProfile(id){
+  const e=equipmentListings.find(x=>x.id===id);if(!e)return;
+  const icon=EQUIP_ICONS[e.category]||'🔧';
+  const condCol=e.condition==='Excellent'?'var(--green)':e.condition==='Fair'?'var(--gold)':'var(--blue-bright)';
+  document.getElementById('equip-profile-content').innerHTML=`
+    <div class="pcard">
+      <div style="display:flex;align-items:flex-start;gap:1.5rem;margin-bottom:1.5rem;flex-wrap:wrap">
+        <div style="font-size:48px;line-height:1">${icon}</div>
+        <div style="flex:1;min-width:200px">
+          <div style="font-size:28px;font-weight:300;letter-spacing:-.04em;line-height:1.1;margin-bottom:6px">${e.title}</div>
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-3);margin-bottom:10px">${e.category}</div>
+          <div class="badges"><span class="bdg bg">${e.condition||'Good'} condition</span><span class="bdg bg">LBH Verified</span></div>
+        </div>
+        <div style="text-align:right;flex-shrink:0">
+          <div style="font-size:32px;font-weight:300;letter-spacing:-.05em">${e.daily_rate?'$'+e.daily_rate.toLocaleString():'—'}</div>
+          <div style="font-size:12px;color:var(--text-3)">per day</div>
+        </div>
+      </div>
+      ${e.description?`<div class="pbio">${e.description}</div>`:''}
+      <div class="pstats" style="margin-bottom:1.5rem">
+        ${e.location||e.owner?.city?`<div><div class="ps-n" style="font-size:14px">📍 ${e.location||e.owner.city}</div><div class="ps-l">Location</div></div>`:''}
+        ${e.availability?`<div><div class="ps-n" style="font-size:14px">${e.availability}</div><div class="ps-l">Availability</div></div>`:''}
+      </div>
+      ${e.owner?`<div style="background:var(--surface-2);border:0.5px solid var(--border);border-radius:var(--rs);padding:1.25rem;margin-bottom:1.5rem">
+        <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem">Listed by</div>
+        <div style="font-size:14px;font-weight:400;letter-spacing:-.02em">${e.owner.name||'—'}</div>
+        <div style="font-size:12px;color:var(--text-3);margin-top:3px">${e.owner.trade||''} ${e.owner.city?'· '+e.owner.city:''}</div>
+      </div>`:''}
+      <div style="display:flex;gap:8px;margin-top:1rem">
+        <button class="btn btn-p" style="flex:1" onclick="contactWorker(${e.owner_id},'${(e.owner?.name||'').replace(/'/g,"\\'")}')">Enquire about this equipment</button>
+        <button class="btn btn-g" onclick="showView('equipment')">Back</button>
+      </div>
+    </div>`;
+  showView('equipment-profile');
+}
+
+// ─── SPOTLIGHT ────────────────────────────────────────────────────────────────
+function submitSpotlightEmail(){
+  const email=document.getElementById('spotlight-email').value.trim();
+  if(!email||!/\S+@\S+\.\S+/.test(email)){toast('Please enter a valid email','err');return;}
+  const raw=localStorage.getItem('lbh_spotlight_waitlist');
+  const list=raw?JSON.parse(raw):[];
+  if(list.find(e=>e.email===email)){toast('You\'re already on the list!');return;}
+  list.push({email,ts:new Date().toISOString()});
+  localStorage.setItem('lbh_spotlight_waitlist',JSON.stringify(list));
+  document.getElementById('spotlight-success').style.display='block';
+  document.getElementById('spotlight-email').value='';
+  toast('You\'re on the Spotlight waitlist ✓');
+}
+
+
 
 let composeWorkerId=null;
 function contactWorker(id,name){openCompose(id,name);}
@@ -1419,14 +1702,18 @@ async function openMessage(msgId,containerId){
         <button class="btn btn-g btn-sm" onclick="loadInbox('${containerId}')">Back</button>
       </div>
     </div>`;
-  }catch(e){el.innerHTML=`<div class="err-box" style="display:block">${e.message}</div>`;}
+  }catch(e){el.innerHTML=`<p style="color:var(--text-3)">Failed to load message.</p>`;}
 }
 
 function formatMsgTime(iso){
+  if(!iso)return '';
   const d=new Date(iso);const now=new Date();const diff=now-d;
+  if(diff<3600000)return Math.floor(diff/60000)+'m ago';
   if(diff<86400000)return d.toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'});
   return d.toLocaleDateString('en-AU',{day:'numeric',month:'short'});
 }
+
+
 
 /* ══════════════════════════════════════════════════════════════════════════
    NFT HARDHAT LOGIC  (from NFT.html)
