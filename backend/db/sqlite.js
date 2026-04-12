@@ -19,6 +19,16 @@ db.exec(`
     city TEXT,
     hourly_rate REAL,
     bio TEXT,
+    licence_number TEXT,
+    white_card TEXT,
+    wallet_address TEXT,
+    labour_score INTEGER DEFAULT 0,
+    verification_hash TEXT,
+    hedera_token_id TEXT,
+    hedera_serial INTEGER,
+    hedera_tx_id TEXT,
+    badge_metadata_uri TEXT,
+    badge_svg_uri TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
   );
@@ -89,5 +99,23 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS idx_equipment_category ON equipment_listings(category);
   CREATE INDEX IF NOT EXISTS idx_equipment_active ON equipment_listings(active);
 `);
+
+// Migrate existing databases: add new columns if they don't exist yet.
+// SQLite does not support IF NOT EXISTS for ALTER TABLE columns, so we catch errors.
+const newWorkerColumns = [
+  "ALTER TABLE workers ADD COLUMN licence_number TEXT",
+  "ALTER TABLE workers ADD COLUMN white_card TEXT",
+  "ALTER TABLE workers ADD COLUMN wallet_address TEXT",
+  "ALTER TABLE workers ADD COLUMN labour_score INTEGER DEFAULT 0",
+  "ALTER TABLE workers ADD COLUMN verification_hash TEXT",
+  "ALTER TABLE workers ADD COLUMN hedera_token_id TEXT",
+  "ALTER TABLE workers ADD COLUMN hedera_serial INTEGER",
+  "ALTER TABLE workers ADD COLUMN hedera_tx_id TEXT",
+  "ALTER TABLE workers ADD COLUMN badge_metadata_uri TEXT",
+  "ALTER TABLE workers ADD COLUMN badge_svg_uri TEXT",
+];
+for (const sql of newWorkerColumns) {
+  try { db.exec(sql); } catch (_) { /* column already exists */ }
+}
 
 module.exports = db;

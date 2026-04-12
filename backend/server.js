@@ -40,6 +40,7 @@ app.use('/api/listings', require('./routes/listings'));
 app.use('/api/jobs', require('./routes/jobs'));
 app.use('/api/notifications', require('./routes/notifications'));
 app.use('/api/equipment', require('./routes/equipment'));
+app.use('/api/nft', require('./routes/nft'));
 
 // Serve index.html for all non-API routes (SPA routing)
 app.get('*', (req, res) => {

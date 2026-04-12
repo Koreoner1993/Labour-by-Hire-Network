@@ -1175,6 +1175,9 @@ async function handleRegistration(){
     city:document.getElementById('reg-city').value.trim(),
     hourlyRate:parseFloat(document.getElementById('reg-rate').value)||0,
     bio:document.getElementById('reg-bio').value.trim(),
+    licenceNumber:document.getElementById('reg-lic').value.trim(),
+    whiteCard:document.getElementById('reg-wc').value.trim(),
+    walletAddress:walletAddr||null,
   };
   errEl.style.display='none';btn.disabled=true;btn.innerHTML='<span class="spin"></span> Creating…';
   try{
@@ -1185,6 +1188,10 @@ async function handleRegistration(){
     if(walletAddr)localStorage.setItem(`lbh_wallet_${data.worker.id}`,walletAddr);
     setNavLoggedIn(`${data.worker.first_name} ${data.worker.last_name}`);
     try{await api('POST','/auth/listing',{title:`${payload.trade} — ${payload.city}`,description:payload.bio||`Professional ${payload.trade} available in ${payload.city}.`,skills:[payload.trade],availability:'Available now'});}catch(e){}
+    // Trigger Hedera badge mint in the background (non-blocking)
+    api('POST','/nft/mint',{}).then(mint=>{
+      if(mint.serial)toast(`🔷 Badge minted! Serial #${mint.serial}`);
+    }).catch(()=>{});
     [1,2,3].forEach(i=>document.getElementById('fs'+i).style.display='none');
     document.getElementById('fs-done').style.display='block';
     toast('Profile created! Welcome to LBH 🎉');await loadListings();
@@ -1226,18 +1233,19 @@ async function loadDashboard(){
           ${listing?`<div class="listing-box"><div class="listing-title">${listing.title||w.trade+' — '+w.city}</div><div class="listing-desc">${listing.description||'No description.'}</div></div><div class="field-row"><span class="field-label">Status</span><span class="status-dot live">● Live</span></div>`:`<p style="font-size:13px;color:var(--text-3);margin-bottom:1rem;font-weight:300">No listing yet.</p><button class="btn btn-p btn-full" onclick="toast('Create listing — coming soon')">Create listing →</button>`}
         </div>
       </div>
-      <div class="wallet-card" style="margin-bottom:1rem">
+      <div class="wallet-card" style="margin-bottom:1rem" id="badge-card">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px">
-          <div style="display:flex;align-items:center;gap:8px"><span>🔷</span><span style="font-size:12px;font-weight:500;color:#00d2b9;text-transform:uppercase;letter-spacing:.1em">Hedera Wallet</span></div>
-          ${localStorage.getItem(`lbh_wallet_${w.id}`)? '<span class="hedera-badge">On-Chain</span>':''}
+          <div style="display:flex;align-items:center;gap:8px"><span>🔷</span><span style="font-size:12px;font-weight:500;color:#00d2b9;text-transform:uppercase;letter-spacing:.1em">Hedera Identity Badge</span></div>
+          <span id="badge-status-pill"></span>
         </div>
-        ${localStorage.getItem(`lbh_wallet_${w.id}`)?`<div class="wallet-addr">${localStorage.getItem(`lbh_wallet_${w.id}`)}</div><div style="font-size:11px;color:var(--text-3)">Your construction ID is anchored on the Hedera network as an NFT.</div>`:`<p style="font-size:12px;color:var(--text-3);margin-bottom:10px;font-weight:300">No wallet connected yet.</p><input id="wallet-input" type="text" placeholder="0.0.12345 (Hedera account ID)" style="width:100%;padding:8px 12px;background:var(--surface-3);border:0.5px solid rgba(0,180,160,0.2);border-radius:var(--rs);font-size:12px;color:var(--text);font-family:inherit;outline:none;margin-bottom:8px"><button class="btn btn-sm" style="background:rgba(0,180,160,0.1);color:#00d2b9;border:0.5px solid rgba(0,180,160,0.2)" onclick="saveWallet(${w.id})">Connect wallet</button>`}
+        <div id="badge-detail"><p style="font-size:12px;color:var(--text-3)">Checking badge status…</p></div>
       </div>
       <div style="background:var(--surface);border:0.5px solid var(--border-2);border-radius:12px;padding:1.75rem">
         <h3 style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.12em;color:var(--text-3);margin-bottom:1rem;display:flex;align-items:center;gap:6px">Messages <span id="inbox-badge" class="unread-badge"></span></h3>
         <div id="inbox-container"><p style="color:var(--text-3);font-size:12px">Loading…</p></div>
       </div>`;
     loadInbox('inbox-container');
+    loadBadgeStatus();
   }catch(err){el.innerHTML=`<div class="err-box" style="display:block">Failed to load: ${err.message}</div>`;}
 }
 
@@ -1246,6 +1254,45 @@ function saveWallet(id){
   if(!addr){toast('Please enter a wallet address','err');return;}
   localStorage.setItem(`lbh_wallet_${id}`,addr);
   toast('Hedera wallet connected. 🔷');loadDashboard();
+}
+
+async function loadBadgeStatus(){
+  const pill=document.getElementById('badge-status-pill');
+  const detail=document.getElementById('badge-detail');
+  if(!pill||!detail)return;
+  try{
+    const b=await api('GET','/nft/badge');
+    if(b.minted){
+      pill.innerHTML='<span class="hedera-badge">On-Chain ✓</span>';
+      detail.innerHTML=`
+        <div class="wallet-addr">${b.tokenId} · Serial #${b.serial}</div>
+        <div style="font-size:11px;color:var(--text-3);margin-top:4px">Your construction ID is minted on Hedera HTS.</div>
+        <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
+          <a href="${b.metadataUri.replace('ipfs://','https://ipfs.io/ipfs/')}" target="_blank" rel="noopener" style="font-size:11px;color:#00d2b9">View metadata ↗</a>
+          <span style="font-size:11px;color:var(--text-3)">TX: ${b.transactionId}</span>
+        </div>`;
+    }else{
+      pill.innerHTML='<span style="font-size:10px;color:var(--text-3)">Not minted</span>';
+      detail.innerHTML=`<p style="font-size:12px;color:var(--text-3);margin-bottom:10px;font-weight:300">Your badge hasn't been minted yet.</p>
+        <button class="btn btn-sm" id="mint-btn" style="background:rgba(0,180,160,0.1);color:#00d2b9;border:0.5px solid rgba(0,180,160,0.2)" onclick="mintMyBadge()">Mint my badge →</button>`;
+    }
+  }catch(e){
+    detail.innerHTML=`<p style="font-size:12px;color:var(--text-3)">Badge service unavailable.</p>`;
+  }
+}
+
+async function mintMyBadge(){
+  const btn=document.getElementById('mint-btn');
+  if(!btn)return;
+  btn.disabled=true;btn.textContent='Minting…';
+  try{
+    const result=await api('POST','/nft/mint',{});
+    toast(`🔷 Badge minted! Serial #${result.serial}`);
+    loadBadgeStatus();
+  }catch(e){
+    toast(e.message||'Mint failed','err');
+    btn.disabled=false;btn.textContent='Mint my badge →';
+  }
 }
 
 const TRADES=['All','Carpenter','Electrician','Plumber','Concretor','Painter','Tiler','Landscaper','Bricklayer','Welder'];

@@ -4,13 +4,13 @@ const db = require('../db/sqlite');
 
 const Worker = {
   // Create a new worker
-  create: async (email, passwordHash, firstName, lastName, trade, city, hourlyRate, bio) => {
+  create: async (email, passwordHash, firstName, lastName, trade, city, hourlyRate, bio, licenceNumber, whiteCard, walletAddress) => {
     try {
       const stmt = db.prepare(`
-        INSERT INTO workers (email, password_hash, first_name, last_name, trade, city, hourly_rate, bio)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO workers (email, password_hash, first_name, last_name, trade, city, hourly_rate, bio, licence_number, white_card, wallet_address)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `);
-      const result = stmt.run(email, passwordHash, firstName, lastName, trade, city, hourlyRate || 0, bio);
+      const result = stmt.run(email, passwordHash, firstName, lastName, trade, city, hourlyRate || 0, bio, licenceNumber || null, whiteCard || null, walletAddress || null);
       return Worker.findById(result.lastInsertRowid);
     } catch (error) {
       throw new Error(`Failed to create worker: ${error.message}`);
@@ -44,6 +44,27 @@ const Worker = {
       return stmt.all();
     } catch (error) {
       throw new Error(`Failed to get workers: ${error.message}`);
+    }
+  },
+
+  // Save Hedera mint result back to worker record
+  saveHederaResult: async (id, { verificationHash, tokenId, serial, txId, metadataUri, svgUri }) => {
+    try {
+      const stmt = db.prepare(`
+        UPDATE workers SET
+          verification_hash = ?,
+          hedera_token_id = ?,
+          hedera_serial = ?,
+          hedera_tx_id = ?,
+          badge_metadata_uri = ?,
+          badge_svg_uri = ?,
+          updated_at = CURRENT_TIMESTAMP
+        WHERE id = ?
+      `);
+      stmt.run(verificationHash, tokenId, serial, txId, metadataUri, svgUri, id);
+      return Worker.findById(id);
+    } catch (error) {
+      throw new Error(`Failed to save Hedera result: ${error.message}`);
     }
   },
 

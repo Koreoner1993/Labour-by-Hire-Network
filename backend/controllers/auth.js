@@ -4,7 +4,7 @@ const { hashPassword, comparePasswords, generateToken, errorResponse, successRes
 // Register a new worker
 const register = async (req, res) => {
   try {
-    const { email, password, firstName, lastName, trade, city, hourlyRate } = req.body;
+    const { email, password, firstName, lastName, trade, city, hourlyRate, bio, licenceNumber, whiteCard, walletAddress } = req.body;
 
     // Validation
     if (!email || !password || !firstName || !lastName || !trade) {
@@ -29,7 +29,10 @@ const register = async (req, res) => {
       trade,
       city,
       hourlyRate || 0,
-      null
+      bio || null,
+      licenceNumber || null,
+      whiteCard || null,
+      walletAddress || null
     );
 
     // Generate token
