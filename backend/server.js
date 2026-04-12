@@ -43,6 +43,7 @@ app.use('/api/equipment', require('./routes/equipment'));
 app.use('/api/nft', require('./routes/nft'));
 app.use('/api/workers', require('./routes/workers'));
 app.use('/api/messages', require('./routes/messages'));
+app.use('/api/waitlist', require('./routes/waitlist'));
 
 // Serve index.html for all non-API routes (SPA routing)
 app.get('*', (req, res) => {

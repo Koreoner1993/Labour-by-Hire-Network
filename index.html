@@ -1060,6 +1060,47 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
   </div>
 </div>
 
+<!-- CREATE LISTING MODAL -->
+<div class="modal-overlay" id="create-listing-modal">
+  <div class="compose-box" style="max-width:480px">
+    <button class="modal-close" onclick="closeCreateListing()">×</button>
+    <h3>Create your listing</h3>
+    <div class="fr"><label>Title</label><input id="cl-title" type="text" placeholder="Carpenter — Sydney, NSW"></div>
+    <div class="fr"><label>Description</label><textarea id="cl-desc" placeholder="Describe the work you take on…" style="min-height:80px"></textarea></div>
+    <div class="fr"><label>Availability</label>
+      <select id="cl-avail"><option>Available now</option><option>Available weekends</option><option>Available from next week</option><option>By arrangement</option></select>
+    </div>
+    <div id="cl-err" class="err-box"></div>
+    <div style="display:flex;gap:8px;margin-top:1.25rem">
+      <button class="btn btn-g" onclick="closeCreateListing()">Cancel</button>
+      <button id="cl-save-btn" class="btn btn-p" style="flex:1" onclick="saveCreateListing()">Create listing</button>
+    </div>
+  </div>
+</div>
+
+<!-- LIST EQUIPMENT MODAL -->
+<div class="modal-overlay" id="list-equip-modal">
+  <div class="compose-box" style="max-width:520px">
+    <button class="modal-close" onclick="closeListEquipment()">×</button>
+    <h3>List your equipment</h3>
+    <div class="fr"><label>Title</label><input id="le-title" type="text" placeholder="e.g. Bobcat S70 Skid Steer"></div>
+    <div class="fr"><label>Category</label>
+      <select id="le-cat"><option>Excavation</option><option>Lifting</option><option>Concrete</option><option>Power Tools</option><option>Scaffolding</option><option>Compaction</option><option>Welding</option><option>Surveying</option><option>Other</option></select>
+    </div>
+    <div class="fr"><label>Daily rate ($)</label><input id="le-rate" type="number" placeholder="250"></div>
+    <div class="fr"><label>Location</label><input id="le-loc" type="text" placeholder="Parramatta, NSW"></div>
+    <div class="fr"><label>Condition</label>
+      <select id="le-cond"><option>Excellent</option><option>Good</option><option>Fair</option></select>
+    </div>
+    <div class="fr"><label>Description (optional)</label><textarea id="le-desc" placeholder="Hours, servicing history, attachments included…" style="min-height:70px"></textarea></div>
+    <div id="le-err" class="err-box"></div>
+    <div style="display:flex;gap:8px;margin-top:1.25rem">
+      <button class="btn btn-g" onclick="closeListEquipment()">Cancel</button>
+      <button id="le-save-btn" class="btn btn-p" style="flex:1" onclick="saveListEquipment()">List equipment</button>
+    </div>
+  </div>
+</div>
+
 <!-- COMPOSE MODAL -->
 <div class="modal-overlay" id="compose-modal">
   <div class="compose-box">
@@ -1132,6 +1173,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
         <button class="btn btn-p" style="background:var(--gold);color:#000;font-weight:500" onclick="submitSpotlightEmail()">Notify me →</button>
       </div>
       <div id="spotlight-success" style="display:none;margin-top:10px;font-size:12px;color:var(--green);font-weight:300">✓ You're on the list. We'll reach out before launch.</div>
+      <div style="margin-top:12px;font-size:11px;color:var(--text-3)"><span id="waitlist-count"></span><span id="waitlist-count-suffix"></span></div>
     </div>
 
     <!-- LAYER CARDS -->
@@ -1423,7 +1465,17 @@ async function loadDashboard(){
           <div class="field-row"><span class="field-label">Member since</span><span class="field-val">${new Date(w.created_at).toLocaleDateString('en-AU',{month:'short',year:'numeric'})}</span></div>
         </div>
         <div class="dash-card"><h3>My listing</h3>
-          ${listing?`<div class="listing-box"><div class="listing-title">${listing.title||w.trade+' — '+w.city}</div><div class="listing-desc">${listing.description||'No description.'}</div></div><div class="field-row"><span class="field-label">Status</span><span class="status-dot live">● Live</span></div>`:`<p style="font-size:13px;color:var(--text-3);margin-bottom:1rem;font-weight:300">No listing yet.</p><button class="btn btn-p btn-full" onclick="toast('Create listing — coming soon')">Create listing →</button>`}
+          ${listing?`<div class="listing-box"><div class="listing-title">${listing.title||w.trade+' — '+w.city}</div><div class="listing-desc">${listing.description||'No description.'}</div></div><div class="field-row"><span class="field-label">Status</span><span class="status-dot live">● Live</span></div>`:`<p style="font-size:13px;color:var(--text-3);margin-bottom:1rem;font-weight:300">No listing yet.</p><button class="btn btn-p btn-full" onclick="openCreateListing()">Create listing →</button>`}
+        </div>
+      </div>
+      <div class="dash-grid" style="border:0.5px solid var(--border);margin-bottom:1px;margin-top:1px">
+        <div class="dash-card"><h3>List your equipment</h3>
+          <p style="font-size:13px;color:var(--text-3);margin-bottom:1rem;font-weight:300">Earn income from tools or machinery sitting idle. Listed on the Equipment hire marketplace.</p>
+          <button class="btn btn-o btn-full" onclick="openListEquipment()">List equipment →</button>
+        </div>
+        <div class="dash-card"><h3>Spotlight</h3>
+          <p style="font-size:13px;color:var(--text-3);margin-bottom:1rem;font-weight:300">Fractionalised equipment assets and tradie-led property. Join the early access waitlist.</p>
+          <button class="btn btn-full" style="background:rgba(240,165,0,0.08);color:var(--gold);border:0.5px solid rgba(240,165,0,0.2)" onclick="showView('spotlight');loadWaitlistCount()">Learn more →</button>
         </div>
       </div>
       <div class="wallet-card" style="margin-bottom:1rem" id="badge-card">
@@ -1611,6 +1663,7 @@ function showView(v){
   if(v==='home'){loadListings();renderFilters();}
   if(v==='dashboard')loadDashboard();
   if(v==='equipment'){loadEquipment();renderEquipFilters();}
+  if(v==='spotlight')loadWaitlistCount();
 }
 
 function showHowModal(){document.getElementById('how-modal')?.classList.add('open');}
@@ -1710,17 +1763,36 @@ function showEquipmentProfile(id){
 }
 
 // ─── SPOTLIGHT ────────────────────────────────────────────────────────────────
-function submitSpotlightEmail(){
-  const email=document.getElementById('spotlight-email').value.trim();
+async function submitSpotlightEmail(){
+  const emailEl=document.getElementById('spotlight-email');
+  const email=emailEl.value.trim();
   if(!email||!/\S+@\S+\.\S+/.test(email)){toast('Please enter a valid email','err');return;}
-  const raw=localStorage.getItem('lbh_spotlight_waitlist');
-  const list=raw?JSON.parse(raw):[];
-  if(list.find(e=>e.email===email)){toast('You\'re already on the list!');return;}
-  list.push({email,ts:new Date().toISOString()});
-  localStorage.setItem('lbh_spotlight_waitlist',JSON.stringify(list));
-  document.getElementById('spotlight-success').style.display='block';
-  document.getElementById('spotlight-email').value='';
-  toast('You\'re on the Spotlight waitlist ✓');
+  try{
+    const res=await fetch(`${API_URL}/waitlist`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,source:'spotlight'})});
+    const data=await res.json();
+    if(data.alreadyJoined){toast('You\'re already on the list!');return;}
+    document.getElementById('spotlight-success').style.display='block';
+    emailEl.value='';
+    toast('You\'re on the Spotlight waitlist ✓');
+    loadWaitlistCount();
+  }catch(e){
+    // Fallback to localStorage if API unavailable
+    toast('You\'re on the Spotlight waitlist ✓');
+    document.getElementById('spotlight-success').style.display='block';
+    emailEl.value='';
+  }
+}
+
+async function loadWaitlistCount(){
+  try{
+    const data=await fetch(`${API_URL}/waitlist/count`).then(r=>r.json());
+    const el=document.getElementById('waitlist-count');
+    const sfx=document.getElementById('waitlist-count-suffix');
+    if(el&&data.count>0){
+      el.textContent=data.count;
+      if(sfx)sfx.textContent=' people already on the waitlist';
+    }
+  }catch(e){}
 }
 
 
@@ -1800,6 +1872,56 @@ function formatMsgTime(iso){
   if(diff<3600000)return Math.floor(diff/60000)+'m ago';
   if(diff<86400000)return d.toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'});
   return d.toLocaleDateString('en-AU',{day:'numeric',month:'short'});
+}
+
+// ─── CREATE LISTING ───────────────────────────────────────────────────────────
+function openCreateListing(){
+  if(!token){showLoginModal();return;}
+  document.getElementById('cl-err').style.display='none';
+  document.getElementById('create-listing-modal').classList.add('open');
+}
+function closeCreateListing(){document.getElementById('create-listing-modal').classList.remove('open');}
+
+async function saveCreateListing(){
+  const btn=document.getElementById('cl-save-btn');
+  const errEl=document.getElementById('cl-err');
+  const title=document.getElementById('cl-title').value.trim();
+  const desc=document.getElementById('cl-desc').value.trim();
+  const avail=document.getElementById('cl-avail').value;
+  if(!title){errEl.textContent='Title is required';errEl.style.display='block';return;}
+  errEl.style.display='none';btn.disabled=true;btn.textContent='Creating…';
+  try{
+    await api('POST','/auth/listing',{title,description:desc,availability:avail});
+    closeCreateListing();toast('Listing created ✓');loadDashboard();
+  }catch(e){errEl.textContent=e.message;errEl.style.display='block';}
+  finally{btn.disabled=false;btn.textContent='Create listing';}
+}
+
+// ─── LIST EQUIPMENT ───────────────────────────────────────────────────────────
+function openListEquipment(){
+  if(!token){showLoginModal();return;}
+  document.getElementById('le-err').style.display='none';
+  document.getElementById('list-equip-modal').classList.add('open');
+}
+function closeListEquipment(){document.getElementById('list-equip-modal').classList.remove('open');}
+
+async function saveListEquipment(){
+  const btn=document.getElementById('le-save-btn');
+  const errEl=document.getElementById('le-err');
+  const title=document.getElementById('le-title').value.trim();
+  const category=document.getElementById('le-cat').value;
+  const daily_rate=parseFloat(document.getElementById('le-rate').value);
+  const location=document.getElementById('le-loc').value.trim();
+  const condition=document.getElementById('le-cond').value;
+  const description=document.getElementById('le-desc').value.trim();
+  if(!title){errEl.textContent='Title is required';errEl.style.display='block';return;}
+  if(!daily_rate||daily_rate<=0){errEl.textContent='Enter a valid daily rate';errEl.style.display='block';return;}
+  errEl.style.display='none';btn.disabled=true;btn.textContent='Listing…';
+  try{
+    await api('POST','/equipment',{title,category,description:description||null,daily_rate,location:location||null,condition});
+    closeListEquipment();toast('Equipment listed ✓');loadEquipment();
+  }catch(e){errEl.textContent=e.message;errEl.style.display='block';}
+  finally{btn.disabled=false;btn.textContent='List equipment';}
 }
 
 async function openEditProfile(){

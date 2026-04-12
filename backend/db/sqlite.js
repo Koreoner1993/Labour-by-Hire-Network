@@ -112,6 +112,14 @@ db.exec(`
   );
   CREATE INDEX IF NOT EXISTS idx_messages_worker_id ON messages(worker_id);
   CREATE INDEX IF NOT EXISTS idx_messages_read ON messages(read);
+
+  CREATE TABLE IF NOT EXISTS waitlist (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    email TEXT UNIQUE NOT NULL,
+    source TEXT DEFAULT 'spotlight',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  );
+  CREATE INDEX IF NOT EXISTS idx_waitlist_email ON waitlist(email);
 `);
 
 // Migrate existing databases: add new columns if they don't exist yet.

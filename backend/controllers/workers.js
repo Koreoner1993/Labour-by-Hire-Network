@@ -10,10 +10,13 @@ const getProfile = async (req, res) => {
       return res.status(404).json({ error: 'Worker not found', code: 'NOT_FOUND' });
     }
 
+    const listing = await Listing.getByWorkerId(req.worker.id).catch(() => null);
+
     const { password_hash, ...workerData } = worker;
     res.json({
       message: 'Profile retrieved',
       worker: workerData,
+      listing: listing || null,
     });
   } catch (error) {
     console.error('Get profile error:', error);
