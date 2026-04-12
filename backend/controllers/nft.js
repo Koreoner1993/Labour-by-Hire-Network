@@ -3,6 +3,7 @@
 const crypto = require('crypto');
 const Worker = require('../models/worker');
 const { mintBadge } = require('../hedera/mintBadge');
+const { calculateLabourScore } = require('../utils/labourScore');
 
 /**
  * POST /api/nft/mint
@@ -71,6 +72,11 @@ const mint = async (req, res) => {
       metadataUri: result.metadataUri,
       svgUri: result.svgUri,
     });
+
+    // Recalculate Labour Score now that badge is minted
+    const updatedWorker = await Worker.findById(worker.id);
+    const newScore = calculateLabourScore(updatedWorker, false);
+    await Worker.updateScore(worker.id, newScore);
 
     return res.status(201).json({
       alreadyMinted: false,

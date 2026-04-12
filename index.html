@@ -1530,35 +1530,59 @@ function renderFilters(){
 function setFilter(t){activeFilter=t;renderFilters();filterWorkers();}
 
 function showProfile(id){
-  const listing=listings.find(x=>(x.worker||x).id===id);if(!listing)return;
-  const w=listing.worker||listing;const name=w.name||`${w.first_name} ${w.last_name}`;
-  const parts=name.trim().split(' ');const ini=((parts[0]?.[0]||'')+(parts[parts.length-1]?.[0]||'')).toUpperCase();
-  const walletAddr=localStorage.getItem(`lbh_wallet_${w.id}`);
-  const score=w.labour_score??Math.floor(60+Math.abs((w.id||1)*13%40));
-  const scoreCol=score>=80?'var(--green)':score>=60?'var(--blue-bright)':'var(--gold)';
-  const scoreLbl=score>=80?'Excellent':score>=60?'Good':'Building';
-  document.getElementById('profile-content').innerHTML=`
-    <div class="pcard">
-      <div class="ptop"><div class="av av-lg">${ini}</div>
-        <div class="pinfo"><div class="pname">${name}</div><div class="pmeta">${w.trade} · ${w.city||'Location TBC'}</div>
-          <div class="badges" style="margin-top:12px"><span class="bdg bg">LBH Verified</span>${walletAddr?'<span class="hedera-badge">🔷 Hedera</span>':''}</div>
-        </div>
-        <div style="text-align:center;background:var(--surface-2);border:0.5px solid var(--border-2);border-radius:12px;padding:1.25rem 1.5rem;flex-shrink:0;min-width:100px">
-          <div style="font-size:40px;font-weight:300;letter-spacing:-.06em;color:${scoreCol};line-height:1">${score}</div>
-          <div style="font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-3);margin-top:4px">Labour Score</div>
-          <div style="font-size:11px;color:${scoreCol};margin-top:6px;font-weight:400">${scoreLbl}</div>
-          <div style="margin-top:8px;background:var(--surface-3);border-radius:100px;height:2px"><div style="background:${scoreCol};height:100%;width:${score}%;border-radius:100px"></div></div>
-        </div>
-      </div>
-      ${w.bio?`<div class="pbio">${w.bio}</div>`:''}
-      <div class="pstats">${w.hourly_rate?`<div><div class="ps-n">$${w.hourly_rate}</div><div class="ps-l">Per Hour</div></div>`:''}</div>
-      ${walletAddr?`<div class="wallet-card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">🔷 <span style="font-size:12px;font-weight:500;color:#00d2b9;text-transform:uppercase;letter-spacing:.08em">Hedera Wallet</span><span class="hedera-badge">On-Chain</span></div><div class="wallet-addr">${walletAddr}</div></div>`:''}
-      <div style="display:flex;gap:8px;margin-top:1.75rem">
-        <button class="btn btn-p" style="flex:1" onclick="contactWorker(${w.id},'${name.replace(/'/g,"\\'")}')">Message worker</button>
-        <button class="btn btn-g" onclick="showView('home')">Back</button>
-      </div>
-    </div>`;
   showView('profile');
+  const el=document.getElementById('profile-content');
+  el.innerHTML='<p style="color:var(--text-3);font-size:13px;padding:2rem 0">Loading profile…</p>';
+  fetch(`${API_URL}/workers/${id}`)
+    .then(r=>r.json())
+    .then(({worker:w})=>{
+      if(!w){el.innerHTML='<p style="color:var(--text-3)">Profile not found.</p>';return;}
+      const name=w.name||`${w.first_name} ${w.last_name}`;
+      const parts=name.trim().split(' ');
+      const ini=((parts[0]?.[0]||'')+(parts[parts.length-1]?.[0]||'')).toUpperCase();
+      const score=w.labour_score||0;
+      const scoreCol=score>=80?'var(--green)':score>=60?'var(--blue-bright)':'var(--gold)';
+      const scoreLbl=score>=80?'Excellent':score>=60?'Good':'Building';
+      const hasBadge=!!w.hedera_serial;
+      el.innerHTML=`
+        <div class="pcard">
+          <div class="ptop"><div class="av av-lg">${ini}</div>
+            <div class="pinfo">
+              <div class="pname">${name}</div>
+              <div class="pmeta">${w.trade} · ${w.city||'Location TBC'}</div>
+              <div class="badges" style="margin-top:12px">
+                <span class="bdg bg">LBH Verified</span>
+                ${w.licence_verified?'<span class="bdg" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.25)">✓ Licensed</span>':''}
+                ${w.white_card_verified?'<span class="bdg" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.25)">✓ White Card</span>':''}
+                ${hasBadge?'<span class="hedera-badge">🔷 On-Chain</span>':''}
+              </div>
+            </div>
+            <div style="text-align:center;background:var(--surface-2);border:0.5px solid var(--border-2);border-radius:12px;padding:1.25rem 1.5rem;flex-shrink:0;min-width:100px">
+              <div style="font-size:40px;font-weight:300;letter-spacing:-.06em;color:${scoreCol};line-height:1">${score}</div>
+              <div style="font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-3);margin-top:4px">Labour Score</div>
+              <div style="font-size:11px;color:${scoreCol};margin-top:6px;font-weight:400">${scoreLbl}</div>
+              <div style="margin-top:8px;background:var(--surface-3);border-radius:100px;height:2px"><div style="background:${scoreCol};height:100%;width:${score}%;border-radius:100px"></div></div>
+            </div>
+          </div>
+          ${w.bio?`<div class="pbio">${w.bio}</div>`:''}
+          <div class="pstats">${w.hourly_rate?`<div><div class="ps-n">$${w.hourly_rate}</div><div class="ps-l">Per Hour</div></div>`:''}</div>
+          ${hasBadge?`<div class="wallet-card">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+              🔷 <span style="font-size:12px;font-weight:500;color:#00d2b9;text-transform:uppercase;letter-spacing:.08em">Hedera Identity Badge</span>
+              <span class="hedera-badge">On-Chain</span>
+            </div>
+            <div class="wallet-addr">${w.hedera_token_id} · Serial #${w.hedera_serial}</div>
+            <div style="margin-top:6px;display:flex;gap:12px;flex-wrap:wrap">
+              ${w.badge_metadata_uri?`<a href="${w.badge_metadata_uri.replace('ipfs://','https://ipfs.io/ipfs/')}" target="_blank" rel="noopener" style="font-size:11px;color:#00d2b9">View metadata ↗</a>`:''}
+            </div>
+          </div>`:''}
+          <div style="display:flex;gap:8px;margin-top:1.75rem">
+            <button class="btn btn-p" style="flex:1" onclick="contactWorker(${w.id},'${name.replace(/'/g,"\\'")}')">Message worker</button>
+            <button class="btn btn-g" onclick="showView('home')">Back</button>
+          </div>
+        </div>`;
+    })
+    .catch(()=>{el.innerHTML='<p style="color:var(--text-3)">Failed to load profile.</p>';});
 }
 
 function showView(v){

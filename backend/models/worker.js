@@ -95,6 +95,23 @@ const Worker = {
     }
   },
 
+  // Update labour_score
+  updateScore: async (id, score) => {
+    try {
+      const stmt = db.prepare('UPDATE workers SET labour_score = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?');
+      stmt.run(score, id);
+    } catch (error) {
+      throw new Error(`Failed to update score: ${error.message}`);
+    }
+  },
+
+  // Safe public fields (no password_hash, no email)
+  toPublic: (worker) => {
+    if (!worker) return null;
+    const { password_hash, email, ...pub } = worker;
+    return pub;
+  },
+
   // Delete worker
   delete: async (id) => {
     try {

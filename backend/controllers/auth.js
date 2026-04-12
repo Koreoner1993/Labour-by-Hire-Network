@@ -1,5 +1,6 @@
 const Worker = require('../models/worker');
 const { hashPassword, comparePasswords, generateToken, errorResponse, successResponse } = require('../utils/helpers');
+const { calculateLabourScore } = require('../utils/labourScore');
 
 // Register a new worker
 const register = async (req, res) => {
@@ -34,6 +35,11 @@ const register = async (req, res) => {
       whiteCard || null,
       walletAddress || null
     );
+
+    // Calculate and persist initial Labour Score
+    const score = calculateLabourScore(worker, false);
+    await Worker.updateScore(worker.id, score);
+    worker.labour_score = score;
 
     // Generate token
     const token = generateToken(worker.id, worker.email);
