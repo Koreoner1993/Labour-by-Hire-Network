@@ -71,7 +71,7 @@ const Worker = {
   // Update worker
   update: async (id, updates) => {
     try {
-      const allowedFields = ['first_name', 'last_name', 'city', 'hourly_rate', 'bio'];
+      const allowedFields = ['first_name', 'last_name', 'city', 'hourly_rate', 'bio', 'licence_number', 'white_card'];
       const setClause = allowedFields
         .filter(field => field in updates)
         .map(field => `${field} = ?`)

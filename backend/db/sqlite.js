@@ -98,6 +98,20 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS idx_equipment_owner ON equipment_listings(owner_id);
   CREATE INDEX IF NOT EXISTS idx_equipment_category ON equipment_listings(category);
   CREATE INDEX IF NOT EXISTS idx_equipment_active ON equipment_listings(active);
+
+  CREATE TABLE IF NOT EXISTS messages (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    worker_id INTEGER NOT NULL,
+    from_name TEXT NOT NULL,
+    from_email TEXT NOT NULL,
+    company TEXT,
+    body TEXT NOT NULL,
+    read INTEGER DEFAULT 0,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (worker_id) REFERENCES workers(id) ON DELETE CASCADE
+  );
+  CREATE INDEX IF NOT EXISTS idx_messages_worker_id ON messages(worker_id);
+  CREATE INDEX IF NOT EXISTS idx_messages_read ON messages(read);
 `);
 
 // Migrate existing databases: add new columns if they don't exist yet.

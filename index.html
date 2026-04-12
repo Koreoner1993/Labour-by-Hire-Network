@@ -1042,6 +1042,24 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
   </div>
 </div>
 
+<!-- EDIT PROFILE MODAL -->
+<div class="modal-overlay" id="edit-profile-modal">
+  <div class="compose-box" style="max-width:520px">
+    <button class="modal-close" onclick="closeEditProfile()">×</button>
+    <h3>Edit profile</h3>
+    <div class="fr"><label>City / State</label><input id="ep-city" type="text" placeholder="Sydney, NSW"></div>
+    <div class="fr"><label>Hourly rate ($)</label><input id="ep-rate" type="number" placeholder="65"></div>
+    <div class="fr"><label>About yourself</label><textarea id="ep-bio" placeholder="Describe your specialties…" style="min-height:90px"></textarea></div>
+    <div class="fr"><label>Licence number</label><input id="ep-lic" type="text" placeholder="CL123456"></div>
+    <div class="fr"><label>White Card number</label><input id="ep-wc" type="text" placeholder="WC987654"></div>
+    <div id="ep-err" class="err-box"></div>
+    <div style="display:flex;gap:8px;margin-top:1.25rem">
+      <button class="btn btn-g" onclick="closeEditProfile()">Cancel</button>
+      <button id="ep-save-btn" class="btn btn-p" style="flex:1" onclick="saveProfile()">Save changes</button>
+    </div>
+  </div>
+</div>
+
 <!-- COMPOSE MODAL -->
 <div class="modal-overlay" id="compose-modal">
   <div class="compose-box">
@@ -1393,7 +1411,7 @@ async function loadDashboard(){
           <div style="font-size:10px;color:var(--text-3);margin-top:4px;font-weight:300">0–100 · Hedera NFT</div>
           <div style="margin-top:8px;background:var(--surface-3);border-radius:100px;height:2px"><div style="background:${scoreCol};height:100%;width:${score}%;border-radius:100px"></div></div>
         </div>
-        <button class="btn btn-g btn-sm" onclick="toast('Edit profile — coming soon')">Edit profile</button>
+        <button class="btn btn-g btn-sm" onclick="openEditProfile()">Edit profile</button>
       </div>
       <div class="dash-grid" style="border:0.5px solid var(--border);margin-bottom:1px">
         <div class="dash-card"><h3>Profile details</h3>
@@ -1758,7 +1776,7 @@ async function loadInbox(containerId){
 async function openMessage(msgId,containerId){
   const el=document.getElementById(containerId);
   try{
-    await api('PUT',`/notifications/${msgId}/read`).catch(()=>{});
+    await api('PUT',`/messages/${msgId}/read`).catch(()=>{});
     const data=await api('GET','/messages');const msg=(data.messages||[]).find(m=>m.id===msgId);
     if(!msg){el.innerHTML='<p style="color:var(--text-3)">Not found.</p>';return;}
     el.innerHTML=`<button class="back" style="margin-bottom:12px" onclick="loadInbox('${containerId}')"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to inbox</button>
@@ -1782,6 +1800,41 @@ function formatMsgTime(iso){
   if(diff<3600000)return Math.floor(diff/60000)+'m ago';
   if(diff<86400000)return d.toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'});
   return d.toLocaleDateString('en-AU',{day:'numeric',month:'short'});
+}
+
+async function openEditProfile(){
+  // Pre-fill with current profile data
+  try{
+    const data=await api('GET','/auth/profile');const w=data.worker;
+    document.getElementById('ep-city').value=w.city||'';
+    document.getElementById('ep-rate').value=w.hourly_rate||'';
+    document.getElementById('ep-bio').value=w.bio||'';
+    document.getElementById('ep-lic').value=w.licence_number||'';
+    document.getElementById('ep-wc').value=w.white_card||'';
+  }catch(e){}
+  document.getElementById('ep-err').style.display='none';
+  document.getElementById('edit-profile-modal').classList.add('open');
+}
+function closeEditProfile(){document.getElementById('edit-profile-modal').classList.remove('open');}
+
+async function saveProfile(){
+  const btn=document.getElementById('ep-save-btn');
+  const errEl=document.getElementById('ep-err');
+  errEl.style.display='none';
+  btn.disabled=true;btn.textContent='Saving…';
+  try{
+    await api('PUT','/auth/profile',{
+      city:document.getElementById('ep-city').value.trim()||undefined,
+      hourlyRate:parseFloat(document.getElementById('ep-rate').value)||undefined,
+      bio:document.getElementById('ep-bio').value.trim()||undefined,
+      licenceNumber:document.getElementById('ep-lic').value.trim()||undefined,
+      whiteCard:document.getElementById('ep-wc').value.trim()||undefined,
+    });
+    closeEditProfile();
+    toast('Profile updated ✓');
+    loadDashboard();
+  }catch(e){errEl.textContent=e.message;errEl.style.display='block';}
+  finally{btn.disabled=false;btn.textContent='Save changes';}
 }
 
 
