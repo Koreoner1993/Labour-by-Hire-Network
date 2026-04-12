@@ -158,10 +158,10 @@ combined = combined.replace(
 # B) Add NFT CSS before </style>
 combined = combined.replace('</style>', nft_css + '\n</style>', 1)
 
-# C) Add "NFT Badges" nav link (after the last existing nav button before </div>)
+# C) Add "NFT Badges" nav link — hidden from UI, accessible via URL/admin only
 combined = combined.replace(
-    '<button class="nl" onclick="showView(\'about\')">About</button>\n    </div>',
-    '<button class="nl" onclick="showView(\'about\')">About</button>\n      <button class="nl" onclick="showView(\'nft\')">NFT Badges</button>\n    </div>'
+    '<button class="nl" onclick="showView(\'home\')">Find Workers</button>',
+    '<button class="nl" onclick="showView(\'home\')">Find Workers</button>\n      <button class="nl" onclick="showView(\'nft\')" style="display:none">NFT Badges</button>'
 )
 
 # D) Insert NFT view before </main>

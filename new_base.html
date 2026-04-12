@@ -337,10 +337,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
     </div>
     <div id="role-badge" style="display:none;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:var(--rf);margin-left:4px"></div>
     <div class="nav-links">
-      <button class="nl" onclick="showView('home')">Tradies</button>
-      <button class="nl" onclick="showView('equipment');loadEquipment()">Equipment</button>
-      <button class="nl" onclick="showView('spotlight')">Spotlight</button>
-      <button class="nl" onclick="showView('about')">About</button>
+      <button class="nl" onclick="showView('home')">Find Workers</button>
     </div>
     <div class="nr">
       <div id="nav-signin" style="display:flex;gap:6px">
@@ -367,12 +364,12 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
   <div class="hero-wrap">
     <div class="hero-bg"></div>
     <div class="hero-inner">
-      <div class="hero-badge"><span></span>LBH Verified Network · Australia</div>
-      <h1 class="hero h1">The Construction ID<br><em>Network</em></h1>
-      <p>Every worker licence-checked, Hedera-verified, and certified. Built for builders who take their reputation seriously.</p>
+      <div class="hero-badge"><span></span>Australia's Construction Workforce Network</div>
+      <h1 class="hero h1">Verified construction workers,<br><em>ready to hire.</em></h1>
+      <p>Pre-checked, scored, and instantly hireable. Every worker is licence-verified, White Card confirmed, and rated before they appear on the network.</p>
       <div class="hero-btns">
-        <button class="btn btn-p btn-lg" onclick="document.getElementById('browse-sec').scrollIntoView({behavior:'smooth'})">Browse tradies</button>
-        <button class="btn btn-o btn-lg" onclick="showView('getlisted')">Get listed →</button>
+        <button class="btn btn-p btn-lg" onclick="document.getElementById('browse-sec').scrollIntoView({behavior:'smooth'})">Find a worker</button>
+        <button class="btn btn-o btn-lg" onclick="showView('getlisted')">Get listed — free</button>
       </div>
     </div>
   </div>
@@ -385,22 +382,22 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
     <div class="stat"><div class="stat-n">98%</div><div class="stat-l">Satisfaction</div></div>
   </div>
 
-  <!-- ── 3-LAYER STRIP ── -->
+  <!-- ── TRUST STRIP ── -->
   <div style="display:grid;grid-template-columns:repeat(3,1fr);border-bottom:0.5px solid var(--border)">
-    <div style="padding:1.5rem 2.5rem;border-right:0.5px solid var(--border);cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--surface)'" onmouseout="this.style.background=''" onclick="showView('home')">
-      <div style="font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-bright);margin-bottom:6px">Layer 1 · Live Now</div>
-      <div style="font-size:14px;font-weight:400;letter-spacing:-.02em;margin-bottom:3px">Marketplace</div>
-      <div style="font-size:11px;color:var(--text-3);font-weight:300">Verified tradies. Employer subscriptions. Labour Score on-chain.</div>
+    <div style="padding:1.5rem 2.5rem;border-right:0.5px solid var(--border)">
+      <div style="font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:6px">✓ CLEARED FOR SITE</div>
+      <div style="font-size:14px;font-weight:400;letter-spacing:-.02em;margin-bottom:3px">Trust Score 70–100</div>
+      <div style="font-size:11px;color:var(--text-3);font-weight:300">Licence verified, White Card confirmed, fully checked.</div>
     </div>
-    <div style="padding:1.5rem 2.5rem;border-right:0.5px solid var(--border);cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--surface)'" onmouseout="this.style.background=''" onclick="showView('spotlight')">
-      <div style="font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:6px">Layer 2 · ~Month 18</div>
-      <div style="font-size:14px;font-weight:400;letter-spacing:-.02em;margin-bottom:3px">Equipment Trust</div>
-      <div style="font-size:11px;color:var(--text-3);font-weight:300">Fractionalised assets on Hedera HTS. Token holders earn rental yield.</div>
+    <div style="padding:1.5rem 2.5rem;border-right:0.5px solid var(--border)">
+      <div style="font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:6px">⚠ PENDING REVIEW</div>
+      <div style="font-size:14px;font-weight:400;letter-spacing:-.02em;margin-bottom:3px">Trust Score 40–70</div>
+      <div style="font-size:11px;color:var(--text-3);font-weight:300">Profile started, verification in progress.</div>
     </div>
-    <div style="padding:1.5rem 2.5rem;cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--surface)'" onmouseout="this.style.background=''" onclick="showView('spotlight')">
-      <div style="font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:rgba(167,139,250,0.9);margin-bottom:6px">Layer 3 · ~Month 30</div>
-      <div style="font-size:14px;font-weight:400;letter-spacing:-.02em;margin-bottom:3px">Property Spotlight</div>
-      <div style="font-size:11px;color:var(--text-3);font-weight:300">High-score tradies raise capital. CSF-compliant crowdfunding via AFSL.</div>
+    <div style="padding:1.5rem 2.5rem">
+      <div style="font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#ef4444;margin-bottom:6px">✗ NOT APPROVED</div>
+      <div style="font-size:14px;font-weight:400;letter-spacing:-.02em;margin-bottom:3px">Trust Score 0–40</div>
+      <div style="font-size:11px;color:var(--text-3);font-weight:300">Incomplete profile, awaiting documentation.</div>
     </div>
   </div>
 
@@ -451,7 +448,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
           <div class="tp-stats">
             <div class="tp-stat"><strong>47</strong> jobs</div>
             <div class="tp-stat"><strong>4.9</strong> ★</div>
-            <div class="tp-stat"><strong>92</strong> score</div>
+            <div class="tp-stat"><strong>92</strong> trust</div>
           </div>
         </div>
       </div>
@@ -465,7 +462,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
           <div class="tp-stats">
             <div class="tp-stat"><strong>31</strong> jobs</div>
             <div class="tp-stat"><strong>4.7</strong> ★</div>
-            <div class="tp-stat"><strong>88</strong> score</div>
+            <div class="tp-stat"><strong>88</strong> trust</div>
           </div>
         </div>
       </div>
@@ -479,7 +476,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
           <div class="tp-stats">
             <div class="tp-stat"><strong>19</strong> jobs</div>
             <div class="tp-stat"><strong>4.4</strong> ★</div>
-            <div class="tp-stat"><strong>76</strong> score</div>
+            <div class="tp-stat"><strong>76</strong> trust</div>
           </div>
         </div>
       </div>
@@ -513,8 +510,8 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
           <div class="htag htag-b">For Tradies</div>
           <h3>Get your skills seen</h3>
           <div class="step"><div class="sn">1</div><div class="st">Create your profile — trade, experience, and certifications</div></div>
-          <div class="step"><div class="sn">2</div><div class="st">Connect your Hedera wallet to anchor your identity on-chain</div></div>
-          <div class="step"><div class="sn">3</div><div class="st">LBH verifies your licences and issues your Verified badge</div></div>
+          <div class="step"><div class="sn">2</div><div class="st">Submit your licence and White Card details for verification</div></div>
+          <div class="step"><div class="sn">3</div><div class="st">LBH checks your credentials and issues your Trust Score</div></div>
           <div class="step"><div class="sn">4</div><div class="st">Receive direct enquiries from employers — completely free</div></div>
           <!-- Small image inside how-c -->
           <div style="margin-top:2rem;border-radius:10px;overflow:hidden;height:160px;position:relative">
@@ -530,7 +527,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
           <h3>Access verified talent</h3>
           <div class="step"><div class="sn">1</div><div class="st">Create a free employer account to access the network</div></div>
           <div class="step"><div class="sn">2</div><div class="st">Browse the full pool of LBH-verified workers</div></div>
-          <div class="step"><div class="sn">3</div><div class="st">Filter by trade, location, Labour Score, and availability</div></div>
+          <div class="step"><div class="sn">3</div><div class="st">Filter by trade, location, Trust Score, and availability</div></div>
           <div class="step"><div class="sn">4</div><div class="st">Contact workers directly — no middleman, no commissions</div></div>
           <!-- Small image inside how-c -->
           <div style="margin-top:2rem;border-radius:10px;overflow:hidden;height:160px;position:relative">
@@ -559,7 +556,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
           <ul class="price-list">
             <li><span class="price-check">✓</span>Public construction ID profile in the LBH network</li>
             <li><span class="price-check">✓</span>LBH Verified badge on your profile</li>
-            <li><span class="price-check">✓</span>Hedera on-chain identity badge</li>
+            <li><span class="price-check">✓</span>Verified Trust Score on your profile</li>
             <li><span class="price-check">✓</span>Employers can find and contact you directly</li>
             <li><span class="price-check">✓</span>Trade search and location filters</li>
           </ul>
@@ -572,9 +569,9 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
           <div class="price-per">browse, search and contact at no cost</div>
           <ul class="price-list">
             <li><span style="color:var(--gold)">★</span>Unlimited access to all verified workers</li>
-            <li><span style="color:var(--gold)">★</span>Filter by trade, location, Labour Score</li>
+            <li><span style="color:var(--gold)">★</span>Filter by trade, location, Trust Score</li>
             <li><span style="color:var(--gold)">★</span>View Hedera identity badge</li>
-            <li><span style="color:var(--gold)">★</span>Full Labour Score history and reviews</li>
+            <li><span style="color:var(--gold)">★</span>Full Trust Score history and reviews</li>
             <li><span style="color:var(--gold)">★</span>Direct messaging through the platform</li>
           </ul>
           <button class="btn btn-o btn-full btn-lg" onclick="showComingSoon()">Coming soon</button>
@@ -691,7 +688,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
         <div class="step4"><div class="step4-n">Step 01</div><div class="step4-ico">📝</div><div class="step4-t">Create your profile</div><div class="step4-d">Add your trade, experience, licence, and hourly rate. Takes about 3 minutes.</div></div>
         <div class="step4"><div class="step4-n">Step 02</div><div class="step4-ico">🔷</div><div class="step4-t">Connect Hedera Wallet</div><div class="step4-d">Your construction ID gets minted as an NFT on Hedera. Completely free.</div></div>
         <div class="step4"><div class="step4-n">Step 03</div><div class="step4-ico">✅</div><div class="step4-t">We verify you</div><div class="step4-d">Our team checks your licence and White Card within 24 hours. LBH Verified badge issued.</div></div>
-        <div class="step4"><div class="step4-n">Step 04</div><div class="step4-ico">📬</div><div class="step4-t">Employers find you</div><div class="step4-d">Your profile goes live. Employers search, view your Labour Score, and message you directly.</div></div>
+        <div class="step4"><div class="step4-n">Step 04</div><div class="step4-ico">📬</div><div class="step4-t">Employers find you</div><div class="step4-d">Your profile goes live. Employers search, view your Trust Score, and message you directly.</div></div>
       </div>
     </div>
     <div style="text-align:center;background:var(--surface);border:0.5px solid var(--border-2);border-radius:20px;padding:4rem 2rem">
@@ -785,7 +782,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
           <div style="font-weight:400;font-size:13px;letter-spacing:-.01em">Jake Thompson</div>
           <div style="font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;margin-top:2px">Carpenter · Sydney</div>
           <div style="background:var(--surface-3);border-radius:var(--rs);padding:8px;margin:10px 0">
-            <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:10px;color:var(--text-3)">Labour Score</span><span style="font-size:10px;font-weight:500;color:var(--green)">92/100</span></div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:10px;color:var(--text-3)">Trust Score</span><span style="font-size:10px;font-weight:500;color:var(--green)">92/100</span></div>
             <div style="background:var(--surface);border-radius:100px;height:3px"><div style="background:var(--green);height:100%;width:92%;border-radius:100px"></div></div>
           </div>
           <div style="padding:8px;background:var(--bg);border-radius:var(--rs);border:0.5px solid var(--border-2)">
@@ -806,7 +803,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
           <div style="font-weight:400;font-size:13px;letter-spacing:-.01em">Maria Santos</div>
           <div style="font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;margin-top:2px">Electrician · Melbourne</div>
           <div style="background:var(--surface-3);border-radius:var(--rs);padding:8px;margin:10px 0">
-            <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:10px;color:var(--text-3)">Labour Score</span><span style="font-size:10px;font-weight:500;color:var(--green)">88/100</span></div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:10px;color:var(--text-3)">Trust Score</span><span style="font-size:10px;font-weight:500;color:var(--green)">88/100</span></div>
             <div style="background:var(--surface);border-radius:100px;height:3px"><div style="background:var(--green);height:100%;width:88%;border-radius:100px"></div></div>
           </div>
           <div style="padding:8px;background:var(--bg);border-radius:var(--rs);border:0.5px solid var(--border);position:relative;overflow:hidden">
@@ -827,7 +824,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
           <div style="font-weight:400;font-size:13px;letter-spacing:-.01em">Brett Wilson</div>
           <div style="font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;margin-top:2px">Plumber · Brisbane</div>
           <div style="background:var(--surface-3);border-radius:var(--rs);padding:8px;margin:10px 0">
-            <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:10px;color:var(--text-3)">Labour Score</span><span style="font-size:10px;font-weight:500;color:var(--gold)">76/100</span></div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:10px;color:var(--text-3)">Trust Score</span><span style="font-size:10px;font-weight:500;color:var(--gold)">76/100</span></div>
             <div style="background:var(--surface);border-radius:100px;height:3px"><div style="background:var(--gold);height:100%;width:76%;border-radius:100px"></div></div>
           </div>
           <div style="padding:8px;background:var(--bg);border-radius:var(--rs);border:0.5px solid var(--border);position:relative;overflow:hidden">
@@ -860,7 +857,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
       <li><span style="color:var(--green)">✓</span>Message any tradie directly — free</li>
       <li><span style="color:var(--green)">✓</span>View Hedera identity badge</li>
       <li><span style="color:var(--green)">✓</span>Unlimited worker searches and filters</li>
-      <li><span style="color:var(--green)">✓</span>Full Labour Score history and reviews</li>
+      <li><span style="color:var(--green)">✓</span>Full Trust Score history and reviews</li>
     </ul>
     <button class="btn btn-p btn-full" style="margin-bottom:8px;padding:11px" onclick="handlePremiumSignup()">Continue — it's free</button>
     <button class="btn btn-g btn-full" onclick="closePaywall()">Cancel</button>
@@ -1023,9 +1020,9 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
         <div style="font-size:28px;margin-bottom:1.25rem">🏠</div>
         <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#a78bfa;margin-bottom:.5rem">Layer 3</div>
         <div style="font-size:22px;font-weight:300;letter-spacing:-.03em;margin-bottom:.75rem">Spotlight Property</div>
-        <div style="font-size:13px;color:var(--text-2);line-height:1.8;font-weight:300;margin-bottom:2rem">Verified tradies with high Labour Scores can raise capital through the platform to build and sell property. Investors fund projects via a CSF-compliant offer. LBH acts as intermediary under its AFSL.</div>
+        <div style="font-size:13px;color:var(--text-2);line-height:1.8;font-weight:300;margin-bottom:2rem">Verified tradies with high Trust Scores can raise capital through the platform to build and sell property. Investors fund projects via a CSF-compliant offer. LBH acts as intermediary under its AFSL.</div>
         <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:2rem">
-          <div style="font-size:12px;color:var(--text-2);display:flex;gap:10px;font-weight:300;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:#a78bfa;flex-shrink:0">◆</span>Requires Labour Score above threshold to raise capital</div>
+          <div style="font-size:12px;color:var(--text-2);display:flex;gap:10px;font-weight:300;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:#a78bfa;flex-shrink:0">◆</span>Requires Trust Score above threshold to raise capital</div>
           <div style="font-size:12px;color:var(--text-2);display:flex;gap:10px;font-weight:300;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:#a78bfa;flex-shrink:0">◆</span>Equipment from Layer 2 gets deployed on these builds</div>
           <div style="font-size:12px;color:var(--text-2);display:flex;gap:10px;font-weight:300;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:#a78bfa;flex-shrink:0">◆</span>AFSL with CSF authorisation — in application</div>
           <div style="font-size:12px;color:var(--text-2);display:flex;gap:10px;font-weight:300;padding:8px 0"><span style="color:#a78bfa;flex-shrink:0">◆</span>Retail investor access once AFSL granted</div>
@@ -1037,7 +1034,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
     <!-- LABOUR SCORE EXPLAINER -->
     <div style="border:0.5px solid var(--border);border-radius:16px;overflow:hidden">
       <div style="padding:2rem 2.5rem;border-bottom:0.5px solid var(--border);display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
-        <div style="font-size:20px;font-weight:300;letter-spacing:-.03em">Labour Score</div>
+        <div style="font-size:20px;font-weight:300;letter-spacing:-.03em">Trust Score</div>
         <div style="font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:4px 12px;border-radius:var(--rf);background:var(--blue-dim);color:var(--blue-bright);border:0.5px solid var(--blue-border)">Soulbound NFT · Hedera HTS</div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0">
@@ -1066,7 +1063,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
     <h1 style="font-size:clamp(38px,5vw,64px);font-weight:300;letter-spacing:-.05em;line-height:1.05;margin-bottom:2rem">Built by the industry.<br><span style="color:var(--blue-bright)">For the industry.</span></h1>
 
     <div style="font-size:16px;color:var(--text-2);line-height:1.9;font-weight:300;margin-bottom:3.5rem;border-bottom:0.5px solid var(--border);padding-bottom:3.5rem">
-      Labour by Hire is an Australian marketplace connecting verified tradespeople with employers. Not a job board — a construction identity network. Every tradie is licence-checked, ABN-verified, and issued a Labour Score that lives on the Hedera blockchain as a soulbound NFT.
+      Labour by Hire is an Australian marketplace connecting verified tradespeople with employers. Not a job board — a construction identity network. Every tradie is licence-checked, ABN-verified, and issued a Trust Score that lives on the Hedera blockchain as a soulbound NFT.
     </div>
 
     <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:1.5rem">The three-layer model</div>
@@ -1266,16 +1263,16 @@ async function loadDashboard(){
   try{
     const data=await api('GET','/auth/profile');const w=data.worker;const listing=data.listing||null;
     const name=`${w.first_name} ${w.last_name}`;const ini=(w.first_name[0]+w.last_name[0]).toUpperCase();
-    const score=w.labour_score??72;
-    const scoreCol=score>=80?'var(--green)':score>=60?'var(--blue-bright)':'var(--gold)';
+    const score=w.labour_score??0;
+    const scoreCol=score>=70?'var(--green)':score>=40?'var(--gold)':'#ef4444';
     el.innerHTML=`
       <div class="dash-header">
         <div class="av av-lg">${ini}</div>
         <div class="dash-info"><div class="dash-name">${name}</div><div class="dash-meta">${w.trade} · ${w.city||'Location not set'}</div><div style="margin-top:8px"><span class="status-dot pending">● Pending verification</span></div></div>
         <div style="text-align:center;background:var(--surface-2);border:0.5px solid var(--border-2);border-radius:12px;padding:1rem 1.5rem;flex-shrink:0">
           <div style="font-size:36px;font-weight:300;letter-spacing:-.06em;color:${scoreCol};line-height:1">${score}</div>
-          <div style="font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-3);margin-top:4px">Labour Score</div>
-          <div style="font-size:10px;color:var(--text-3);margin-top:4px;font-weight:300">0–100 · Hedera NFT</div>
+          <div style="font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-3);margin-top:4px">Trust Score</div>
+          <div style="font-size:10px;color:${scoreCol};margin-top:4px;font-weight:400">${getTrustLabel(score)}</div>
           <div style="margin-top:8px;background:var(--surface-3);border-radius:100px;height:2px"><div style="background:${scoreCol};height:100%;width:${score}%;border-radius:100px"></div></div>
         </div>
         <button class="btn btn-g btn-sm" onclick="openEditProfile()">Edit profile</button>
@@ -1303,19 +1300,13 @@ async function loadDashboard(){
           <button class="btn btn-full" style="background:rgba(240,165,0,0.08);color:var(--gold);border:0.5px solid rgba(240,165,0,0.2)" onclick="showView('spotlight');loadWaitlistCount()">Learn more →</button>
         </div>
       </div>
-      <div class="wallet-card" style="margin-bottom:1rem" id="badge-card">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px">
-          <div style="display:flex;align-items:center;gap:8px"><span>🔷</span><span style="font-size:12px;font-weight:500;color:#00d2b9;text-transform:uppercase;letter-spacing:.1em">Hedera Identity Badge</span></div>
-          <span id="badge-status-pill"></span>
-        </div>
-        <div id="badge-detail"><p style="font-size:12px;color:var(--text-3)">Checking badge status…</p></div>
-      </div>
       <div style="background:var(--surface);border:0.5px solid var(--border-2);border-radius:12px;padding:1.75rem">
         <h3 style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.12em;color:var(--text-3);margin-bottom:1rem;display:flex;align-items:center;gap:6px">Messages <span id="inbox-badge" class="unread-badge"></span></h3>
         <div id="inbox-container"><p style="color:var(--text-3);font-size:12px">Loading…</p></div>
       </div>`;
     loadInbox('inbox-container');
-    loadBadgeStatus();
+    // Badge minting runs silently in background
+    api('POST','/nft/mint',{}).catch(()=>{});
   }catch(err){el.innerHTML=`<div class="err-box" style="display:block">Failed to load: ${err.message}</div>`;}
 }
 
@@ -1389,12 +1380,24 @@ function filterWorkers(){
   el.innerHTML=filtered.length?filtered.map(l=>renderCard(l.worker||l)).join(''):'<p style="color:var(--text-2);font-size:13px;padding:3rem 0;text-align:center;grid-column:1/-1">No workers found.</p>';
 }
 
+function getSiteStatus(score,licVerified,wcVerified){
+  if(score>=70&&licVerified&&wcVerified)return{label:'CLEARED FOR SITE',color:'var(--green)',icon:'✓',bg:'rgba(34,197,94,0.1)',border:'rgba(34,197,94,0.25)'};
+  if(score>=40)return{label:'PENDING REVIEW',color:'var(--gold)',icon:'⚠',bg:'rgba(245,158,11,0.08)',border:'rgba(245,158,11,0.2)'};
+  return{label:'NOT APPROVED',color:'#ef4444',icon:'✗',bg:'rgba(239,68,68,0.08)',border:'rgba(239,68,68,0.2)'};
+}
+function getTrustLabel(score){
+  if(score>=70)return'Trusted worker';
+  if(score>=40)return'Partially verified';
+  return'Not ready';
+}
+
 function renderCard(w){
   const name=w.name||`${w.first_name} ${w.last_name}`;
   const parts=name.trim().split(' ');
   const ini=((parts[0]?.[0]||'')+(parts[parts.length-1]?.[0]||'')).toUpperCase();
-  const score=w.labour_score??Math.floor(60+Math.abs((w.id||1)*13%40));
-  const scoreColor=score>=80?'var(--green)':score>=60?'var(--blue-bright)':'var(--gold)';
+  const score=w.labour_score??0;
+  const scoreColor=score>=70?'var(--green)':score>=40?'var(--gold)':'#ef4444';
+  const st=getSiteStatus(score,w.licence_verified||w.licence_number,w.white_card_verified||w.white_card);
   return `<div class="card" onclick="showProfile(${w.id})">
     <div class="ct">
       <div class="av">${ini}</div>
@@ -1404,16 +1407,19 @@ function renderCard(w){
         <div class="cl">📍 ${w.city||'Location TBC'}</div>
       </div>
     </div>
+    <div style="margin-bottom:10px">
+      <span style="display:inline-flex;align-items:center;gap:5px;background:${st.bg};color:${st.color};border:0.5px solid ${st.border};padding:3px 10px;border-radius:var(--rf);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase">${st.icon} ${st.label}</span>
+    </div>
     <div style="margin-bottom:1rem">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
-        <span style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-3)">Labour Score</span>
-        <span style="font-size:12px;font-weight:400;color:${scoreColor}">${score}</span>
+        <span style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-3)">Trust Score</span>
+        <span style="font-size:12px;font-weight:600;color:${scoreColor}">${score} <span style="font-size:10px;font-weight:300;color:var(--text-3)">${getTrustLabel(score)}</span></span>
       </div>
-      <div style="background:var(--surface-2);border-radius:100px;height:2px"><div style="background:${scoreColor};height:100%;width:${score}%;border-radius:100px;transition:width .4s ease"></div></div>
+      <div style="background:var(--surface-2);border-radius:100px;height:3px"><div style="background:${scoreColor};height:100%;width:${score}%;border-radius:100px;transition:width .4s ease"></div></div>
     </div>
     <div class="cf">
       <div class="rate">${w.hourly_rate?'$'+w.hourly_rate+'<small>/hr</small>':'<small style="font-size:12px;color:var(--text-3)">Rate TBC</small>'}</div>
-      <div class="vt"><div class="vdot"></div>LBH Verified</div>
+      ${w.licence_verified||w.licence_number?'<span style="font-size:10px;color:var(--green)">✓ Licensed</span>':''}
     </div>
   </div>`;
 }
@@ -1436,44 +1442,35 @@ function showProfile(id){
       const parts=name.trim().split(' ');
       const ini=((parts[0]?.[0]||'')+(parts[parts.length-1]?.[0]||'')).toUpperCase();
       const score=w.labour_score||0;
-      const scoreCol=score>=80?'var(--green)':score>=60?'var(--blue-bright)':'var(--gold)';
-      const scoreLbl=score>=80?'Excellent':score>=60?'Good':'Building';
-      const hasBadge=!!w.hedera_serial;
+      const scoreCol=score>=70?'var(--green)':score>=40?'var(--gold)':'#ef4444';
+      const st=getSiteStatus(score,w.licence_verified,w.white_card_verified);
       el.innerHTML=`
         <div class="pcard">
+          <div style="margin-bottom:1.25rem">
+            <span style="display:inline-flex;align-items:center;gap:6px;background:${st.bg};color:${st.color};border:0.5px solid ${st.border};padding:5px 14px;border-radius:var(--rf);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">${st.icon} ${st.label}</span>
+          </div>
           <div class="ptop"><div class="av av-lg">${ini}</div>
             <div class="pinfo">
               <div class="pname">${name}</div>
               <div class="pmeta">${w.trade} · ${w.city||'Location TBC'}</div>
               <div class="badges" style="margin-top:12px">
                 <span class="bdg bg">LBH Verified</span>
-                ${w.licence_verified?'<span class="bdg" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.25)">✓ Licensed</span>':''}
+                ${w.licence_verified?'<span class="bdg" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.25)">✓ Licence</span>':''}
                 ${w.white_card_verified?'<span class="bdg" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.25)">✓ White Card</span>':''}
-                ${hasBadge?'<span class="hedera-badge">🔷 On-Chain</span>':''}
               </div>
             </div>
-            <div style="text-align:center;background:var(--surface-2);border:0.5px solid var(--border-2);border-radius:12px;padding:1.25rem 1.5rem;flex-shrink:0;min-width:100px">
+            <div style="text-align:center;background:var(--surface-2);border:0.5px solid var(--border-2);border-radius:12px;padding:1.25rem 1.5rem;flex-shrink:0;min-width:110px">
               <div style="font-size:40px;font-weight:300;letter-spacing:-.06em;color:${scoreCol};line-height:1">${score}</div>
-              <div style="font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-3);margin-top:4px">Labour Score</div>
-              <div style="font-size:11px;color:${scoreCol};margin-top:6px;font-weight:400">${scoreLbl}</div>
+              <div style="font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-3);margin-top:4px">Trust Score</div>
+              <div style="font-size:11px;color:${scoreCol};margin-top:6px;font-weight:400">${getTrustLabel(score)}</div>
               <div style="margin-top:8px;background:var(--surface-3);border-radius:100px;height:2px"><div style="background:${scoreCol};height:100%;width:${score}%;border-radius:100px"></div></div>
             </div>
           </div>
           ${w.bio?`<div class="pbio">${w.bio}</div>`:''}
           <div class="pstats">${w.hourly_rate?`<div><div class="ps-n">$${w.hourly_rate}</div><div class="ps-l">Per Hour</div></div>`:''}</div>
-          ${hasBadge?`<div class="wallet-card">
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-              🔷 <span style="font-size:12px;font-weight:500;color:#00d2b9;text-transform:uppercase;letter-spacing:.08em">Hedera Identity Badge</span>
-              <span class="hedera-badge">On-Chain</span>
-            </div>
-            <div class="wallet-addr">${w.hedera_token_id} · Serial #${w.hedera_serial}</div>
-            <div style="margin-top:6px;display:flex;gap:12px;flex-wrap:wrap">
-              ${w.badge_metadata_uri?`<a href="${w.badge_metadata_uri.replace('ipfs://','https://ipfs.io/ipfs/')}" target="_blank" rel="noopener" style="font-size:11px;color:#00d2b9">View metadata ↗</a>`:''}
-            </div>
-          </div>`:''}
           <div style="display:flex;gap:8px;margin-top:1.75rem">
             <button class="btn btn-p" style="flex:1" onclick="contactWorker(${w.id},'${name.replace(/'/g,"\\'")}')">Message worker</button>
-            <button class="btn btn-g" onclick="showView('home')">Back</button>
+            <button class="btn btn-g" onclick="showView('home')">← Back</button>
           </div>
         </div>`;
     })
