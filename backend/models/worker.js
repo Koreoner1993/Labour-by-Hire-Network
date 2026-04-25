@@ -4,13 +4,13 @@ const db = require('../db/sqlite');
 
 const Worker = {
   // Create a new worker
-  create: async (email, passwordHash, firstName, lastName, trade, city, hourlyRate, bio) => {
+  create: async (email, passwordHash, firstName, lastName, trade, city, hourlyRate, bio, licenceNumber, whiteCard, walletAddress) => {
     try {
       const stmt = db.prepare(`
-        INSERT INTO workers (email, password_hash, first_name, last_name, trade, city, hourly_rate, bio)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO workers (email, password_hash, first_name, last_name, trade, city, hourly_rate, bio, licence_number, white_card, wallet_address)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `);
-      const result = stmt.run(email, passwordHash, firstName, lastName, trade, city, hourlyRate || 0, bio);
+      const result = stmt.run(email, passwordHash, firstName, lastName, trade, city, hourlyRate || 0, bio, licenceNumber || null, whiteCard || null, walletAddress || null);
       return Worker.findById(result.lastInsertRowid);
     } catch (error) {
       throw new Error(`Failed to create worker: ${error.message}`);
@@ -50,7 +50,7 @@ const Worker = {
   // Update worker
   update: async (id, updates) => {
     try {
-      const allowedFields = ['first_name', 'last_name', 'city', 'hourly_rate', 'bio'];
+      const allowedFields = ['first_name', 'last_name', 'city', 'hourly_rate', 'bio', 'licence_number', 'white_card'];
       const setClause = allowedFields
         .filter(field => field in updates)
         .map(field => `${field} = ?`)
@@ -72,6 +72,23 @@ const Worker = {
     } catch (error) {
       throw new Error(`Failed to update worker: ${error.message}`);
     }
+  },
+
+  // Update labour_score
+  updateScore: async (id, score) => {
+    try {
+      const stmt = db.prepare('UPDATE workers SET labour_score = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?');
+      stmt.run(score, id);
+    } catch (error) {
+      throw new Error(`Failed to update score: ${error.message}`);
+    }
+  },
+
+  // Safe public fields (no password_hash, no email)
+  toPublic: (worker) => {
+    if (!worker) return null;
+    const { password_hash, email, ...pub } = worker;
+    return pub;
   },
 
   // Delete worker

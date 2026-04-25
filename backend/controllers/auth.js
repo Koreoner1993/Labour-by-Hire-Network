@@ -1,10 +1,11 @@
 const Worker = require('../models/worker');
 const { hashPassword, comparePasswords, generateToken, errorResponse, successResponse } = require('../utils/helpers');
+const { calculateLabourScore } = require('../utils/labourScore');
 
 // Register a new worker
 const register = async (req, res) => {
   try {
-    const { email, password, firstName, lastName, trade, city, hourlyRate } = req.body;
+    const { email, password, firstName, lastName, trade, city, hourlyRate, bio, licenceNumber, whiteCard, walletAddress } = req.body;
 
     // Validation
     if (!email || !password || !firstName || !lastName || !trade) {
@@ -29,8 +30,16 @@ const register = async (req, res) => {
       trade,
       city,
       hourlyRate || 0,
-      null
+      bio || null,
+      licenceNumber || null,
+      whiteCard || null,
+      walletAddress || null
     );
+
+    // Calculate and persist initial Labour Score
+    const score = calculateLabourScore(worker, false);
+    await Worker.updateScore(worker.id, score);
+    worker.labour_score = score;
 
     // Generate token
     const token = generateToken(worker.id, worker.email);
