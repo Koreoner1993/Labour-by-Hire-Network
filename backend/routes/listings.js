@@ -21,11 +21,6 @@ function publicWorker(w) {
     licence_number: w.licence_number ? '✓ Verified' : null,  // mask the actual number
     white_card: w.white_card ? '✓ Verified' : null,
     wallet_address: w.wallet_address || null,
-    // On-chain badge — public info
-    hedera_token_id: w.hedera_token_id || null,
-    hedera_serial: w.hedera_serial || null,
-    badge_svg_uri: w.badge_svg_uri || null,
-    badge_metadata_uri: w.badge_metadata_uri || null,
     created_at: w.created_at,
   };
 }
