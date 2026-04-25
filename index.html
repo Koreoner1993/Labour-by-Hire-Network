@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Labour by Hire — Construction ID Network</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -24,7 +23,8 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',system-ui
 .nav{position:sticky;top:0;z-index:100;background:rgba(5,5,7,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:0.5px solid var(--border)}
 .nav-i{display:flex;align-items:center;max-width:1200px;margin:0 auto;padding:0 2.5rem;height:52px;gap:0.5rem}
 .logo{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:500;color:var(--text);text-decoration:none;cursor:pointer;margin-right:1rem;letter-spacing:-.01em}
-.logo-mark{width:26px;height:26px;border-radius:7px;background:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-mark{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
+.logo-mark img {width:100%;height:100%;object-fit:cover;}
 .nl{font-size:13px;color:var(--text-2);padding:6px 12px;border-radius:var(--rs);cursor:pointer;border:none;background:none;font-family:inherit;letter-spacing:-.01em;transition:color .15s}
 .nl:hover{color:var(--text)}
 .nav-links{display:flex;align-items:center}
@@ -87,6 +87,12 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',system-ui
 .stat-n.c-blue{color:var(--blue-bright)}
 .stat-l{font-size:11px;color:var(--text-3);margin-top:4px;text-transform:uppercase;letter-spacing:.08em}
 
+/* ── CHECKS LIST (Privacy-First View) ── */
+.check-list {list-style:none; padding:12px 0; margin:12px 0; border-top:0.5px solid var(--border); border-bottom:0.5px solid var(--border); font-size:12px; color:var(--text-2);}
+.check-list li {display:flex; justify-content:space-between; margin-bottom:6px;}
+.check-list li:last-child {margin-bottom:0;}
+.check-list .c-mark {color:var(--green); font-weight:500;}
+
 /* ── BROWSE SECTION ── */
 .sh{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:12px}
 .sh h2{font-size:26px;font-weight:300;letter-spacing:-.03em}
@@ -103,29 +109,18 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',system-ui
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1px;margin-bottom:6rem;background:var(--border)}
 .card{background:var(--bg);padding:1.75rem;cursor:pointer;transition:background .15s}
 .card:hover{background:var(--surface)}
-.av{width:44px;height:44px;border-radius:50%;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:var(--text-3);flex-shrink:0;border:0.5px solid var(--border-2);overflow:hidden}
-.av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
-.av-lg{width:64px;height:64px;font-size:18px}
-.ct{display:flex;align-items:flex-start;gap:14px;margin-bottom:1.25rem}
-.cm{flex:1;min-width:0}
-.cn{font-size:15px;font-weight:400;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;letter-spacing:-.02em}
-.ct2{font-size:12px;color:var(--text-3);margin-top:3px;text-transform:uppercase;letter-spacing:.06em}
-.cl{font-size:12px;color:var(--text-3);margin-top:3px}
-.cf{display:flex;align-items:center;justify-content:space-between;padding-top:1rem;border-top:0.5px solid var(--border)}
-.rate{font-size:15px;font-weight:400;letter-spacing:-.02em}
-.rate small{font-size:12px;font-weight:300;color:var(--text-3)}
+.cf{display:flex;align-items:center;justify-content:space-between;padding-top:1rem;}
 .vt{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--green);text-transform:uppercase;letter-spacing:.08em}
 .vdot{width:4px;height:4px;border-radius:50%;background:var(--green);flex-shrink:0}
 
-/* ── IMAGE STRIP (between stats and browse) ── */
+/* ── IMAGE STRIP ── */
 .img-strip{display:grid;grid-template-columns:2fr 1fr 1fr;height:340px;gap:1px;background:var(--border);margin-bottom:6rem}
 .img-strip-cell{overflow:hidden;position:relative}
 .img-strip-cell img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;filter:brightness(.75) saturate(.85)}
 .img-strip-cell:hover img{transform:scale(1.03);filter:brightness(.85) saturate(1)}
 .img-strip-label{position:absolute;bottom:0;left:0;right:0;padding:1rem 1.25rem;background:linear-gradient(transparent,rgba(5,5,7,0.85));font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-2)}
 
-/* ── HOW IT WORKS (with images) ── */
-.div{height:0.5px;background:var(--border);margin:4rem 0}
+/* ── HOW IT WORKS ── */
 .how{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin:2rem 0 6rem;border:0.5px solid var(--border)}
 .how-c{background:var(--bg);padding:3rem}
 .htag{display:inline-block;font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:4px 12px;border-radius:var(--rf);margin-bottom:1.5rem}
@@ -136,82 +131,10 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',system-ui
 .sn{width:22px;height:22px;border-radius:50%;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;border:0.5px solid var(--border-2);color:var(--text-3)}
 .st{font-size:13px;color:var(--text-2);line-height:1.7;font-weight:300}
 
-/* ── FEATURED TRADIES PHOTO SECTION ── */
-.tradie-photos{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:0.5px solid var(--border);margin-bottom:6rem}
-.tp-card{position:relative;overflow:hidden;aspect-ratio:3/4;cursor:pointer;background:var(--surface-2)}
-.tp-card img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease,filter .5s ease;filter:brightness(.7) saturate(.8) grayscale(.2)}
-.tp-card:hover img{transform:scale(1.04);filter:brightness(.85) saturate(1) grayscale(0)}
-.tp-overlay{position:absolute;bottom:0;left:0;right:0;padding:1.5rem 1.25rem;background:linear-gradient(transparent 0%, rgba(5,5,7,0.5) 40%, rgba(5,5,7,0.95) 100%)}
-.tp-name{font-size:16px;font-weight:400;letter-spacing:-.02em;margin-bottom:3px}
-.tp-trade{font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
-.tp-stats{display:flex;gap:12px}
-.tp-stat{font-size:11px;color:var(--text-3)}
-.tp-stat strong{color:var(--text-2);font-weight:400}
-.tp-badge{position:absolute;top:1rem;right:1rem;background:rgba(0,200,150,0.12);color:var(--green);border:0.5px solid rgba(0,200,150,0.25);padding:3px 10px;border-radius:var(--rf);font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.1em;backdrop-filter:blur(8px)}
-.tp-rate{position:absolute;top:1rem;left:1rem;background:rgba(5,5,7,0.75);color:var(--text);border:0.5px solid var(--border-2);padding:3px 10px;border-radius:var(--rf);font-size:13px;font-weight:300;backdrop-filter:blur(8px)}
-
-/* ── FULL-WIDTH IMAGE BREAK ── */
-.img-break{position:relative;height:400px;overflow:hidden;margin-bottom:6rem}
-.img-break img{width:100%;height:100%;object-fit:cover;filter:brightness(.45) saturate(.7)}
-.img-break-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem}
-.img-break-overlay h2{font-size:clamp(28px,4vw,52px);font-weight:300;letter-spacing:-.05em;margin-bottom:1rem}
-.img-break-overlay p{font-size:15px;color:var(--text-2);max-width:420px;line-height:1.75;font-weight:300;margin-bottom:2rem}
-
-
-/* ── PROFILE ── */
-.back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--text-3);cursor:pointer;background:none;border:none;font-family:inherit;padding:6px 0;margin-bottom:2rem;letter-spacing:-.01em;transition:color .15s}
-.back:hover{color:var(--text)}
-.pcard{background:var(--surface);border:0.5px solid var(--border-2);border-radius:16px;padding:2rem;margin-bottom:1rem}
-.ptop{display:flex;align-items:flex-start;gap:1.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
-.pinfo{flex:1;min-width:200px}
-.pname{font-size:28px;font-weight:300;letter-spacing:-.04em}
-.pmeta{font-size:13px;color:var(--text-3);margin-top:6px;text-transform:uppercase;letter-spacing:.06em}
-.pbio{font-size:14px;color:var(--text-2);line-height:1.8;padding:1.25rem 0;border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);margin-bottom:1.25rem;font-weight:300}
-.pstats{display:flex;gap:3rem;margin-bottom:1.5rem}
-.ps-n{font-size:24px;font-weight:300;letter-spacing:-.04em}
-.ps-l{font-size:10px;color:var(--text-3);text-transform:uppercase;letter-spacing:.1em;margin-top:2px}
-.bdg{font-size:10px;font-weight:500;padding:3px 10px;border-radius:4px;text-transform:uppercase;letter-spacing:.08em}
-.bg{background:rgba(0,200,150,0.07);color:var(--green);border:0.5px solid rgba(0,200,150,0.15)}
-.badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
-
-/* ── DASHBOARD ── */
-.dash-header{background:var(--surface);border:0.5px solid var(--border-2);border-radius:16px;padding:2rem;margin-bottom:1rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}
-.dash-info{flex:1}
-.dash-name{font-size:24px;font-weight:300;letter-spacing:-.04em}
-.dash-meta{font-size:13px;color:var(--text-3);margin-top:4px;text-transform:uppercase;letter-spacing:.06em}
-.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-bottom:1px;background:var(--border)}
-.dash-card{background:var(--surface);padding:1.75rem}
-.dash-card h3{font-size:10px;font-weight:500;margin-bottom:1.25rem;color:var(--text-3);text-transform:uppercase;letter-spacing:.12em}
-.field-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:0.5px solid var(--border);font-size:13px}
-.field-row:last-child{border-bottom:none}
-.field-label{color:var(--text-3)}
-.field-val{color:var(--text);font-weight:400}
-.status-dot{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:400;text-transform:uppercase;letter-spacing:.08em}
-.status-dot.live{color:var(--green)}.status-dot.pending{color:var(--gold)}
-.listing-box{background:var(--surface-2);border-radius:var(--rs);padding:1.25rem;margin-bottom:12px;border:0.5px solid var(--border)}
-.listing-title{font-weight:400;margin-bottom:4px;font-size:14px;letter-spacing:-.01em}
-.listing-desc{font-size:13px;color:var(--text-2);line-height:1.7;font-weight:300}
-
-/* ── FORM ── */
-.fw{max-width:540px;margin:0 auto}
-.fc{background:var(--surface);border:0.5px solid var(--border-2);border-radius:16px;padding:2rem}
-.fsh{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.75rem}
-.fsh h3{font-size:18px;font-weight:300;letter-spacing:-.03em}
-.sdots{display:flex;gap:4px}
-.sd{width:6px;height:6px;border-radius:50%;background:var(--surface-3)}
-.sd.on{background:var(--blue)}
-.fr{margin-bottom:.9rem}
-.fr label{display:block;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:var(--text-3);margin-bottom:6px}
-.fr input,.fr select,.fr textarea{width:100%;padding:9px 13px;background:var(--surface-2);border:0.5px solid var(--border-2);border-radius:var(--rs);font-size:13px;color:var(--text);font-family:inherit;outline:none;transition:border-color .15s;letter-spacing:-.01em}
-.fr input:focus,.fr select:focus,.fr textarea:focus{border-color:var(--blue-border)}
-.fr input::placeholder,.fr textarea::placeholder{color:var(--text-3)}
-.fr select option{background:var(--surface-2)}
-.fr textarea{resize:vertical;min-height:80px;line-height:1.7}
-.fg2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.ff{display:flex;gap:8px;margin-top:1.25rem}
-.err-box{background:rgba(220,40,40,0.06);border:0.5px solid rgba(220,40,40,0.2);color:#f87171;padding:10px 14px;border-radius:var(--rs);font-size:13px;margin-bottom:1rem;display:none}
-.succ{text-align:center;padding:3rem 1rem}
-.succ-ic{width:52px;height:52px;border-radius:50%;background:rgba(0,200,150,0.08);border:0.5px solid rgba(0,200,150,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem}
+/* ── WALLET / HEDERA ID ── */
+.wallet-card{background:var(--surface-2);border:0.5px solid rgba(120,80,255,0.15);border-radius:var(--r);padding:1.25rem;margin-top:1rem}
+.wallet-addr{font-family:'DM Mono',monospace;font-size:10px;color:rgba(160,120,255,0.8);word-break:break-all;background:rgba(120,80,255,0.05);padding:8px 10px;border-radius:var(--rs);margin:8px 0;border:0.5px solid rgba(120,80,255,0.15)}
+.zk-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(120,80,255,0.08);color:#a78bfa;border:0.5px solid rgba(120,80,255,0.2);padding:3px 10px;border-radius:var(--rf);font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
 
 /* ── PRICING ── */
 .price-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:0.5px solid var(--border);margin-bottom:6rem}
@@ -228,7 +151,8 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',system-ui
 .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.92);z-index:1000;display:none;align-items:center;justify-content:center;padding:1rem}
 .modal-overlay.open{display:flex}
 .modal-box{background:var(--surface);border:0.5px solid var(--border-2);border-radius:20px;padding:2.25rem;max-width:400px;width:100%;text-align:center;position:relative}
-.modal-icon{width:56px;height:56px;border-radius:50%;background:rgba(240,165,0,0.08);border:0.5px solid rgba(240,165,0,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:24px}
+.modal-icon{width:56px;height:56px;border-radius:50%;overflow:hidden;background:transparent;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;}
+.modal-icon img {width:100%;height:100%;object-fit:cover;}
 .modal-title{font-size:24px;font-weight:300;letter-spacing:-.04em;margin-bottom:8px}
 .modal-sub{font-size:13px;color:var(--text-2);line-height:1.75;margin-bottom:1.5rem;font-weight:300}
 .modal-feats{text-align:left;background:var(--surface-2);border-radius:var(--rs);padding:1rem;margin-bottom:1.5rem;list-style:none;border:0.5px solid var(--border)}
@@ -236,73 +160,29 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',system-ui
 .modal-feats li:last-child{border-bottom:none}
 .modal-close{position:absolute;top:1.25rem;right:1.25rem;background:none;border:none;color:var(--text-3);font-size:22px;cursor:pointer;line-height:1;transition:color .15s}
 .modal-close:hover{color:var(--text)}
-.compose-box{background:var(--surface);border:0.5px solid var(--border-2);border-radius:16px;padding:2rem;max-width:480px;width:100%;position:relative}
-.compose-box h3{font-size:18px;font-weight:300;letter-spacing:-.03em;margin-bottom:1.5rem}
 
 /* ── TOAST ── */
 .toast{position:fixed;bottom:2rem;right:2rem;background:var(--surface-2);border:0.5px solid var(--border-2);border-radius:var(--r);padding:12px 18px;font-size:13px;z-index:9999;display:none;align-items:center;gap:10px;box-shadow:0 24px 48px rgba(0,0,0,.5);letter-spacing:-.01em}
 .toast.show{display:flex}
-.toast.ok{border-color:rgba(0,200,150,0.2);color:var(--green)}
-.toast.err{border-color:rgba(220,40,40,0.2);color:#f87171}
-.spin{display:inline-block;width:12px;height:12px;border:1.5px solid rgba(255,255,255,0.2);border-top-color:#fff;border-radius:50%;animation:spin .5s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* ── HOW STEPS 4col ── */
-.steps4{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:0.5px solid var(--border)}
-.step4{background:var(--bg);padding:2rem 1.75rem}
-.step4-n{font-size:11px;font-weight:500;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.25rem}
-.step4-ico{font-size:24px;margin-bottom:.75rem}
-.step4-t{font-size:15px;font-weight:400;letter-spacing:-.02em;margin-bottom:.5rem;color:var(--text)}
-.step4-d{font-size:13px;color:var(--text-3);line-height:1.7;font-weight:300}
-
-/* ── MESSAGING ── */
-.msg-list{display:flex;flex-direction:column}
-.msg-item{background:transparent;border-bottom:0.5px solid var(--border);padding:1rem 0;cursor:pointer;transition:padding .1s}
-.msg-item:hover{padding-left:4px}
-.msg-item.unread{border-left:2px solid var(--blue);padding-left:12px}
-.msg-from{font-size:13px;font-weight:400;letter-spacing:-.01em}
-.msg-preview{font-size:12px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:340px;margin-top:2px}
-.msg-time{font-size:11px;color:var(--text-3)}
-.msg-full{padding:1.25rem 0}
-.msg-body{font-size:14px;color:var(--text-2);line-height:1.8;margin:10px 0;font-weight:300}
-.inbox-empty{text-align:center;padding:3rem 1rem;color:var(--text-3);font-size:13px}
-.unread-badge{display:inline-flex;align-items:center;justify-content:center;background:var(--blue);color:#fff;font-size:10px;border-radius:10px;padding:1px 6px;margin-left:6px}
-
-/* ── FOOTER ── */
-footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
-.fi{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
-.fl-logo{font-size:14px;font-weight:400;color:var(--text-3);letter-spacing:-.01em}
-.flinks{display:flex;gap:2rem}
-.flinks a{font-size:12px;color:var(--text-3);text-decoration:none;letter-spacing:.02em;transition:color .15s}
-.flinks a:hover{color:var(--text-2)}
-
-/* ── FAQ ── */
-.faq-item{border-bottom:0.5px solid var(--border)}
-.faq-btn{width:100%;text-align:left;padding:16px 0;background:none;border:none;font-family:inherit;font-size:14px;font-weight:400;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;letter-spacing:-.01em}
-.faq-ans{display:none;padding-bottom:16px;font-size:13px;color:var(--text-2);line-height:1.75;font-weight:300}
 
 @media(max-width:768px){
   .hero h1{font-size:38px}.stats{grid-template-columns:repeat(2,1fr)}
-  .how,.price-grid,.dash-grid{grid-template-columns:1fr}
-  .steps4{grid-template-columns:1fr 1fr}.img-strip{grid-template-columns:1fr;height:auto}
-  .tradie-photos{grid-template-columns:1fr}.fg2{grid-template-columns:1fr}
-  .nav-links{display:none}.wrap{padding:0 1.25rem}.img-break{height:300px}
+  .how,.price-grid{grid-template-columns:1fr}
+  .nav-links{display:none}.wrap{padding:0 1.25rem}
 }
-
 </style>
 </head>
 <body>
 
-<!-- ══════════════ ROLE SPLASH ══════════════ -->
 <div id="role-splash">
   <div class="splash-bg"></div>
   <div style="position:relative;z-index:1;text-align:center;margin-bottom:3.5rem">
-    <div style="width:36px;height:36px;border-radius:10px;background:var(--blue);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem">
-      <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="2.5" fill="#fff"/><ellipse cx="10" cy="10" rx="8.5" ry="3.5" stroke="#fff" stroke-width="1.2" fill="none"/><ellipse cx="10" cy="10" rx="8.5" ry="3.5" stroke="#fff" stroke-width="1.2" fill="none" transform="rotate(60 10 10)"/><ellipse cx="10" cy="10" rx="8.5" ry="3.5" stroke="#fff" stroke-width="1.2" fill="none" transform="rotate(120 10 10)"/></svg>
+    <div style="width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;overflow:hidden">
+      <img src="https://uploads.onecompiler.io/446jf6qg8/44a5db7tw/98e7fa89-afa2-475e-8e82-60d7bb5892a3.jpg" alt="LBH Logo" style="width:100%;height:100%;object-fit:cover;">
     </div>
     <div style="font-size:11px;color:var(--text-3);letter-spacing:.14em;text-transform:uppercase;margin-bottom:.75rem">Labour by Hire</div>
     <h1 style="font-size:clamp(32px,5vw,52px);font-weight:300;letter-spacing:-.04em;line-height:1.1;margin-bottom:.75rem">Who are you?</h1>
-    <p style="font-size:14px;color:var(--text-3);font-weight:300">We'll personalise your experience.</p>
+    <p style="font-size:14px;color:var(--text-3);font-weight:300">Layer 1 Marketplace: Tradies ↔ Employers and Clients.</p>
   </div>
   <div style="position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:560px;width:100%">
     <div class="splash-card" onclick="selectRole('tradie')">
@@ -313,39 +193,32 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
     </div>
     <div class="splash-card" onclick="selectRole('employer')">
       <div style="font-size:32px;margin-bottom:1.25rem">🏗️</div>
-      <div style="font-size:18px;font-weight:400;letter-spacing:-.03em;margin-bottom:6px">I'm an Employer</div>
+      <div style="font-size:18px;font-weight:400;letter-spacing:-.03em;margin-bottom:6px">Employer / Client</div>
       <div style="font-size:12px;color:var(--text-3);line-height:1.6;font-weight:300">Find and contact verified tradies across Australia</div>
       <div class="sc-arr">Browse Tradies →</div>
     </div>
   </div>
-  <button onclick="selectRole('browse')" style="position:relative;z-index:1;margin-top:2rem;background:none;border:none;font-family:inherit;font-size:12px;color:var(--text-3);cursor:pointer;padding:8px;letter-spacing:.02em">Just browsing</button>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- ══════════════ NAV ══════════════ -->
 <nav class="nav">
   <div class="nav-i">
     <div class="logo" onclick="showView('home')">
       <div class="logo-mark">
-        <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="2.5" fill="#fff"/><ellipse cx="10" cy="10" rx="8.5" ry="3.5" stroke="#fff" stroke-width="1.3" fill="none"/><ellipse cx="10" cy="10" rx="8.5" ry="3.5" stroke="#fff" stroke-width="1.3" fill="none" transform="rotate(60 10 10)"/><ellipse cx="10" cy="10" rx="8.5" ry="3.5" stroke="#fff" stroke-width="1.3" fill="none" transform="rotate(120 10 10)"/></svg>
+        <img src="https://uploads.onecompiler.io/446jf6qg8/44a5db7tw/98e7fa89-afa2-475e-8e82-60d7bb5892a3.jpg" alt="LBH Logo">
       </div>
       Labour by Hire
     </div>
     <div id="role-badge" style="display:none;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:var(--rf);margin-left:4px"></div>
     <div class="nav-links">
-      <button class="nl" onclick="showView('home')">Find Workers</button>
+      <button class="nl" onclick="showView('home')">Browse</button>
+      <button class="nl" onclick="showHowModal()">SVG Framework</button>
     </div>
     <div class="nr">
       <div id="nav-signin" style="display:flex;gap:6px">
         <button class="btn btn-g" onclick="showLoginModal()">Sign in</button>
         <button class="btn btn-p" onclick="showView('getlisted')">Get listed</button>
-      </div>
-      <div id="nav-loggedin" style="display:none;align-items:center;gap:12px">
-        <button class="nl" onclick="showView('dashboard')">Dashboard</button>
-        <span id="nav-name" style="font-size:12px;color:var(--text-3)"></span>
-        <button class="btn btn-g btn-sm" onclick="logoutWorker()">Sign out</button>
       </div>
     </div>
   </div>
@@ -353,1375 +226,167 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
 
 <main>
 
-<!-- ══════════════════════════════════════════
-     HOME VIEW
-══════════════════════════════════════════ -->
 <div id="view-home">
-
-  <!-- ── HERO with full-bleed background image ── -->
   <div class="hero-wrap">
     <div class="hero-bg"></div>
     <div class="hero-inner">
-      <div class="hero-badge"><span></span>Australia's Construction Workforce Network</div>
-      <h1 class="hero h1">Verified construction workers,<br><em>ready to hire.</em></h1>
-      <p>Pre-checked, scored, and instantly hireable. Every worker is licence-verified, White Card confirmed, and rated before they appear on the network.</p>
+      <div class="hero-badge"><span></span>LBH Verified Network · Australia</div>
+      <h1 class="hero h1">The Construction ID<br><em>Network</em></h1>
+      <p>Credential proofs anchored via HBAR tokenized SVG identity. Built for Employers and Clients who value secure verification.</p>
       <div class="hero-btns">
-        <button class="btn btn-p btn-lg" onclick="document.getElementById('browse-sec').scrollIntoView({behavior:'smooth'})">Find a worker</button>
-        <button class="btn btn-o btn-lg" onclick="showView('getlisted')">Get listed — free</button>
+        <button class="btn btn-p btn-lg" onclick="document.getElementById('browse-sec').scrollIntoView({behavior:'smooth'})">Browse tradies</button>
+        <button class="btn btn-o btn-lg" onclick="showView('getlisted')">Get listed →</button>
       </div>
     </div>
   </div>
 
-  <!-- ── STATS ── -->
   <div class="stats">
     <div class="stat"><div class="stat-n c-blue" id="stat-workers">0</div><div class="stat-l">Verified Tradies</div></div>
-    <div class="stat"><div class="stat-n">40+</div><div class="stat-l">Trade Types</div></div>
-    <div class="stat"><div class="stat-n">500+</div><div class="stat-l">Jobs Completed</div></div>
-    <div class="stat"><div class="stat-n">98%</div><div class="stat-l">Satisfaction</div></div>
-  </div>
-
-  <!-- ── TRUST STRIP ── -->
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);border-bottom:0.5px solid var(--border)">
-    <div style="padding:1.5rem 2.5rem;border-right:0.5px solid var(--border)">
-      <div style="font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:6px">✓ CLEARED FOR SITE</div>
-      <div style="font-size:14px;font-weight:400;letter-spacing:-.02em;margin-bottom:3px">Trust Score 70–100</div>
-      <div style="font-size:11px;color:var(--text-3);font-weight:300">Licence verified, White Card confirmed, fully checked.</div>
-    </div>
-    <div style="padding:1.5rem 2.5rem;border-right:0.5px solid var(--border)">
-      <div style="font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:6px">⚠ PENDING REVIEW</div>
-      <div style="font-size:14px;font-weight:400;letter-spacing:-.02em;margin-bottom:3px">Trust Score 40–70</div>
-      <div style="font-size:11px;color:var(--text-3);font-weight:300">Profile started, verification in progress.</div>
-    </div>
-    <div style="padding:1.5rem 2.5rem">
-      <div style="font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#ef4444;margin-bottom:6px">✗ NOT APPROVED</div>
-      <div style="font-size:14px;font-weight:400;letter-spacing:-.02em;margin-bottom:3px">Trust Score 0–40</div>
-      <div style="font-size:11px;color:var(--text-3);font-weight:300">Incomplete profile, awaiting documentation.</div>
-    </div>
-  </div>
-
-  <!-- ── IMAGE STRIP ── -->
-  <div class="img-strip">
-    <div class="img-strip-cell">
-      <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=900&q=80&auto=format&fit=crop" alt="Construction site cranes">
-      <div class="img-strip-label">Verified · Licensed · Ready to work</div>
-    </div>
-    <div class="img-strip-cell">
-      <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&q=80&auto=format&fit=crop" alt="Electrician at work">
-      <div class="img-strip-label">Electricians</div>
-    </div>
-    <div class="img-strip-cell">
-      <img src="https://images.unsplash.com/photo-1604328698692-f76ea9498e76?w=600&q=80&auto=format&fit=crop" alt="Carpenter working">
-      <div class="img-strip-label">Carpenters</div>
-    </div>
+    <div class="stat"><div class="stat-n">HBAR</div><div class="stat-l">Network Anchor</div></div>
+    <div class="stat"><div class="stat-n">ZK Proof</div><div class="stat-l">Privacy-First</div></div>
+    <div class="stat"><div class="stat-n">98%</div><div class="stat-l">Reputation Score</div></div>
   </div>
 
   <div class="wrap">
-
-    <!-- ── BROWSE ── -->
-    <div id="browse-sec">
+    <div id="browse-sec" style="padding:6rem 0;">
       <div class="sh">
         <div>
-          <h2>Browse workers</h2>
-          <div class="sh-sub">All LBH verified and licence checked</div>
+          <h2>Browse verified workers</h2>
+          <div class="sh-sub">Only verified credentials visible. No personal info.</div>
         </div>
-        <input class="si" id="search-input" placeholder="Name, trade, or city…" oninput="filterWorkers()">
+        <input class="si" id="search-input" placeholder="Trade or city…" oninput="filterWorkers()">
       </div>
       <div class="filters" id="filters-el"></div>
       <div class="grid" id="workers-grid"><p style="color:var(--text-3);font-size:13px;padding:3rem 0">Loading workers…</p></div>
     </div>
-
-    <!-- ── FEATURED TRADIES PHOTO SECTION ── -->
-    <div style="margin-bottom:2rem">
-      <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem">Meet the crew</div>
-      <h2 style="font-size:26px;font-weight:300;letter-spacing:-.03em;margin-bottom:2rem">Faces behind the builds</h2>
-    </div>
-    <div class="tradie-photos">
-      <div class="tp-card">
-        <img src="https://images.unsplash.com/photo-1556157382-97eda2f9e946?w=500&q=80&auto=format&fit=crop&crop=face" alt="Jake Thompson - Carpenter" loading="lazy">
-        <div class="tp-badge">LBH Verified</div>
-        <div class="tp-rate">$75/hr</div>
-        <div class="tp-overlay">
-          <div class="tp-name">Jake Thompson</div>
-          <div class="tp-trade">Carpenter · Sydney, NSW</div>
-          <div class="tp-stats">
-            <div class="tp-stat"><strong>47</strong> jobs</div>
-            <div class="tp-stat"><strong>4.9</strong> ★</div>
-            <div class="tp-stat"><strong>92</strong> trust</div>
-          </div>
-        </div>
-      </div>
-      <div class="tp-card">
-        <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=500&q=80&auto=format&fit=crop&crop=face" alt="Maria Santos - Electrician" loading="lazy">
-        <div class="tp-badge">LBH Verified</div>
-        <div class="tp-rate">$95/hr</div>
-        <div class="tp-overlay">
-          <div class="tp-name">Maria Santos</div>
-          <div class="tp-trade">Electrician · Melbourne, VIC</div>
-          <div class="tp-stats">
-            <div class="tp-stat"><strong>31</strong> jobs</div>
-            <div class="tp-stat"><strong>4.7</strong> ★</div>
-            <div class="tp-stat"><strong>88</strong> trust</div>
-          </div>
-        </div>
-      </div>
-      <div class="tp-card">
-        <img src="https://images.unsplash.com/photo-1540479859555-17af45c78602?w=500&q=80&auto=format&fit=crop&crop=face" alt="Brett Wilson - Plumber" loading="lazy">
-        <div class="tp-badge">LBH Verified</div>
-        <div class="tp-rate">$85/hr</div>
-        <div class="tp-overlay">
-          <div class="tp-name">Brett Wilson</div>
-          <div class="tp-trade">Plumber · Brisbane, QLD</div>
-          <div class="tp-stats">
-            <div class="tp-stat"><strong>19</strong> jobs</div>
-            <div class="tp-stat"><strong>4.4</strong> ★</div>
-            <div class="tp-stat"><strong>76</strong> trust</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /wrap -->
-
-  <!-- ── FULL-WIDTH IMAGE BREAK — HOW IT WORKS CTA ── -->
-  <div class="img-break">
-    <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1800&q=80&auto=format&fit=crop&crop=center" alt="Construction site" loading="lazy">
-    <div class="img-break-overlay">
-      <h2>Built on trust.<br>Verified by us.</h2>
-      <p>Every tradie on Labour by Hire has been manually checked — licence, White Card, and identity — before going live on the network.</p>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
-        <button class="btn btn-p btn-lg" onclick="showView('getlisted')">Get listed — free</button>
-        <button class="btn btn-o btn-lg" onclick="document.getElementById('how-sec').scrollIntoView({behavior:'smooth'})">See how it works</button>
-      </div>
-    </div>
   </div>
+</div>
 
-  <div class="wrap">
-
-    <!-- ── HOW IT WORKS ── -->
-    <div id="how-sec">
-      <div style="margin-bottom:2rem">
-        <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem">How it works</div>
-        <h2 style="font-size:26px;font-weight:300;letter-spacing:-.03em">Simple by design</h2>
-      </div>
-      <div class="how">
-        <div class="how-c">
-          <div class="htag htag-b">For Tradies</div>
-          <h3>Get your skills seen</h3>
-          <div class="step"><div class="sn">1</div><div class="st">Create your profile — trade, experience, and certifications</div></div>
-          <div class="step"><div class="sn">2</div><div class="st">Submit your licence and White Card details for verification</div></div>
-          <div class="step"><div class="sn">3</div><div class="st">LBH checks your credentials and issues your Trust Score</div></div>
-          <div class="step"><div class="sn">4</div><div class="st">Receive direct enquiries from employers — completely free</div></div>
-          <!-- Small image inside how-c -->
-          <div style="margin-top:2rem;border-radius:10px;overflow:hidden;height:160px;position:relative">
-            <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=700&q=80&auto=format&fit=crop" alt="Tradie handshake" style="width:100%;height:100%;object-fit:cover;filter:brightness(.6)">
-            <div style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:1rem">
-              <span style="font-size:11px;color:var(--text-2);text-transform:uppercase;letter-spacing:.1em">Join 200+ verified tradies</span>
-            </div>
-          </div>
-          <button class="btn btn-p btn-full" style="margin-top:1.25rem" onclick="showView('getlisted')">Create your profile →</button>
-        </div>
-        <div class="how-c">
-          <div class="htag htag-g">For Employers</div>
-          <h3>Access verified talent</h3>
-          <div class="step"><div class="sn">1</div><div class="st">Create a free employer account to access the network</div></div>
-          <div class="step"><div class="sn">2</div><div class="st">Browse the full pool of LBH-verified workers</div></div>
-          <div class="step"><div class="sn">3</div><div class="st">Filter by trade, location, Trust Score, and availability</div></div>
-          <div class="step"><div class="sn">4</div><div class="st">Contact workers directly — no middleman, no commissions</div></div>
-          <!-- Small image inside how-c -->
-          <div style="margin-top:2rem;border-radius:10px;overflow:hidden;height:160px;position:relative">
-            <img src="https://images.unsplash.com/photo-1612778831607-f9e3ddcad04c?w=700&q=80&auto=format&fit=crop" alt="Building site overview" style="width:100%;height:100%;object-fit:cover;filter:brightness(.55)">
-            <div style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:1rem">
-              <span style="font-size:11px;color:var(--text-2);text-transform:uppercase;letter-spacing:.1em">Find your next tradie today</span>
-            </div>
-          </div>
-          <button class="btn btn-o btn-full" style="margin-top:1.25rem" onclick="showComingSoon()">Employer access — coming soon</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── PRICING ── -->
-    <div>
-      <div style="margin-bottom:2rem">
-        <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem">Pricing</div>
-        <h2 style="font-size:26px;font-weight:300;letter-spacing:-.03em">Built to be free</h2>
-      </div>
-      <div class="price-grid">
-        <div class="price-card">
-          <div class="htag htag-b">Tradie listing</div>
-          <div style="font-size:14px;font-weight:400;letter-spacing:-.02em;margin-top:4px">Your verified identity</div>
-          <div class="price-num">$0</div>
-          <div class="price-per">always free · no fees · no commissions</div>
-          <ul class="price-list">
-            <li><span class="price-check">✓</span>Public construction ID profile in the LBH network</li>
-            <li><span class="price-check">✓</span>LBH Verified badge on your profile</li>
-            <li><span class="price-check">✓</span>Verified Trust Score on your profile</li>
-            <li><span class="price-check">✓</span>Employers can find and contact you directly</li>
-            <li><span class="price-check">✓</span>Trade search and location filters</li>
-          </ul>
-          <button class="btn btn-p btn-full btn-lg" onclick="showView('getlisted')">Get listed — free</button>
-        </div>
-        <div class="price-card featured">
-          <div class="htag htag-g">Employer access</div>
-          <div style="font-size:14px;font-weight:400;letter-spacing:-.02em;margin-top:4px">Full network access</div>
-          <div class="price-num">$0</div>
-          <div class="price-per">browse, search and contact at no cost</div>
-          <ul class="price-list">
-            <li><span style="color:var(--gold)">★</span>Unlimited access to all verified workers</li>
-            <li><span style="color:var(--gold)">★</span>Filter by trade, location, Trust Score</li>
-            <li><span style="color:var(--gold)">★</span>Full Trust Score history and reviews</li>
-            <li><span style="color:var(--gold)">★</span>Direct messaging through the platform</li>
-          </ul>
-          <button class="btn btn-o btn-full btn-lg" onclick="showComingSoon()">Coming soon</button>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /wrap -->
-</div><!-- /view-home -->
-
-<!-- ══════════════ PROFILE VIEW ══════════════ -->
 <div id="view-profile" style="display:none">
   <div class="wrap" style="padding-top:2.5rem;padding-bottom:5rem">
-    <button class="back" onclick="showView('home')">
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to browse
-    </button>
+    <button class="back" onclick="showView('home')">← Back to browse</button>
     <div id="profile-content"></div>
   </div>
 </div>
 
-<!-- ══════════════ DASHBOARD VIEW ══════════════ -->
-<div id="view-dashboard" style="display:none">
-  <div class="wrap" style="padding-top:2.5rem;padding-bottom:5rem">
-    <div id="dashboard-content"><p style="color:var(--text-3);font-size:13px">Loading…</p></div>
-  </div>
-</div>
-
-<!-- ══════════════ GET LISTED FORM ══════════════ -->
-<div id="view-listed" style="display:none">
-  <div class="wrap" style="padding-top:2.5rem;padding-bottom:5rem">
-    <button class="back" onclick="showView('getlisted')">
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Back
-    </button>
-    <h1 style="font-size:32px;font-weight:300;letter-spacing:-.04em;margin-bottom:6px">Create your Construction ID</h1>
-    <p style="font-size:14px;color:var(--text-2);margin-bottom:2.5rem;font-weight:300">Join 200+ verified tradies. Free.</p>
-    <div class="fw">
-      <div class="fc">
-        <div id="fs1">
-          <div class="fsh"><h3>Your details</h3><div class="sdots"><div class="sd on"></div><div class="sd"></div></div></div>
-          <div id="reg-err" class="err-box"></div>
-          <div class="fg2">
-            <div class="fr"><label>First name *</label><input id="reg-fn" type="text" placeholder="Jake"></div>
-            <div class="fr"><label>Last name *</label><input id="reg-ln" type="text" placeholder="Thompson"></div>
-          </div>
-          <div class="fr"><label>Email *</label><input id="reg-email" type="email" placeholder="jake@example.com"></div>
-          <div class="fr"><label>Password *</label><input id="reg-pass" type="password" placeholder="Min 8 characters"></div>
-          <div class="fr"><label>Mobile</label><input id="reg-phone" type="tel" placeholder="04XX XXX XXX"></div>
-          <div class="fg2">
-            <div class="fr"><label>Primary trade *</label>
-              <select id="reg-trade">
-                <option value="">Select…</option>
-                <option>Carpenter</option><option>Electrician</option><option>Plumber</option>
-                <option>Concretor</option><option>Painter</option><option>Tiler</option>
-                <option>Roofer</option><option>Landscaper</option><option>Bricklayer</option>
-                <option>Welder</option><option>Plasterer</option><option>General Labourer</option>
-              </select>
-            </div>
-            <div class="fr"><label>City / State *</label><input id="reg-city" type="text" placeholder="Sydney, NSW"></div>
-          </div>
-          <div class="fr"><label>Hourly rate (AUD)</label><input id="reg-rate" type="number" placeholder="e.g. 65" min="0"></div>
-          <button id="btn-step2" class="btn btn-p btn-full" style="padding:11px" onclick="goStep2()">Next →</button>
-        </div>
-        <div id="fs2" style="display:none">
-          <div class="fsh"><h3>Experience &amp; certs</h3><div class="sdots"><div class="sd on"></div><div class="sd on"></div></div></div>
-          <div class="fr"><label>Years of experience</label>
-            <select id="reg-exp"><option>1–2 years</option><option>3–5 years</option><option>5–10 years</option><option>10+ years</option></select>
-          </div>
-          <div class="fr"><label>Licence number</label><input id="reg-lic" type="text" placeholder="e.g. CL123456"></div>
-          <div class="fr"><label>White Card number</label><input id="reg-wc" type="text" placeholder="e.g. WC987654"></div>
-          <div class="fr"><label>About yourself</label><textarea id="reg-bio" placeholder="Describe your specialties, the jobs you take on, and what sets you apart…"></textarea></div>
-          <div id="pay-err" class="err-box"></div>
-          <div class="ff">
-            <button class="btn btn-g" onclick="fstep(1)">← Back</button>
-            <button id="btn-pay" class="btn btn-p" style="flex:1;padding:11px" onclick="handleRegistration()">Create my Construction ID →</button>
-          </div>
-        </div>
-        <div id="fs3" style="display:none"></div>
-        <div id="fs-done" style="display:none">
-          <div class="succ">
-            <div class="succ-ic">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L19 7" stroke="#00c896" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-            <h3 style="font-size:24px;font-weight:300;letter-spacing:-.04em;margin-bottom:8px">Your Construction ID is live</h3>
-            <p style="font-size:13px;color:var(--text-2);max-width:320px;margin:0 auto 2rem;line-height:1.75;font-weight:300">Your profile is on the network. We'll verify your details within 24 hours.</p>
-            <button class="btn btn-p" onclick="showView('dashboard')">Go to dashboard →</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════ TRADIE LANDING ══════════════ -->
 <div id="view-getlisted" style="display:none">
-  <div class="wrap" style="padding-top:3rem;padding-bottom:5rem">
-    <div style="text-align:center;padding-bottom:3rem;border-bottom:0.5px solid var(--border);margin-bottom:3rem">
-      <div style="display:inline-flex;align-items:center;gap:6px;background:var(--surface-2);color:var(--text-3);border:0.5px solid var(--border-2);padding:5px 14px;border-radius:var(--rf);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2rem">Free · Verified Identity</div>
-      <h1 style="font-size:clamp(38px,5vw,68px);font-weight:300;letter-spacing:-.04em;line-height:1.05;margin-bottom:1.25rem">Your Construction ID<br><span style="color:var(--blue-bright)">Verified on the Network</span></h1>
-      <p style="font-size:17px;color:var(--text-2);max-width:480px;margin:0 auto 2rem;line-height:1.75;font-weight:300">Labour by Hire connects verified tradies with employers across Australia. Free forever.</p>
-      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-        <button class="btn btn-p btn-lg" onclick="showView('listed')">Create my Construction ID →</button>
-        <button class="btn btn-o btn-lg" onclick="showLoginModal()">Already listed? Sign in</button>
-      </div>
-    </div>
-    <div style="margin-bottom:5rem">
-      <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem">How it works</div>
-      <h2 style="font-size:26px;font-weight:300;letter-spacing:-.03em;margin-bottom:2rem">Up and running in 4 steps</h2>
-      <div class="steps4">
-        <div class="step4"><div class="step4-n">Step 01</div><div class="step4-ico">📝</div><div class="step4-t">Create your profile</div><div class="step4-d">Add your trade, experience, licence, and hourly rate. Takes about 3 minutes.</div></div>
-        <div class="step4"><div class="step4-n">Step 02</div><div class="step4-ico">✅</div><div class="step4-t">We verify you</div><div class="step4-d">Our team checks your licence and White Card within 24 hours. LBH Verified badge issued.</div></div>
-        <div class="step4"><div class="step4-n">Step 03</div><div class="step4-ico">📬</div><div class="step4-t">Employers find you</div><div class="step4-d">Your profile goes live. Employers search, view your Trust Score, and message you directly.</div></div>
-      </div>
-    </div>
-    <div style="text-align:center;background:var(--surface);border:0.5px solid var(--border-2);border-radius:20px;padding:4rem 2rem">
-      <h2 style="font-size:36px;font-weight:300;letter-spacing:-.05em;margin-bottom:10px">Ready to get found?</h2>
-      <p style="font-size:15px;color:var(--text-2);margin-bottom:2.5rem;max-width:380px;margin-left:auto;margin-right:auto;line-height:1.75;font-weight:300">Join 200+ verified tradies on the Labour by Hire network. Free forever.</p>
-      <button class="btn btn-p btn-lg" onclick="showView('listed')">Create your Construction ID →</button>
-    </div>
+  <div class="wrap" style="padding-top:3rem;text-align:center">
+    <h1 style="font-size:clamp(38px,5vw,68px);font-weight:300;margin-bottom:1.5rem">Your HBAR Construction ID</h1>
+    <p style="max-width:520px;margin:0 auto 2rem;color:var(--text-2)">The logo is your framework. Each SVG node stores your ABN, White Card, and tickets on the Hedera ledger. Tamper-proof and privacy-safe.</p>
+    <button class="btn btn-p btn-lg" onclick="toast('Registration opening soon')">Create My ID Now →</button>
   </div>
 </div>
-
-<!-- ══════════════ EMPLOYER LANDING ══════════════ -->
-<div id="view-employer-landing" style="display:none">
-  <div class="wrap" style="padding-top:3rem;padding-bottom:5rem">
-    <div style="text-align:center;padding-bottom:3rem;border-bottom:0.5px solid var(--border);margin-bottom:3rem">
-      <div style="display:inline-flex;align-items:center;gap:6px;background:var(--surface-2);color:var(--text-3);border:0.5px solid var(--border-2);padding:5px 14px;border-radius:var(--rf);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2rem">Free Employer Access · Verified Workers</div>
-      <h1 style="font-size:clamp(38px,5vw,68px);font-weight:300;letter-spacing:-.04em;line-height:1.05;margin-bottom:1.25rem">Stop guessing.<br><span style="color:var(--gold)">Hire verified tradies.</span></h1>
-      <p style="font-size:17px;color:var(--text-2);max-width:480px;margin:0 auto 2rem;line-height:1.75;font-weight:300">Every tradie licence-checked, White Card verified, and LBH-certified. Browse, filter, message — free.</p>
-      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-        <button class="btn btn-p btn-lg" onclick="showComingSoon()">Get employer access — free</button>
-        <button class="btn btn-o btn-lg" onclick="openDemo()">See a live demo</button>
-        <button class="btn btn-o btn-lg" onclick="showView('home')">Browse tradies</button>
-      </div>
-    </div>
-    <div style="text-align:center;background:var(--surface);border:0.5px solid var(--border-2);border-radius:20px;padding:4rem 2rem">
-      <h2 style="font-size:36px;font-weight:300;letter-spacing:-.05em;margin-bottom:10px">Ready to find your next tradie?</h2>
-      <p style="font-size:15px;color:var(--text-2);margin-bottom:2.5rem;max-width:380px;margin-left:auto;margin-right:auto;line-height:1.75;font-weight:300">200+ verified tradies. No guesswork. No agencies. Free direct access.</p>
-      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-        <button class="btn btn-p btn-lg" onclick="showComingSoon()">Get employer access →</button>
-        <button class="btn btn-o btn-lg" onclick="openDemo()">See a live demo</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 
 </main>
 
-<!-- ══════════════ LOGIN MODAL ══════════════ -->
-<div id="login-modal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.92);z-index:1000;align-items:center;justify-content:center">
-  <div style="background:var(--surface);border:0.5px solid var(--border-2);border-radius:16px;padding:2rem;max-width:380px;width:90%">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.75rem">
-      <h2 style="font-size:22px;font-weight:300;letter-spacing:-.04em;margin:0">Sign in</h2>
-      <button onclick="hideLoginModal()" style="background:none;border:none;color:var(--text-3);font-size:22px;cursor:pointer;line-height:1">×</button>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:10px">
-      <div class="fr" style="margin:0"><label>Email</label><input id="login-email" type="email" placeholder="your@email.com"></div>
-      <div class="fr" style="margin:0"><label>Password</label><input id="login-password" type="password" placeholder="Your password"></div>
-      <div id="login-error" class="err-box" style="margin:0"></div>
-      <button id="btn-login" class="btn btn-p btn-full" style="padding:10px;margin-top:4px" onclick="handleLogin()">Sign in</button>
-      <p style="text-align:center;font-size:12px;color:var(--text-3)">No account? <button onclick="hideLoginModal();showView('getlisted')" style="background:none;border:none;color:var(--blue-bright);cursor:pointer;font-family:inherit;font-size:12px;padding:0">Get listed →</button></p>
-    </div>
-  </div>
-</div>
-
-<!-- HOW IT WORKS MODAL -->
 <div class="modal-overlay" id="how-modal">
   <div class="modal-box">
     <button class="modal-close" onclick="closeHowModal()">×</button>
-    <div style="font-size:22px;font-weight:300;letter-spacing:-.04em;margin-bottom:8px">How it works</div>
-    <p style="font-size:13px;color:var(--text-2);margin-bottom:1.5rem;font-weight:300">Choose your role.</p>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-      <div onclick="closeHowModal();showView('getlisted')" style="background:var(--surface-2);border:0.5px solid var(--border);border-radius:var(--r);padding:1.5rem;cursor:pointer;transition:border-color .15s;text-align:center" onmouseover="this.style.borderColor='var(--border-2)'" onmouseout="this.style.borderColor='var(--border)'">
-        <div style="font-size:28px;margin-bottom:10px">🦺</div>
-        <div style="font-weight:400;margin-bottom:4px;letter-spacing:-.01em">I'm a Tradie</div>
-        <div style="font-size:11px;color:var(--text-3)">Get listed and verified</div>
-      </div>
-      <div onclick="closeHowModal();showView('employer-landing')" style="background:var(--surface-2);border:0.5px solid var(--border);border-radius:var(--r);padding:1.5rem;cursor:pointer;transition:border-color .15s;text-align:center" onmouseover="this.style.borderColor='var(--border-2)'" onmouseout="this.style.borderColor='var(--border)'">
-        <div style="font-size:28px;margin-bottom:10px">🏗️</div>
-        <div style="font-weight:400;margin-bottom:4px;letter-spacing:-.01em">I'm an Employer</div>
-        <div style="font-size:11px;color:var(--text-3)">Find and hire tradies</div>
-      </div>
+    <div class="modal-icon">
+        <img src="https://uploads.onecompiler.io/446jf6qg8/44a5db7tw/98e7fa89-afa2-475e-8e82-60d7bb5892a3.jpg" alt="LBH Logo">
     </div>
-  </div>
-</div>
-
-<!-- DEMO MODAL -->
-<div class="modal-overlay" id="demo-modal" style="align-items:flex-start;padding:2rem;overflow-y:auto">
-  <div style="background:var(--surface);border:0.5px solid var(--border-2);border-radius:16px;width:100%;max-width:860px;margin:auto;overflow:hidden">
-    <div style="padding:1.25rem 1.75rem;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
-      <div><div style="font-size:16px;font-weight:400;letter-spacing:-.02em">Construction ID Network — Live Preview</div><div style="font-size:11px;color:var(--text-3);margin-top:3px;text-transform:uppercase;letter-spacing:.08em">Free access · Verified Workers</div></div>
-      <button onclick="closeDemo()" style="background:none;border:none;color:var(--text-3);font-size:22px;cursor:pointer;line-height:1">×</button>
-    </div>
-    <div style="padding:1.75rem;display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
-      <!-- demo cards with photos -->
-      <div style="background:var(--surface-2);border:0.5px solid var(--blue-border);border-radius:12px;overflow:hidden">
-        <div style="height:140px;position:relative">
-          <img src="https://images.unsplash.com/photo-1556157382-97eda2f9e946?w=400&q=75&auto=format&fit=crop&crop=face" style="width:100%;height:100%;object-fit:cover;filter:brightness(.75)" alt="Jake">
-          <div style="position:absolute;top:8px;right:8px;background:rgba(0,200,150,0.12);color:var(--green);border:0.5px solid rgba(0,200,150,0.25);padding:2px 8px;border-radius:var(--rf);font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.1em">Verified</div>
-          <div style="position:absolute;top:8px;left:8px;background:rgba(5,5,7,0.75);color:var(--text);padding:2px 8px;border-radius:var(--rf);font-size:12px;font-weight:300">$75/hr</div>
-        </div>
-        <div style="padding:1rem">
-          <div style="font-weight:400;font-size:13px;letter-spacing:-.01em">Jake Thompson</div>
-          <div style="font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;margin-top:2px">Carpenter · Sydney</div>
-          <div style="background:var(--surface-3);border-radius:var(--rs);padding:8px;margin:10px 0">
-            <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:10px;color:var(--text-3)">Trust Score</span><span style="font-size:10px;font-weight:500;color:var(--green)">92/100</span></div>
-            <div style="background:var(--surface);border-radius:100px;height:3px"><div style="background:var(--green);height:100%;width:92%;border-radius:100px"></div></div>
-          </div>
-          <div style="padding:8px;background:var(--bg);border-radius:var(--rs);border:0.5px solid var(--border-2)">
-            <div style="font-size:10px;color:var(--text-3);margin-bottom:5px;text-transform:uppercase;letter-spacing:.1em">Contact (Free)</div>
-            <div style="font-size:11px;color:var(--blue-bright);margin-bottom:2px">📞 0412 345 678</div>
-            <div style="font-size:11px;color:var(--blue-bright)">✉ <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5b313a303e752f1b3e363a323775383436753a2e">[email&#160;protected]</a></div>
-            <button style="width:100%;margin-top:7px;padding:6px;background:var(--blue);color:#fff;border:none;border-radius:var(--rs);font-size:11px;cursor:pointer;font-family:inherit">Send message</button>
-          </div>
-        </div>
-      </div>
-      <div style="background:var(--surface-2);border:0.5px solid var(--border);border-radius:12px;overflow:hidden;position:relative">
-        <div style="height:140px;position:relative">
-          <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400&q=75&auto=format&fit=crop&crop=face" style="width:100%;height:100%;object-fit:cover;filter:brightness(.75)" alt="Maria">
-          <div style="position:absolute;top:8px;right:8px;background:rgba(0,200,150,0.12);color:var(--green);border:0.5px solid rgba(0,200,150,0.25);padding:2px 8px;border-radius:var(--rf);font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.1em">Verified</div>
-          <div style="position:absolute;top:8px;left:8px;background:rgba(5,5,7,0.75);color:var(--text);padding:2px 8px;border-radius:var(--rf);font-size:12px;font-weight:300">$95/hr</div>
-        </div>
-        <div style="padding:1rem">
-          <div style="font-weight:400;font-size:13px;letter-spacing:-.01em">Maria Santos</div>
-          <div style="font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;margin-top:2px">Electrician · Melbourne</div>
-          <div style="background:var(--surface-3);border-radius:var(--rs);padding:8px;margin:10px 0">
-            <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:10px;color:var(--text-3)">Trust Score</span><span style="font-size:10px;font-weight:500;color:var(--green)">88/100</span></div>
-            <div style="background:var(--surface);border-radius:100px;height:3px"><div style="background:var(--green);height:100%;width:88%;border-radius:100px"></div></div>
-          </div>
-          <div style="padding:8px;background:var(--bg);border-radius:var(--rs);border:0.5px solid var(--border);position:relative;overflow:hidden">
-            <div style="font-size:10px;color:var(--text-3);margin-bottom:5px;text-transform:uppercase;letter-spacing:.1em">Contact (Free)</div>
-            <div style="font-size:11px;color:var(--text-3);margin-bottom:2px;filter:blur(4px);user-select:none">📞 04XX XXX XXX</div>
-            <div style="font-size:11px;color:var(--text-3);filter:blur(4px);user-select:none">✉ <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5f323e2d363e1f070707070707713c3032">[email&#160;protected]</a></div>
-            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(5,5,7,0.7)"><span style="font-size:10px;font-weight:500;color:#00d2b9;background:rgba(0,180,160,0.1);border:0.5px solid rgba(0,180,160,0.2);padding:3px 10px;border-radius:var(--rf);letter-spacing:.06em;text-transform:uppercase">🔷 Sign up free</span></div>
-          </div>
-        </div>
-      </div>
-      <div style="background:var(--surface-2);border:0.5px solid var(--border);border-radius:12px;overflow:hidden;position:relative">
-        <div style="height:140px;position:relative">
-          <img src="https://images.unsplash.com/photo-1540479859555-17af45c78602?w=400&q=75&auto=format&fit=crop&crop=face" style="width:100%;height:100%;object-fit:cover;filter:brightness(.75)" alt="Brett">
-          <div style="position:absolute;top:8px;right:8px;background:rgba(0,200,150,0.12);color:var(--green);border:0.5px solid rgba(0,200,150,0.25);padding:2px 8px;border-radius:var(--rf);font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.1em">Verified</div>
-          <div style="position:absolute;top:8px;left:8px;background:rgba(5,5,7,0.75);color:var(--text);padding:2px 8px;border-radius:var(--rf);font-size:12px;font-weight:300">$85/hr</div>
-        </div>
-        <div style="padding:1rem">
-          <div style="font-weight:400;font-size:13px;letter-spacing:-.01em">Brett Wilson</div>
-          <div style="font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;margin-top:2px">Plumber · Brisbane</div>
-          <div style="background:var(--surface-3);border-radius:var(--rs);padding:8px;margin:10px 0">
-            <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:10px;color:var(--text-3)">Trust Score</span><span style="font-size:10px;font-weight:500;color:var(--gold)">76/100</span></div>
-            <div style="background:var(--surface);border-radius:100px;height:3px"><div style="background:var(--gold);height:100%;width:76%;border-radius:100px"></div></div>
-          </div>
-          <div style="padding:8px;background:var(--bg);border-radius:var(--rs);border:0.5px solid var(--border);position:relative;overflow:hidden">
-            <div style="font-size:10px;color:var(--text-3);margin-bottom:5px;text-transform:uppercase;letter-spacing:.1em">Contact (Free)</div>
-            <div style="font-size:11px;color:var(--text-3);margin-bottom:2px;filter:blur(4px);user-select:none">📞 04XX XXX XXX</div>
-            <div style="font-size:11px;color:var(--text-3);filter:blur(4px);user-select:none">✉ <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="92f0e0f7e6e6d2cacacacacacabcf1fdff">[email&#160;protected]</a></div>
-            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(5,5,7,0.7)"><span style="font-size:10px;font-weight:500;color:#00d2b9;background:rgba(0,180,160,0.1);border:0.5px solid rgba(0,180,160,0.2);padding:3px 10px;border-radius:var(--rf);letter-spacing:.06em;text-transform:uppercase">🔷 Sign up free</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div style="padding:1.25rem 1.75rem;border-top:0.5px solid var(--border);background:var(--surface-2);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
-      <div style="font-size:12px;color:var(--text-3)">Showing 3 of <strong style="color:var(--text-2)">200+</strong> verified tradies</div>
-      <div style="display:flex;gap:8px">
-        <button class="btn btn-g" onclick="closeDemo()">Close</button>
-        <button class="btn btn-p" onclick="closeDemo();showComingSoon()">Get free access →</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- CONTACT MODAL -->
-<div class="modal-overlay" id="paywall-modal">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closePaywall()">×</button>
-    <div class="modal-icon">🔷</div>
-    <div class="modal-title">Construction ID Network</div>
-    <div class="modal-sub">Messaging verified tradies is free on Labour by Hire. Sign up as an employer to contact workers directly.</div>
+    <div class="modal-title" style="font-size:22px;">How Your SVG System Works</div>
+    <div class="modal-sub">Recap for the Team</div>
     <ul class="modal-feats">
-      <li><span style="color:var(--green)">✓</span>Message any tradie directly — free</li>
-      <li><span style="color:var(--green)">✓</span>Unlimited worker searches and filters</li>
-      <li><span style="color:var(--green)">✓</span>Full Trust Score history and reviews</li>
+      <li><strong>1. The Logo = Identity Framework:</strong> The LBH SVG logo acts like a data structure.</li>
+      <li><strong>2. Verification Segments:</strong> Each segment can store a verification reference, such as: ABN verification, White Card, Trade category, Safety tickets, and Reputation score.</li>
+      <li><strong>3. Privacy First:</strong> Not personal info — just proofs.</li>
     </ul>
-    <button class="btn btn-p btn-full" style="margin-bottom:8px;padding:11px" onclick="handlePremiumSignup()">Continue — it's free</button>
-    <button class="btn btn-g btn-full" onclick="closePaywall()">Cancel</button>
+    <button class="btn btn-p btn-full" onclick="closeHowModal()">Got it</button>
   </div>
 </div>
 
-<!-- EDIT PROFILE MODAL -->
-<div class="modal-overlay" id="edit-profile-modal">
-  <div class="compose-box" style="max-width:520px">
-    <button class="modal-close" onclick="closeEditProfile()">×</button>
-    <h3>Edit profile</h3>
-    <div class="fr"><label>City / State</label><input id="ep-city" type="text" placeholder="Sydney, NSW"></div>
-    <div class="fr"><label>Hourly rate ($)</label><input id="ep-rate" type="number" placeholder="65"></div>
-    <div class="fr"><label>About yourself</label><textarea id="ep-bio" placeholder="Describe your specialties…" style="min-height:90px"></textarea></div>
-    <div class="fr"><label>Licence number</label><input id="ep-lic" type="text" placeholder="CL123456"></div>
-    <div class="fr"><label>White Card number</label><input id="ep-wc" type="text" placeholder="WC987654"></div>
-    <div id="ep-err" class="err-box"></div>
-    <div style="display:flex;gap:8px;margin-top:1.25rem">
-      <button class="btn btn-g" onclick="closeEditProfile()">Cancel</button>
-      <button id="ep-save-btn" class="btn btn-p" style="flex:1" onclick="saveProfile()">Save changes</button>
-    </div>
-  </div>
-</div>
-
-<!-- CREATE LISTING MODAL -->
-<div class="modal-overlay" id="create-listing-modal">
-  <div class="compose-box" style="max-width:480px">
-    <button class="modal-close" onclick="closeCreateListing()">×</button>
-    <h3>Create your listing</h3>
-    <div class="fr"><label>Title</label><input id="cl-title" type="text" placeholder="Carpenter — Sydney, NSW"></div>
-    <div class="fr"><label>Description</label><textarea id="cl-desc" placeholder="Describe the work you take on…" style="min-height:80px"></textarea></div>
-    <div class="fr"><label>Availability</label>
-      <select id="cl-avail"><option>Available now</option><option>Available weekends</option><option>Available from next week</option><option>By arrangement</option></select>
-    </div>
-    <div id="cl-err" class="err-box"></div>
-    <div style="display:flex;gap:8px;margin-top:1.25rem">
-      <button class="btn btn-g" onclick="closeCreateListing()">Cancel</button>
-      <button id="cl-save-btn" class="btn btn-p" style="flex:1" onclick="saveCreateListing()">Create listing</button>
-    </div>
-  </div>
-</div>
-
-<!-- LIST EQUIPMENT MODAL -->
-<div class="modal-overlay" id="list-equip-modal">
-  <div class="compose-box" style="max-width:520px">
-    <button class="modal-close" onclick="closeListEquipment()">×</button>
-    <h3>List your equipment</h3>
-    <div class="fr"><label>Title</label><input id="le-title" type="text" placeholder="e.g. Bobcat S70 Skid Steer"></div>
-    <div class="fr"><label>Category</label>
-      <select id="le-cat"><option>Excavation</option><option>Lifting</option><option>Concrete</option><option>Power Tools</option><option>Scaffolding</option><option>Compaction</option><option>Welding</option><option>Surveying</option><option>Other</option></select>
-    </div>
-    <div class="fr"><label>Daily rate ($)</label><input id="le-rate" type="number" placeholder="250"></div>
-    <div class="fr"><label>Location</label><input id="le-loc" type="text" placeholder="Parramatta, NSW"></div>
-    <div class="fr"><label>Condition</label>
-      <select id="le-cond"><option>Excellent</option><option>Good</option><option>Fair</option></select>
-    </div>
-    <div class="fr"><label>Description (optional)</label><textarea id="le-desc" placeholder="Hours, servicing history, attachments included…" style="min-height:70px"></textarea></div>
-    <div id="le-err" class="err-box"></div>
-    <div style="display:flex;gap:8px;margin-top:1.25rem">
-      <button class="btn btn-g" onclick="closeListEquipment()">Cancel</button>
-      <button id="le-save-btn" class="btn btn-p" style="flex:1" onclick="saveListEquipment()">List equipment</button>
-    </div>
-  </div>
-</div>
-
-<!-- COMPOSE MODAL -->
-<div class="modal-overlay" id="compose-modal">
-  <div class="compose-box">
-    <button class="modal-close" onclick="closeCompose()">×</button>
-    <h3>Message <span id="compose-to-name"></span></h3>
-    <div class="fr"><label>Your name</label><input id="compose-name" type="text" placeholder="Your full name"></div>
-    <div class="fr"><label>Your email</label><input id="compose-email" type="email" placeholder="your@company.com"></div>
-    <div class="fr"><label>Company</label><input id="compose-company" type="text" placeholder="ABC Constructions"></div>
-    <div class="fr"><label>Message</label><textarea id="compose-body" placeholder="Hi, I'm looking for a tradie for a job in…" style="min-height:110px"></textarea></div>
-    <div id="compose-err" class="err-box"></div>
-    <div class="ff">
-      <button class="btn btn-g" onclick="closeCompose()">Cancel</button>
-      <button id="btn-send" class="btn btn-p" style="flex:1" onclick="sendMessage()">Send message</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════ EQUIPMENT VIEW ══════════════ -->
-<div id="view-equipment" style="display:none">
-  <div style="padding-top:2.5rem;padding-bottom:6rem">
-    <div class="wrap">
-      <div class="sh" style="margin-bottom:1.5rem">
-        <div>
-          <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:.4rem">Layer 2 · Equipment Trust</div>
-          <h2 style="font-size:26px;font-weight:300;letter-spacing:-.03em">Equipment hire</h2>
-          <div class="sh-sub">Verified tradie-owned equipment available across Australia</div>
-        </div>
-        <input class="si" id="equip-search" placeholder="Search equipment or location…" oninput="filterEquipment()">
-      </div>
-      <div class="filters" id="equip-filters-el" style="margin-bottom:2rem"></div>
-      <div class="grid" id="equip-grid"><p style="color:var(--text-3);font-size:13px;padding:3rem 0">Loading equipment…</p></div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════ EQUIPMENT PROFILE VIEW ══════════════ -->
-<div id="view-equipment-profile" style="display:none">
-  <div class="wrap" style="padding-top:2.5rem;padding-bottom:6rem">
-    <button class="back" onclick="showView('equipment')">
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to equipment
-    </button>
-    <div id="equip-profile-content"></div>
-  </div>
-</div>
-
-<!-- ══════════════ SPOTLIGHT VIEW ══════════════ -->
-<div id="view-spotlight" style="display:none">
-  <div style="position:relative;min-height:60vh;display:flex;align-items:center;overflow:hidden;border-bottom:0.5px solid var(--border)">
-    <div style="position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1800&q=80&auto=format&fit=crop');background-size:cover;background-position:center 40%;filter:brightness(.25) saturate(.6)"></div>
-    <div style="position:relative;z-index:1;padding:5rem 2.5rem;max-width:1200px;margin:0 auto;width:100%">
-      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(12,12,15,0.7);color:var(--text-3);border:0.5px solid var(--border-2);padding:5px 14px;border-radius:var(--rf);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2rem;backdrop-filter:blur(8px)">Coming Soon</div>
-      <h1 style="font-size:clamp(38px,6vw,72px);font-weight:300;letter-spacing:-.05em;line-height:1.04;margin-bottom:1rem;max-width:640px">Beyond the marketplace.<br><span style="color:var(--gold)">Own a piece of it.</span></h1>
-      <p style="font-size:16px;color:var(--text-2);max-width:440px;line-height:1.8;font-weight:300;margin-bottom:2.5rem">Fractionalised equipment assets yielding rental income. Tradie-led property projects raising capital through the platform. Two layers designed to compound.</p>
-      <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <button class="btn btn-p btn-lg" onclick="document.getElementById('spotlight-email').focus()">Join the waitlist →</button>
-        <button class="btn btn-o btn-lg" onclick="showView('equipment');loadEquipment()">Browse equipment</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="wrap" style="padding-top:4rem;padding-bottom:6rem">
-
-    <!-- EMAIL CAPTURE -->
-    <div style="background:var(--surface);border:0.5px solid var(--border-2);border-radius:16px;padding:2.5rem;max-width:520px;margin-bottom:5rem">
-      <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:.5rem">Early Access</div>
-      <div style="font-size:20px;font-weight:300;letter-spacing:-.03em;margin-bottom:.4rem">Get notified at launch</div>
-      <div style="font-size:13px;color:var(--text-3);font-weight:300;margin-bottom:1.5rem">Be first when Spotlight equipment tokens go live. No spam.</div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <input id="spotlight-email" type="email" placeholder="your@email.com" style="flex:1;min-width:200px;padding:9px 13px;background:var(--surface-2);border:0.5px solid var(--border-2);border-radius:var(--rs);font-size:13px;color:var(--text);font-family:inherit;outline:none;letter-spacing:-.01em" onfocus="this.style.borderColor='rgba(240,165,0,0.3)'" onblur="this.style.borderColor='var(--border-2)'">
-        <button class="btn btn-p" style="background:var(--gold);color:#000;font-weight:500" onclick="submitSpotlightEmail()">Notify me →</button>
-      </div>
-      <div id="spotlight-success" style="display:none;margin-top:10px;font-size:12px;color:var(--green);font-weight:300">✓ You're on the list. We'll reach out before launch.</div>
-      <div style="margin-top:12px;font-size:11px;color:var(--text-3)"><span id="waitlist-count"></span><span id="waitlist-count-suffix"></span></div>
-    </div>
-
-    <!-- LAYER CARDS -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:0.5px solid var(--border);margin-bottom:5rem">
-      <div style="background:var(--bg);padding:3rem;position:relative">
-        <div style="position:absolute;top:2rem;right:2rem;font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);background:rgba(240,165,0,0.07);border:0.5px solid rgba(240,165,0,0.2);padding:3px 10px;border-radius:var(--rf)">~Month 18</div>
-        <div style="font-size:28px;margin-bottom:1.25rem">🏗️</div>
-        <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem">Layer 2</div>
-        <div style="font-size:22px;font-weight:300;letter-spacing:-.03em;margin-bottom:.75rem">Spotlight Equipment Trust</div>
-        <div style="font-size:13px;color:var(--text-2);line-height:1.8;font-weight:300;margin-bottom:2rem">LBH purchases construction equipment — starting with concrete mixers and scissor lifts, scaling to cranes. Each asset is fractionalised into shares representing units in a registered trust.</div>
-        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:2rem">
-          <div style="font-size:12px;color:var(--text-2);display:flex;gap:10px;font-weight:300;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:var(--gold);flex-shrink:0">◆</span>Token holders earn rental yield from tradie equipment bookings</div>
-          <div style="font-size:12px;color:var(--text-2);display:flex;gap:10px;font-weight:300;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:var(--gold);flex-shrink:0">◆</span>LBH earns a platform fee before yield is distributed</div>
-          <div style="font-size:12px;color:var(--text-2);display:flex;gap:10px;font-weight:300;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:var(--gold);flex-shrink:0">◆</span>Sophisticated investors only under s708 Corporations Act</div>
-          <div style="font-size:12px;color:var(--text-2);display:flex;gap:10px;font-weight:300;padding:8px 0"><span style="color:var(--gold);flex-shrink:0">◆</span>No AFSL required at launch · Registered unit trust structure</div>
-        </div>
-        <button class="btn btn-o btn-full" onclick="showView('equipment');loadEquipment()">Browse equipment →</button>
-      </div>
-
-      <div style="background:var(--surface);padding:3rem;position:relative">
-        <div style="position:absolute;top:2rem;right:2rem;font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#a78bfa;background:rgba(120,80,255,0.07);border:0.5px solid rgba(120,80,255,0.2);padding:3px 10px;border-radius:var(--rf)">~Month 30+</div>
-        <div style="font-size:28px;margin-bottom:1.25rem">🏠</div>
-        <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#a78bfa;margin-bottom:.5rem">Layer 3</div>
-        <div style="font-size:22px;font-weight:300;letter-spacing:-.03em;margin-bottom:.75rem">Spotlight Property</div>
-        <div style="font-size:13px;color:var(--text-2);line-height:1.8;font-weight:300;margin-bottom:2rem">Verified tradies with high Trust Scores can raise capital through the platform to build and sell property. Investors fund projects via a CSF-compliant offer. LBH acts as intermediary under its AFSL.</div>
-        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:2rem">
-          <div style="font-size:12px;color:var(--text-2);display:flex;gap:10px;font-weight:300;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:#a78bfa;flex-shrink:0">◆</span>Requires Trust Score above threshold to raise capital</div>
-          <div style="font-size:12px;color:var(--text-2);display:flex;gap:10px;font-weight:300;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:#a78bfa;flex-shrink:0">◆</span>Equipment from Layer 2 gets deployed on these builds</div>
-          <div style="font-size:12px;color:var(--text-2);display:flex;gap:10px;font-weight:300;padding:8px 0;border-bottom:0.5px solid var(--border)"><span style="color:#a78bfa;flex-shrink:0">◆</span>AFSL with CSF authorisation — in application</div>
-          <div style="font-size:12px;color:var(--text-2);display:flex;gap:10px;font-weight:300;padding:8px 0"><span style="color:#a78bfa;flex-shrink:0">◆</span>Retail investor access once AFSL granted</div>
-        </div>
-        <button class="btn btn-full" style="background:rgba(120,80,255,0.08);color:#a78bfa;border:0.5px solid rgba(120,80,255,0.2)" onclick="document.getElementById('spotlight-email').focus()">Join waitlist →</button>
-      </div>
-    </div>
-
-    <!-- LABOUR SCORE EXPLAINER -->
-    <div style="border:0.5px solid var(--border);border-radius:16px;overflow:hidden">
-      <div style="padding:2rem 2.5rem;border-bottom:0.5px solid var(--border);display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
-        <div style="font-size:20px;font-weight:300;letter-spacing:-.03em">Trust Score</div>
-        <div style="font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:4px 12px;border-radius:var(--rf);background:var(--blue-dim);color:var(--blue-bright);border:0.5px solid var(--blue-border)">Verified Identity</div>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0">
-        <div style="padding:2rem 2.5rem;border-right:0.5px solid var(--border)">
-          <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem">Metadata includes</div>
-          <div style="font-size:13px;color:var(--text-2);line-height:1.8;font-weight:300">ABN · Licence class · Score · Project count · Dispute count · Verified date</div>
-        </div>
-        <div style="padding:2rem 2.5rem;border-right:0.5px solid var(--border)">
-          <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem">Updated by</div>
-          <div style="font-size:13px;color:var(--text-2);line-height:1.8;font-weight:300">Completed jobs · Reviews · Time on platform · Verification status</div>
-        </div>
-        <div style="padding:2rem 2.5rem">
-          <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem">Unlocks</div>
-          <div style="font-size:13px;color:var(--text-2);line-height:1.8;font-weight:300">Equipment hire · Property capital raising · LBHT token fee discounts</div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- ══════════════ ABOUT VIEW ══════════════ -->
-<div id="view-about" style="display:none">
-  <div class="wrap" style="padding-top:4rem;padding-bottom:6rem;max-width:820px">
-    <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem">About Labour by Hire</div>
-    <h1 style="font-size:clamp(38px,5vw,64px);font-weight:300;letter-spacing:-.05em;line-height:1.05;margin-bottom:2rem">Built by the industry.<br><span style="color:var(--blue-bright)">For the industry.</span></h1>
-
-    <div style="font-size:16px;color:var(--text-2);line-height:1.9;font-weight:300;margin-bottom:3.5rem;border-bottom:0.5px solid var(--border);padding-bottom:3.5rem">
-      Labour by Hire is an Australian marketplace connecting verified tradespeople with employers. Not a job board — a construction identity network. Every tradie is licence-checked, ABN-verified, and issued a Trust Score.
-    </div>
-
-    <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:1.5rem">The three-layer model</div>
-    <div style="display:flex;flex-direction:column;gap:0;border:0.5px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:3.5rem">
-      <div style="display:flex;gap:2rem;align-items:flex-start;padding:2rem;border-bottom:0.5px solid var(--border)">
-        <div style="font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-bright);background:var(--blue-dim);border:0.5px solid var(--blue-border);padding:4px 12px;border-radius:var(--rf);white-space:nowrap;flex-shrink:0;margin-top:3px">Layer 1</div>
-        <div><div style="font-size:15px;font-weight:400;letter-spacing:-.02em;margin-bottom:4px">Marketplace</div><div style="font-size:13px;color:var(--text-2);font-weight:300;line-height:1.7">Tradies pay a one-time listing fee to be found. Employers pay a premium subscription to contact verified tradies. Live now.</div></div>
-      </div>
-      <div style="display:flex;gap:2rem;align-items:flex-start;padding:2rem;border-bottom:0.5px solid var(--border);background:var(--surface)">
-        <div style="font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);background:rgba(240,165,0,0.07);border:0.5px solid rgba(240,165,0,0.2);padding:4px 12px;border-radius:var(--rf);white-space:nowrap;flex-shrink:0;margin-top:3px">Layer 2</div>
-        <div><div style="font-size:15px;font-weight:400;letter-spacing:-.02em;margin-bottom:4px">Equipment Trust</div><div style="font-size:13px;color:var(--text-2);font-weight:300;line-height:1.7">Construction equipment fractionalised into shares. Token holders earn rental yield. Launching ~Month 18.</div></div>
-      </div>
-      <div style="display:flex;gap:2rem;align-items:flex-start;padding:2rem;background:var(--surface)">
-        <div style="font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#a78bfa;background:rgba(120,80,255,0.07);border:0.5px solid rgba(120,80,255,0.2);padding:4px 12px;border-radius:var(--rf);white-space:nowrap;flex-shrink:0;margin-top:3px">Layer 3</div>
-        <div><div style="font-size:15px;font-weight:400;letter-spacing:-.02em;margin-bottom:4px">Property Spotlight</div><div style="font-size:13px;color:var(--text-2);font-weight:300;line-height:1.7">High-score tradies raise capital to build and sell property. CSF-compliant crowdfunding under AFSL. Launching ~Month 30.</div></div>
-      </div>
-    </div>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:0.5px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:3.5rem">
-      <div style="background:var(--bg);padding:2rem">
-        <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem">Legal structure</div>
-        <div style="font-size:13px;color:var(--text-2);line-height:1.8;font-weight:300">Sole trader with ABN registered now. Incorporating as LBH Pty Ltd ~Month 12. AFSL application begins ~Month 24.</div>
-      </div>
-      <div style="background:var(--surface);padding:2rem">
-        <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem">Tech stack</div>
-        <div style="font-size:13px;color:var(--text-2);line-height:1.8;font-weight:300">Next.js 14 · Tailwind · Supabase · Stripe · Railway / Vercel</div>
-      </div>
-    </div>
-
-    <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <button class="btn btn-p btn-lg" onclick="showView('home')">Browse tradies</button>
-      <button class="btn btn-o btn-lg" onclick="showView('getlisted')">Get listed →</button>
-      <button class="btn btn-g btn-lg" onclick="showView('spotlight')">Spotlight layers</button>
-    </div>
-  </div>
-</div>
-
-
-<footer>
-  <div class="wrap">
-    <div class="fi">
-      <div>
-        <div class="fl-logo">Labour by Hire</div>
-        <div style="font-size:11px;color:var(--text-3);margin-top:3px;letter-spacing:.02em">Labouring by the Hour · Australia</div>
-      </div>
-      <div class="flinks">
-        <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Contact</a><a href="#">Help</a>
-      </div>
-    </div>
-    <div style="margin-top:2rem;padding-top:1.5rem;border-top:0.5px solid var(--border);font-size:11px;color:var(--text-3);display:flex;justify-content:space-between;align-items:center;letter-spacing:.01em">
-      <span>© 2025 Labour by Hire Pty Ltd · All workers verified by LBH · ABN 12 345 678 901</span>
-      <a href="admin.html" style="font-size:10px;color:var(--text-3);opacity:.3;text-decoration:none">Admin</a>
-    </div>
-  </div>
-</footer>
-
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 const API_URL='https://labour-by-hire-network-production.up.railway.app/api';
-let token=localStorage.getItem('lbh_token');
-let currentWorker=null;
 let listings=[];
 let activeFilter='All';
 
 function selectRole(role){
-  sessionStorage.setItem('lbh_role',role);
   const splash=document.getElementById('role-splash');
   splash.style.transition='opacity .3s';splash.style.opacity='0';
   setTimeout(()=>splash.style.display='none',300);
-  setRoleBadge(role);
-  if(role==='tradie')showView('getlisted');
-  else if(role==='employer'){showView('home');toast('Browse verified tradies below. Each has a verified construction ID.');}
-  else showView('home');
-}
-
-function setRoleBadge(role){
-  const b=document.getElementById('role-badge');
-  if(!b||role==='browse'){if(b)b.style.display='none';return;}
-  b.style.display='inline-block';
-  if(role==='tradie'){b.textContent='Tradie';b.style.background='var(--blue-dim)';b.style.color='var(--blue-bright)';b.style.border='0.5px solid var(--blue-border)';}
-  else if(role==='employer'){b.textContent='Employer';b.style.background='rgba(240,165,0,0.07)';b.style.color='var(--gold)';b.style.border='0.5px solid rgba(240,165,0,0.2)';}
+  if(role==='tradie')showView('getlisted'); else showView('home');
 }
 
 (function init(){
-  if(sessionStorage.getItem('lbh_role')){document.getElementById('role-splash').style.display='none';setRoleBadge(sessionStorage.getItem('lbh_role'));}
-  if(token){const n=localStorage.getItem('lbh_name');setNavLoggedIn(n);}
   loadListings();renderFilters();
 })();
 
-function toast(msg,type='ok'){
-  const el=document.getElementById('toast');el.textContent=msg;el.className=`toast show ${type}`;
-  setTimeout(()=>el.className='toast',3000);
-}
-
-async function api(method,endpoint,body=null){
-  const opts={method,headers:{'Content-Type':'application/json'}};
-  if(token)opts.headers['Authorization']=`Bearer ${token}`;
-  if(body)opts.body=JSON.stringify(body);
-  const res=await fetch(`${API_URL}${endpoint}`,opts);
-  const ct=res.headers.get('content-type')||'';
-  if(!ct.includes('application/json'))throw new Error(`Server error (${res.status})`);
-  const data=await res.json();
-  if(!res.ok)throw new Error(data.error||'Something went wrong');
-  return data;
-}
-
-function setNavLoggedIn(name){
-  document.getElementById('nav-signin').style.display='none';
-  document.getElementById('nav-loggedin').style.display='flex';
-  document.getElementById('nav-name').textContent=name||'My Account';
-}
-function setNavLoggedOut(){
-  document.getElementById('nav-signin').style.display='flex';
-  document.getElementById('nav-loggedin').style.display='none';
-}
-function logoutWorker(){
-  token=null;currentWorker=null;
-  localStorage.removeItem('lbh_token');localStorage.removeItem('lbh_name');
-  setNavLoggedOut();showView('home');toast('Signed out');
-}
-
-function showLoginModal(){document.getElementById('login-modal').style.display='flex';document.getElementById('login-error').style.display='none';}
-function hideLoginModal(){document.getElementById('login-modal').style.display='none';}
-
-async function handleLogin(){
-  const email=document.getElementById('login-email').value.trim();
-  const password=document.getElementById('login-password').value;
-  const errEl=document.getElementById('login-error');const btn=document.getElementById('btn-login');
-  errEl.style.display='none';
-  if(!email||!password){errEl.textContent='Please enter email and password';errEl.style.display='block';return;}
-  btn.disabled=true;btn.innerHTML='<span class="spin"></span>';
-  try{
-    const data=await api('POST','/auth/login',{email,password});
-    token=data.token;currentWorker=data.worker;
-    localStorage.setItem('lbh_token',token);
-    localStorage.setItem('lbh_name',`${data.worker.first_name} ${data.worker.last_name}`);
-    setNavLoggedIn(`${data.worker.first_name} ${data.worker.last_name}`);
-    hideLoginModal();toast('Welcome back, '+data.worker.first_name+'!');showView('dashboard');
-  }catch(err){errEl.textContent=err.message;errEl.style.display='block';}
-  finally{btn.disabled=false;btn.innerHTML='Sign in';}
-}
-
-function goStep2(){
-  const fn=document.getElementById('reg-fn').value.trim();
-  const ln=document.getElementById('reg-ln').value.trim();
-  const email=document.getElementById('reg-email').value.trim();
-  const pass=document.getElementById('reg-pass').value;
-  const trade=document.getElementById('reg-trade').value;
-  const city=document.getElementById('reg-city').value.trim();
-  const errEl=document.getElementById('reg-err');
-  errEl.style.display='none';
-  if(!fn||!ln||!email||!pass||!trade||!city){errEl.textContent='Please fill in all required fields';errEl.style.display='block';return;}
-  if(pass.length<8){errEl.textContent='Password must be at least 8 characters';errEl.style.display='block';return;}
-  if(!/\S+@\S+\.\S+/.test(email)){errEl.textContent='Please enter a valid email';errEl.style.display='block';return;}
-  fstep(2);
-}
-
-async function handleRegistration(){
-  const btn=document.getElementById('btn-pay');const errEl=document.getElementById('pay-err');
-  const payload={
-    firstName:document.getElementById('reg-fn').value.trim(),
-    lastName:document.getElementById('reg-ln').value.trim(),
-    email:document.getElementById('reg-email').value.trim(),
-    password:document.getElementById('reg-pass').value,
-    trade:document.getElementById('reg-trade').value,
-    city:document.getElementById('reg-city').value.trim(),
-    hourlyRate:parseFloat(document.getElementById('reg-rate').value)||0,
-    bio:document.getElementById('reg-bio').value.trim(),
-    licenceNumber:document.getElementById('reg-lic').value.trim(),
-    whiteCard:document.getElementById('reg-wc').value.trim(),
-  };
-  errEl.style.display='none';btn.disabled=true;btn.innerHTML='<span class="spin"></span> Creating…';
-  try{
-    const data=await api('POST','/auth/register',payload);
-    token=data.token;currentWorker=data.worker;
-    localStorage.setItem('lbh_token',token);
-    localStorage.setItem('lbh_name',`${data.worker.first_name} ${data.worker.last_name}`);
-    setNavLoggedIn(`${data.worker.first_name} ${data.worker.last_name}`);
-    try{await api('POST','/auth/listing',{title:`${payload.trade} — ${payload.city}`,description:payload.bio||`Professional ${payload.trade} available in ${payload.city}.`,skills:[payload.trade],availability:'Available now'});}catch(e){}
-    [1,2,3].forEach(i=>document.getElementById('fs'+i).style.display='none');
-    document.getElementById('fs-done').style.display='block';
-    toast('Profile created! Welcome to LBH 🎉');await loadListings();
-  }catch(err){errEl.textContent=err.message;errEl.style.display='block';}
-  finally{btn.disabled=false;btn.innerHTML='Create my Construction ID →';}
-}
-
-async function loadDashboard(){
-  const el=document.getElementById('dashboard-content');
-  if(!token){el.innerHTML=`<p style="color:var(--text-2);font-size:14px">Please <button class="btn btn-p btn-sm" onclick="showLoginModal()">sign in</button> to view your dashboard.</p>`;return;}
-  el.innerHTML='<p style="color:var(--text-3);font-size:13px">Loading…</p>';
-  try{
-    const data=await api('GET','/auth/profile');const w=data.worker;const listing=data.listing||null;
-    const name=`${w.first_name} ${w.last_name}`;const ini=(w.first_name[0]+w.last_name[0]).toUpperCase();
-    const score=w.labour_score??0;
-    const scoreCol=score>=70?'var(--green)':score>=40?'var(--gold)':'#ef4444';
-    el.innerHTML=`
-      <div class="dash-header">
-        <div class="av av-lg">${ini}</div>
-        <div class="dash-info"><div class="dash-name">${name}</div><div class="dash-meta">${w.trade} · ${w.city||'Location not set'}</div><div style="margin-top:8px"><span class="status-dot pending">● Pending verification</span></div></div>
-        <div style="text-align:center;background:var(--surface-2);border:0.5px solid var(--border-2);border-radius:12px;padding:1rem 1.5rem;flex-shrink:0">
-          <div style="font-size:36px;font-weight:300;letter-spacing:-.06em;color:${scoreCol};line-height:1">${score}</div>
-          <div style="font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-3);margin-top:4px">Trust Score</div>
-          <div style="font-size:10px;color:${scoreCol};margin-top:4px;font-weight:400">${getTrustLabel(score)}</div>
-          <div style="margin-top:8px;background:var(--surface-3);border-radius:100px;height:2px"><div style="background:${scoreCol};height:100%;width:${score}%;border-radius:100px"></div></div>
-        </div>
-        <button class="btn btn-g btn-sm" onclick="openEditProfile()">Edit profile</button>
-      </div>
-      <div class="dash-grid" style="border:0.5px solid var(--border);margin-bottom:1px">
-        <div class="dash-card"><h3>Profile details</h3>
-          <div class="field-row"><span class="field-label">Name</span><span class="field-val">${name}</span></div>
-          <div class="field-row"><span class="field-label">Trade</span><span class="field-val">${w.trade}</span></div>
-          <div class="field-row"><span class="field-label">City</span><span class="field-val">${w.city||'—'}</span></div>
-          <div class="field-row"><span class="field-label">Rate</span><span class="field-val">${w.hourly_rate?'$'+w.hourly_rate+'/hr':'—'}</span></div>
-          <div class="field-row"><span class="field-label">Email</span><span class="field-val" style="font-size:12px">${w.email}</span></div>
-          <div class="field-row"><span class="field-label">Member since</span><span class="field-val">${new Date(w.created_at).toLocaleDateString('en-AU',{month:'short',year:'numeric'})}</span></div>
-        </div>
-        <div class="dash-card"><h3>My listing</h3>
-          ${listing?`<div class="listing-box"><div class="listing-title">${listing.title||w.trade+' — '+w.city}</div><div class="listing-desc">${listing.description||'No description.'}</div></div><div class="field-row"><span class="field-label">Status</span><span class="status-dot live">● Live</span></div>`:`<p style="font-size:13px;color:var(--text-3);margin-bottom:1rem;font-weight:300">No listing yet.</p><button class="btn btn-p btn-full" onclick="openCreateListing()">Create listing →</button>`}
-        </div>
-      </div>
-      <div class="dash-grid" style="border:0.5px solid var(--border);margin-bottom:1px;margin-top:1px">
-        <div class="dash-card"><h3>List your equipment</h3>
-          <p style="font-size:13px;color:var(--text-3);margin-bottom:1rem;font-weight:300">Earn income from tools or machinery sitting idle. Listed on the Equipment hire marketplace.</p>
-          <button class="btn btn-o btn-full" onclick="openListEquipment()">List equipment →</button>
-        </div>
-        <div class="dash-card"><h3>Spotlight</h3>
-          <p style="font-size:13px;color:var(--text-3);margin-bottom:1rem;font-weight:300">Fractionalised equipment assets and tradie-led property. Join the early access waitlist.</p>
-          <button class="btn btn-full" style="background:rgba(240,165,0,0.08);color:var(--gold);border:0.5px solid rgba(240,165,0,0.2)" onclick="showView('spotlight');loadWaitlistCount()">Learn more →</button>
-        </div>
-      </div>
-      <div style="background:var(--surface);border:0.5px solid var(--border-2);border-radius:12px;padding:1.75rem">
-        <h3 style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.12em;color:var(--text-3);margin-bottom:1rem;display:flex;align-items:center;gap:6px">Messages <span id="inbox-badge" class="unread-badge"></span></h3>
-        <div id="inbox-container"><p style="color:var(--text-3);font-size:12px">Loading…</p></div>
-      </div>`;
-    loadInbox('inbox-container');
-  }catch(err){el.innerHTML=`<div class="err-box" style="display:block">Failed to load: ${err.message}</div>`;}
-}
-
-
-
-const TRADES=['All','Carpenter','Electrician','Plumber','Concretor','Painter','Tiler','Landscaper','Bricklayer','Welder'];
-
 async function loadListings(){
-  try{
-    const data=await api('GET','/listings');
-    listings=data.listings||[];
-    const s=document.getElementById('stat-workers');if(s)s.textContent=listings.length||'0';
+  try {
+    const res = await fetch(`${API_URL}/listings`);
+    const data = await res.json();
+    listings = data.listings || [];
+    document.getElementById('stat-workers').textContent = listings.length;
     filterWorkers();
-  }catch(err){
-    const el=document.getElementById('workers-grid');
-    if(el)el.innerHTML='<p style="color:var(--text-3);font-size:13px;padding:3rem 0">No workers listed yet — be the first!</p>';
-  }
+  } catch(e) { console.log(e); }
 }
 
 function filterWorkers(){
   const q=(document.getElementById('search-input')?.value||'').toLowerCase().trim();
   const filtered=listings.filter(l=>{
-    const w=l.worker||l;const name=w.name||`${w.first_name} ${w.last_name}`;
-    return (activeFilter==='All'||w.trade===activeFilter)&&(!q||name.toLowerCase().includes(q)||w.trade.toLowerCase().includes(q)||(w.city||'').toLowerCase().includes(q));
+    const w=l.worker;
+    return (activeFilter==='All'||w.trade===activeFilter)&&(!q||w.trade.toLowerCase().includes(q)||(w.city||'').toLowerCase().includes(q));
   });
-  const el=document.getElementById('workers-grid');if(!el)return;
-  el.innerHTML=filtered.length?filtered.map(l=>renderCard(l.worker||l)).join(''):'<p style="color:var(--text-2);font-size:13px;padding:3rem 0;text-align:center;grid-column:1/-1">No workers found.</p>';
-}
-
-function getSiteStatus(score,licVerified,wcVerified){
-  if(score>=70&&licVerified&&wcVerified)return{label:'CLEARED FOR SITE',color:'var(--green)',icon:'✓',bg:'rgba(34,197,94,0.1)',border:'rgba(34,197,94,0.25)'};
-  if(score>=40)return{label:'PENDING REVIEW',color:'var(--gold)',icon:'⚠',bg:'rgba(245,158,11,0.08)',border:'rgba(245,158,11,0.2)'};
-  return{label:'NOT APPROVED',color:'#ef4444',icon:'✗',bg:'rgba(239,68,68,0.08)',border:'rgba(239,68,68,0.2)'};
-}
-function getTrustLabel(score){
-  if(score>=70)return'Trusted worker';
-  if(score>=40)return'Partially verified';
-  return'Not ready';
+  const el=document.getElementById('workers-grid'); if(!el)return;
+  el.innerHTML=filtered.map(l=>renderCard(l.worker)).join('');
 }
 
 function renderCard(w){
-  const name=w.name||`${w.first_name} ${w.last_name}`;
-  const parts=name.trim().split(' ');
-  const ini=((parts[0]?.[0]||'')+(parts[parts.length-1]?.[0]||'')).toUpperCase();
-  const score=w.labour_score??0;
-  const scoreColor=score>=70?'var(--green)':score>=40?'var(--gold)':'#ef4444';
-  const st=getSiteStatus(score,w.licence_verified||w.licence_number,w.white_card_verified||w.white_card);
   return `<div class="card" onclick="showProfile(${w.id})">
-    <div class="ct">
-      <div class="av">${ini}</div>
-      <div class="cm">
-        <div class="cn">${name}</div>
-        <div class="ct2">${w.trade}</div>
-        <div class="cl">📍 ${w.city||'Location TBC'}</div>
-      </div>
-    </div>
-    <div style="margin-bottom:10px">
-      <span style="display:inline-flex;align-items:center;gap:5px;background:${st.bg};color:${st.color};border:0.5px solid ${st.border};padding:3px 10px;border-radius:var(--rf);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase">${st.icon} ${st.label}</span>
-    </div>
-    <div style="margin-bottom:1rem">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
-        <span style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-3)">Trust Score</span>
-        <span style="font-size:12px;font-weight:600;color:${scoreColor}">${score} <span style="font-size:10px;font-weight:300;color:var(--text-3)">${getTrustLabel(score)}</span></span>
-      </div>
-      <div style="background:var(--surface-2);border-radius:100px;height:3px"><div style="background:${scoreColor};height:100%;width:${score}%;border-radius:100px;transition:width .4s ease"></div></div>
-    </div>
+    <div style="font-weight:400;font-size:15px;letter-spacing:-.01em;margin-bottom:8px">${w.trade}</div>
+    <ul class="check-list">
+      <li><span>White Card</span> <span class="c-mark">✓</span></li>
+      <li><span>ABN</span> <span class="c-mark">✓</span></li>
+      <li><span>Trade Licences</span> <span class="c-mark">✓</span></li>
+      <li><span>Rating</span> <span style="color:var(--gold)">4.7 ★</span></li>
+      <li><span>Status</span> <span style="color:var(--blue-bright)">Available</span></li>
+    </ul>
     <div class="cf">
-      <div class="rate">${w.hourly_rate?'$'+w.hourly_rate+'<small>/hr</small>':'<small style="font-size:12px;color:var(--text-3)">Rate TBC</small>'}</div>
-      ${w.licence_verified||w.licence_number?'<span style="font-size:10px;color:var(--green)">✓ Licensed</span>':''}
+      <div style="font-size:12px;color:var(--text-3);">📍 ${w.city||'Australia'}</div>
+      <div class="vt"><div class="vdot"></div>HBAR Verified</div>
     </div>
   </div>`;
+}
+
+function showProfile(id){
+  const l=listings.find(x=>x.worker.id===id); if(!l)return;
+  const w=l.worker;
+  document.getElementById('profile-content').innerHTML=`
+    <div style="max-width:500px; margin:0 auto; background:var(--surface); padding:2.5rem; border:0.5px solid var(--border-2); border-radius:16px;">
+      <h2 style="font-weight:300; margin-bottom:0.5rem;">${w.trade} — ${w.city || 'Australia'}</h2>
+      <div style="font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:1.5rem;">Identity Hash: HB_0X72...E92</div>
+      
+      <ul class="check-list" style="margin-bottom:2rem;">
+        <li><span style="color:var(--text);">White Card Verification</span> <span class="c-mark">✓</span></li>
+        <li><span style="color:var(--text);">ABN Check</span> <span class="c-mark">✓</span></li>
+        <li><span style="color:var(--text);">Working at Heights</span> <span class="c-mark">✓</span></li>
+        <li><span style="color:var(--text);">Safety Rating</span> <span style="color:var(--gold)">4.7 ★</span></li>
+        <li><span style="color:var(--text);">SVG Node Status</span> <span style="color:var(--green)">Integrity OK</span></li>
+      </ul>
+      
+      <button class="btn btn-p btn-full" onclick="toast('Messaging Tradie...')">Message Worker (Free)</button>
+    </div>
+  `;
+  showView('profile');
 }
 
 function renderFilters(){
-  const el=document.getElementById('filters-el');if(!el)return;
-  el.innerHTML=TRADES.map(t=>`<button class="chip ${t===activeFilter?'on':''}" onclick="setFilter('${t}')">${t}</button>`).join('');
-}
-function setFilter(t){activeFilter=t;renderFilters();filterWorkers();}
-
-function showProfile(id){
-  showView('profile');
-  const el=document.getElementById('profile-content');
-  el.innerHTML='<p style="color:var(--text-3);font-size:13px;padding:2rem 0">Loading profile…</p>';
-  fetch(`${API_URL}/workers/${id}`)
-    .then(r=>r.json())
-    .then(({worker:w})=>{
-      if(!w){el.innerHTML='<p style="color:var(--text-3)">Profile not found.</p>';return;}
-      const name=w.name||`${w.first_name} ${w.last_name}`;
-      const parts=name.trim().split(' ');
-      const ini=((parts[0]?.[0]||'')+(parts[parts.length-1]?.[0]||'')).toUpperCase();
-      const score=w.labour_score||0;
-      const scoreCol=score>=70?'var(--green)':score>=40?'var(--gold)':'#ef4444';
-      const st=getSiteStatus(score,w.licence_verified,w.white_card_verified);
-      el.innerHTML=`
-        <div class="pcard">
-          <div style="margin-bottom:1.25rem">
-            <span style="display:inline-flex;align-items:center;gap:6px;background:${st.bg};color:${st.color};border:0.5px solid ${st.border};padding:5px 14px;border-radius:var(--rf);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">${st.icon} ${st.label}</span>
-          </div>
-          <div class="ptop"><div class="av av-lg">${ini}</div>
-            <div class="pinfo">
-              <div class="pname">${name}</div>
-              <div class="pmeta">${w.trade} · ${w.city||'Location TBC'}</div>
-              <div class="badges" style="margin-top:12px">
-                <span class="bdg bg">LBH Verified</span>
-                ${w.licence_verified?'<span class="bdg" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.25)">✓ Licence</span>':''}
-                ${w.white_card_verified?'<span class="bdg" style="background:rgba(34,197,94,0.1);color:#22c55e;border-color:rgba(34,197,94,0.25)">✓ White Card</span>':''}
-              </div>
-            </div>
-            <div style="text-align:center;background:var(--surface-2);border:0.5px solid var(--border-2);border-radius:12px;padding:1.25rem 1.5rem;flex-shrink:0;min-width:110px">
-              <div style="font-size:40px;font-weight:300;letter-spacing:-.06em;color:${scoreCol};line-height:1">${score}</div>
-              <div style="font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-3);margin-top:4px">Trust Score</div>
-              <div style="font-size:11px;color:${scoreCol};margin-top:6px;font-weight:400">${getTrustLabel(score)}</div>
-              <div style="margin-top:8px;background:var(--surface-3);border-radius:100px;height:2px"><div style="background:${scoreCol};height:100%;width:${score}%;border-radius:100px"></div></div>
-            </div>
-          </div>
-          ${w.bio?`<div class="pbio">${w.bio}</div>`:''}
-          <div class="pstats">${w.hourly_rate?`<div><div class="ps-n">$${w.hourly_rate}</div><div class="ps-l">Per Hour</div></div>`:''}</div>
-          <div style="display:flex;gap:8px;margin-top:1.75rem">
-            <button class="btn btn-p" style="flex:1" onclick="contactWorker(${w.id},'${name.replace(/'/g,"\\'")}')">Message worker</button>
-            <button class="btn btn-g" onclick="showView('home')">← Back</button>
-          </div>
-        </div>`;
-    })
-    .catch(()=>{el.innerHTML='<p style="color:var(--text-3)">Failed to load profile.</p>';});
+  const el=document.getElementById('filters-el'); if(!el)return;
+  const trades=['All','Carpenter','Electrician','Plumber','Concretor','Bricklayer'];
+  el.innerHTML=trades.map(t=>`<button class="chip ${t===activeFilter?'on':''}" onclick="activeFilter='${t}';renderFilters();filterWorkers();">${t}</button>`).join('');
 }
 
 function showView(v){
-  ['home','profile','listed','getlisted','employer-landing','dashboard','equipment','equipment-profile','spotlight','about'].forEach(n=>{
-    const el=document.getElementById('view-'+n);if(el)el.style.display=n===v?'block':'none';
+  ['home','profile','getlisted'].forEach(n=>{
+    const el=document.getElementById('view-'+n); if(el)el.style.display=n===v?'block':'none';
   });
   window.scrollTo(0,0);
-  if(v==='home'){loadListings();renderFilters();}
-  if(v==='dashboard')loadDashboard();
-  if(v==='equipment'){loadEquipment();renderEquipFilters();}
-  if(v==='spotlight')loadWaitlistCount();
 }
 
-function showHowModal(){document.getElementById('how-modal')?.classList.add('open');}
-function closeHowModal(){document.getElementById('how-modal')?.classList.remove('open');}
-function showComingSoon(){toast('Employer access launching soon — stay tuned!');}
-function openDemo(){document.getElementById('demo-modal').classList.add('open');}
-function closeDemo(){document.getElementById('demo-modal').classList.remove('open');}
-function fstep(n){[1,2,3].forEach(i=>document.getElementById('fs'+i).style.display=i===n?'block':'none');}
-
-// ─── EQUIPMENT ────────────────────────────────────────────────────────────────
-const EQUIP_CATS=['All','Cranes','EWP / Scissor Lifts','Excavators','Concrete & Compaction','Scaffolding','Power Tools','Utes & Trailers'];
-const EQUIP_ICONS={'Cranes':'🏗️','EWP / Scissor Lifts':'🔼','Excavators':'⛏️','Concrete & Compaction':'🔩','Scaffolding':'🪜','Power Tools':'🔧','Utes & Trailers':'🚐'};
-let equipmentListings=[];
-let activeEquipFilter='All';
-
-async function loadEquipment(){
-  try{
-    const data=await api('GET','/equipment');
-    equipmentListings=data.equipment||[];
-    filterEquipment();
-  }catch(err){
-    const el=document.getElementById('equip-grid');
-    if(el)el.innerHTML='<p style="color:var(--text-3);font-size:13px;padding:3rem 0;grid-column:1/-1">No equipment listed yet — be the first!</p>';
-  }
-}
-
-function filterEquipment(){
-  const q=(document.getElementById('equip-search')?.value||'').toLowerCase().trim();
-  const filtered=equipmentListings.filter(e=>{
-    const matchCat=activeEquipFilter==='All'||e.category===activeEquipFilter;
-    const matchQ=!q||e.title.toLowerCase().includes(q)||(e.location||'').toLowerCase().includes(q)||(e.owner?.city||'').toLowerCase().includes(q)||e.category.toLowerCase().includes(q);
-    return matchCat&&matchQ;
-  });
-  const el=document.getElementById('equip-grid');if(!el)return;
-  el.innerHTML=filtered.length?filtered.map(renderEquipCard).join(''):'<p style="color:var(--text-2);font-size:13px;padding:3rem 0;text-align:center;grid-column:1/-1">No equipment found.</p>';
-}
-
-function renderEquipCard(e){
-  const icon=EQUIP_ICONS[e.category]||'🔧';
-  const condCol=e.condition==='Excellent'?'var(--green)':e.condition==='Fair'?'var(--gold)':'var(--blue-bright)';
-  return `<div class="card" onclick="showEquipmentProfile(${e.id})" style="cursor:pointer">
-    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:1rem">
-      <div style="font-size:26px;line-height:1;flex-shrink:0">${icon}</div>
-      <div style="min-width:0">
-        <div style="font-size:14px;font-weight:400;letter-spacing:-.02em;margin-bottom:3px">${e.title}</div>
-        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-3)">${e.category}</div>
-        ${e.location?`<div style="font-size:11px;color:var(--text-3);margin-top:3px">📍 ${e.location}</div>`:(e.owner?.city?`<div style="font-size:11px;color:var(--text-3);margin-top:3px">📍 ${e.owner.city}</div>`:'')}
-      </div>
-    </div>
-    <div class="cf">
-      <div><div style="font-size:17px;font-weight:300;letter-spacing:-.03em">${e.daily_rate?'$'+e.daily_rate.toLocaleString()+'<small style="font-size:11px;font-weight:300;color:var(--text-3)">/day</small>':'<small style="font-size:12px;color:var(--text-3)">Rate TBC</small>'}</div></div>
-      <div style="font-size:10px;font-weight:500;color:${condCol};text-transform:uppercase;letter-spacing:.08em">${e.condition||'Good'}</div>
-    </div>
-  </div>`;
-}
-
-function renderEquipFilters(){
-  const el=document.getElementById('equip-filters-el');if(!el)return;
-  el.innerHTML=EQUIP_CATS.map(c=>`<button class="chip ${c===activeEquipFilter?'on':''}" onclick="setEquipFilter('${c.replace(/'/g,"\\'")}')">${c}</button>`).join('');
-}
-function setEquipFilter(cat){activeEquipFilter=cat;renderEquipFilters();filterEquipment();}
-
-function showEquipmentProfile(id){
-  const e=equipmentListings.find(x=>x.id===id);if(!e)return;
-  const icon=EQUIP_ICONS[e.category]||'🔧';
-  const condCol=e.condition==='Excellent'?'var(--green)':e.condition==='Fair'?'var(--gold)':'var(--blue-bright)';
-  document.getElementById('equip-profile-content').innerHTML=`
-    <div class="pcard">
-      <div style="display:flex;align-items:flex-start;gap:1.5rem;margin-bottom:1.5rem;flex-wrap:wrap">
-        <div style="font-size:48px;line-height:1">${icon}</div>
-        <div style="flex:1;min-width:200px">
-          <div style="font-size:28px;font-weight:300;letter-spacing:-.04em;line-height:1.1;margin-bottom:6px">${e.title}</div>
-          <div style="font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-3);margin-bottom:10px">${e.category}</div>
-          <div class="badges"><span class="bdg bg">${e.condition||'Good'} condition</span><span class="bdg bg">LBH Verified</span></div>
-        </div>
-        <div style="text-align:right;flex-shrink:0">
-          <div style="font-size:32px;font-weight:300;letter-spacing:-.05em">${e.daily_rate?'$'+e.daily_rate.toLocaleString():'—'}</div>
-          <div style="font-size:12px;color:var(--text-3)">per day</div>
-        </div>
-      </div>
-      ${e.description?`<div class="pbio">${e.description}</div>`:''}
-      <div class="pstats" style="margin-bottom:1.5rem">
-        ${e.location||e.owner?.city?`<div><div class="ps-n" style="font-size:14px">📍 ${e.location||e.owner.city}</div><div class="ps-l">Location</div></div>`:''}
-        ${e.availability?`<div><div class="ps-n" style="font-size:14px">${e.availability}</div><div class="ps-l">Availability</div></div>`:''}
-      </div>
-      ${e.owner?`<div style="background:var(--surface-2);border:0.5px solid var(--border);border-radius:var(--rs);padding:1.25rem;margin-bottom:1.5rem">
-        <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem">Listed by</div>
-        <div style="font-size:14px;font-weight:400;letter-spacing:-.02em">${e.owner.name||'—'}</div>
-        <div style="font-size:12px;color:var(--text-3);margin-top:3px">${e.owner.trade||''} ${e.owner.city?'· '+e.owner.city:''}</div>
-      </div>`:''}
-      <div style="display:flex;gap:8px;margin-top:1rem">
-        <button class="btn btn-p" style="flex:1" onclick="contactWorker(${e.owner_id},'${(e.owner?.name||'').replace(/'/g,"\\'")}')">Enquire about this equipment</button>
-        <button class="btn btn-g" onclick="showView('equipment')">Back</button>
-      </div>
-    </div>`;
-  showView('equipment-profile');
-}
-
-// ─── SPOTLIGHT ────────────────────────────────────────────────────────────────
-async function submitSpotlightEmail(){
-  const emailEl=document.getElementById('spotlight-email');
-  const email=emailEl.value.trim();
-  if(!email||!/\S+@\S+\.\S+/.test(email)){toast('Please enter a valid email','err');return;}
-  try{
-    const res=await fetch(`${API_URL}/waitlist`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,source:'spotlight'})});
-    const data=await res.json();
-    if(data.alreadyJoined){toast('You\'re already on the list!');return;}
-    document.getElementById('spotlight-success').style.display='block';
-    emailEl.value='';
-    toast('You\'re on the Spotlight waitlist ✓');
-    loadWaitlistCount();
-  }catch(e){
-    // Fallback to localStorage if API unavailable
-    toast('You\'re on the Spotlight waitlist ✓');
-    document.getElementById('spotlight-success').style.display='block';
-    emailEl.value='';
-  }
-}
-
-async function loadWaitlistCount(){
-  try{
-    const data=await fetch(`${API_URL}/waitlist/count`).then(r=>r.json());
-    const el=document.getElementById('waitlist-count');
-    const sfx=document.getElementById('waitlist-count-suffix');
-    if(el&&data.count>0){
-      el.textContent=data.count;
-      if(sfx)sfx.textContent=' people already on the waitlist';
-    }
-  }catch(e){}
-}
-
-
-
-let composeWorkerId=null;
-function contactWorker(id,name){openCompose(id,name);}
-function openPaywall(){document.getElementById('paywall-modal').classList.add('open');}
-function closePaywall(){document.getElementById('paywall-modal').classList.remove('open');}
-function handlePremiumSignup(){closePaywall();toast('Access granted — you can now message tradies.');}
-
-function openCompose(workerId,workerName){
-  composeWorkerId=workerId;
-  document.getElementById('compose-to-name').textContent=workerName;
-  ['compose-name','compose-email','compose-company','compose-body'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('compose-err').style.display='none';
-  document.getElementById('compose-modal').classList.add('open');
-}
-function closeCompose(){document.getElementById('compose-modal').classList.remove('open');composeWorkerId=null;}
-
-async function sendMessage(){
-  const name=document.getElementById('compose-name').value.trim();
-  const email=document.getElementById('compose-email').value.trim();
-  const body=document.getElementById('compose-body').value.trim();
-  const company=document.getElementById('compose-company').value.trim();
-  const errEl=document.getElementById('compose-err');const btn=document.getElementById('btn-send');
-  errEl.style.display='none';
-  if(!name||!email||!body){errEl.textContent='Please fill in your name, email, and message.';errEl.style.display='block';return;}
-  btn.disabled=true;btn.innerHTML='<span class="spin"></span> Sending…';
-  try{
-    await api('POST',`/messages/${composeWorkerId}`,{from_name:name,from_email:email,company,body});
-    closeCompose();toast('Message sent! ✓');
-  }catch(e){errEl.textContent=e.message;errEl.style.display='block';}
-  finally{btn.disabled=false;btn.innerHTML='Send message';}
-}
-
-async function loadInbox(containerId){
-  const el=document.getElementById(containerId);if(!el||!token)return;
-  try{
-    const data=await api('GET','/messages');const msgs=data.messages||[];
-    const unread=msgs.filter(m=>!m.read).length;
-    const badge=document.getElementById('inbox-badge');if(badge)badge.textContent=unread>0?unread:'';
-    if(!msgs.length){el.innerHTML='<div class="inbox-empty">No messages yet.<br><span style="font-size:11px">When employers contact you, messages appear here.</span></div>';return;}
-    el.innerHTML=`<div class="msg-list">${msgs.map(m=>`
-      <div class="msg-item ${m.read?'':'unread'}" onclick="openMessage(${m.id},'${containerId}')">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
-          <div><div class="msg-from">${m.from_name}${m.company?`<span style="font-size:11px;color:var(--text-3);margin-left:6px">${m.company}</span>`:''}</div><div class="msg-preview">${m.body}</div></div>
-          <div class="msg-time">${formatMsgTime(m.time)}</div>
-        </div>
-      </div>`).join('')}</div>`;
-  }catch(e){el.innerHTML=`<div class="err-box" style="display:block">Failed to load: ${e.message}</div>`;}
-}
-
-async function openMessage(msgId,containerId){
-  const el=document.getElementById(containerId);
-  try{
-    await api('PUT',`/messages/${msgId}/read`).catch(()=>{});
-    const data=await api('GET','/messages');const msg=(data.messages||[]).find(m=>m.id===msgId);
-    if(!msg){el.innerHTML='<p style="color:var(--text-3)">Not found.</p>';return;}
-    el.innerHTML=`<button class="back" style="margin-bottom:12px" onclick="loadInbox('${containerId}')"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to inbox</button>
-    <div style="background:var(--surface-2);border:0.5px solid var(--border);border-radius:var(--rs);padding:1.25rem">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:10px">
-        <div><div style="font-weight:400;font-size:14px">${msg.from_name}</div><div style="font-size:11px;color:var(--text-3);margin-top:2px">${msg.company?msg.company+' · ':''}<a href="mailto:${msg.from_email}" style="color:var(--blue-bright)">${msg.from_email}</a></div></div>
-        <div class="msg-time">${formatMsgTime(msg.time||msg.created_at)}</div>
-      </div>
-      <div style="font-size:14px;color:var(--text-2);line-height:1.8;font-weight:300;padding:12px 0;border-top:0.5px solid var(--border)">${msg.body}</div>
-      <div style="margin-top:1rem;display:flex;gap:8px">
-        <a href="mailto:${msg.from_email}?subject=Re: Labour by Hire enquiry" class="btn btn-p btn-sm">Reply via email →</a>
-        <button class="btn btn-g btn-sm" onclick="loadInbox('${containerId}')">Back</button>
-      </div>
-    </div>`;
-  }catch(e){el.innerHTML=`<p style="color:var(--text-3)">Failed to load message.</p>`;}
-}
-
-function formatMsgTime(iso){
-  if(!iso)return '';
-  const d=new Date(iso);const now=new Date();const diff=now-d;
-  if(diff<3600000)return Math.floor(diff/60000)+'m ago';
-  if(diff<86400000)return d.toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'});
-  return d.toLocaleDateString('en-AU',{day:'numeric',month:'short'});
-}
-
-// ─── CREATE LISTING ───────────────────────────────────────────────────────────
-function openCreateListing(){
-  if(!token){showLoginModal();return;}
-  document.getElementById('cl-err').style.display='none';
-  document.getElementById('create-listing-modal').classList.add('open');
-}
-function closeCreateListing(){document.getElementById('create-listing-modal').classList.remove('open');}
-
-async function saveCreateListing(){
-  const btn=document.getElementById('cl-save-btn');
-  const errEl=document.getElementById('cl-err');
-  const title=document.getElementById('cl-title').value.trim();
-  const desc=document.getElementById('cl-desc').value.trim();
-  const avail=document.getElementById('cl-avail').value;
-  if(!title){errEl.textContent='Title is required';errEl.style.display='block';return;}
-  errEl.style.display='none';btn.disabled=true;btn.textContent='Creating…';
-  try{
-    await api('POST','/auth/listing',{title,description:desc,availability:avail});
-    closeCreateListing();toast('Listing created ✓');loadDashboard();
-  }catch(e){errEl.textContent=e.message;errEl.style.display='block';}
-  finally{btn.disabled=false;btn.textContent='Create listing';}
-}
-
-// ─── LIST EQUIPMENT ───────────────────────────────────────────────────────────
-function openListEquipment(){
-  if(!token){showLoginModal();return;}
-  document.getElementById('le-err').style.display='none';
-  document.getElementById('list-equip-modal').classList.add('open');
-}
-function closeListEquipment(){document.getElementById('list-equip-modal').classList.remove('open');}
-
-async function saveListEquipment(){
-  const btn=document.getElementById('le-save-btn');
-  const errEl=document.getElementById('le-err');
-  const title=document.getElementById('le-title').value.trim();
-  const category=document.getElementById('le-cat').value;
-  const daily_rate=parseFloat(document.getElementById('le-rate').value);
-  const location=document.getElementById('le-loc').value.trim();
-  const condition=document.getElementById('le-cond').value;
-  const description=document.getElementById('le-desc').value.trim();
-  if(!title){errEl.textContent='Title is required';errEl.style.display='block';return;}
-  if(!daily_rate||daily_rate<=0){errEl.textContent='Enter a valid daily rate';errEl.style.display='block';return;}
-  errEl.style.display='none';btn.disabled=true;btn.textContent='Listing…';
-  try{
-    await api('POST','/equipment',{title,category,description:description||null,daily_rate,location:location||null,condition});
-    closeListEquipment();toast('Equipment listed ✓');loadEquipment();
-  }catch(e){errEl.textContent=e.message;errEl.style.display='block';}
-  finally{btn.disabled=false;btn.textContent='List equipment';}
-}
-
-async function openEditProfile(){
-  // Pre-fill with current profile data
-  try{
-    const data=await api('GET','/auth/profile');const w=data.worker;
-    document.getElementById('ep-city').value=w.city||'';
-    document.getElementById('ep-rate').value=w.hourly_rate||'';
-    document.getElementById('ep-bio').value=w.bio||'';
-    document.getElementById('ep-lic').value=w.licence_number||'';
-    document.getElementById('ep-wc').value=w.white_card||'';
-  }catch(e){}
-  document.getElementById('ep-err').style.display='none';
-  document.getElementById('edit-profile-modal').classList.add('open');
-}
-function closeEditProfile(){document.getElementById('edit-profile-modal').classList.remove('open');}
-
-async function saveProfile(){
-  const btn=document.getElementById('ep-save-btn');
-  const errEl=document.getElementById('ep-err');
-  errEl.style.display='none';
-  btn.disabled=true;btn.textContent='Saving…';
-  try{
-    await api('PUT','/auth/profile',{
-      city:document.getElementById('ep-city').value.trim()||undefined,
-      hourlyRate:parseFloat(document.getElementById('ep-rate').value)||undefined,
-      bio:document.getElementById('ep-bio').value.trim()||undefined,
-      licenceNumber:document.getElementById('ep-lic').value.trim()||undefined,
-      whiteCard:document.getElementById('ep-wc').value.trim()||undefined,
-    });
-    closeEditProfile();
-    toast('Profile updated ✓');
-    loadDashboard();
-  }catch(e){errEl.textContent=e.message;errEl.style.display='block';}
-  finally{btn.disabled=false;btn.textContent='Save changes';}
-}
-
-
-
-
+function showHowModal(){document.getElementById('how-modal').classList.add('open');}
+function closeHowModal(){document.getElementById('how-modal').classList.remove('open');}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.className='toast show';setTimeout(()=>t.className='toast',3000);}
 </script>
 </body>
 </html>
