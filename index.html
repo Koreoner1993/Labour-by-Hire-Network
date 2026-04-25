@@ -1095,52 +1095,46 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
 
 <!-- ══════════════ HBAR VIEW ══════════════ -->
 <div id="view-hbar" style="display:none">
-  <div class="hero-wrap">
-    <div class="hero-bg"></div>
-    <div class="hero-inner">
-      <div class="hero-badge"><span></span>LBH Verified Network · Australia</div>
-      <h1 class="hero h1">The Construction ID<br><em>Network</em></h1>
-      <p>Credential proofs anchored via HBAR tokenized SVG identity. Built for Employers and Clients who value secure verification.</p>
-      <div class="hero-btns">
-        <button class="btn btn-p btn-lg" onclick="document.getElementById('browse-hbar-sec').scrollIntoView({behavior:'smooth'})">Browse tradies</button>
-        <button class="btn btn-o btn-lg" onclick="showView('getlisted')">Get listed →</button>
+  <div id="hbar-browse" style="display:block">
+    <div class="hero-wrap">
+      <div class="hero-bg"></div>
+      <div class="hero-inner">
+        <div class="hero-badge"><span></span>LBH Verified Network · Australia</div>
+        <h1 class="hero h1">The Construction ID<br><em>Network</em></h1>
+        <p>Credential proofs anchored via HBAR tokenized SVG identity. Built for Employers and Clients who value secure verification.</p>
+        <div class="hero-btns">
+          <button class="btn btn-p btn-lg" onclick="document.getElementById('browse-hbar-sec').scrollIntoView({behavior:'smooth'})">Browse tradies</button>
+          <button class="btn btn-o btn-lg" onclick="showView('getlisted')">Get listed →</button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="stats">
-    <div class="stat"><div class="stat-n c-blue" id="stat-hbar-workers">0</div><div class="stat-l">Verified Tradies</div></div>
-    <div class="stat"><div class="stat-n">HBAR</div><div class="stat-l">Network Anchor</div></div>
-    <div class="stat"><div class="stat-n">ZK Proof</div><div class="stat-l">Privacy-First</div></div>
-    <div class="stat"><div class="stat-n">98%</div><div class="stat-l">Reputation Score</div></div>
-  </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-n c-blue" id="stat-hbar-workers">0</div><div class="stat-l">Verified Tradies</div></div>
+      <div class="stat"><div class="stat-n">HBAR</div><div class="stat-l">Network Anchor</div></div>
+      <div class="stat"><div class="stat-n">ZK Proof</div><div class="stat-l">Privacy-First</div></div>
+      <div class="stat"><div class="stat-n">98%</div><div class="stat-l">Reputation Score</div></div>
+    </div>
 
-  <div class="wrap">
-    <div id="browse-hbar-sec" style="padding:6rem 0;">
-      <div class="sh">
-        <div>
-          <h2>Browse verified workers</h2>
-          <div class="sh-sub">Only verified credentials visible. No personal info.</div>
+    <div class="wrap">
+      <div id="browse-hbar-sec" style="padding:6rem 0;">
+        <div class="sh">
+          <div>
+            <h2>Browse verified workers</h2>
+            <div class="sh-sub">Only verified credentials visible. No personal info.</div>
+          </div>
+          <input class="si" id="hbar-search-input" placeholder="Trade or city…" oninput="filterHbarWorkers()">
         </div>
-        <input class="si" id="hbar-search-input" placeholder="Trade or city…" oninput="filterHbarWorkers()">
+        <div class="filters" id="hbar-filters-el"></div>
+        <div class="grid" id="hbar-workers-grid"><p style="color:var(--text-3);font-size:13px;padding:3rem 0">Loading workers…</p></div>
       </div>
-      <div class="filters" id="hbar-filters-el"></div>
-      <div class="grid" id="hbar-workers-grid"><p style="color:var(--text-3);font-size:13px;padding:3rem 0">Loading workers…</p></div>
     </div>
   </div>
 
   <div id="hbar-profile" style="display:none">
     <div class="wrap" style="padding-top:2.5rem;padding-bottom:5rem">
-      <button class="back" onclick="showView('hbar')">← Back to browse</button>
+      <button class="back" onclick="document.getElementById('hbar-browse').style.display='block';document.getElementById('hbar-profile').style.display='none';window.scrollTo(0,0)">← Back to browse</button>
       <div id="hbar-profile-content"></div>
-    </div>
-  </div>
-
-  <div id="hbar-getlisted" style="display:none">
-    <div class="wrap" style="padding-top:3rem;text-align:center">
-      <h1 style="font-size:clamp(38px,5vw,68px);font-weight:300;margin-bottom:1.5rem">Your HBAR Construction ID</h1>
-      <p style="max-width:520px;margin:0 auto 2rem;color:var(--text-2)">The logo is your framework. Each SVG node stores your ABN, White Card, and tickets on the Hedera ledger. Tamper-proof and privacy-safe.</p>
-      <button class="btn btn-p btn-lg" onclick="toast('Registration opening soon')">Create My ID Now →</button>
     </div>
   </div>
 </div>
@@ -1471,6 +1465,10 @@ function showView(v){
   ['home','profile','listed','getlisted','employer-landing','dashboard','equipment','equipment-profile','spotlight','about','hbar'].forEach(n=>{
     const el=document.getElementById('view-'+n);if(el)el.style.display=n===v?'block':'none';
   });
+  if(v==='hbar'){
+    document.getElementById('hbar-browse').style.display='block';
+    document.getElementById('hbar-profile').style.display='none';
+  }
   window.scrollTo(0,0);
   if(v==='home'){loadListings();renderFilters();}
   if(v==='dashboard')loadDashboard();
@@ -1493,11 +1491,17 @@ let hbarActiveFilter='All';
 async function loadHbarListings(){
   try {
     const res = await fetch(`${API_URL}/listings`);
+    if(!res.ok) throw new Error('Failed to load listings');
     const data = await res.json();
     hbarListings = data.listings || [];
-    document.getElementById('stat-hbar-workers').textContent = hbarListings.length;
+    const workerEl=document.getElementById('stat-hbar-workers');
+    if(workerEl) workerEl.textContent = hbarListings.length;
     filterHbarWorkers();
-  } catch(e) { console.log(e); }
+  } catch(e) {
+    console.error('HBAR listings error:', e);
+    const gridEl=document.getElementById('hbar-workers-grid');
+    if(gridEl) gridEl.innerHTML='<p style="color:var(--text-3);font-size:13px;padding:3rem 0">Error loading workers. Please try again.</p>';
+  }
 }
 
 function filterHbarWorkers(){
@@ -1544,8 +1548,8 @@ function showHbarProfile(id){
       <button class="btn btn-p btn-full" onclick="toast('Messaging Tradie...')">Message Worker (Free)</button>
     </div>
   `;
+  document.getElementById('hbar-browse').style.display='none';
   document.getElementById('hbar-profile').style.display='block';
-  document.getElementById('browse-hbar-sec').style.display='none';
   window.scrollTo(0,0);
 }
 
