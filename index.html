@@ -336,6 +336,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
     <div id="role-badge" style="display:none;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:var(--rf);margin-left:4px"></div>
     <div class="nav-links">
       <button class="nl" onclick="showView('home')">Find Workers</button>
+      <button class="nl" onclick="showView('hbar')">HBAR Network</button>
     </div>
     <div class="nr">
       <div id="nav-signin" style="display:flex;gap:6px">
@@ -1092,6 +1093,57 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
   </div>
 </div>
 
+<!-- ══════════════ HBAR VIEW ══════════════ -->
+<div id="view-hbar" style="display:none">
+  <div class="hero-wrap">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <div class="hero-badge"><span></span>LBH Verified Network · Australia</div>
+      <h1 class="hero h1">The Construction ID<br><em>Network</em></h1>
+      <p>Credential proofs anchored via HBAR tokenized SVG identity. Built for Employers and Clients who value secure verification.</p>
+      <div class="hero-btns">
+        <button class="btn btn-p btn-lg" onclick="document.getElementById('browse-hbar-sec').scrollIntoView({behavior:'smooth'})">Browse tradies</button>
+        <button class="btn btn-o btn-lg" onclick="showView('getlisted')">Get listed →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-n c-blue" id="stat-hbar-workers">0</div><div class="stat-l">Verified Tradies</div></div>
+    <div class="stat"><div class="stat-n">HBAR</div><div class="stat-l">Network Anchor</div></div>
+    <div class="stat"><div class="stat-n">ZK Proof</div><div class="stat-l">Privacy-First</div></div>
+    <div class="stat"><div class="stat-n">98%</div><div class="stat-l">Reputation Score</div></div>
+  </div>
+
+  <div class="wrap">
+    <div id="browse-hbar-sec" style="padding:6rem 0;">
+      <div class="sh">
+        <div>
+          <h2>Browse verified workers</h2>
+          <div class="sh-sub">Only verified credentials visible. No personal info.</div>
+        </div>
+        <input class="si" id="hbar-search-input" placeholder="Trade or city…" oninput="filterHbarWorkers()">
+      </div>
+      <div class="filters" id="hbar-filters-el"></div>
+      <div class="grid" id="hbar-workers-grid"><p style="color:var(--text-3);font-size:13px;padding:3rem 0">Loading workers…</p></div>
+    </div>
+  </div>
+
+  <div id="hbar-profile" style="display:none">
+    <div class="wrap" style="padding-top:2.5rem;padding-bottom:5rem">
+      <button class="back" onclick="showView('hbar')">← Back to browse</button>
+      <div id="hbar-profile-content"></div>
+    </div>
+  </div>
+
+  <div id="hbar-getlisted" style="display:none">
+    <div class="wrap" style="padding-top:3rem;text-align:center">
+      <h1 style="font-size:clamp(38px,5vw,68px);font-weight:300;margin-bottom:1.5rem">Your HBAR Construction ID</h1>
+      <p style="max-width:520px;margin:0 auto 2rem;color:var(--text-2)">The logo is your framework. Each SVG node stores your ABN, White Card, and tickets on the Hedera ledger. Tamper-proof and privacy-safe.</p>
+      <button class="btn btn-p btn-lg" onclick="toast('Registration opening soon')">Create My ID Now →</button>
+    </div>
+  </div>
+</div>
 
 <footer>
   <div class="wrap">
@@ -1416,7 +1468,7 @@ function showProfile(id){
 }
 
 function showView(v){
-  ['home','profile','listed','getlisted','employer-landing','dashboard','equipment','equipment-profile','spotlight','about'].forEach(n=>{
+  ['home','profile','listed','getlisted','employer-landing','dashboard','equipment','equipment-profile','spotlight','about','hbar'].forEach(n=>{
     const el=document.getElementById('view-'+n);if(el)el.style.display=n===v?'block':'none';
   });
   window.scrollTo(0,0);
@@ -1424,6 +1476,7 @@ function showView(v){
   if(v==='dashboard')loadDashboard();
   if(v==='equipment'){loadEquipment();renderEquipFilters();}
   if(v==='spotlight')loadWaitlistCount();
+  if(v==='hbar'){loadHbarListings();renderHbarFilters();}
 }
 
 function showHowModal(){document.getElementById('how-modal')?.classList.add('open');}
@@ -1432,6 +1485,75 @@ function showComingSoon(){toast('Employer access launching soon — stay tuned!'
 function openDemo(){document.getElementById('demo-modal').classList.add('open');}
 function closeDemo(){document.getElementById('demo-modal').classList.remove('open');}
 function fstep(n){[1,2,3].forEach(i=>document.getElementById('fs'+i).style.display=i===n?'block':'none');}
+
+// ─── HBAR VIEW ────────────────────────────────────────────────────────────────
+let hbarListings=[];
+let hbarActiveFilter='All';
+
+async function loadHbarListings(){
+  try {
+    const res = await fetch(`${API_URL}/listings`);
+    const data = await res.json();
+    hbarListings = data.listings || [];
+    document.getElementById('stat-hbar-workers').textContent = hbarListings.length;
+    filterHbarWorkers();
+  } catch(e) { console.log(e); }
+}
+
+function filterHbarWorkers(){
+  const q=(document.getElementById('hbar-search-input')?.value||'').toLowerCase().trim();
+  const filtered=hbarListings.filter(l=>{
+    const w=l.worker;
+    return (hbarActiveFilter==='All'||w.trade===hbarActiveFilter)&&(!q||w.trade.toLowerCase().includes(q)||(w.city||'').toLowerCase().includes(q));
+  });
+  const el=document.getElementById('hbar-workers-grid'); if(!el)return;
+  el.innerHTML=filtered.map(l=>renderHbarCard(l.worker)).join('');
+}
+
+function renderHbarCard(w){
+  return `<div class="card" onclick="showHbarProfile(${w.id})">
+    <div style="font-weight:400;font-size:15px;letter-spacing:-.01em;margin-bottom:8px">${w.trade}</div>
+    <ul class="check-list">
+      <li><span>White Card</span> <span class="c-mark">✓</span></li>
+      <li><span>ABN</span> <span class="c-mark">✓</span></li>
+      <li><span>Trade Licences</span> <span class="c-mark">✓</span></li>
+      <li><span>Rating</span> <span style="color:var(--gold)">4.7 ★</span></li>
+      <li><span>Status</span> <span style="color:var(--blue-bright)">Available</span></li>
+    </ul>
+    <div class="cf">
+      <div style="font-size:12px;color:var(--text-3);">📍 ${w.city||'Australia'}</div>
+      <div class="vt"><div class="vdot"></div>HBAR Verified</div>
+    </div>
+  </div>`;
+}
+
+function showHbarProfile(id){
+  const l=hbarListings.find(x=>x.worker.id===id); if(!l)return;
+  const w=l.worker;
+  document.getElementById('hbar-profile-content').innerHTML=`
+    <div style="max-width:500px; margin:0 auto; background:var(--surface); padding:2.5rem; border:0.5px solid var(--border-2); border-radius:16px;">
+      <h2 style="font-weight:300; margin-bottom:0.5rem;">${w.trade} — ${w.city || 'Australia'}</h2>
+      <div style="font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:1.5rem;">Identity Hash: HB_0X72...E92</div>
+      <ul class="check-list" style="margin-bottom:2rem;">
+        <li><span style="color:var(--text);">White Card Verification</span> <span class="c-mark">✓</span></li>
+        <li><span style="color:var(--text);">ABN Check</span> <span class="c-mark">✓</span></li>
+        <li><span style="color:var(--text);">Working at Heights</span> <span class="c-mark">✓</span></li>
+        <li><span style="color:var(--text);">Safety Rating</span> <span style="color:var(--gold)">4.7 ★</span></li>
+        <li><span style="color:var(--text);">SVG Node Status</span> <span style="color:var(--green)">Integrity OK</span></li>
+      </ul>
+      <button class="btn btn-p btn-full" onclick="toast('Messaging Tradie...')">Message Worker (Free)</button>
+    </div>
+  `;
+  document.getElementById('hbar-profile').style.display='block';
+  document.getElementById('browse-hbar-sec').style.display='none';
+  window.scrollTo(0,0);
+}
+
+function renderHbarFilters(){
+  const el=document.getElementById('hbar-filters-el'); if(!el)return;
+  const trades=['All','Carpenter','Electrician','Plumber','Concretor','Bricklayer'];
+  el.innerHTML=trades.map(t=>`<button class="chip ${t===hbarActiveFilter?'on':''}" onclick="hbarActiveFilter='${t}';renderHbarFilters();filterHbarWorkers();">${t}</button>`).join('');
+}
 
 // ─── EQUIPMENT ────────────────────────────────────────────────────────────────
 const EQUIP_CATS=['All','Cranes','EWP / Scissor Lifts','Excavators','Concrete & Compaction','Scaffolding','Power Tools','Utes & Trailers'];
