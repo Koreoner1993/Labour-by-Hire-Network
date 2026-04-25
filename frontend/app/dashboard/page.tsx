@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
 import { api } from '@/lib/api';
-import type { Worker, Listing, Message } from '@/lib/types';
+import type { Worker, Listing, Message, Equipment } from '@/lib/types';
 import { Avatar } from '@/components/workers/WorkerCard';
 import TrustScoreBar from '@/components/ui/TrustScoreBar';
 import SiteStatusBadge from '@/components/ui/SiteStatusBadge';
@@ -13,6 +13,7 @@ import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import EditProfileModal from '@/components/modals/EditProfileModal';
 import CreateListingModal from '@/components/modals/CreateListingModal';
+import ListEquipmentModal from '@/components/modals/ListEquipmentModal';
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -22,9 +23,11 @@ export default function DashboardPage() {
   const [worker, setWorker] = useState<Worker | null>(null);
   const [listing, setListing] = useState<Listing | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
+  const [myEquipment, setMyEquipment] = useState<Equipment[]>([]);
   const [fetching, setFetching] = useState(true);
   const [editOpen, setEditOpen] = useState(false);
   const [listingOpen, setListingOpen] = useState(false);
+  const [equipOpen, setEquipOpen] = useState(false);
 
   useEffect(() => {
     if (!isLoading && !token) router.replace('/get-listed');
@@ -34,13 +37,15 @@ export default function DashboardPage() {
     if (!token) return;
     (async () => {
       try {
-        const [profile, inbox] = await Promise.all([
+        const [profile, inbox, equip] = await Promise.all([
           api<{ worker: Worker; listing: Listing | null }>('GET', '/api/auth/profile', undefined, token),
           api<{ messages: Message[] }>('GET', '/api/messages', undefined, token),
+          api<{ equipment: Equipment[] }>('GET', '/api/equipment', undefined, token),
         ]);
         setWorker(profile.worker);
         setListing(profile.listing);
         setMessages(inbox.messages);
+        setMyEquipment((equip.equipment ?? []).filter((e) => e.owner_id === profile.worker.id));
       } catch {
         toast('Failed to load dashboard', 'err');
       } finally {
@@ -152,6 +157,37 @@ export default function DashboardPage() {
         )}
       </div>
 
+      {/* Equipment */}
+      <div className="bg-surface border border-[rgba(255,255,255,0.08)] rounded-2xl p-6 mb-4">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-xs font-medium uppercase tracking-widest text-text-3">Your equipment</h3>
+          <Button size="sm" variant="secondary" onClick={() => setEquipOpen(true)}>
+            List equipment
+          </Button>
+        </div>
+
+        {myEquipment.length === 0 ? (
+          <p className="text-sm text-text-3 font-light">
+            No equipment listed. Add tools, machinery, or vehicles you hire out to other tradies.
+          </p>
+        ) : (
+          <div className="flex flex-col gap-3">
+            {myEquipment.map((item) => (
+              <div key={item.id} className="flex items-center justify-between gap-3 py-2 border-b border-[rgba(255,255,255,0.06)] last:border-0">
+                <div className="min-w-0">
+                  <p className="text-sm font-medium text-text truncate">{item.title}</p>
+                  <p className="text-xs text-text-3">{item.category} · {item.location || '—'}</p>
+                </div>
+                <div className="text-right shrink-0">
+                  <div className="text-sm font-light text-text">${item.daily_rate}/day</div>
+                  <div className="text-[10px] text-green">{item.availability || 'Available'}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
       {/* Inbox */}
       <div className="bg-surface border border-[rgba(255,255,255,0.08)] rounded-2xl p-6">
         <div className="flex items-center justify-between mb-4">
@@ -210,6 +246,11 @@ export default function DashboardPage() {
         onClose={() => setListingOpen(false)}
         existing={listing}
         onSaved={(l) => setListing(l)}
+      />
+      <ListEquipmentModal
+        open={equipOpen}
+        onClose={() => setEquipOpen(false)}
+        onCreated={(item) => setMyEquipment((prev) => [item, ...prev])}
       />
     </div>
   );
