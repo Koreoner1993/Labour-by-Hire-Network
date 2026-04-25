@@ -1133,7 +1133,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
 
   <div id="hbar-profile" style="display:none">
     <div class="wrap" style="padding-top:2.5rem;padding-bottom:5rem">
-      <button class="back" onclick="document.getElementById('hbar-browse').style.display='block';document.getElementById('hbar-profile').style.display='none';window.scrollTo(0,0)">← Back to browse</button>
+      <button class="back" onclick="backToHbarBrowse()">← Back to browse</button>
       <div id="hbar-profile-content"></div>
     </div>
   </div>
@@ -1557,6 +1557,12 @@ function renderHbarFilters(){
   const el=document.getElementById('hbar-filters-el'); if(!el)return;
   const trades=['All','Carpenter','Electrician','Plumber','Concretor','Bricklayer'];
   el.innerHTML=trades.map(t=>`<button class="chip ${t===hbarActiveFilter?'on':''}" onclick="hbarActiveFilter='${t}';renderHbarFilters();filterHbarWorkers();">${t}</button>`).join('');
+}
+
+function backToHbarBrowse(){
+  document.getElementById('hbar-browse').style.display='block';
+  document.getElementById('hbar-profile').style.display='none';
+  window.scrollTo(0,0);
 }
 
 // ─── EQUIPMENT ────────────────────────────────────────────────────────────────
