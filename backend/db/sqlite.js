@@ -23,12 +23,6 @@ db.exec(`
     white_card TEXT,
     wallet_address TEXT,
     labour_score INTEGER DEFAULT 0,
-    verification_hash TEXT,
-    hedera_token_id TEXT,
-    hedera_serial INTEGER,
-    hedera_tx_id TEXT,
-    badge_metadata_uri TEXT,
-    badge_svg_uri TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
   );
@@ -129,12 +123,6 @@ const newWorkerColumns = [
   "ALTER TABLE workers ADD COLUMN white_card TEXT",
   "ALTER TABLE workers ADD COLUMN wallet_address TEXT",
   "ALTER TABLE workers ADD COLUMN labour_score INTEGER DEFAULT 0",
-  "ALTER TABLE workers ADD COLUMN verification_hash TEXT",
-  "ALTER TABLE workers ADD COLUMN hedera_token_id TEXT",
-  "ALTER TABLE workers ADD COLUMN hedera_serial INTEGER",
-  "ALTER TABLE workers ADD COLUMN hedera_tx_id TEXT",
-  "ALTER TABLE workers ADD COLUMN badge_metadata_uri TEXT",
-  "ALTER TABLE workers ADD COLUMN badge_svg_uri TEXT",
 ];
 for (const sql of newWorkerColumns) {
   try { db.exec(sql); } catch (_) { /* column already exists */ }

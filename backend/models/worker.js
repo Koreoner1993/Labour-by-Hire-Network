@@ -47,27 +47,6 @@ const Worker = {
     }
   },
 
-  // Save Hedera mint result back to worker record
-  saveHederaResult: async (id, { verificationHash, tokenId, serial, txId, metadataUri, svgUri }) => {
-    try {
-      const stmt = db.prepare(`
-        UPDATE workers SET
-          verification_hash = ?,
-          hedera_token_id = ?,
-          hedera_serial = ?,
-          hedera_tx_id = ?,
-          badge_metadata_uri = ?,
-          badge_svg_uri = ?,
-          updated_at = CURRENT_TIMESTAMP
-        WHERE id = ?
-      `);
-      stmt.run(verificationHash, tokenId, serial, txId, metadataUri, svgUri, id);
-      return Worker.findById(id);
-    } catch (error) {
-      throw new Error(`Failed to save Hedera result: ${error.message}`);
-    }
-  },
-
   // Update worker
   update: async (id, updates) => {
     try {
