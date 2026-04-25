@@ -23,8 +23,7 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',system-ui
 .nav{position:sticky;top:0;z-index:100;background:rgba(5,5,7,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:0.5px solid var(--border)}
 .nav-i{display:flex;align-items:center;max-width:1200px;margin:0 auto;padding:0 2.5rem;height:52px;gap:0.5rem}
 .logo{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:500;color:var(--text);text-decoration:none;cursor:pointer;margin-right:1rem;letter-spacing:-.01em}
-.logo-mark{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
-.logo-mark img {width:100%;height:100%;object-fit:cover;}
+.logo-mark{width:26px;height:26px;border-radius:7px;background:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .nl{font-size:13px;color:var(--text-2);padding:6px 12px;border-radius:var(--rs);cursor:pointer;border:none;background:none;font-family:inherit;letter-spacing:-.01em;transition:color .15s}
 .nl:hover{color:var(--text)}
 .nav-links{display:flex;align-items:center}
@@ -117,12 +116,6 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',system-ui
 .vt{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--green);text-transform:uppercase;letter-spacing:.08em}
 .vdot{width:4px;height:4px;border-radius:50%;background:var(--green);flex-shrink:0}
 
-/* ── CHECKS LIST (Employer View) ── */
-.check-list {list-style:none; padding:12px 0; margin:12px 0; border-top:0.5px solid var(--border); border-bottom:0.5px solid var(--border); font-size:12px; color:var(--text-2);}
-.check-list li {display:flex; justify-content:space-between; margin-bottom:6px;}
-.check-list li:last-child {margin-bottom:0;}
-.check-list .c-mark {color:var(--green); font-weight:500;}
-
 /* ── IMAGE STRIP (between stats and browse) ── */
 .img-strip{display:grid;grid-template-columns:2fr 1fr 1fr;height:340px;gap:1px;background:var(--border);margin-bottom:6rem}
 .img-strip-cell{overflow:hidden;position:relative}
@@ -163,7 +156,7 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',system-ui
 .img-break-overlay h2{font-size:clamp(28px,4vw,52px);font-weight:300;letter-spacing:-.05em;margin-bottom:1rem}
 .img-break-overlay p{font-size:15px;color:var(--text-2);max-width:420px;line-height:1.75;font-weight:300;margin-bottom:2rem}
 
-/* ── WALLET / HEDERA ID ── */
+/* ── MIDNIGHT WALLET ── */
 .wallet-card{background:var(--surface-2);border:0.5px solid rgba(120,80,255,0.15);border-radius:var(--r);padding:1.25rem;margin-top:1rem}
 .wallet-addr{font-family:'DM Mono',monospace;font-size:10px;color:rgba(160,120,255,0.8);word-break:break-all;background:rgba(120,80,255,0.05);padding:8px 10px;border-radius:var(--rs);margin:8px 0;border:0.5px solid rgba(120,80,255,0.15)}
 .zk-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(120,80,255,0.08);color:#a78bfa;border:0.5px solid rgba(120,80,255,0.2);padding:3px 10px;border-radius:var(--rf);font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
@@ -238,8 +231,7 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',system-ui
 .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.92);z-index:1000;display:none;align-items:center;justify-content:center;padding:1rem}
 .modal-overlay.open{display:flex}
 .modal-box{background:var(--surface);border:0.5px solid var(--border-2);border-radius:20px;padding:2.25rem;max-width:400px;width:100%;text-align:center;position:relative}
-.modal-icon{width:56px;height:56px;border-radius:50%;overflow:hidden;background:transparent;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;}
-.modal-icon img {width:100%;height:100%;object-fit:cover;}
+.modal-icon{width:56px;height:56px;border-radius:50%;background:rgba(240,165,0,0.08);border:0.5px solid rgba(240,165,0,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:24px}
 .modal-title{font-size:24px;font-weight:300;letter-spacing:-.04em;margin-bottom:8px}
 .modal-sub{font-size:13px;color:var(--text-2);line-height:1.75;margin-bottom:1.5rem;font-weight:300}
 .modal-feats{text-align:left;background:var(--surface-2);border-radius:var(--rs);padding:1rem;margin-bottom:1.5rem;list-style:none;border:0.5px solid var(--border)}
@@ -303,11 +295,12 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
 </head>
 <body>
 
+<!-- ══════════════ ROLE SPLASH ══════════════ -->
 <div id="role-splash">
   <div class="splash-bg"></div>
   <div style="position:relative;z-index:1;text-align:center;margin-bottom:3.5rem">
-    <div style="width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;overflow:hidden">
-      <img src="https://uploads.onecompiler.io/446jf6qg8/44a5db7tw/98e7fa89-afa2-475e-8e82-60d7bb5892a3.jpg" alt="LBH Logo" style="width:100%;height:100%;object-fit:cover;">
+    <div style="width:36px;height:36px;border-radius:10px;background:var(--blue);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem">
+      <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="2.5" fill="#fff"/><ellipse cx="10" cy="10" rx="8.5" ry="3.5" stroke="#fff" stroke-width="1.2" fill="none"/><ellipse cx="10" cy="10" rx="8.5" ry="3.5" stroke="#fff" stroke-width="1.2" fill="none" transform="rotate(60 10 10)"/><ellipse cx="10" cy="10" rx="8.5" ry="3.5" stroke="#fff" stroke-width="1.2" fill="none" transform="rotate(120 10 10)"/></svg>
     </div>
     <div style="font-size:11px;color:var(--text-3);letter-spacing:.14em;text-transform:uppercase;margin-bottom:.75rem">Labour by Hire</div>
     <h1 style="font-size:clamp(32px,5vw,52px);font-weight:300;letter-spacing:-.04em;line-height:1.1;margin-bottom:.75rem">Who are you?</h1>
@@ -330,13 +323,15 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
   <button onclick="selectRole('browse')" style="position:relative;z-index:1;margin-top:2rem;background:none;border:none;font-family:inherit;font-size:12px;color:var(--text-3);cursor:pointer;padding:8px;letter-spacing:.02em">Just browsing</button>
 </div>
 
+<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
+<!-- ══════════════ NAV ══════════════ -->
 <nav class="nav">
   <div class="nav-i">
     <div class="logo" onclick="showView('home')">
       <div class="logo-mark">
-        <img src="https://uploads.onecompiler.io/446jf6qg8/44a5db7tw/98e7fa89-afa2-475e-8e82-60d7bb5892a3.jpg" alt="LBH Logo">
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="2.5" fill="#fff"/><ellipse cx="10" cy="10" rx="8.5" ry="3.5" stroke="#fff" stroke-width="1.3" fill="none"/><ellipse cx="10" cy="10" rx="8.5" ry="3.5" stroke="#fff" stroke-width="1.3" fill="none" transform="rotate(60 10 10)"/><ellipse cx="10" cy="10" rx="8.5" ry="3.5" stroke="#fff" stroke-width="1.3" fill="none" transform="rotate(120 10 10)"/></svg>
       </div>
       Labour by Hire
     </div>
@@ -361,14 +356,18 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
 
 <main>
 
+<!-- ══════════════════════════════════════════
+     HOME VIEW
+══════════════════════════════════════════ -->
 <div id="view-home">
 
+  <!-- ── HERO with full-bleed background image ── -->
   <div class="hero-wrap">
     <div class="hero-bg"></div>
     <div class="hero-inner">
       <div class="hero-badge"><span></span>LBH Verified Network · Australia</div>
       <h1 class="hero h1">The Construction ID<br><em>Network</em></h1>
-      <p>Every worker licence-checked, verified via HBAR tokenized SVG identity, and certified. Built for builders who take their reputation seriously.</p>
+      <p>Every worker licence-checked, ZK-proofed via Midnight wallet, and certified. Built for builders who take their reputation seriously.</p>
       <div class="hero-btns">
         <button class="btn btn-p btn-lg" onclick="document.getElementById('browse-sec').scrollIntoView({behavior:'smooth'})">Browse tradies</button>
         <button class="btn btn-o btn-lg" onclick="showView('getlisted')">Get listed →</button>
@@ -376,6 +375,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
     </div>
   </div>
 
+  <!-- ── STATS ── -->
   <div class="stats">
     <div class="stat"><div class="stat-n c-blue" id="stat-workers">0</div><div class="stat-l">Verified Tradies</div></div>
     <div class="stat"><div class="stat-n">40+</div><div class="stat-l">Trade Types</div></div>
@@ -383,6 +383,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
     <div class="stat"><div class="stat-n">98%</div><div class="stat-l">Satisfaction</div></div>
   </div>
 
+  <!-- ── IMAGE STRIP ── -->
   <div class="img-strip">
     <div class="img-strip-cell">
       <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=900&q=80&auto=format&fit=crop" alt="Construction site cranes">
@@ -400,6 +401,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
 
   <div class="wrap">
 
+    <!-- ── BROWSE ── -->
     <div id="browse-sec">
       <div class="sh">
         <div>
@@ -412,6 +414,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
       <div class="grid" id="workers-grid"><p style="color:var(--text-3);font-size:13px;padding:3rem 0">Loading workers…</p></div>
     </div>
 
+    <!-- ── FEATURED TRADIES PHOTO SECTION ── -->
     <div style="margin-bottom:2rem">
       <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem">Meet the crew</div>
       <h2 style="font-size:26px;font-weight:300;letter-spacing:-.03em;margin-bottom:2rem">Faces behind the builds</h2>
@@ -461,7 +464,10 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
       </div>
     </div>
 
-  </div><div class="img-break">
+  </div><!-- /wrap -->
+
+  <!-- ── FULL-WIDTH IMAGE BREAK — HOW IT WORKS CTA ── -->
+  <div class="img-break">
     <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1800&q=80&auto=format&fit=crop&crop=center" alt="Construction site" loading="lazy">
     <div class="img-break-overlay">
       <h2>Built on trust.<br>Verified by us.</h2>
@@ -475,6 +481,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
 
   <div class="wrap">
 
+    <!-- ── HOW IT WORKS ── -->
     <div id="how-sec">
       <div style="margin-bottom:2rem">
         <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem">How it works</div>
@@ -485,9 +492,10 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
           <div class="htag htag-b">For Tradies</div>
           <h3>Get your skills seen</h3>
           <div class="step"><div class="sn">1</div><div class="st">Create your profile — trade, experience, and certifications</div></div>
-          <div class="step"><div class="sn">2</div><div class="st">Connect your Hedera wallet for HBAR tokenized SVG proof</div></div>
+          <div class="step"><div class="sn">2</div><div class="st">Connect your Midnight wallet for ZK proof of identity</div></div>
           <div class="step"><div class="sn">3</div><div class="st">LBH verifies your licences and issues your Verified badge</div></div>
           <div class="step"><div class="sn">4</div><div class="st">Receive direct enquiries from employers — completely free</div></div>
+          <!-- Small image inside how-c -->
           <div style="margin-top:2rem;border-radius:10px;overflow:hidden;height:160px;position:relative">
             <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=700&q=80&auto=format&fit=crop" alt="Tradie handshake" style="width:100%;height:100%;object-fit:cover;filter:brightness(.6)">
             <div style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:1rem">
@@ -501,8 +509,9 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
           <h3>Access verified talent</h3>
           <div class="step"><div class="sn">1</div><div class="st">Create a free employer account to access the network</div></div>
           <div class="step"><div class="sn">2</div><div class="st">Browse the full pool of LBH-verified workers</div></div>
-          <div class="step"><div class="sn">3</div><div class="st">View stripped-down, privacy-first credential checklists</div></div>
+          <div class="step"><div class="sn">3</div><div class="st">Filter by trade, location, Labour Score, and availability</div></div>
           <div class="step"><div class="sn">4</div><div class="st">Contact workers directly — no middleman, no commissions</div></div>
+          <!-- Small image inside how-c -->
           <div style="margin-top:2rem;border-radius:10px;overflow:hidden;height:160px;position:relative">
             <img src="https://images.unsplash.com/photo-1612778831607-f9e3ddcad04c?w=700&q=80&auto=format&fit=crop" alt="Building site overview" style="width:100%;height:100%;object-fit:cover;filter:brightness(.55)">
             <div style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:1rem">
@@ -514,6 +523,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
       </div>
     </div>
 
+    <!-- ── PRICING ── -->
     <div>
       <div style="margin-bottom:2rem">
         <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem">Pricing</div>
@@ -528,7 +538,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
           <ul class="price-list">
             <li><span class="price-check">✓</span>Public construction ID profile in the LBH network</li>
             <li><span class="price-check">✓</span>LBH Verified badge on your profile</li>
-            <li><span class="price-check">✓</span>HBAR tokenized SVG identity proof</li>
+            <li><span class="price-check">✓</span>Midnight wallet ZK proof of identity</li>
             <li><span class="price-check">✓</span>Employers can find and contact you directly</li>
             <li><span class="price-check">✓</span>Trade search and location filters</li>
           </ul>
@@ -542,7 +552,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
           <ul class="price-list">
             <li><span style="color:var(--gold)">★</span>Unlimited access to all verified workers</li>
             <li><span style="color:var(--gold)">★</span>Filter by trade, location, Labour Score</li>
-            <li><span style="color:var(--gold)">★</span>View clean, privacy-first SVG node checklists</li>
+            <li><span style="color:var(--gold)">★</span>View ZK-verified Midnight wallet proof</li>
             <li><span style="color:var(--gold)">★</span>Full Labour Score history and reviews</li>
             <li><span style="color:var(--gold)">★</span>Direct messaging through the platform</li>
           </ul>
@@ -551,7 +561,11 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
       </div>
     </div>
 
-  </div></div><div id="view-profile" style="display:none">
+  </div><!-- /wrap -->
+</div><!-- /view-home -->
+
+<!-- ══════════════ PROFILE VIEW ══════════════ -->
+<div id="view-profile" style="display:none">
   <div class="wrap" style="padding-top:2.5rem;padding-bottom:5rem">
     <button class="back" onclick="showView('home')">
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to browse
@@ -560,19 +574,21 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
   </div>
 </div>
 
+<!-- ══════════════ DASHBOARD VIEW ══════════════ -->
 <div id="view-dashboard" style="display:none">
   <div class="wrap" style="padding-top:2.5rem;padding-bottom:5rem">
     <div id="dashboard-content"><p style="color:var(--text-3);font-size:13px">Loading…</p></div>
   </div>
 </div>
 
+<!-- ══════════════ GET LISTED FORM ══════════════ -->
 <div id="view-listed" style="display:none">
   <div class="wrap" style="padding-top:2.5rem;padding-bottom:5rem">
     <button class="back" onclick="showView('getlisted')">
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Back
     </button>
     <h1 style="font-size:32px;font-weight:300;letter-spacing:-.04em;margin-bottom:6px">Create your Construction ID</h1>
-    <p style="font-size:14px;color:var(--text-2);margin-bottom:2.5rem;font-weight:300">Join 200+ verified tradies. Free, with Hedera anchored SVG proof.</p>
+    <p style="font-size:14px;color:var(--text-2);margin-bottom:2.5rem;font-weight:300">Join 200+ verified tradies. Free, with Midnight wallet ZK proof.</p>
     <div class="fw">
       <div class="fc">
         <div id="fs1">
@@ -609,9 +625,9 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
           <div class="fr"><label>White Card number</label><input id="reg-wc" type="text" placeholder="e.g. WC987654"></div>
           <div class="fr"><label>About yourself</label><textarea id="reg-bio" placeholder="Describe your specialties, the jobs you take on, and what sets you apart…"></textarea></div>
           <div class="fr">
-            <label>Hedera wallet <span style="font-weight:300;color:var(--text-3);text-transform:none;letter-spacing:0">(optional — for HBAR proof)</span></label>
-            <input id="reg-wallet" type="text" placeholder="0.0.xxxxx…">
-            <div style="font-size:11px;color:rgba(160,120,255,0.7);margin-top:5px">Connect your Hedera wallet for HBAR proof of identity on your construction ID.</div>
+            <label>Midnight wallet <span style="font-weight:300;color:var(--text-3);text-transform:none;letter-spacing:0">(optional — for ZK proof)</span></label>
+            <input id="reg-wallet" type="text" placeholder="addr1… or midnight1…">
+            <div style="font-size:11px;color:rgba(160,120,255,0.7);margin-top:5px">Connect your Midnight wallet for ZK proof of identity on your construction ID.</div>
           </div>
           <div id="pay-err" class="err-box"></div>
           <div class="ff">
@@ -626,7 +642,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L19 7" stroke="#00c896" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
             <h3 style="font-size:24px;font-weight:300;letter-spacing:-.04em;margin-bottom:8px">Your Construction ID is live</h3>
-            <p style="font-size:13px;color:var(--text-2);max-width:320px;margin:0 auto 2rem;line-height:1.75;font-weight:300">Your profile is on the network. We'll verify your details within 24 hours and issue your SVG proof badge.</p>
+            <p style="font-size:13px;color:var(--text-2);max-width:320px;margin:0 auto 2rem;line-height:1.75;font-weight:300">Your profile is on the network. We'll verify your details within 24 hours and issue your ZK proof badge.</p>
             <button class="btn btn-p" onclick="showView('dashboard')">Go to dashboard →</button>
           </div>
         </div>
@@ -635,12 +651,13 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
   </div>
 </div>
 
+<!-- ══════════════ TRADIE LANDING ══════════════ -->
 <div id="view-getlisted" style="display:none">
   <div class="wrap" style="padding-top:3rem;padding-bottom:5rem">
     <div style="text-align:center;padding-bottom:3rem;border-bottom:0.5px solid var(--border);margin-bottom:3rem">
-      <div style="display:inline-flex;align-items:center;gap:6px;background:var(--surface-2);color:var(--text-3);border:0.5px solid var(--border-2);padding:5px 14px;border-radius:var(--rf);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2rem">Free · Hedera Wallet · SVG Proof</div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:var(--surface-2);color:var(--text-3);border:0.5px solid var(--border-2);padding:5px 14px;border-radius:var(--rf);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2rem">Free · Midnight Wallet · ZK Proof</div>
       <h1 style="font-size:clamp(38px,5vw,68px);font-weight:300;letter-spacing:-.04em;line-height:1.05;margin-bottom:1.25rem">Your Construction ID<br><span style="color:var(--blue-bright)">Verified on the Network</span></h1>
-      <p style="font-size:17px;color:var(--text-2);max-width:480px;margin:0 auto 2rem;line-height:1.75;font-weight:300">Labour by Hire connects verified tradies with employers across Australia. Free forever. Each profile gets a Hedera HBAR anchored SVG proof of identity.</p>
+      <p style="font-size:17px;color:var(--text-2);max-width:480px;margin:0 auto 2rem;line-height:1.75;font-weight:300">Labour by Hire connects verified tradies with employers across Australia. Free forever. Each profile gets a Midnight wallet ZK proof of identity.</p>
       <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
         <button class="btn btn-p btn-lg" onclick="showView('listed')">Create my Construction ID →</button>
         <button class="btn btn-o btn-lg" onclick="showLoginModal()">Already listed? Sign in</button>
@@ -651,7 +668,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
       <h2 style="font-size:26px;font-weight:300;letter-spacing:-.03em;margin-bottom:2rem">Up and running in 4 steps</h2>
       <div class="steps4">
         <div class="step4"><div class="step4-n">Step 01</div><div class="step4-ico">📝</div><div class="step4-t">Create your profile</div><div class="step4-d">Add your trade, experience, licence, and hourly rate. Takes about 3 minutes.</div></div>
-        <div class="step4"><div class="step4-n">Step 02</div><div class="step4-ico">🌙</div><div class="step4-t">Connect Hedera Wallet</div><div class="step4-d">Your construction ID is anchored via HBAR token. Completely free.</div></div>
+        <div class="step4"><div class="step4-n">Step 02</div><div class="step4-ico">🌙</div><div class="step4-t">Connect Midnight Wallet</div><div class="step4-d">Your construction ID gets a ZK proof of identity. Completely free.</div></div>
         <div class="step4"><div class="step4-n">Step 03</div><div class="step4-ico">✅</div><div class="step4-t">We verify you</div><div class="step4-d">Our team checks your licence and White Card within 24 hours. LBH Verified badge issued.</div></div>
         <div class="step4"><div class="step4-n">Step 04</div><div class="step4-ico">📬</div><div class="step4-t">Employers find you</div><div class="step4-d">Your profile goes live. Employers search, view your Labour Score, and message you directly.</div></div>
       </div>
@@ -664,12 +681,13 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
   </div>
 </div>
 
+<!-- ══════════════ EMPLOYER LANDING ══════════════ -->
 <div id="view-employer-landing" style="display:none">
   <div class="wrap" style="padding-top:3rem;padding-bottom:5rem">
     <div style="text-align:center;padding-bottom:3rem;border-bottom:0.5px solid var(--border);margin-bottom:3rem">
-      <div style="display:inline-flex;align-items:center;gap:6px;background:var(--surface-2);color:var(--text-3);border:0.5px solid var(--border-2);padding:5px 14px;border-radius:var(--rf);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2rem">Free Employer Access · HBAR Verified Workers</div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:var(--surface-2);color:var(--text-3);border:0.5px solid var(--border-2);padding:5px 14px;border-radius:var(--rf);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2rem">Free Employer Access · ZK Verified Workers</div>
       <h1 style="font-size:clamp(38px,5vw,68px);font-weight:300;letter-spacing:-.04em;line-height:1.05;margin-bottom:1.25rem">Stop guessing.<br><span style="color:var(--gold)">Hire verified tradies.</span></h1>
-      <p style="font-size:17px;color:var(--text-2);max-width:480px;margin:0 auto 2rem;line-height:1.75;font-weight:300">Every tradie licence-checked, White Card verified, and anchored via Hedera SVG passport. Browse, filter, message — free.</p>
+      <p style="font-size:17px;color:var(--text-2);max-width:480px;margin:0 auto 2rem;line-height:1.75;font-weight:300">Every tradie licence-checked, White Card verified, and ZK-proofed via Midnight wallet. Browse, filter, message — free.</p>
       <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
         <button class="btn btn-p btn-lg" onclick="showComingSoon()">Get employer access — free</button>
         <button class="btn btn-o btn-lg" onclick="openDemo()">See a live demo</button>
@@ -689,6 +707,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
 
 </main>
 
+<!-- ══════════════ LOGIN MODAL ══════════════ -->
 <div id="login-modal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.92);z-index:1000;align-items:center;justify-content:center">
   <div style="background:var(--surface);border:0.5px solid var(--border-2);border-radius:16px;padding:2rem;max-width:380px;width:90%">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.75rem">
@@ -705,6 +724,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
   </div>
 </div>
 
+<!-- HOW IT WORKS MODAL -->
 <div class="modal-overlay" id="how-modal">
   <div class="modal-box">
     <button class="modal-close" onclick="closeHowModal()">×</button>
@@ -725,66 +745,81 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
   </div>
 </div>
 
+<!-- DEMO MODAL -->
 <div class="modal-overlay" id="demo-modal" style="align-items:flex-start;padding:2rem;overflow-y:auto">
   <div style="background:var(--surface);border:0.5px solid var(--border-2);border-radius:16px;width:100%;max-width:860px;margin:auto;overflow:hidden">
     <div style="padding:1.25rem 1.75rem;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
-      <div><div style="font-size:16px;font-weight:400;letter-spacing:-.02em">Construction ID Network — Live Preview</div><div style="font-size:11px;color:var(--text-3);margin-top:3px;text-transform:uppercase;letter-spacing:.08em">Free access · HBAR Verified Workers</div></div>
+      <div><div style="font-size:16px;font-weight:400;letter-spacing:-.02em">Construction ID Network — Live Preview</div><div style="font-size:11px;color:var(--text-3);margin-top:3px;text-transform:uppercase;letter-spacing:.08em">Free access · ZK Verified Workers</div></div>
       <button onclick="closeDemo()" style="background:none;border:none;color:var(--text-3);font-size:22px;cursor:pointer;line-height:1">×</button>
     </div>
     <div style="padding:1.75rem;display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+      <!-- demo cards with photos -->
       <div style="background:var(--surface-2);border:0.5px solid var(--blue-border);border-radius:12px;overflow:hidden">
-        <div style="padding:1.25rem">
-          <div style="font-weight:400;font-size:15px;letter-spacing:-.01em">Electrician</div>
-          <ul class="check-list">
-            <li><span>White Card</span> <span class="c-mark">✓</span></li>
-            <li><span>ABN</span> <span class="c-mark">✓</span></li>
-            <li><span>Working at Heights</span> <span class="c-mark">✓</span></li>
-            <li><span>Rating</span> <span style="color:var(--gold)">4.8 ★</span></li>
-            <li><span>Status</span> <span style="color:var(--blue-bright)">Available</span></li>
-          </ul>
+        <div style="height:140px;position:relative">
+          <img src="https://images.unsplash.com/photo-1556157382-97eda2f9e946?w=400&q=75&auto=format&fit=crop&crop=face" style="width:100%;height:100%;object-fit:cover;filter:brightness(.75)" alt="Jake">
+          <div style="position:absolute;top:8px;right:8px;background:rgba(0,200,150,0.12);color:var(--green);border:0.5px solid rgba(0,200,150,0.25);padding:2px 8px;border-radius:var(--rf);font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.1em">Verified</div>
+          <div style="position:absolute;top:8px;left:8px;background:rgba(5,5,7,0.75);color:var(--text);padding:2px 8px;border-radius:var(--rf);font-size:12px;font-weight:300">$75/hr</div>
+        </div>
+        <div style="padding:1rem">
+          <div style="font-weight:400;font-size:13px;letter-spacing:-.01em">Jake Thompson</div>
+          <div style="font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;margin-top:2px">Carpenter · Sydney</div>
+          <div style="background:var(--surface-3);border-radius:var(--rs);padding:8px;margin:10px 0">
+            <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:10px;color:var(--text-3)">Labour Score</span><span style="font-size:10px;font-weight:500;color:var(--green)">92/100</span></div>
+            <div style="background:var(--surface);border-radius:100px;height:3px"><div style="background:var(--green);height:100%;width:92%;border-radius:100px"></div></div>
+          </div>
           <div style="padding:8px;background:var(--bg);border-radius:var(--rs);border:0.5px solid var(--border-2)">
             <div style="font-size:10px;color:var(--text-3);margin-bottom:5px;text-transform:uppercase;letter-spacing:.1em">Contact (Free)</div>
-            <button style="width:100%;padding:6px;background:var(--blue);color:#fff;border:none;border-radius:var(--rs);font-size:11px;cursor:pointer;font-family:inherit">Send message</button>
+            <div style="font-size:11px;color:var(--blue-bright);margin-bottom:2px">📞 0412 345 678</div>
+            <div style="font-size:11px;color:var(--blue-bright)">✉ jake.t@email.com.au</div>
+            <button style="width:100%;margin-top:7px;padding:6px;background:var(--blue);color:#fff;border:none;border-radius:var(--rs);font-size:11px;cursor:pointer;font-family:inherit">Send message</button>
           </div>
         </div>
       </div>
       <div style="background:var(--surface-2);border:0.5px solid var(--border);border-radius:12px;overflow:hidden;position:relative">
-        <div style="padding:1.25rem">
-          <div style="font-weight:400;font-size:15px;letter-spacing:-.01em">Carpenter</div>
-          <ul class="check-list">
-            <li><span>White Card</span> <span class="c-mark">✓</span></li>
-            <li><span>ABN</span> <span class="c-mark">✓</span></li>
-            <li><span>Safety Tickets</span> <span class="c-mark">✓</span></li>
-            <li><span>Rating</span> <span style="color:var(--gold)">4.9 ★</span></li>
-            <li><span>Status</span> <span style="color:var(--blue-bright)">Available</span></li>
-          </ul>
+        <div style="height:140px;position:relative">
+          <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400&q=75&auto=format&fit=crop&crop=face" style="width:100%;height:100%;object-fit:cover;filter:brightness(.75)" alt="Maria">
+          <div style="position:absolute;top:8px;right:8px;background:rgba(0,200,150,0.12);color:var(--green);border:0.5px solid rgba(0,200,150,0.25);padding:2px 8px;border-radius:var(--rf);font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.1em">Verified</div>
+          <div style="position:absolute;top:8px;left:8px;background:rgba(5,5,7,0.75);color:var(--text);padding:2px 8px;border-radius:var(--rf);font-size:12px;font-weight:300">$95/hr</div>
+        </div>
+        <div style="padding:1rem">
+          <div style="font-weight:400;font-size:13px;letter-spacing:-.01em">Maria Santos</div>
+          <div style="font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;margin-top:2px">Electrician · Melbourne</div>
+          <div style="background:var(--surface-3);border-radius:var(--rs);padding:8px;margin:10px 0">
+            <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:10px;color:var(--text-3)">Labour Score</span><span style="font-size:10px;font-weight:500;color:var(--green)">88/100</span></div>
+            <div style="background:var(--surface);border-radius:100px;height:3px"><div style="background:var(--green);height:100%;width:88%;border-radius:100px"></div></div>
+          </div>
           <div style="padding:8px;background:var(--bg);border-radius:var(--rs);border:0.5px solid var(--border);position:relative;overflow:hidden">
             <div style="font-size:10px;color:var(--text-3);margin-bottom:5px;text-transform:uppercase;letter-spacing:.1em">Contact (Free)</div>
-            <button style="width:100%;padding:6px;background:var(--surface-3);color:var(--text-3);border:none;border-radius:var(--rs);font-size:11px;font-family:inherit;filter:blur(2px)">Send message</button>
+            <div style="font-size:11px;color:var(--text-3);margin-bottom:2px;filter:blur(4px);user-select:none">📞 04XX XXX XXX</div>
+            <div style="font-size:11px;color:var(--text-3);filter:blur(4px);user-select:none">✉ maria@XXXXXX.com</div>
             <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(5,5,7,0.7)"><span style="font-size:10px;font-weight:500;color:#a78bfa;background:rgba(120,80,255,0.1);border:0.5px solid rgba(120,80,255,0.2);padding:3px 10px;border-radius:var(--rf);letter-spacing:.06em;text-transform:uppercase">🌙 Sign up free</span></div>
           </div>
         </div>
       </div>
       <div style="background:var(--surface-2);border:0.5px solid var(--border);border-radius:12px;overflow:hidden;position:relative">
-        <div style="padding:1.25rem">
-          <div style="font-weight:400;font-size:15px;letter-spacing:-.01em">Plumber</div>
-          <ul class="check-list">
-            <li><span>White Card</span> <span class="c-mark">✓</span></li>
-            <li><span>ABN</span> <span class="c-mark">✓</span></li>
-            <li><span>Confined Space</span> <span class="c-mark">✓</span></li>
-            <li><span>Rating</span> <span style="color:var(--gold)">4.6 ★</span></li>
-            <li><span>Status</span> <span style="color:var(--blue-bright)">Available</span></li>
-          </ul>
+        <div style="height:140px;position:relative">
+          <img src="https://images.unsplash.com/photo-1540479859555-17af45c78602?w=400&q=75&auto=format&fit=crop&crop=face" style="width:100%;height:100%;object-fit:cover;filter:brightness(.75)" alt="Brett">
+          <div style="position:absolute;top:8px;right:8px;background:rgba(0,200,150,0.12);color:var(--green);border:0.5px solid rgba(0,200,150,0.25);padding:2px 8px;border-radius:var(--rf);font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.1em">Verified</div>
+          <div style="position:absolute;top:8px;left:8px;background:rgba(5,5,7,0.75);color:var(--text);padding:2px 8px;border-radius:var(--rf);font-size:12px;font-weight:300">$85/hr</div>
+        </div>
+        <div style="padding:1rem">
+          <div style="font-weight:400;font-size:13px;letter-spacing:-.01em">Brett Wilson</div>
+          <div style="font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;margin-top:2px">Plumber · Brisbane</div>
+          <div style="background:var(--surface-3);border-radius:var(--rs);padding:8px;margin:10px 0">
+            <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:10px;color:var(--text-3)">Labour Score</span><span style="font-size:10px;font-weight:500;color:var(--gold)">76/100</span></div>
+            <div style="background:var(--surface);border-radius:100px;height:3px"><div style="background:var(--gold);height:100%;width:76%;border-radius:100px"></div></div>
+          </div>
           <div style="padding:8px;background:var(--bg);border-radius:var(--rs);border:0.5px solid var(--border);position:relative;overflow:hidden">
             <div style="font-size:10px;color:var(--text-3);margin-bottom:5px;text-transform:uppercase;letter-spacing:.1em">Contact (Free)</div>
-            <button style="width:100%;padding:6px;background:var(--surface-3);color:var(--text-3);border:none;border-radius:var(--rs);font-size:11px;font-family:inherit;filter:blur(2px)">Send message</button>
+            <div style="font-size:11px;color:var(--text-3);margin-bottom:2px;filter:blur(4px);user-select:none">📞 04XX XXX XXX</div>
+            <div style="font-size:11px;color:var(--text-3);filter:blur(4px);user-select:none">✉ brett@XXXXXX.com</div>
             <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(5,5,7,0.7)"><span style="font-size:10px;font-weight:500;color:#a78bfa;background:rgba(120,80,255,0.1);border:0.5px solid rgba(120,80,255,0.2);padding:3px 10px;border-radius:var(--rf);letter-spacing:.06em;text-transform:uppercase">🌙 Sign up free</span></div>
           </div>
         </div>
       </div>
     </div>
     <div style="padding:1.25rem 1.75rem;border-top:0.5px solid var(--border);background:var(--surface-2);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
-      <div style="font-size:12px;color:var(--text-3)">Showing 3 of <strong style="color:var(--text-2)">200+</strong> verified tradies · Each with Hedera HBAR proof</div>
+      <div style="font-size:12px;color:var(--text-3)">Showing 3 of <strong style="color:var(--text-2)">200+</strong> verified tradies · Each with Midnight wallet ZK proof</div>
       <div style="display:flex;gap:8px">
         <button class="btn btn-g" onclick="closeDemo()">Close</button>
         <button class="btn btn-p" onclick="closeDemo();showComingSoon()">Get free access →</button>
@@ -793,17 +828,16 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
   </div>
 </div>
 
+<!-- CONTACT MODAL -->
 <div class="modal-overlay" id="paywall-modal">
   <div class="modal-box">
     <button class="modal-close" onclick="closePaywall()">×</button>
-    <div class="modal-icon">
-        <img src="https://uploads.onecompiler.io/446jf6qg8/44a5db7tw/98e7fa89-afa2-475e-8e82-60d7bb5892a3.jpg" alt="LBH Logo">
-    </div>
+    <div class="modal-icon">🌙</div>
     <div class="modal-title">Construction ID Network</div>
     <div class="modal-sub">Messaging verified tradies is free on Labour by Hire. Sign up as an employer to contact workers directly.</div>
     <ul class="modal-feats">
       <li><span style="color:var(--green)">✓</span>Message any tradie directly — free</li>
-      <li><span style="color:var(--green)">✓</span>View Hedera HBAR anchored proof</li>
+      <li><span style="color:var(--green)">✓</span>View ZK-verified Midnight wallet proof</li>
       <li><span style="color:var(--green)">✓</span>Unlimited worker searches and filters</li>
       <li><span style="color:var(--green)">✓</span>Full Labour Score history and reviews</li>
     </ul>
@@ -812,6 +846,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
   </div>
 </div>
 
+<!-- COMPOSE MODAL -->
 <div class="modal-overlay" id="compose-modal">
   <div class="compose-box">
     <button class="modal-close" onclick="closeCompose()">×</button>
@@ -828,6 +863,7 @@ footer{border-top:0.5px solid var(--border);padding:3rem 0;margin-top:6rem}
   </div>
 </div>
 
+<!-- ══════════════ FOOTER ══════════════ -->
 <footer>
   <div class="wrap">
     <div class="fi">
@@ -1003,10 +1039,10 @@ async function loadDashboard(){
       </div>
       <div class="wallet-card" style="margin-bottom:1rem">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px">
-          <div style="display:flex;align-items:center;gap:8px"><span>🌙</span><span style="font-size:12px;font-weight:500;color:#a78bfa;text-transform:uppercase;letter-spacing:.1em">Hedera Wallet</span></div>
-          ${localStorage.getItem(`lbh_wallet_${w.id}`)? '<span class="zk-badge">HBAR Verified</span>':''}
+          <div style="display:flex;align-items:center;gap:8px"><span>🌙</span><span style="font-size:12px;font-weight:500;color:#a78bfa;text-transform:uppercase;letter-spacing:.1em">Midnight Wallet</span></div>
+          ${localStorage.getItem(`lbh_wallet_${w.id}`)? '<span class="zk-badge">ZK Verified</span>':''}
         </div>
-        ${localStorage.getItem(`lbh_wallet_${w.id}`)?`<div class="wallet-addr">${localStorage.getItem(`lbh_wallet_${w.id}`)}</div><div style="font-size:11px;color:var(--text-3)">Your construction ID is anchored on the Hedera network with an SVG identity token.</div>`:`<p style="font-size:12px;color:var(--text-3);margin-bottom:10px;font-weight:300">No wallet connected yet.</p><input id="wallet-input" type="text" placeholder="0.0.xxxxx…" style="width:100%;padding:8px 12px;background:var(--surface-3);border:0.5px solid rgba(120,80,255,0.2);border-radius:var(--rs);font-size:12px;color:var(--text);font-family:inherit;outline:none;margin-bottom:8px"><button class="btn btn-sm" style="background:rgba(120,80,255,0.1);color:#a78bfa;border:0.5px solid rgba(120,80,255,0.2)" onclick="saveWallet(${w.id})">Connect wallet</button>`}
+        ${localStorage.getItem(`lbh_wallet_${w.id}`)?`<div class="wallet-addr">${localStorage.getItem(`lbh_wallet_${w.id}`)}</div><div style="font-size:11px;color:var(--text-3)">Your construction ID is anchored on the Midnight network with zero-knowledge proof.</div>`:`<p style="font-size:12px;color:var(--text-3);margin-bottom:10px;font-weight:300">No wallet connected yet.</p><input id="wallet-input" type="text" placeholder="addr1… or midnight1…" style="width:100%;padding:8px 12px;background:var(--surface-3);border:0.5px solid rgba(120,80,255,0.2);border-radius:var(--rs);font-size:12px;color:var(--text);font-family:inherit;outline:none;margin-bottom:8px"><button class="btn btn-sm" style="background:rgba(120,80,255,0.1);color:#a78bfa;border:0.5px solid rgba(120,80,255,0.2)" onclick="saveWallet(${w.id})">Connect wallet</button>`}
       </div>
       <div style="background:var(--surface);border:0.5px solid var(--border-2);border-radius:12px;padding:1.75rem">
         <h3 style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.12em;color:var(--text-3);margin-bottom:1rem;display:flex;align-items:center;gap:6px">Messages <span id="inbox-badge" class="unread-badge"></span></h3>
@@ -1020,7 +1056,7 @@ function saveWallet(id){
   const addr=document.getElementById('wallet-input')?.value.trim();
   if(!addr){toast('Please enter a wallet address','err');return;}
   localStorage.setItem(`lbh_wallet_${id}`,addr);
-  toast('Hedera wallet connected. 🌙');loadDashboard();
+  toast('Midnight wallet connected. 🌙');loadDashboard();
 }
 
 const TRADES=['All','Carpenter','Electrician','Plumber','Concretor','Painter','Tiler','Landscaper','Bricklayer','Welder'];
@@ -1048,18 +1084,21 @@ function filterWorkers(){
 }
 
 function renderCard(w){
+  const name=w.name||`${w.first_name} ${w.last_name}`;
+  const parts=name.trim().split(' ');
+  const ini=((parts[0]?.[0]||'')+(parts[parts.length-1]?.[0]||'')).toUpperCase();
   return `<div class="card" onclick="showProfile(${w.id})">
-    <div style="font-weight:400;font-size:15px;letter-spacing:-.01em;margin-bottom:8px">${w.trade}</div>
-    <ul class="check-list">
-      <li><span>White Card</span> <span class="c-mark">✓</span></li>
-      <li><span>ABN</span> <span class="c-mark">✓</span></li>
-      <li><span>Trade Licences</span> <span class="c-mark">✓</span></li>
-      <li><span>Rating</span> <span style="color:var(--gold)">4.8 ★</span></li>
-      <li><span>Status</span> <span style="color:var(--blue-bright)">Available</span></li>
-    </ul>
-    <div class="cf" style="margin-top:12px;">
-      <div class="rate">${w.city||'Location TBC'}</div>
-      <div class="vt"><div class="vdot"></div>HBAR Verified</div>
+    <div class="ct">
+      <div class="av">${ini}</div>
+      <div class="cm">
+        <div class="cn">${name}</div>
+        <div class="ct2">${w.trade}</div>
+        <div class="cl">📍 ${w.city||'Location TBC'}</div>
+      </div>
+    </div>
+    <div class="cf">
+      <div class="rate">${w.hourly_rate?'$'+w.hourly_rate+'<small>/hr</small>':'<small style="font-size:12px;color:var(--text-3)">Rate TBC</small>'}</div>
+      <div class="vt"><div class="vdot"></div>LBH Verified</div>
     </div>
   </div>`;
 }
@@ -1073,25 +1112,20 @@ function setFilter(t){activeFilter=t;renderFilters();filterWorkers();}
 function showProfile(id){
   const listing=listings.find(x=>(x.worker||x).id===id);if(!listing)return;
   const w=listing.worker||listing;const name=w.name||`${w.first_name} ${w.last_name}`;
+  const parts=name.trim().split(' ');const ini=((parts[0]?.[0]||'')+(parts[parts.length-1]?.[0]||'')).toUpperCase();
   const walletAddr=localStorage.getItem(`lbh_wallet_${w.id}`);
-  
-  // Clean privacy checklist replacing the old profile view
   document.getElementById('profile-content').innerHTML=`
-    <div class="pcard" style="max-width:500px; margin:0 auto;">
-      <div style="font-size:24px;font-weight:300;letter-spacing:-.04em;margin-bottom:4px">${w.trade}</div>
-      <div style="font-size:12px;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1.5rem">${w.city || 'Location TBC'}</div>
-      
-      <ul class="check-list" style="margin-bottom:1.5rem">
-        <li><span style="color:var(--text)">White Card</span> <span class="c-mark">✓</span></li>
-        <li><span style="color:var(--text)">ABN</span> <span class="c-mark">✓</span></li>
-        <li><span style="color:var(--text)">Working at Heights</span> <span class="c-mark">✓</span></li>
-        <li><span style="color:var(--text)">Rating</span> <span style="color:var(--gold)">4.7 ★</span></li>
-        <li><span style="color:var(--text)">Status</span> <span style="color:var(--blue-bright)">Available</span></li>
-      </ul>
-
-      ${walletAddr?`<div class="wallet-card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">🌙 <span style="font-size:12px;font-weight:500;color:#a78bfa;text-transform:uppercase;letter-spacing:.08em">Hedera Wallet</span><span class="zk-badge">HBAR Verified</span></div><div class="wallet-addr">${walletAddr}</div></div>`:''}
+    <div class="pcard">
+      <div class="ptop"><div class="av av-lg">${ini}</div>
+        <div class="pinfo"><div class="pname">${name}</div><div class="pmeta">${w.trade} · ${w.city||'Location TBC'}</div>
+          <div class="badges" style="margin-top:12px"><span class="bdg bg">LBH Verified</span>${walletAddr?'<span class="zk-badge">🌙 ZK Proof</span>':''}</div>
+        </div>
+      </div>
+      ${w.bio?`<div class="pbio">${w.bio}</div>`:''}
+      <div class="pstats">${w.hourly_rate?`<div><div class="ps-n">$${w.hourly_rate}</div><div class="ps-l">Per Hour</div></div>`:''}</div>
+      ${walletAddr?`<div class="wallet-card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">🌙 <span style="font-size:12px;font-weight:500;color:#a78bfa;text-transform:uppercase;letter-spacing:.08em">Midnight Wallet</span><span class="zk-badge">ZK Verified</span></div><div class="wallet-addr">${walletAddr}</div></div>`:''}
       <div style="display:flex;gap:8px;margin-top:1.75rem">
-        <button class="btn btn-p" style="flex:1" onclick="contactWorker(${w.id},'${w.trade}')">Message worker</button>
+        <button class="btn btn-p" style="flex:1" onclick="contactWorker(${w.id},'${name.replace(/'/g,"\\'")}')">Message worker</button>
         <button class="btn btn-g" onclick="showView('home')">Back</button>
       </div>
     </div>`;
