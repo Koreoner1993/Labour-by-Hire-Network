@@ -66,6 +66,7 @@ const Equipment = {
         'JOIN workers w ON e.owner_id = w.id ' +
         'WHERE e.active = TRUE';
       const params = [];
+      let paramIndex = 1;
 
       if (category && category !== 'All') {
         params.push(category);
