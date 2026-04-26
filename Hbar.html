@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Labour by Hire — Construction ID Network</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#000;--white:#fff;--bg:#050507;
+  --surface:#0c0c0f;--surface-2:#111116;--surface-3:#1a1a21;
+  --border:rgba(255,255,255,0.06);--border-2:rgba(255,255,255,0.12);
+  --blue:#1a73e8;--blue-bright:#4d9fff;--blue-dim:rgba(26,115,232,0.08);--blue-border:rgba(26,115,232,0.2);
+  --text:#f5f5f7;--text-2:#a1a1aa;--text-3:#52525b;
+  --green:#00c896;--gold:#f0a500;
+  --r:12px;--rs:8px;--rf:100px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',system-ui,sans-serif;font-size:15px;line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(5,5,7,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:0.5px solid var(--border)}
+.nav-i{display:flex;align-items:center;max-width:1200px;margin:0 auto;padding:0 2.5rem;height:52px;gap:0.5rem}
+.logo{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:500;color:var(--text);text-decoration:none;cursor:pointer;margin-right:1rem;letter-spacing:-.01em}
+.logo-mark{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
+.logo-mark img {width:100%;height:100%;object-fit:cover;}
+.nl{font-size:13px;color:var(--text-2);padding:6px 12px;border-radius:var(--rs);cursor:pointer;border:none;background:none;font-family:inherit;letter-spacing:-.01em;transition:color .15s}
+.nl:hover{color:var(--text)}
+.nav-links{display:flex;align-items:center}
+.nr{margin-left:auto;display:flex;align-items:center;gap:6px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;border-radius:var(--rs);font-size:13px;font-weight:400;cursor:pointer;border:none;font-family:inherit;transition:all .15s;letter-spacing:-.01em}
+.btn-p{background:var(--blue);color:#fff}
+.btn-p:hover{background:#1557b0}
+.btn-g{background:var(--surface-2);color:var(--text-2);border:0.5px solid var(--border-2)}
+.btn-g:hover{color:var(--text);border-color:rgba(255,255,255,0.2)}
+.btn-o{background:transparent;color:var(--text);border:0.5px solid var(--border-2)}
+.btn-o:hover{border-color:rgba(255,255,255,0.3)}
+.btn-lg{padding:12px 28px;font-size:15px}
+.btn-sm{padding:5px 12px;font-size:12px}
+.btn-full{width:100%;justify-content:center}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.wrap{max-width:1200px;margin:0 auto;padding:0 2.5rem}
+
+/* ROLE SPLASH */
+#role-splash{
+  position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;
+  background:#050507;overflow:hidden;
+}
+#role-splash .splash-bg{
+  position:absolute;inset:0;
+  background-image:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&q=80&auto=format&fit=crop');
+  background-size:cover;background-position:center;
+  opacity:0.08;
+}
+.splash-card{background:rgba(12,12,15,0.92);border:0.5px solid var(--border-2);border-radius:20px;padding:2.5rem 2rem;cursor:pointer;text-align:center;transition:all .2s;max-width:280px;width:100%;backdrop-filter:blur(12px)}
+.splash-card:hover{background:rgba(17,17,22,0.95);border-color:rgba(255,255,255,0.2);transform:translateY(-2px)}
+.splash-card:hover .sc-arr{color:var(--blue)}
+.sc-arr{font-size:12px;color:var(--text-3);margin-top:14px;transition:color .15s}
+
+/* ── HERO ── */
+.hero-wrap{position:relative;overflow:hidden;min-height:88vh;display:flex;align-items:center}
+.hero-bg{
+  position:absolute;inset:0;z-index:0;
+  background-image:url('https://images.unsplash.com/photo-1590579491624-f98f36d4c763?w=1800&q=85&auto=format&fit=crop');
+  background-size:cover;background-position:center 30%;
+}
+.hero-bg::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to right, rgba(5,5,7,0.96) 42%, rgba(5,5,7,0.55) 70%, rgba(5,5,7,0.2) 100%),
+             linear-gradient(to top, rgba(5,5,7,1) 0%, transparent 40%);
+}
+.hero-inner{position:relative;z-index:1;padding:6rem 0 5rem;max-width:1200px;margin:0 auto;padding-left:2.5rem;padding-right:2.5rem}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(12,12,15,0.7);color:var(--text-3);border:0.5px solid var(--border-2);padding:5px 14px;border-radius:var(--rf);font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;margin-bottom:2rem;backdrop-filter:blur(8px)}
+.hero-badge span{width:5px;height:5px;border-radius:50%;background:var(--green);display:inline-block;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-size:clamp(44px,6vw,80px);font-weight:300;line-height:1.04;margin-bottom:1.25rem;letter-spacing:-.05em;color:var(--text);max-width:640px}
+.hero h1 em{font-style:normal;color:var(--blue-bright)}
+.hero p{font-size:16px;color:var(--text-2);max-width:400px;margin:0 0 2.5rem;line-height:1.8;font-weight:300}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap}
+
+/* ── STATS ── */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border)}
+.stat{padding:2rem 1.5rem;border-right:0.5px solid var(--border);position:relative;overflow:hidden}
+.stat:last-child{border-right:none}
+.stat-n{font-size:32px;font-weight:300;letter-spacing:-.04em;color:var(--text)}
+.stat-n.c-blue{color:var(--blue-bright)}
+.stat-l{font-size:11px;color:var(--text-3);margin-top:4px;text-transform:uppercase;letter-spacing:.08em}
+
+/* ── CHECKS LIST (Privacy-First View) ── */
+.check-list {list-style:none; padding:12px 0; margin:12px 0; border-top:0.5px solid var(--border); border-bottom:0.5px solid var(--border); font-size:12px; color:var(--text-2);}
+.check-list li {display:flex; justify-content:space-between; margin-bottom:6px;}
+.check-list li:last-child {margin-bottom:0;}
+.check-list .c-mark {color:var(--green); font-weight:500;}
+
+/* ── BROWSE SECTION ── */
+.sh{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:12px}
+.sh h2{font-size:26px;font-weight:300;letter-spacing:-.03em}
+.sh-sub{font-size:12px;color:var(--text-3);margin-top:4px}
+.si{padding:8px 14px;background:var(--surface-2);border:0.5px solid var(--border-2);border-radius:var(--rs);font-size:13px;color:var(--text);font-family:inherit;outline:none;width:220px;letter-spacing:-.01em}
+.si:focus{border-color:var(--blue-border)}
+.si::placeholder{color:var(--text-3)}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:2rem}
+.chip{padding:5px 14px;border-radius:var(--rf);font-size:12px;cursor:pointer;border:0.5px solid var(--border);background:transparent;color:var(--text-3);font-family:inherit;transition:all .12s;letter-spacing:.02em}
+.chip:hover{border-color:var(--border-2);color:var(--text-2)}
+.chip.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+
+/* ── WORKER CARDS ── */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1px;margin-bottom:6rem;background:var(--border)}
+.card{background:var(--bg);padding:1.75rem;cursor:pointer;transition:background .15s}
+.card:hover{background:var(--surface)}
+.cf{display:flex;align-items:center;justify-content:space-between;padding-top:1rem;}
+.vt{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--green);text-transform:uppercase;letter-spacing:.08em}
+.vdot{width:4px;height:4px;border-radius:50%;background:var(--green);flex-shrink:0}
+
+/* ── IMAGE STRIP ── */
+.img-strip{display:grid;grid-template-columns:2fr 1fr 1fr;height:340px;gap:1px;background:var(--border);margin-bottom:6rem}
+.img-strip-cell{overflow:hidden;position:relative}
+.img-strip-cell img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;filter:brightness(.75) saturate(.85)}
+.img-strip-cell:hover img{transform:scale(1.03);filter:brightness(.85) saturate(1)}
+.img-strip-label{position:absolute;bottom:0;left:0;right:0;padding:1rem 1.25rem;background:linear-gradient(transparent,rgba(5,5,7,0.85));font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-2)}
+
+/* ── HOW IT WORKS ── */
+.how{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin:2rem 0 6rem;border:0.5px solid var(--border)}
+.how-c{background:var(--bg);padding:3rem}
+.htag{display:inline-block;font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:4px 12px;border-radius:var(--rf);margin-bottom:1.5rem}
+.htag-b{background:var(--blue-dim);color:var(--blue-bright);border:0.5px solid var(--blue-border)}
+.htag-g{background:rgba(240,165,0,0.07);color:var(--gold);border:0.5px solid rgba(240,165,0,0.2)}
+.how-c h3{font-size:22px;font-weight:300;letter-spacing:-.03em;margin-bottom:2rem;color:var(--text)}
+.step{display:flex;gap:1rem;margin-bottom:1.25rem;align-items:flex-start}
+.sn{width:22px;height:22px;border-radius:50%;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;border:0.5px solid var(--border-2);color:var(--text-3)}
+.st{font-size:13px;color:var(--text-2);line-height:1.7;font-weight:300}
+
+/* ── WALLET / HEDERA ID ── */
+.wallet-card{background:var(--surface-2);border:0.5px solid rgba(120,80,255,0.15);border-radius:var(--r);padding:1.25rem;margin-top:1rem}
+.wallet-addr{font-family:'DM Mono',monospace;font-size:10px;color:rgba(160,120,255,0.8);word-break:break-all;background:rgba(120,80,255,0.05);padding:8px 10px;border-radius:var(--rs);margin:8px 0;border:0.5px solid rgba(120,80,255,0.15)}
+.zk-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(120,80,255,0.08);color:#a78bfa;border:0.5px solid rgba(120,80,255,0.2);padding:3px 10px;border-radius:var(--rf);font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
+
+/* ── PRICING ── */
+.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:0.5px solid var(--border);margin-bottom:6rem}
+.price-card{background:var(--bg);padding:3rem;position:relative}
+.price-card.featured{background:var(--surface)}
+.price-num{font-size:52px;font-weight:300;letter-spacing:-.06em;margin:12px 0 4px;color:var(--text)}
+.price-per{font-size:13px;color:var(--text-3);margin-bottom:2rem;font-weight:300}
+.price-list{list-style:none;margin-bottom:2rem}
+.price-list li{font-size:13px;color:var(--text-2);padding:8px 0;border-bottom:0.5px solid var(--border);display:flex;gap:10px;font-weight:300}
+.price-list li:last-child{border-bottom:none}
+.price-check{color:var(--green);flex-shrink:0}
+
+/* ── MODALS ── */
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.92);z-index:1000;display:none;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.open{display:flex}
+.modal-box{background:var(--surface);border:0.5px solid var(--border-2);border-radius:20px;padding:2.25rem;max-width:400px;width:100%;text-align:center;position:relative}
+.modal-icon{width:56px;height:56px;border-radius:50%;overflow:hidden;background:transparent;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;}
+.modal-icon img {width:100%;height:100%;object-fit:cover;}
+.modal-title{font-size:24px;font-weight:300;letter-spacing:-.04em;margin-bottom:8px}
+.modal-sub{font-size:13px;color:var(--text-2);line-height:1.75;margin-bottom:1.5rem;font-weight:300}
+.modal-feats{text-align:left;background:var(--surface-2);border-radius:var(--rs);padding:1rem;margin-bottom:1.5rem;list-style:none;border:0.5px solid var(--border)}
+.modal-feats li{font-size:12px;color:var(--text-2);padding:6px 0;display:flex;gap:10px;border-bottom:0.5px solid var(--border)}
+.modal-feats li:last-child{border-bottom:none}
+.modal-close{position:absolute;top:1.25rem;right:1.25rem;background:none;border:none;color:var(--text-3);font-size:22px;cursor:pointer;line-height:1;transition:color .15s}
+.modal-close:hover{color:var(--text)}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--surface-2);border:0.5px solid var(--border-2);border-radius:var(--r);padding:12px 18px;font-size:13px;z-index:9999;display:none;align-items:center;gap:10px;box-shadow:0 24px 48px rgba(0,0,0,.5);letter-spacing:-.01em}
+.toast.show{display:flex}
+
+@media(max-width:768px){
+  .hero h1{font-size:38px}.stats{grid-template-columns:repeat(2,1fr)}
+  .how,.price-grid{grid-template-columns:1fr}
+  .nav-links{display:none}.wrap{padding:0 1.25rem}
+}
+</style>
+</head>
+<body>
+
+<div id="role-splash">
+  <div class="splash-bg"></div>
+  <div style="position:relative;z-index:1;text-align:center;margin-bottom:3.5rem">
+    <div style="width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;overflow:hidden">
+      <img src="https://uploads.onecompiler.io/446jf6qg8/44a5db7tw/98e7fa89-afa2-475e-8e82-60d7bb5892a3.jpg" alt="LBH Logo" style="width:100%;height:100%;object-fit:cover;">
+    </div>
+    <div style="font-size:11px;color:var(--text-3);letter-spacing:.14em;text-transform:uppercase;margin-bottom:.75rem">Labour by Hire</div>
+    <h1 style="font-size:clamp(32px,5vw,52px);font-weight:300;letter-spacing:-.04em;line-height:1.1;margin-bottom:.75rem">Who are you?</h1>
+    <p style="font-size:14px;color:var(--text-3);font-weight:300">Layer 1 Marketplace: Tradies ↔ Employers and Clients.</p>
+  </div>
+  <div style="position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:560px;width:100%">
+    <div class="splash-card" onclick="selectRole('tradie')">
+      <div style="font-size:32px;margin-bottom:1.25rem">🦺</div>
+      <div style="font-size:18px;font-weight:400;letter-spacing:-.03em;margin-bottom:6px">I'm a Tradie</div>
+      <div style="font-size:12px;color:var(--text-3);line-height:1.6;font-weight:300">Get verified and receive job enquiries — free</div>
+      <div class="sc-arr">Get My Construction ID →</div>
+    </div>
+    <div class="splash-card" onclick="selectRole('employer')">
+      <div style="font-size:32px;margin-bottom:1.25rem">🏗️</div>
+      <div style="font-size:18px;font-weight:400;letter-spacing:-.03em;margin-bottom:6px">Employer / Client</div>
+      <div style="font-size:12px;color:var(--text-3);line-height:1.6;font-weight:300">Find and contact verified tradies across Australia</div>
+      <div class="sc-arr">Browse Tradies →</div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<nav class="nav">
+  <div class="nav-i">
+    <div class="logo" onclick="showView('home')">
+      <div class="logo-mark">
+        <img src="https://uploads.onecompiler.io/446jf6qg8/44a5db7tw/98e7fa89-afa2-475e-8e82-60d7bb5892a3.jpg" alt="LBH Logo">
+      </div>
+      Labour by Hire
+    </div>
+    <div id="role-badge" style="display:none;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:var(--rf);margin-left:4px"></div>
+    <div class="nav-links">
+      <button class="nl" onclick="showView('home')">Browse</button>
+      <button class="nl" onclick="showHowModal()">SVG Framework</button>
+    </div>
+    <div class="nr">
+      <div id="nav-signin" style="display:flex;gap:6px">
+        <button class="btn btn-g" onclick="showLoginModal()">Sign in</button>
+        <button class="btn btn-p" onclick="showView('getlisted')">Get listed</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<div id="view-home">
+  <div class="hero-wrap">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <div class="hero-badge"><span></span>LBH Verified Network · Australia</div>
+      <h1 class="hero h1">The Construction ID<br><em>Network</em></h1>
+      <p>Credential proofs anchored via HBAR tokenized SVG identity. Built for Employers and Clients who value secure verification.</p>
+      <div class="hero-btns">
+        <button class="btn btn-p btn-lg" onclick="document.getElementById('browse-sec').scrollIntoView({behavior:'smooth'})">Browse tradies</button>
+        <button class="btn btn-o btn-lg" onclick="showView('getlisted')">Get listed →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-n c-blue" id="stat-workers">0</div><div class="stat-l">Verified Tradies</div></div>
+    <div class="stat"><div class="stat-n">HBAR</div><div class="stat-l">Network Anchor</div></div>
+    <div class="stat"><div class="stat-n">ZK Proof</div><div class="stat-l">Privacy-First</div></div>
+    <div class="stat"><div class="stat-n">98%</div><div class="stat-l">Reputation Score</div></div>
+  </div>
+
+  <div class="wrap">
+    <div id="browse-sec" style="padding:6rem 0;">
+      <div class="sh">
+        <div>
+          <h2>Browse verified workers</h2>
+          <div class="sh-sub">Only verified credentials visible. No personal info.</div>
+        </div>
+        <input class="si" id="search-input" placeholder="Trade or city…" oninput="filterWorkers()">
+      </div>
+      <div class="filters" id="filters-el"></div>
+      <div class="grid" id="workers-grid"><p style="color:var(--text-3);font-size:13px;padding:3rem 0">Loading workers…</p></div>
+    </div>
+  </div>
+</div>
+
+<div id="view-profile" style="display:none">
+  <div class="wrap" style="padding-top:2.5rem;padding-bottom:5rem">
+    <button class="back" onclick="showView('home')">← Back to browse</button>
+    <div id="profile-content"></div>
+  </div>
+</div>
+
+<div id="view-getlisted" style="display:none">
+  <div class="wrap" style="padding-top:3rem;text-align:center">
+    <h1 style="font-size:clamp(38px,5vw,68px);font-weight:300;margin-bottom:1.5rem">Your HBAR Construction ID</h1>
+    <p style="max-width:520px;margin:0 auto 2rem;color:var(--text-2)">The logo is your framework. Each SVG node stores your ABN, White Card, and tickets on the Hedera ledger. Tamper-proof and privacy-safe.</p>
+    <button class="btn btn-p btn-lg" onclick="toast('Registration opening soon')">Create My ID Now →</button>
+  </div>
+</div>
+
+</main>
+
+<div class="modal-overlay" id="how-modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeHowModal()">×</button>
+    <div class="modal-icon">
+        <img src="https://uploads.onecompiler.io/446jf6qg8/44a5db7tw/98e7fa89-afa2-475e-8e82-60d7bb5892a3.jpg" alt="LBH Logo">
+    </div>
+    <div class="modal-title" style="font-size:22px;">How Your SVG System Works</div>
+    <div class="modal-sub">Recap for the Team</div>
+    <ul class="modal-feats">
+      <li><strong>1. The Logo = Identity Framework:</strong> The LBH SVG logo acts like a data structure.</li>
+      <li><strong>2. Verification Segments:</strong> Each segment can store a verification reference, such as: ABN verification, White Card, Trade category, Safety tickets, and Reputation score.</li>
+      <li><strong>3. Privacy First:</strong> Not personal info — just proofs.</li>
+    </ul>
+    <button class="btn btn-p btn-full" onclick="closeHowModal()">Got it</button>
+  </div>
+</div>
+
+<script>
+const API_URL='https://labour-by-hire-network-production.up.railway.app/api';
+let listings=[];
+let activeFilter='All';
+
+function selectRole(role){
+  const splash=document.getElementById('role-splash');
+  splash.style.transition='opacity .3s';splash.style.opacity='0';
+  setTimeout(()=>splash.style.display='none',300);
+  if(role==='tradie')showView('getlisted'); else showView('home');
+}
+
+(function init(){
+  loadListings();renderFilters();
+})();
+
+async function loadListings(){
+  try {
+    const res = await fetch(`${API_URL}/listings`);
+    const data = await res.json();
+    listings = data.listings || [];
+    document.getElementById('stat-workers').textContent = listings.length;
+    filterWorkers();
+  } catch(e) { console.log(e); }
+}
+
+function filterWorkers(){
+  const q=(document.getElementById('search-input')?.value||'').toLowerCase().trim();
+  const filtered=listings.filter(l=>{
+    const w=l.worker;
+    return (activeFilter==='All'||w.trade===activeFilter)&&(!q||w.trade.toLowerCase().includes(q)||(w.city||'').toLowerCase().includes(q));
+  });
+  const el=document.getElementById('workers-grid'); if(!el)return;
+  el.innerHTML=filtered.map(l=>renderCard(l.worker)).join('');
+}
+
+function renderCard(w){
+  return `<div class="card" onclick="showProfile(${w.id})">
+    <div style="font-weight:400;font-size:15px;letter-spacing:-.01em;margin-bottom:8px">${w.trade}</div>
+    <ul class="check-list">
+      <li><span>White Card</span> <span class="c-mark">✓</span></li>
+      <li><span>ABN</span> <span class="c-mark">✓</span></li>
+      <li><span>Trade Licences</span> <span class="c-mark">✓</span></li>
+      <li><span>Rating</span> <span style="color:var(--gold)">4.7 ★</span></li>
+      <li><span>Status</span> <span style="color:var(--blue-bright)">Available</span></li>
+    </ul>
+    <div class="cf">
+      <div style="font-size:12px;color:var(--text-3);">📍 ${w.city||'Australia'}</div>
+      <div class="vt"><div class="vdot"></div>HBAR Verified</div>
+    </div>
+  </div>`;
+}
+
+function showProfile(id){
+  const l=listings.find(x=>x.worker.id===id); if(!l)return;
+  const w=l.worker;
+  document.getElementById('profile-content').innerHTML=`
+    <div style="max-width:500px; margin:0 auto; background:var(--surface); padding:2.5rem; border:0.5px solid var(--border-2); border-radius:16px;">
+      <h2 style="font-weight:300; margin-bottom:0.5rem;">${w.trade} — ${w.city || 'Australia'}</h2>
+      <div style="font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:1.5rem;">Identity Hash: HB_0X72...E92</div>
+      
+      <ul class="check-list" style="margin-bottom:2rem;">
+        <li><span style="color:var(--text);">White Card Verification</span> <span class="c-mark">✓</span></li>
+        <li><span style="color:var(--text);">ABN Check</span> <span class="c-mark">✓</span></li>
+        <li><span style="color:var(--text);">Working at Heights</span> <span class="c-mark">✓</span></li>
+        <li><span style="color:var(--text);">Safety Rating</span> <span style="color:var(--gold)">4.7 ★</span></li>
+        <li><span style="color:var(--text);">SVG Node Status</span> <span style="color:var(--green)">Integrity OK</span></li>
+      </ul>
+      
+      <button class="btn btn-p btn-full" onclick="toast('Messaging Tradie...')">Message Worker (Free)</button>
+    </div>
+  `;
+  showView('profile');
+}
+
+function renderFilters(){
+  const el=document.getElementById('filters-el'); if(!el)return;
+  const trades=['All','Carpenter','Electrician','Plumber','Concretor','Bricklayer'];
+  el.innerHTML=trades.map(t=>`<button class="chip ${t===activeFilter?'on':''}" onclick="activeFilter='${t}';renderFilters();filterWorkers();">${t}</button>`).join('');
+}
+
+function showView(v){
+  ['home','profile','getlisted'].forEach(n=>{
+    const el=document.getElementById('view-'+n); if(el)el.style.display=n===v?'block':'none';
+  });
+  window.scrollTo(0,0);
+}
+
+function showHowModal(){document.getElementById('how-modal').classList.add('open');}
+function closeHowModal(){document.getElementById('how-modal').classList.remove('open');}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.className='toast show';setTimeout(()=>t.className='toast',3000);}
+</script>
+</body>
+</html>
