@@ -1,60 +1,68 @@
-// SQLite Job Model - Phase 2B
+// PostgreSQL Job Model
 
-const db = require('../db/sqlite');
+const pool = require('../db/postgres');
+
+// Helper: produce a $N placeholder
+const p = n => ['$', n].join('');
 
 const Job = {
   // Create a new job
   create: async (employerId, title, description, tradeRequired, location, budget, urgency) => {
     try {
-      const stmt = db.prepare(`
-        INSERT INTO employer_jobs (employer_id, title, description, trade_required, location, budget, urgency, active)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, true)
-        RETURNING id
-      `);
-      const result = await stmt.run(employerId, title, description, tradeRequired, location, budget || 0, urgency || 'normal');
-      return Job.findById(result.lastInsertRowid);
+      const { rows } = await pool.query(
+        'INSERT INTO employer_jobs (employer_id, title, description, trade_required, location, budget, urgency, active) ' +
+        'VALUES (' + p(1) + ', ' + p(2) + ', ' + p(3) + ', ' + p(4) + ', ' + p(5) + ', ' + p(6) + ', ' + p(7) + ', TRUE) RETURNING *',
+        [employerId, title, description, tradeRequired, location, budget || 0, urgency || 'normal']
+      );
+      return rows[0] || null;
     } catch (error) {
-      throw new Error(`Failed to create job: ${error.message}`);
+      throw new Error('Failed to create job: ' + error.message);
     }
   },
 
   // Get job by ID
   findById: async (id) => {
     try {
-      const stmt = db.prepare('SELECT * FROM employer_jobs WHERE id = $1');
-      return await stmt.get(id) || null;
+      const { rows } = await pool.query('SELECT * FROM employer_jobs WHERE id = ' + p(1), [id]);
+      return rows[0] || null;
     } catch (error) {
-      throw new Error(`Failed to find job: ${error.message}`);
+      throw new Error('Failed to find job: ' + error.message);
     }
   },
 
   // Get all active jobs
   getAll: async () => {
     try {
-      const stmt = db.prepare('SELECT * FROM employer_jobs WHERE active = true ORDER BY created_at DESC');
-      return await stmt.all();
+      const { rows } = await pool.query('SELECT * FROM employer_jobs WHERE active = TRUE ORDER BY created_at DESC');
+      return rows;
     } catch (error) {
-      throw new Error(`Failed to get jobs: ${error.message}`);
+      throw new Error('Failed to get jobs: ' + error.message);
     }
   },
 
   // Get jobs by trade (for notifications)
   getByTrade: async (trade) => {
     try {
-      const stmt = db.prepare('SELECT * FROM employer_jobs WHERE active = true AND trade_required = $1');
-      return await stmt.all(trade);
+      const { rows } = await pool.query(
+        'SELECT * FROM employer_jobs WHERE active = TRUE AND trade_required = ' + p(1),
+        [trade]
+      );
+      return rows;
     } catch (error) {
-      throw new Error(`Failed to get jobs by trade: ${error.message}`);
+      throw new Error('Failed to get jobs by trade: ' + error.message);
     }
   },
 
   // Get jobs by location
   getByLocation: async (location) => {
     try {
-      const stmt = db.prepare('SELECT * FROM employer_jobs WHERE active = true AND location = $1');
-      return await stmt.all(location);
+      const { rows } = await pool.query(
+        'SELECT * FROM employer_jobs WHERE active = TRUE AND location = ' + p(1),
+        [location]
+      );
+      return rows;
     } catch (error) {
-      throw new Error(`Failed to get jobs by location: ${error.message}`);
+      throw new Error('Failed to get jobs by location: ' + error.message);
     }
   },
 
@@ -62,37 +70,30 @@ const Job = {
   update: async (id, updates) => {
     try {
       const allowedFields = ['title', 'description', 'budget', 'urgency', 'active'];
-      const setClause = allowedFields
-        .filter(field => field in updates)
-        .map((field, idx) => `${field} = $${idx + 1}`)
-        .join(', ');
+      const fields = allowedFields.filter(field => field in updates);
 
-      if (!setClause) return Job.findById(id);
+      if (!fields.length) return Job.findById(id);
 
-      const values = allowedFields
-        .filter(field => field in updates)
-        .map(field => updates[field]);
+      const setClause = fields.map((field, i) => field + ' = ' + p(i + 1)).join(', ');
+      const values = fields.map(field => updates[field]);
 
-      const stmt = db.prepare(`
-        UPDATE employer_jobs
-        SET ${setClause}, updated_at = CURRENT_TIMESTAMP
-        WHERE id = $${values.length + 1}
-      `);
-      await stmt.run(...values, id);
-      return Job.findById(id);
+      const { rows } = await pool.query(
+        'UPDATE employer_jobs SET ' + setClause + ', updated_at = CURRENT_TIMESTAMP WHERE id = ' + p(fields.length + 1) + ' RETURNING *',
+        [...values, id]
+      );
+      return rows[0] || null;
     } catch (error) {
-      throw new Error(`Failed to update job: ${error.message}`);
+      throw new Error('Failed to update job: ' + error.message);
     }
   },
 
   // Delete job
   delete: async (id) => {
     try {
-      const stmt = db.prepare('DELETE FROM employer_jobs WHERE id = $1');
-      await stmt.run(id);
+      await pool.query('DELETE FROM employer_jobs WHERE id = ' + p(1), [id]);
       return true;
     } catch (error) {
-      throw new Error(`Failed to delete job: ${error.message}`);
+      throw new Error('Failed to delete job: ' + error.message);
     }
   },
 };

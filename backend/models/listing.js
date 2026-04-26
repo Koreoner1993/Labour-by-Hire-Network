@@ -1,63 +1,71 @@
-// SQLite Listing Model - Phase 2B
+// PostgreSQL Listing Model
 
-const db = require('../db/sqlite');
+const pool = require('../db/postgres');
+
+// Helper: produce a $N placeholder
+const p = n => ['$', n].join('');
 
 const Listing = {
   // Create a new listing
   create: async (workerId, title, description, skills, availability) => {
     try {
       const skillsJson = JSON.stringify(skills || []);
-      const stmt = db.prepare(`
-        INSERT INTO worker_listings (worker_id, title, description, skills, availability, active)
-        VALUES ($1, $2, $3, $4, $5, true)
-        RETURNING id
-      `);
-      const result = await stmt.run(workerId, title, description, skillsJson, availability);
-      return Listing.findById(result.lastInsertRowid);
+      const { rows } = await pool.query(
+        'INSERT INTO worker_listings (worker_id, title, description, skills, availability, active) ' +
+        'VALUES (' + p(1) + ', ' + p(2) + ', ' + p(3) + ', ' + p(4) + ', ' + p(5) + ', TRUE) RETURNING *',
+        [workerId, title, description, skillsJson, availability]
+      );
+      const listing = rows[0];
+      if (listing && listing.skills) {
+        listing.skills = JSON.parse(listing.skills);
+      }
+      return listing || null;
     } catch (error) {
-      throw new Error(`Failed to create listing: ${error.message}`);
+      throw new Error('Failed to create listing: ' + error.message);
     }
   },
 
   // Get listing by ID
   findById: async (id) => {
     try {
-      const stmt = db.prepare('SELECT * FROM worker_listings WHERE id = $1');
-      const listing = await stmt.get(id);
+      const { rows } = await pool.query('SELECT * FROM worker_listings WHERE id = ' + p(1), [id]);
+      const listing = rows[0];
       if (listing && listing.skills) {
         listing.skills = JSON.parse(listing.skills);
       }
       return listing || null;
     } catch (error) {
-      throw new Error(`Failed to find listing: ${error.message}`);
+      throw new Error('Failed to find listing: ' + error.message);
     }
   },
 
   // Get worker's listing
   getByWorkerId: async (workerId) => {
     try {
-      const stmt = db.prepare('SELECT * FROM worker_listings WHERE worker_id = $1 LIMIT 1');
-      const listing = await stmt.get(workerId);
+      const { rows } = await pool.query(
+        'SELECT * FROM worker_listings WHERE worker_id = ' + p(1) + ' LIMIT 1',
+        [workerId]
+      );
+      const listing = rows[0];
       if (listing && listing.skills) {
         listing.skills = JSON.parse(listing.skills);
       }
       return listing || null;
     } catch (error) {
-      throw new Error(`Failed to find listing: ${error.message}`);
+      throw new Error('Failed to find listing: ' + error.message);
     }
   },
 
   // Get all active listings
   getAll: async () => {
     try {
-      const stmt = db.prepare('SELECT * FROM worker_listings WHERE active = true ORDER BY created_at DESC');
-      const listings = await stmt.all();
-      return listings.map(l => ({
+      const { rows } = await pool.query('SELECT * FROM worker_listings WHERE active = TRUE ORDER BY created_at DESC');
+      return rows.map(l => ({
         ...l,
-        skills: l.skills ? JSON.parse(l.skills) : []
+        skills: l.skills ? JSON.parse(l.skills) : [],
       }));
     } catch (error) {
-      throw new Error(`Failed to get listings: ${error.message}`);
+      throw new Error('Failed to get listings: ' + error.message);
     }
   },
 
@@ -65,40 +73,37 @@ const Listing = {
   update: async (id, updates) => {
     try {
       const allowedFields = ['title', 'description', 'availability', 'active'];
-      const setClause = allowedFields
-        .filter(field => field in updates)
-        .map((field, idx) => `${field} = $${idx + 1}`)
-        .join(', ');
+      const fields = allowedFields.filter(field => field in updates);
 
-      if (!setClause) return Listing.findById(id);
+      if (!fields.length) return Listing.findById(id);
 
-      let values = allowedFields
-        .filter(field => field in updates)
-        .map(field => {
-          if (field === 'skills') return JSON.stringify(updates[field]);
-          return updates[field];
-        });
+      const setClause = fields.map((field, i) => field + ' = ' + p(i + 1)).join(', ');
+      const values = fields.map(field => {
+        if (field === 'skills') return JSON.stringify(updates[field]);
+        return updates[field];
+      });
 
-      const stmt = db.prepare(`
-        UPDATE worker_listings
-        SET ${setClause}, updated_at = CURRENT_TIMESTAMP
-        WHERE id = $${values.length + 1}
-      `);
-      await stmt.run(...values, id);
-      return Listing.findById(id);
+      const { rows } = await pool.query(
+        'UPDATE worker_listings SET ' + setClause + ', updated_at = CURRENT_TIMESTAMP WHERE id = ' + p(fields.length + 1) + ' RETURNING *',
+        [...values, id]
+      );
+      const listing = rows[0];
+      if (listing && listing.skills) {
+        listing.skills = JSON.parse(listing.skills);
+      }
+      return listing || null;
     } catch (error) {
-      throw new Error(`Failed to update listing: ${error.message}`);
+      throw new Error('Failed to update listing: ' + error.message);
     }
   },
 
   // Delete listing
   delete: async (id) => {
     try {
-      const stmt = db.prepare('DELETE FROM worker_listings WHERE id = $1');
-      await stmt.run(id);
+      await pool.query('DELETE FROM worker_listings WHERE id = ' + p(1), [id]);
       return true;
     } catch (error) {
-      throw new Error(`Failed to delete listing: ${error.message}`);
+      throw new Error('Failed to delete listing: ' + error.message);
     }
   },
 };

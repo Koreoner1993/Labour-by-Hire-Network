@@ -39,3 +39,39 @@ export function getTrustLabel(score: number) {
   if (score >= 35) return 'Building';
   return 'New';
 }
+
+export const ENDPOINTS = {
+  AUTH_REGISTER: '/auth/register',
+  AUTH_LOGIN: '/auth/login',
+  AUTH_PROFILE: '/auth/profile',
+  AUTH_LISTING: '/auth/listing',
+  WORKERS: '/workers',
+  WORKER_BY_ID: (id: string) => `/workers/${id}`,
+  LISTINGS: '/listings',
+  LISTING_BY_ID: (id: string) => `/listings/${id}`,
+  EQUIPMENT: '/equipment',
+  EQUIPMENT_BY_ID: (id: string) => `/equipment/${id}`,
+  MESSAGES: '/messages',
+  MESSAGES_BY_WORKER: (workerId: string) => `/messages/${workerId}`,
+  MESSAGE_READ: (id: string) => `/messages/${id}/read`,
+  WAITLIST: '/waitlist',
+  WAITLIST_COUNT: '/waitlist/count',
+  NOTIFICATIONS: '/notifications',
+} as const;
+
+export const EQUIPMENT_CATEGORIES = EQUIP_CATS;
+
+export const TRUST_SCORE_LABELS = {
+  0: 'Not Verified',
+  1: 'Basic',
+  2: 'Verified',
+  3: 'Trusted',
+  4: 'Excellent',
+} as const;
+
+export const VERIFICATION_TYPES = {
+  EMAIL: 'email',
+  LICENCE: 'licence_number',
+  WHITE_CARD: 'white_card',
+  WALLET: 'wallet_address',
+} as const;

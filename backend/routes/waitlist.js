@@ -1,7 +1,10 @@
 'use strict';
 
 const express = require('express');
-const db = require('../db/sqlite');
+const pool = require('../db/postgres');
+
+// Helper: produce a $N placeholder
+const p = n => ['$', n].join('');
 
 const router = express.Router();
 
@@ -13,14 +16,23 @@ router.post('/', async (req, res) => {
       return res.status(400).json({ error: 'Valid email required' });
     }
 
-    const existing = await db.prepare('SELECT id FROM waitlist WHERE email = $1').get(email.toLowerCase().trim());
-    if (existing) {
+    const normalised = email.toLowerCase().trim();
+
+    const { rows: existing } = await pool.query(
+      'SELECT id FROM waitlist WHERE email = ' + p(1),
+      [normalised]
+    );
+    if (existing[0]) {
       return res.json({ message: 'Already on the waitlist', alreadyJoined: true });
     }
 
-    await db.prepare('INSERT INTO waitlist (email, source) VALUES ($1, $2)').run(email.toLowerCase().trim(), source);
-    const countResult = await db.prepare('SELECT COUNT(*) as n FROM waitlist').get();
-    const count = countResult.count || countResult.n;
+    await pool.query(
+      'INSERT INTO waitlist (email, source) VALUES (' + p(1) + ', ' + p(2) + ')',
+      [normalised, source]
+    );
+
+    const { rows: countRows } = await pool.query('SELECT COUNT(*) as n FROM waitlist');
+    const count = parseInt(countRows[0].n, 10);
 
     return res.status(201).json({ message: 'Added to waitlist', position: count });
   } catch (error) {
@@ -31,9 +43,8 @@ router.post('/', async (req, res) => {
 // GET /api/waitlist/count  — public count (shown on Spotlight page)
 router.get('/count', async (_req, res) => {
   try {
-    const result = await db.prepare('SELECT COUNT(*) as n FROM waitlist').get();
-    const count = result.count || result.n;
-    res.json({ count });
+    const { rows } = await pool.query('SELECT COUNT(*) as n FROM waitlist');
+    res.json({ count: parseInt(rows[0].n, 10) });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
