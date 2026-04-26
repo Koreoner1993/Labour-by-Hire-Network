@@ -1,4 +1,6 @@
-import { getToken } from './auth';
+import { getToken, setToken, clearToken } from './auth';
+
+export { getToken, setToken, clearToken };
 
 export class ApiError extends Error {
   status: number;
@@ -15,7 +17,11 @@ export async function api<T = unknown>(
   token?: string,
 ): Promise<T> {
   const authToken = token ?? getToken();
-  const res = await fetch(`/api${endpoint}`, {
+  const normalizedEndpoint = endpoint.startsWith('/api')
+    ? endpoint
+    : `/api${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
+
+  const res = await fetch(normalizedEndpoint, {
     method,
     headers: {
       'Content-Type': 'application/json',
