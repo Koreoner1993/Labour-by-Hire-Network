@@ -6,9 +6,10 @@ const Equipment = {
     try {
       const stmt = db.prepare(`
         INSERT INTO equipment_listings (owner_id, title, category, description, daily_rate, location, condition, availability, active)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, true)
+        RETURNING id
       `);
-      const result = stmt.run(ownerId, title, category, description || null, dailyRate, location || null, condition || 'Good', availability || 'Available');
+      const result = await stmt.run(ownerId, title, category, description || null, dailyRate, location || null, condition || 'Good', availability || 'Available');
       return Equipment.findById(result.lastInsertRowid);
     } catch (error) {
       throw new Error(`Failed to create equipment listing: ${error.message}`);
@@ -22,9 +23,9 @@ const Equipment = {
         SELECT e.*, w.first_name, w.last_name, w.trade, w.city as owner_city
         FROM equipment_listings e
         JOIN workers w ON e.owner_id = w.id
-        WHERE e.id = ?
+        WHERE e.id = $1
       `);
-      const item = stmt.get(id);
+      const item = await stmt.get(id);
       if (!item) return null;
       return Equipment._format(item);
     } catch (error) {
@@ -39,10 +40,10 @@ const Equipment = {
         SELECT e.*, w.first_name, w.last_name, w.trade, w.city as owner_city
         FROM equipment_listings e
         JOIN workers w ON e.owner_id = w.id
-        WHERE e.owner_id = ?
+        WHERE e.owner_id = $1
         ORDER BY e.created_at DESC
       `);
-      return stmt.all(ownerId).map(Equipment._format);
+      return (await stmt.all(ownerId)).map(Equipment._format);
     } catch (error) {
       throw new Error(`Failed to get equipment listings: ${error.message}`);
     }
@@ -55,27 +56,29 @@ const Equipment = {
         SELECT e.*, w.first_name, w.last_name, w.trade, w.city as owner_city
         FROM equipment_listings e
         JOIN workers w ON e.owner_id = w.id
-        WHERE e.active = 1
+        WHERE e.active = true
       `;
       const params = [];
+      let paramIndex = 1;
 
       if (category && category !== 'All') {
-        query += ' AND e.category = ?';
+        query += ` AND e.category = $${paramIndex++}`;
         params.push(category);
       }
       if (location) {
-        query += ' AND (e.location LIKE ? OR w.city LIKE ?)';
-        params.push(`%${location}%`, `%${location}%`);
+        query += ` AND (e.location ILIKE $${paramIndex} OR w.city ILIKE $${paramIndex})`;
+        params.push(`%${location}%`);
+        paramIndex++;
       }
       if (maxRate) {
-        query += ' AND e.daily_rate <= ?';
+        query += ` AND e.daily_rate <= $${paramIndex++}`;
         params.push(parseFloat(maxRate));
       }
 
       query += ' ORDER BY e.created_at DESC';
 
       const stmt = db.prepare(query);
-      return stmt.all(...params).map(Equipment._format);
+      return (await stmt.all(...params)).map(Equipment._format);
     } catch (error) {
       throw new Error(`Failed to get equipment listings: ${error.message}`);
     }
@@ -88,15 +91,15 @@ const Equipment = {
       const fields = allowedFields.filter(f => f in updates);
       if (!fields.length) return Equipment.findById(id);
 
-      const setClause = fields.map(f => `${f} = ?`).join(', ');
+      const setClause = fields.map((f, idx) => `${f} = $${idx + 1}`).join(', ');
       const values = fields.map(f => updates[f]);
 
       const stmt = db.prepare(`
         UPDATE equipment_listings
         SET ${setClause}, updated_at = CURRENT_TIMESTAMP
-        WHERE id = ?
+        WHERE id = $${values.length + 1}
       `);
-      stmt.run(...values, id);
+      await stmt.run(...values, id);
       return Equipment.findById(id);
     } catch (error) {
       throw new Error(`Failed to update equipment listing: ${error.message}`);
@@ -106,7 +109,7 @@ const Equipment = {
   // Delete an equipment listing
   delete: async (id) => {
     try {
-      db.prepare('DELETE FROM equipment_listings WHERE id = ?').run(id);
+      await db.prepare('DELETE FROM equipment_listings WHERE id = $1').run(id);
       return true;
     } catch (error) {
       throw new Error(`Failed to delete equipment listing: ${error.message}`);

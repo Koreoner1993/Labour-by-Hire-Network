@@ -8,9 +8,10 @@ const Notification = {
     try {
       const stmt = db.prepare(`
         INSERT INTO notifications (worker_id, job_id, type, is_read)
-        VALUES (?, ?, ?, 0)
+        VALUES ($1, $2, $3, false)
+        RETURNING id
       `);
-      const result = stmt.run(workerId, jobId, type);
+      const result = await stmt.run(workerId, jobId, type);
       return Notification.findById(result.lastInsertRowid);
     } catch (error) {
       throw new Error(`Failed to create notification: ${error.message}`);
@@ -21,11 +22,11 @@ const Notification = {
   getByWorkerId: async (workerId) => {
     try {
       const stmt = db.prepare(`
-        SELECT * FROM notifications 
-        WHERE worker_id = ? 
+        SELECT * FROM notifications
+        WHERE worker_id = $1
         ORDER BY created_at DESC
       `);
-      return stmt.all(workerId);
+      return await stmt.all(workerId);
     } catch (error) {
       throw new Error(`Failed to get notifications: ${error.message}`);
     }
@@ -35,11 +36,11 @@ const Notification = {
   getUnreadByWorkerId: async (workerId) => {
     try {
       const stmt = db.prepare(`
-        SELECT * FROM notifications 
-        WHERE worker_id = ? AND is_read = 0
+        SELECT * FROM notifications
+        WHERE worker_id = $1 AND is_read = false
         ORDER BY created_at DESC
       `);
-      return stmt.all(workerId);
+      return await stmt.all(workerId);
     } catch (error) {
       throw new Error(`Failed to get unread notifications: ${error.message}`);
     }
@@ -48,8 +49,8 @@ const Notification = {
   // Find notification by ID
   findById: async (id) => {
     try {
-      const stmt = db.prepare('SELECT * FROM notifications WHERE id = ?');
-      return stmt.get(id) || null;
+      const stmt = db.prepare('SELECT * FROM notifications WHERE id = $1');
+      return await stmt.get(id) || null;
     } catch (error) {
       throw new Error(`Failed to find notification: ${error.message}`);
     }
@@ -59,11 +60,11 @@ const Notification = {
   markAsRead: async (id) => {
     try {
       const stmt = db.prepare(`
-        UPDATE notifications 
-        SET is_read = 1
-        WHERE id = ?
+        UPDATE notifications
+        SET is_read = true
+        WHERE id = $1
       `);
-      stmt.run(id);
+      await stmt.run(id);
       return Notification.findById(id);
     } catch (error) {
       throw new Error(`Failed to mark as read: ${error.message}`);
@@ -73,8 +74,8 @@ const Notification = {
   // Delete notification
   delete: async (id) => {
     try {
-      const stmt = db.prepare('DELETE FROM notifications WHERE id = ?');
-      stmt.run(id);
+      const stmt = db.prepare('DELETE FROM notifications WHERE id = $1');
+      await stmt.run(id);
       return true;
     } catch (error) {
       throw new Error(`Failed to delete notification: ${error.message}`);

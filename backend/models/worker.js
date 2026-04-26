@@ -8,9 +8,10 @@ const Worker = {
     try {
       const stmt = db.prepare(`
         INSERT INTO workers (email, password_hash, first_name, last_name, trade, city, hourly_rate, bio, licence_number, white_card, wallet_address)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+        RETURNING id
       `);
-      const result = stmt.run(email, passwordHash, firstName, lastName, trade, city, hourlyRate || 0, bio, licenceNumber || null, whiteCard || null, walletAddress || null);
+      const result = await stmt.run(email, passwordHash, firstName, lastName, trade, city, hourlyRate || 0, bio, licenceNumber || null, whiteCard || null, walletAddress || null);
       return Worker.findById(result.lastInsertRowid);
     } catch (error) {
       throw new Error(`Failed to create worker: ${error.message}`);
@@ -20,8 +21,8 @@ const Worker = {
   // Find worker by email
   findByEmail: async (email) => {
     try {
-      const stmt = db.prepare('SELECT * FROM workers WHERE email = ?');
-      return stmt.get(email) || null;
+      const stmt = db.prepare('SELECT * FROM workers WHERE email = $1');
+      return await stmt.get(email) || null;
     } catch (error) {
       throw new Error(`Failed to find worker: ${error.message}`);
     }
@@ -30,8 +31,8 @@ const Worker = {
   // Find worker by ID
   findById: async (id) => {
     try {
-      const stmt = db.prepare('SELECT * FROM workers WHERE id = ?');
-      return stmt.get(id) || null;
+      const stmt = db.prepare('SELECT * FROM workers WHERE id = $1');
+      return await stmt.get(id) || null;
     } catch (error) {
       throw new Error(`Failed to find worker: ${error.message}`);
     }
@@ -41,7 +42,7 @@ const Worker = {
   getAll: async () => {
     try {
       const stmt = db.prepare('SELECT * FROM workers ORDER BY created_at DESC');
-      return stmt.all();
+      return await stmt.all();
     } catch (error) {
       throw new Error(`Failed to get workers: ${error.message}`);
     }
@@ -53,7 +54,7 @@ const Worker = {
       const allowedFields = ['first_name', 'last_name', 'city', 'hourly_rate', 'bio', 'licence_number', 'white_card'];
       const setClause = allowedFields
         .filter(field => field in updates)
-        .map(field => `${field} = ?`)
+        .map((field, idx) => `${field} = $${idx + 1}`)
         .join(', ');
 
       if (!setClause) return Worker.findById(id);
@@ -63,11 +64,11 @@ const Worker = {
         .map(field => updates[field]);
 
       const stmt = db.prepare(`
-        UPDATE workers 
+        UPDATE workers
         SET ${setClause}, updated_at = CURRENT_TIMESTAMP
-        WHERE id = ?
+        WHERE id = $${values.length + 1}
       `);
-      stmt.run(...values, id);
+      await stmt.run(...values, id);
       return Worker.findById(id);
     } catch (error) {
       throw new Error(`Failed to update worker: ${error.message}`);
@@ -77,8 +78,8 @@ const Worker = {
   // Update labour_score
   updateScore: async (id, score) => {
     try {
-      const stmt = db.prepare('UPDATE workers SET labour_score = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?');
-      stmt.run(score, id);
+      const stmt = db.prepare('UPDATE workers SET labour_score = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2');
+      await stmt.run(score, id);
     } catch (error) {
       throw new Error(`Failed to update score: ${error.message}`);
     }
@@ -94,8 +95,8 @@ const Worker = {
   // Delete worker
   delete: async (id) => {
     try {
-      const stmt = db.prepare('DELETE FROM workers WHERE id = ?');
-      stmt.run(id);
+      const stmt = db.prepare('DELETE FROM workers WHERE id = $1');
+      await stmt.run(id);
       return true;
     } catch (error) {
       throw new Error(`Failed to delete worker: ${error.message}`);

@@ -25,10 +25,10 @@ app.get('/api/health', (req, res) => {
 });
 
 // Database connection test endpoint
-app.get('/api/db-test', (req, res) => {
+app.get('/api/db-test', async (req, res) => {
   try {
-    const result = db.prepare('SELECT CURRENT_TIMESTAMP as time').get();
-    res.json({ status: 'SQLite database connected', time: result.time });
+    const result = await db.prepare('SELECT CURRENT_TIMESTAMP as time').get();
+    res.json({ status: 'PostgreSQL database connected', time: result.time });
   } catch (error) {
     res.status(500).json({ error: 'Database connection failed', message: error.message });
   }
@@ -66,7 +66,7 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`✅ Server running on http://localhost:${PORT}`);
   console.log(`📝 Test health: GET http://localhost:${PORT}/api/health`);
-  console.log(`� Database: SQLite (labour_by_hire.db)`);
+  console.log(`🗄️ Database: PostgreSQL`);
   console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}`);
 });
 

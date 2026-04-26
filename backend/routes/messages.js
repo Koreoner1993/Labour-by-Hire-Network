@@ -23,14 +23,14 @@ router.post('/:workerId', async (req, res) => {
     }
 
     // Verify worker exists
-    const worker = db.prepare('SELECT id FROM workers WHERE id = ?').get(workerId);
+    const worker = await db.prepare('SELECT id FROM workers WHERE id = $1').get(workerId);
     if (!worker) return res.status(404).json({ error: 'Worker not found' });
 
     const stmt = db.prepare(
-      'INSERT INTO messages (worker_id, from_name, from_email, company, body) VALUES (?, ?, ?, ?, ?)'
+      'INSERT INTO messages (worker_id, from_name, from_email, company, body) VALUES ($1, $2, $3, $4, $5) RETURNING id'
     );
-    const result = stmt.run(workerId, from_name.trim(), from_email.trim(), company?.trim() || null, body.trim());
-    const msg = db.prepare('SELECT * FROM messages WHERE id = ?').get(result.lastInsertRowid);
+    const result = await stmt.run(workerId, from_name.trim(), from_email.trim(), company?.trim() || null, body.trim());
+    const msg = await db.prepare('SELECT * FROM messages WHERE id = $1').get(result.lastInsertRowid);
 
     return res.status(201).json({ message: 'Message sent', data: msg });
   } catch (error) {
@@ -42,8 +42,8 @@ router.post('/:workerId', async (req, res) => {
 // GET /api/messages — get inbox for authenticated worker
 router.get('/', authMiddleware, async (req, res) => {
   try {
-    const messages = db
-      .prepare('SELECT * FROM messages WHERE worker_id = ? ORDER BY created_at DESC')
+    const messages = await db
+      .prepare('SELECT * FROM messages WHERE worker_id = $1 ORDER BY created_at DESC')
       .all(req.worker.id);
 
     const formatted = messages.map(m => ({
@@ -66,11 +66,11 @@ router.get('/', authMiddleware, async (req, res) => {
 // PUT /api/messages/:id/read — mark a message as read
 router.put('/:id/read', authMiddleware, async (req, res) => {
   try {
-    const msg = db.prepare('SELECT * FROM messages WHERE id = ?').get(parseInt(req.params.id));
+    const msg = await db.prepare('SELECT * FROM messages WHERE id = $1').get(parseInt(req.params.id));
     if (!msg) return res.status(404).json({ error: 'Message not found' });
     if (msg.worker_id !== req.worker.id) return res.status(403).json({ error: 'Forbidden' });
 
-    db.prepare('UPDATE messages SET read = 1 WHERE id = ?').run(msg.id);
+    await db.prepare('UPDATE messages SET read = 1 WHERE id = $1').run(msg.id);
     return res.json({ success: true });
   } catch (error) {
     return res.status(500).json({ error: error.message });
