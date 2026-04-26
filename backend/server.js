@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
-const db = require('./db/sqlite');
+const db = require(path.join(__dirname, 'db', 'sqlite'));
 
 const app = express();
 const PORT = process.env.PORT || 5000;
