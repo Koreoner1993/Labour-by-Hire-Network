@@ -66,7 +66,7 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log('✅ Server running on http://localhost:' + PORT);
   console.log('📝 Test health: GET http://localhost:' + PORT + '/api/health');
-  console.log('🐘 Database: PostgreSQL');
+  console.log('🐘 Database: PostgreSQL (Railway)');
   console.log('📊 Environment: ' + (process.env.NODE_ENV || 'development'));
 });
 
