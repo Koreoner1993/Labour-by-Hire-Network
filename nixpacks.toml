@@ -1,0 +1,14 @@
+# Nixpacks configuration for Labour by Hire backend
+# Railway uses this to build the Node.js backend from the backend/ subdirectory
+
+[build]
+# Build in the backend directory, not root
+cmd = "cd backend && npm ci"
+
+[start]
+# Start command - run from backend directory
+cmd = "node server.js"
+
+# Set Node.js version explicitly
+[phases.setup]
+nixPkgs = ["nodejs_18"]
