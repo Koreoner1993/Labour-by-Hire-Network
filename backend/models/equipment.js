@@ -1,83 +1,93 @@
-const db = require('../db/sqlite');
+// PostgreSQL Equipment Model
+
+const pool = require('../db/postgres');
+
+// Helper: produce a $N placeholder
+const p = n => ['$', n].join('');
 
 const Equipment = {
   // Create a new equipment listing
   create: async (ownerId, title, category, description, dailyRate, location, condition, availability) => {
     try {
-      const stmt = db.prepare(`
-        INSERT INTO equipment_listings (owner_id, title, category, description, daily_rate, location, condition, availability, active)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)
-      `);
-      const result = stmt.run(ownerId, title, category, description || null, dailyRate, location || null, condition || 'Good', availability || 'Available');
-      return Equipment.findById(result.lastInsertRowid);
+      const { rows } = await pool.query(
+        'INSERT INTO equipment_listings (owner_id, title, category, description, daily_rate, location, condition, availability, active) ' +
+        'VALUES (' + p(1) + ', ' + p(2) + ', ' + p(3) + ', ' + p(4) + ', ' + p(5) + ', ' + p(6) + ', ' + p(7) + ', ' + p(8) + ', TRUE) RETURNING *',
+        [ownerId, title, category, description || null, dailyRate, location || null, condition || 'Good', availability || 'Available']
+      );
+      const item = rows[0];
+      if (!item) return null;
+      // Fetch with owner info
+      return Equipment.findById(item.id);
     } catch (error) {
-      throw new Error(`Failed to create equipment listing: ${error.message}`);
+      throw new Error('Failed to create equipment listing: ' + error.message);
     }
   },
 
   // Get equipment listing by ID (enriched with owner info)
   findById: async (id) => {
     try {
-      const stmt = db.prepare(`
-        SELECT e.*, w.first_name, w.last_name, w.trade, w.city as owner_city
-        FROM equipment_listings e
-        JOIN workers w ON e.owner_id = w.id
-        WHERE e.id = ?
-      `);
-      const item = stmt.get(id);
+      const { rows } = await pool.query(
+        'SELECT e.*, w.first_name, w.last_name, w.trade, w.city as owner_city ' +
+        'FROM equipment_listings e ' +
+        'JOIN workers w ON e.owner_id = w.id ' +
+        'WHERE e.id = ' + p(1),
+        [id]
+      );
+      const item = rows[0];
       if (!item) return null;
       return Equipment._format(item);
     } catch (error) {
-      throw new Error(`Failed to find equipment listing: ${error.message}`);
+      throw new Error('Failed to find equipment listing: ' + error.message);
     }
   },
 
   // Get all listings for a specific owner
   getByOwnerId: async (ownerId) => {
     try {
-      const stmt = db.prepare(`
-        SELECT e.*, w.first_name, w.last_name, w.trade, w.city as owner_city
-        FROM equipment_listings e
-        JOIN workers w ON e.owner_id = w.id
-        WHERE e.owner_id = ?
-        ORDER BY e.created_at DESC
-      `);
-      return stmt.all(ownerId).map(Equipment._format);
+      const { rows } = await pool.query(
+        'SELECT e.*, w.first_name, w.last_name, w.trade, w.city as owner_city ' +
+        'FROM equipment_listings e ' +
+        'JOIN workers w ON e.owner_id = w.id ' +
+        'WHERE e.owner_id = ' + p(1) + ' ORDER BY e.created_at DESC',
+        [ownerId]
+      );
+      return rows.map(Equipment._format);
     } catch (error) {
-      throw new Error(`Failed to get equipment listings: ${error.message}`);
+      throw new Error('Failed to get equipment listings: ' + error.message);
     }
   },
 
   // Get all active listings with optional filters
   getAll: async ({ category, location, maxRate } = {}) => {
     try {
-      let query = `
-        SELECT e.*, w.first_name, w.last_name, w.trade, w.city as owner_city
-        FROM equipment_listings e
-        JOIN workers w ON e.owner_id = w.id
-        WHERE e.active = 1
-      `;
+      let query =
+        'SELECT e.*, w.first_name, w.last_name, w.trade, w.city as owner_city ' +
+        'FROM equipment_listings e ' +
+        'JOIN workers w ON e.owner_id = w.id ' +
+        'WHERE e.active = TRUE';
       const params = [];
 
       if (category && category !== 'All') {
-        query += ' AND e.category = ?';
         params.push(category);
+        query += ' AND e.category = ' + p(params.length);
       }
       if (location) {
-        query += ' AND (e.location LIKE ? OR w.city LIKE ?)';
-        params.push(`%${location}%`, `%${location}%`);
+        params.push('%' + location + '%');
+        query += ' AND (e.location ILIKE ' + p(params.length);
+        params.push('%' + location + '%');
+        query += ' OR w.city ILIKE ' + p(params.length) + ')';
       }
       if (maxRate) {
-        query += ' AND e.daily_rate <= ?';
         params.push(parseFloat(maxRate));
+        query += ' AND e.daily_rate <= ' + p(params.length);
       }
 
       query += ' ORDER BY e.created_at DESC';
 
-      const stmt = db.prepare(query);
-      return stmt.all(...params).map(Equipment._format);
+      const { rows } = await pool.query(query, params);
+      return rows.map(Equipment._format);
     } catch (error) {
-      throw new Error(`Failed to get equipment listings: ${error.message}`);
+      throw new Error('Failed to get equipment listings: ' + error.message);
     }
   },
 
@@ -88,28 +98,26 @@ const Equipment = {
       const fields = allowedFields.filter(f => f in updates);
       if (!fields.length) return Equipment.findById(id);
 
-      const setClause = fields.map(f => `${f} = ?`).join(', ');
+      const setClause = fields.map((f, i) => f + ' = ' + p(i + 1)).join(', ');
       const values = fields.map(f => updates[f]);
 
-      const stmt = db.prepare(`
-        UPDATE equipment_listings
-        SET ${setClause}, updated_at = CURRENT_TIMESTAMP
-        WHERE id = ?
-      `);
-      stmt.run(...values, id);
+      await pool.query(
+        'UPDATE equipment_listings SET ' + setClause + ', updated_at = CURRENT_TIMESTAMP WHERE id = ' + p(fields.length + 1),
+        [...values, id]
+      );
       return Equipment.findById(id);
     } catch (error) {
-      throw new Error(`Failed to update equipment listing: ${error.message}`);
+      throw new Error('Failed to update equipment listing: ' + error.message);
     }
   },
 
   // Delete an equipment listing
   delete: async (id) => {
     try {
-      db.prepare('DELETE FROM equipment_listings WHERE id = ?').run(id);
+      await pool.query('DELETE FROM equipment_listings WHERE id = ' + p(1), [id]);
       return true;
     } catch (error) {
-      throw new Error(`Failed to delete equipment listing: ${error.message}`);
+      throw new Error('Failed to delete equipment listing: ' + error.message);
     }
   },
 
@@ -129,7 +137,7 @@ const Equipment = {
     updated_at: row.updated_at,
     owner: {
       id: row.owner_id,
-      name: `${row.first_name} ${row.last_name}`,
+      name: row.first_name + ' ' + row.last_name,
       trade: row.trade,
       city: row.owner_city,
     },
